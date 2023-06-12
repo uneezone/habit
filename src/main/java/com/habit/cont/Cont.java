@@ -31,12 +31,6 @@ public class Cont {
 
     @GetMapping("/newlist")
     public String newlist() { return "product/newlist";}
-
-    @GetMapping("/order")
-    public String order() { return "order/order";}
-
-    @GetMapping("/orderdetail")
-    public String orderdetail() { return "order/orderdetail";}
 }
 
 

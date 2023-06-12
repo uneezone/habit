@@ -218,7 +218,7 @@
                <!-- * 전체 아이템 리스트 시작 -->
             <div class="Home_product_recommend_list">
                 <div class="Home_product_recommend_p">
-                    <a href="detailpage.html" class="href">
+                    <a href="detailpage.jsp" class="href">
                         <div class="Home_product_recommend_p_div">
                             <div>
                                 <img src="img/image.jpeg" alt="" width="150px">
