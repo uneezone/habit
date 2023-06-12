@@ -1,144 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title></title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/css/reset.css?after">
-  <link rel="stylesheet" href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/css/search.css?after">
-  <script src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/js/jquery.cookie.js"></script>
-
-  <script src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/js/search.js"></script>
-  <link rel="stylesheet" href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/css/modal.css">
-
-</head>
-<body> 
-   <!--헤더시작--> 
-   <header>
-    <div class="global1">
-      <div class="global_topbar">
-          <div class="global_topbar_menu1" >
-          <a href=""><div class="global_topbar_menu1_menu">호스트지원</div></a>
-          </div>
-          <div class="global_topbar_menu2" >
-          <a href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/newMember.html" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">회원가입</div></a>
-          <a href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/login.html" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">로그인</div></a>
-          <a href="" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">자주 묻는 질문</div></a>
-          <a href="" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">공지사항</div></a>
-          </div>
-      </div>
-    </div>
-
-    <!--topvar2-->
-    <div class="global2">
-      <div class="global_topbar2">
-          <div class="global_topbar2_menu1">
-              <a href="category.jsp" class="global_topbar2_menu1_a">
-                  <div>
-                      <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/cate.png" alt="" width="25px"  >
-                      <span>카테고리</span>
-                  </div>
-              </a>
-              
-              <a href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/intro.html" class="global_topbar2_menu1_a_log">
-                  <div class="global_topbar2_menu1_a_div">
-                      <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/logo%20(2).png" alt="로고" width="70px" >
-                  </div>         
-              </a>
-
-              <div class="global_topbar2_menu1_search">
-                  <div>
-                      <form action="">
-                          <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/search.png" alt="로고" >
-                          <input type="text" class="global_topbar2_menu1_search_input search_input" placeholder="지금 생각나는 취미를 검색하세요.">
-                      </form>
-                  </div>
-              </div>
-          </div>
-
-          <div class="global_topbar2_menu2">
-              <a href="">
-                  <div class="global_topbar2_menu2_menu">
-                      <div>
-                          <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/feed.png" alt="로고" width="25px" >
-                      </div>
-                      <span>피드</span>
-                  </div>
-              </a>
-              <a href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/zzim.html">
-                  <div class="global_topbar2_menu2_menu">
-                      <div>
-                          <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/heartforpage.png" alt="로고" width="25px" >
-                      </div>
-                      <span>찜</span>
-                  </div>
-              </a>
-              <a href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/cart.html">
-                <div class="global_topbar2_menu2_menu">
-                    <div>
-                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/cart2.png" alt="로고" width="25px" >
-                    </div>
-                    <span>장바구니</span>
-                </div>
-            </a>
-              <a href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/mypage.html">
-                  <div class="global_topbar2_menu2_menu">
-                      <div>
-                          <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/ME.png" alt="로고" width="25px">
-                      </div>
-                      <span>마이</span>
-                  </div>
-              </a>
-          </div>
-      </div>
-    </div>
-
-
-    <div class="global_modal">
-        <div class="global_modal_form">
-            <div class="global_topbar2_search">
-                <div class="global_modal_wrapper">
-                    <div>
-                        <section>
-                            <div class="global_modal_search">
-                                <div>최근검색어</div>
-                                <a href="#"><div class="global_modal_search_del">지우기</div></a>
-                            </div>
-                    
-                            <a href="#"><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                        </section>
-                        <hr>
-                        <section>
-                            <div class="global_modal_search">인기검색어</div>
-                            <a href="#"><div class="global_modal_searchResult">소개팅</div></a>
-                            <a href="#"><div class="global_modal_searchResult">소개팅</div></a>
-                            <a href="#"><div class="global_modal_searchResult">소개팅</div></a>
-                        </section>
-                       
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-        <div class="global_modal_bottom"></div>
-    </div>
-  </header>
-
-  <!--헤더끝-->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@include file="../header.jsp"%>
+<link rel="stylesheet" href="css/search.css?after" />
 
 
   <!--* 본문 시작 -->
@@ -176,11 +38,11 @@
                     <a href="detailpage.jsp" class="href">
                         <div class="Home_product_recommend_p_div">
                             <div>
-                                <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                <img src="/img/image.jpeg" alt="" width="150px">
                             </div>
                             <div>
                                 <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                    <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                    <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                 </button>
                             </div>
                             <div class="Home_product_recommend_p_font">
@@ -190,11 +52,11 @@
                                         [전체 리스트 아이템 1]
                                     </div>
                                     <section class="Home_recommend_img">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
                                         <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
                                     </section>
                                     <hr class="Home_recommend_hr">
@@ -210,11 +72,11 @@
                     <a href="" class="href">
                         <div class="Home_product_recommend_p_div">
                             <div>
-                                <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                <img src="/img/image.jpeg" alt="" width="150px">
                             </div>
                             <div>
                                 <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                    <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                    <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                 </button>
                             </div>
                             <div class="Home_product_recommend_p_font">
@@ -224,11 +86,11 @@
                                         [전체 리스트 아이템 2]
                                     </div>
                                     <section class="Home_recommend_img">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
                                         <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
                                     </section>
                                     <hr class="Home_recommend_hr">
@@ -244,11 +106,11 @@
                     <a href="" class="href">
                         <div class="Home_product_recommend_p_div">
                             <div>
-                                <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                <img src="/img/image.jpeg" alt="" width="150px">
                             </div>
                             <div>
                                 <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                    <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                    <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                 </button>
                             </div>
                             <div class="Home_product_recommend_p_font">
@@ -258,11 +120,11 @@
                                         [전체 리스트 아이템 3]
                                     </div>
                                     <section class="Home_recommend_img">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
                                         <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
                                     </section>
                                     <hr class="Home_recommend_hr">
@@ -278,11 +140,11 @@
                     <a href="" class="href">
                         <div class="Home_product_recommend_p_div">
                             <div>
-                                <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                <img src="/img/image.jpeg" alt="" width="150px">
                             </div>
                             <div>
                                 <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                    <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                    <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                 </button>
                             </div>
                             <div class="Home_product_recommend_p_font">
@@ -292,11 +154,11 @@
                                         [전체 리스트 아이템 4]
                                     </div>
                                     <section class="Home_recommend_img">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
                                         <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
                                     </section>
                                     <hr class="Home_recommend_hr">
@@ -313,11 +175,11 @@
                     <a href="" class="href">
                         <div class="Home_product_recommend_p_div">
                             <div>
-                                <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                <img src="/img/image.jpeg" alt="" width="150px">
                             </div>
                             <div>
                                 <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                    <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                    <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                 </button>
                             </div>
                             <div class="Home_product_recommend_p_font">
@@ -327,11 +189,11 @@
                                         [전체 리스트 아이템 5]
                                     </div>
                                     <section class="Home_recommend_img">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
                                         <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
                                     </section>
                                     <hr class="Home_recommend_hr">
@@ -347,11 +209,11 @@
                     <a href="" class="href">
                         <div class="Home_product_recommend_p_div">
                             <div>
-                                <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                <img src="/img/image.jpeg" alt="" width="150px">
                             </div>
                             <div>
                                 <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                    <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                    <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                 </button>
                             </div>
                             <div class="Home_product_recommend_p_font">
@@ -361,11 +223,11 @@
                                         [전체 리스트 아이템 6]
                                     </div>
                                     <section class="Home_recommend_img">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
                                         <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
                                     </section>
                                     <hr class="Home_recommend_hr">
@@ -381,11 +243,11 @@
                     <a href="" class="href">
                         <div class="Home_product_recommend_p_div">
                             <div>
-                                <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                <img src="/img/image.jpeg" alt="" width="150px">
                             </div>
                             <div>
                                 <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                    <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                    <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                 </button>
                             </div>
                             <div class="Home_product_recommend_p_font">
@@ -395,11 +257,11 @@
                                         [전체 리스트 아이템 7]
                                     </div>
                                     <section class="Home_recommend_img">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
                                         <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
                                     </section>
                                     <hr class="Home_recommend_hr">
@@ -415,11 +277,11 @@
                     <a href="" class="href">
                         <div class="Home_product_recommend_p_div">
                             <div>
-                                <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                <img src="/img/image.jpeg" alt="" width="150px">
                             </div>
                             <div>
                                 <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                    <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                    <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                 </button>
                             </div>
                             <div class="Home_product_recommend_p_font">
@@ -429,11 +291,11 @@
                                         [전체 리스트 아이템 8]
                                     </div>
                                     <section class="Home_recommend_img">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
                                         <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
                                     </section>
                                     <hr class="Home_recommend_hr">
@@ -450,11 +312,11 @@
                     <a href="" class="href">
                         <div class="Home_product_recommend_p_div">
                             <div>
-                                <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                <img src="/img/image.jpeg" alt="" width="150px">
                             </div>
                             <div>
                                 <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                    <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                    <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                 </button>
                             </div>
                             <div class="Home_product_recommend_p_font">
@@ -464,11 +326,11 @@
                                         [전체 리스트 아이템 9]
                                     </div>
                                     <section class="Home_recommend_img">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
                                         <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
                                     </section>
                                     <hr class="Home_recommend_hr">
@@ -484,11 +346,11 @@
                     <a href="" class="href">
                         <div class="Home_product_recommend_p_div">
                             <div>
-                                <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                <img src="/img/image.jpeg" alt="" width="150px">
                             </div>
                             <div>
                                 <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                    <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                    <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                 </button>
                             </div>
                             <div class="Home_product_recommend_p_font">
@@ -498,11 +360,11 @@
                                         [전체 리스트 아이템 10]
                                     </div>
                                     <section class="Home_recommend_img">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
                                         <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
                                     </section>
                                     <hr class="Home_recommend_hr">
@@ -518,11 +380,11 @@
                     <a href="" class="href">
                         <div class="Home_product_recommend_p_div">
                             <div>
-                                <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                <img src="/img/image.jpeg" alt="" width="150px">
                             </div>
                             <div>
                                 <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                    <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                    <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                 </button>
                             </div>
                             <div class="Home_product_recommend_p_font">
@@ -532,11 +394,11 @@
                                         [전체 리스트 아이템 11]
                                     </div>
                                     <section class="Home_recommend_img">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
                                         <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
                                     </section>
                                     <hr class="Home_recommend_hr">
@@ -552,11 +414,11 @@
                     <a href="" class="href">
                         <div class="Home_product_recommend_p_div">
                             <div>
-                                <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                <img src="/img/image.jpeg" alt="" width="150px">
                             </div>
                             <div>
                                 <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                    <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                    <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                 </button>
                             </div>
                             <div class="Home_product_recommend_p_font">
@@ -566,11 +428,11 @@
                                         [전체 리스트 아이템 12]
                                     </div>
                                     <section class="Home_recommend_img">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
                                         <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
                                     </section>
                                     <hr class="Home_recommend_hr">
@@ -667,41 +529,10 @@
    <!-- 본문 끝 -->
 
 
+<%@include file="../footer.jsp"%>
 
 
-
-    <!--footer 시작-->
-    <footer>
-        <div class="footer">
-            <div class="footer_wrap">
-                <div class="foot_first">
-                        운영시간: 평일/주말 10:00 - 17:00 (점심 : 12:00 - 13:00)
-                </div>
-                <div class="footer_all">
-                        광고/제휴: 123456@gmail.com
-                </div>
-                <div class="footer_all_2">
-                            <h2>HabitBroker</h2>
-                            <div>대표 : 2조 | 개인정보 관리 책임자 : 모두</div>
-                            <div>서울시 강남구 강남역 3번출구 삼성빌딩</div>
-                        <div>
-
-                        </div>
-                    </div>
-                <div class="footer_all_3">
-                        <a>이용약관</a> | 
-                        <a>개인정보 처리방침</a> | 
-                        <a>위치기반 서비스 이용약관</a>
-                </div>
-                <div class="footer_copy">
-                COPYRIGHT &copy;HABIT
-                </div>
-            </div>
-        </div>
-
-
-    </footer>
-    <!--footer 끝-->
+    
 
     <script>
     $(document).ready(function() {
