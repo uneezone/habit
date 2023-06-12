@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -19,54 +20,54 @@
 </head>
 
 <body>
-  <div class="container">
-    <!-- 네비 시작 -->
-    <nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="host_home.html"><img src="img/logo (2).png" alt="HABIT" width="100px"></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarColor03">
-          <ul class="navbar-nav me-auto">
-            <li class="nav-item">
-              <a class="nav-link active" href="host_home.html" style="font-size: larger;">호스트 관리 페이지</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">내 정보</a>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="host_information.html">프로필/정산정보 관리</a>
-              </div>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">해빗 관리</a>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="habit_list.html">해빗 목록</a>
-                <a class="dropdown-item" href="habit_create.html">해빗 등록</a>
-                <a class="dropdown-item" href="habit_product_control.html">판매 관리</a>
-                <a class="dropdown-item" href="habit_reservation_control.html">예약 관리</a>
-                <a class="dropdown-item" href="habit_inquiry_control.html">문의 관리</a>
-                <a class="dropdown-item" href="habit_review_control.html">리뷰 관리</a>
-              </div>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">정산 관리</a>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="adjustment_control.html">정산서 관리</a>
-              </div>
-            </li>
-          </ul>
-          <div>
-            <a href="host_information.html"><img src="img/profile-3_07724ab7a395fea9343ed7a13e59c1212e2e3d39c141edd99f83442f98340dfc.webp" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a>
-            <a href="host_information.html" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">HOST ID</span></a>
-            <button type="button" class="btn btn-outline-primary btn-sm">해빗 홈으로 이동</button>
-            <button type="button" class="btn btn-secondary btn-sm">로그아웃</button>
-          </div>
+<div class="container">
+  <!-- 네비 시작 -->
+  <nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="host_home.jsp"><img src="img/logo (2).png" alt="HABIT" width="100px"></a> <%--링크--%>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarColor03">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="host_home.jsp" style="font-size: larger;">호스트 관리 페이지</a> <%--링크--%>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">내 정보</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="host_information.jsp">프로필/정산정보 관리</a> <%--링크--%>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">해빗 관리</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="habit_list.jsp">해빗 목록</a> <%--링크--%>
+              <a class="dropdown-item" href="habit_create.jsp">해빗 등록</a> <%--링크--%>
+              <a class="dropdown-item" href="habit_product_control.jsp">판매 관리</a> <%--링크--%>
+              <a class="dropdown-item" href="habit_reservation_control.jsp">예약 관리</a> <%--링크--%>
+              <a class="dropdown-item" href="habit_inquiry_control.jsp">문의 관리</a> <%--링크--%>
+              <a class="dropdown-item" href="habit_review_control.jsp">리뷰 관리</a> <%--링크--%>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">정산 관리</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="adjustment_control.jsp">정산서 관리</a> <%--링크--%>
+            </div>
+          </li>
+        </ul>
+        <div>
+          <a href="host_information.jsp"><img src="img/profile-3_07724ab7a395fea9343ed7a13e59c1212e2e3d39c141edd99f83442f98340dfc.webp" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a> <%--링크--%>
+          <a href="host_information.jsp" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">HOST ID</span></a> <%--링크--%>
+          <button type="button" class="btn btn-outline-primary btn-sm">해빗 홈으로 이동</button>
+          <button type="button" class="btn btn-secondary btn-sm">로그아웃</button>
         </div>
       </div>
-    </nav>
-    <hr>
-    <!-- 네비 종료 -->
+    </div>
+  </nav>
+  <hr>
+  <!-- 네비 종료 -->
 
     <!-- 페이지 이름 -->
     <p class="page-name">해빗 등록</p>
@@ -430,11 +431,11 @@
             </div>
           </div><hr>
 
-          <!-- 썸머노트 사용 textarea -->
           <div class="content-flex">
             <div class="item-name">
               <p>해빗 상세 설명</p>
             </div>
+          <!-- 썸머노트 사용 textarea -->
             <div>
               <textarea id="summernote" name="editordata"></textarea>
             </div>

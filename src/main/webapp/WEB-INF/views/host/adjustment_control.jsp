@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -8,7 +9,7 @@
   <link rel="stylesheet" href="css/custom.min.css">
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/jquery-3.6.4.min.js"></script>
-  <title>host_inquiry_content</title>
+  <title>adjustment_list</title>
 </head>
 
 <body>
@@ -16,42 +17,42 @@
     <!-- 네비 시작 -->
     <nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="host_home.html"><img src="img/logo (2).png" alt="HABIT" width="100px"></a>
+        <a class="navbar-brand" href="host_home.jsp"><img src="img/logo (2).png" alt="HABIT" width="100px"></a> <%--링크--%>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarColor03">
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
-              <a class="nav-link active" href="host_home.html" style="font-size: larger;">호스트 관리 페이지</a>
+              <a class="nav-link active" href="host_home.jsp" style="font-size: larger;">호스트 관리 페이지</a> <%--링크--%>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">내 정보</a>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="host_information.html">프로필/정산정보 관리</a>
+                <a class="dropdown-item" href="host_information.jsp">프로필/정산정보 관리</a> <%--링크--%>
               </div>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">해빗 관리</a>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="habit_list.html">해빗 목록</a>
-                <a class="dropdown-item" href="habit_create.html">해빗 등록</a>
-                <a class="dropdown-item" href="habit_product_control.html">판매 관리</a>
-                <a class="dropdown-item" href="habit_reservation_control.html">예약 관리</a>
-                <a class="dropdown-item" href="habit_inquiry_control.html">문의 관리</a>
-                <a class="dropdown-item" href="habit_review_control.html">리뷰 관리</a>
+                <a class="dropdown-item" href="habit_list.jsp">해빗 목록</a> <%--링크--%>
+                <a class="dropdown-item" href="habit_create.jsp">해빗 등록</a> <%--링크--%>
+                <a class="dropdown-item" href="habit_product_control.jsp">판매 관리</a> <%--링크--%>
+                <a class="dropdown-item" href="habit_reservation_control.jsp">예약 관리</a> <%--링크--%>
+                <a class="dropdown-item" href="habit_inquiry_control.jsp">문의 관리</a> <%--링크--%>
+                <a class="dropdown-item" href="habit_review_control.jsp">리뷰 관리</a> <%--링크--%>
               </div>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">정산 관리</a>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="adjustment_control.html">정산서 관리</a>
+                <a class="dropdown-item" href="adjustment_control.jsp">정산서 관리</a> <%--링크--%>
               </div>
             </li>
           </ul>
           <div>
-            <a href="host_information.html"><img src="img/profile-3_07724ab7a395fea9343ed7a13e59c1212e2e3d39c141edd99f83442f98340dfc.webp" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a>
-            <a href="host_information.html" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">HOST ID</span></a>
+            <a href="host_information.jsp"><img src="img/profile-3_07724ab7a395fea9343ed7a13e59c1212e2e3d39c141edd99f83442f98340dfc.webp" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a> <%--링크--%>
+            <a href="host_information.jsp" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">HOST ID</span></a> <%--링크--%>
             <button type="button" class="btn btn-outline-primary btn-sm">해빗 홈으로 이동</button>
             <button type="button" class="btn btn-secondary btn-sm">로그아웃</button>
           </div>
@@ -62,24 +63,31 @@
     <!-- 네비 종료 -->
 
     <!-- 페이지 이름 -->
-    <p class="page-name">문의 관리</p>
-    
+    <p class="page-name">정산서 관리</p>
+
     <!-- main 시작 -->
     <div class="content-wrap">
+      <!-- 정산서 조회 -->
       <div class="content">
-        <p class="content-name">문의 조회</p>
-        <!-- 문의 조회 form 시작 -->
-        <form>
-          <!-- 조회기간 -->
-          <div class="content-flex">
-            <div class="item-name">
-              <p>조회 기간</p>
-            </div>
+        <p class="content-name">정산서 조회</p>
+        <div class="content-flex">
+          <div class="item-name">
+            <p>조회기간</p>
+          </div>
+          <!-- 정산서 조회 form 시작 -->
+          <form method="" action="" onsubmit="">
+            <!-- 조회 기간 -->
             <div class="item">
+              <div>
+                <select name="" id="" style="width: 150px;" class="form-select">
+                  <option value="">판매시작일</option>
+                  <option value="">판매종료일</option>
+                </select>
+              </div>
               <div style="display: flex;">
                 <input type="date" class="form-control"> &nbsp;~&nbsp; <input type="date" class="form-control">
               </div>
-              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+              <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="display: flex; align-items: center; justify-content: center;">
                 <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
                 <label class="btn btn-sm btn-outline-primary" for="btnradio1">오늘</label>
                 <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
@@ -94,78 +102,66 @@
                 <label class="btn btn-sm btn-outline-primary" for="btnradio6">전체</label>
               </div>
             </div>
-          </div>
-          <!-- 검색어 -->
-          <div class="content-flex">
-            <div class="item-name">
-              <p>검색어</p>
-            </div>
-            <div class="item">
-              <div>
-                <select name="" id="" style="width: 150px;" class="form-select">
-                  <option value="">상품명</option>
-                  <option value="">문의 내용</option>
-                  <option value="">문의 작성ID</option>
-                </select>
-              </div>
-              <div>
-                <input type="text" class="form-control" placeholder="검색어를 입력해주세요">
-              </div>
+            <div>
               <div>
                 <input type="submit" class="btn btn-primary" value="검색">
                 <input type="reset" class="btn btn-outline-primary" value="초기화">
               </div>
             </div>
-          </div>
-        </form>
-        <!-- 문의 조회 form 종료 -->
+          </form>
+          <!-- 정산서 조회 form 종료 -->
+        </div>
       </div>
 
       <!-- 검색 결과 -->
       <div class="content">
-        <p class="content-name">검색 결과 : 0 건</p>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+          <p class="content-name">검색 결과 : 0 건</p>
+          <button class="btn btn-sm btn-primary">지급 요청</button>
+        </div>
         <div style="text-align: center;">
           <table class="table">
             <thead>
               <tr class="table-secondary">
-                <th>문의ID</th>
-                <th>문의컨텐츠</th>
-                <th>문의내용</th>
-                <th>문의일자</th>
-                <th>응답일자</th><!--옵션명-->
-                <th>응답상태</th>
-                <th>응답확인</th>
+                <th></th>
+                <th>정산 기간</th>
+                <th>정산서 제목</th>
+                <th>총 지급액</th>
+                <th>총 수수료</th>
+                <th>등록일</th>
+                <th>지급상태</th>
               </tr>
             </thead>
             <tbody>
-              <!-- 미응답 -->
               <tr>
-                <td>user-1</td>
-                <td><a href="#">[서핑] 원데이 클래스</a></td>
-                <td>최대인원수가 5명인가요?</td>
-                <td>2023-04-07 00:00:00</td>
-                <td>-</td>
-                <td>미응답</td>
-                <td>
-                  <span hidden>-</span>
-                  <input class="btn btn-sm btn-primary" type="button" value="응답하기">
-                </td>
-              </tr>
-              <!-- 응답 -->
-              <tr>
-                <td>user-2</td>
-                <td><a href="#">[심리상담] 1:1 상담 회차권</a></td>
-                <td>비밀 보장 해주나요?</td>
-                <td>2023-04-08 00:00:00</td>
-                <td>2023-04-08 12:00:00</td>
-                <td>응답</td>
-                <td>
-                  <span>-</span>
-                  <input class="btn btn-sm btn-primary" type="button" value="응답하기" hidden>
-                </td>
+                <td><input class="form-check-input" type="checkbox" name="" id=""></td>
+                <td>2023-05-01 ~ 2023-05-31</td>
+                <td>5월 정산 총액</td>
+                <td>70,000</td>
+                <td>14,000</td>
+                <td>2023-06-01</td>
+                <td>지급대기</td>
               </tr>
               <tr>
-                <td colspan="8">검색 결과가 없습니다</td>
+                <td><input class="form-check-input" type="checkbox" name="" id=""></td>
+                <td>2023-05-01 ~ 2023-05-31</td>
+                <td>5월 정산 총액</td>
+                <td>70,000</td>
+                <td>14,000</td>
+                <td>2023-06-01</td>
+                <td>지급대기</td>
+              </tr>
+              <tr>
+                <td><input class="form-check-input" type="checkbox" name="" id=""></td>
+                <td>2023-05-01 ~ 2023-05-31</td>
+                <td>5월 정산 총액</td>
+                <td>70,000</td>
+                <td>14,000</td>
+                <td>2023-06-01</td>
+                <td>지급대기</td>
+              </tr>
+              <tr>
+                <td colspan="7">검색 결과가 없습니다</td>
               </tr>
             </tbody>
           </table>
@@ -225,6 +221,6 @@
       </div>
     </div>
   </footer>
-<!--footer 끝-->
+<!--footer 종료-->
 </body>
 </html>
