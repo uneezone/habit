@@ -112,33 +112,10 @@
                 <h2>이런 프립 어때요?</h2>
             </div>
         </div>
-        <div class="Wrapper_Paging">
-            <div class="paging">
-                <button onclick="movePage(1)">1</button>
-                <button onclick="movePage(2)">2</button>
-                <button onclick="movePage(3)">3</button>
-                <button onclick="movePage(4)">4</button>
-                <button onclick="movePage(5)">5</button>
-            </div>
-        </div>
+
     </div>
 
-    <script>
-        <!-- 슬라이드 -->
-        let slideIndex = 1;
-        showSlides(slideIndex);
 
-        function plusSlides(n) {
-            slideIndex += n;
-            if (slideIndex > 4) {
-                slideIndex = 1;
-            } else if (slideIndex < 1) { slideIndex = 4; } showSlides(slideIndex);
-        } function showSlides(n) {
-            let i;
-              let slides = document.getElementsByClassName("Reviewgreen"); for (i = 0; i < slides.length; i++) {
-                    slides[i].style.display = "none";
-                } slides[slideIndex - 1].style.display = "block";
-        } </script>
 
         <!-- 본문 끝-->
 
