@@ -27,7 +27,7 @@
             </div>
             <div class="global_topbar_menu2" >
             <a href="newMember.html" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">회원가입</div></a>
-            <a href="login.jsp" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">로그인</div></a>
+            <a href="login.html" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">로그인</div></a>
             <a href="" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">자주 묻는 질문</div></a>
             <a href="" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">공지사항</div></a>
             </div>
@@ -86,7 +86,7 @@
                         <span>장바구니</span>
                     </div>
                 </a>
-                <a href="mypage.jsp">
+                <a href="mypage.html">
                     <div class="global_topbar2_menu2_menu">
                         <div>
                             <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/ME.png" alt="로고" width="25px">

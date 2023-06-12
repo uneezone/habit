@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../header.jsp"%>
 <link rel="stylesheet" href="css/category.css?after" />
+<link rel="stylesheet" href="css/modal.css?after" />
+<script src="js/jquery.cookie.js"></script>
+<script src="js/category.js?after"></script>
+<script src="js/common.js?after"></script>
 
   <!-- 본문 시작 -->
   <div class="Home">
