@@ -19,6 +19,18 @@ public class Cont {
 
     @GetMapping("/category")
     public String category() { return "product/category";}
+
+    @GetMapping("/itemlist")
+    public String itemlist() { return "product/itemlist";}
+
+    @GetMapping("/allitemlist")
+    public String allitemlist() { return "product/allitemlist";}
+
+    @GetMapping("/hotlist")
+    public String hotlist() { return "product/hotlist";}
+
+    @GetMapping("/newlist")
+    public String newlist() { return "product/newlist";}
 }
 
 
