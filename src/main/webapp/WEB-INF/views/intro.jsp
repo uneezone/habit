@@ -47,7 +47,7 @@
                     </div>
                 </a>
                 
-                <a href="intro.html" class="global_topbar2_menu1_a_log">
+                <a href="/" class="global_topbar2_menu1_a_log">
                     <div class="global_topbar2_menu1_a_div">
                         <img src="img/logo%20(2).png" alt="로고" width="70px" >
                     </div>         
