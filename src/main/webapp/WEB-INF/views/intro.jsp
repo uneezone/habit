@@ -149,7 +149,7 @@
         <div class="intro_modal_body">
             <div class="intro_modal_container">
                 <img src="img/ask2.png" alt="" class="intro_modal_img">
-                <button class="intro_modal_enjoy_btn" onclick="location.href='survey.html';">참여하기</button>
+                <button class="intro_modal_enjoy_btn" onclick="location.href='survey.jsp';">참여하기</button>
             </div>
             <div class="intro_modal_btn">
                 <div><input type="checkbox" name="" id="" class="modal_day"> 오늘 하루 보지 않기</div>
