@@ -12,9 +12,9 @@ public class Cont {
         System.out.println("Cont() 생성");
     }
 
-    @GetMapping("/home")
+    @GetMapping("/")
     public String showHome () {
-        return "habit";
+        return "member/mypageEdit";
     }
 
     @GetMapping("/category")

@@ -9,11 +9,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/css/reset.css?after">
-  <link rel="stylesheet" href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/css/mypage.css?after">
-  <script src="js/html.js?after"></script>
-  <link rel="stylesheet" href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/css/modal.css?after">
-
-  <script src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/js/mypage.js"></script>
+  <link rel="stylesheet" href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/css/resultFind.css?after">
+  <script src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/js/resultFind.js?after"></script>
+  <link rel="stylesheet" href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/css/modal.css">
 
 
   
@@ -27,7 +25,7 @@
             <a href=""><div class="global_topbar_menu1_menu">호스트지원</div></a>
             </div>
             <div class="global_topbar_menu2" >
-            <a href="newMember.html" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">회원가입</div></a>
+            <a href="" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">회원가입</div></a>
             <a href="login.html" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">로그인</div></a>
             <a href="" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">자주 묻는 질문</div></a>
             <a href="" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">공지사항</div></a>
@@ -39,7 +37,7 @@
       <div class="global2">
         <div class="global_topbar2">
             <div class="global_topbar2_menu1">
-                <a href="category.html" class="global_topbar2_menu1_a">
+                <a href="" class="global_topbar2_menu1_a">
                     <div>
                         <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/cate.png" alt="" width="25px"  >
                         <span>카테고리</span>
@@ -87,7 +85,7 @@
                         <span>장바구니</span>
                     </div>
                 </a>
-                <a href="mypage.html">
+                <a href="">
                     <div class="global_topbar2_menu2_menu">
                         <div>
                             <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/ME.png" alt="로고" width="25px">
@@ -109,18 +107,13 @@
                                 <div>최근검색어</div>
                                 <a href="#"><div class="global_modal_search_del">지우기</div></a>
                             </div>
-                    
-                            <a href="#"><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
+                            
+                                <a href="#"><div class="global_modal_searchNew">소개팅</div></a>
+                                <a><div class="global_modal_searchNew">소개팅</div></a>
+                                <a><div class="global_modal_searchNew">소개팅</div></a>
+                                <a><div class="global_modal_searchNew">소개팅</div></a>
+                                <a><div class="global_modal_searchNew">소개팅</div></a>
+                            
                         </section>
                         <hr>
                         <section>
@@ -144,77 +137,31 @@
     <!-- 본문 시작 -->
 
     <div class="Home">
-        <a href="mypageEdit.html"><div class="Home_myinfo">
-            <div class="Home_myinfo_img">
-                <img src="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/defaultPro.png" alt="">
-            </div>
-            <div class="Home_myinfo_name">
-                박해빈
-            </div>
-        </div></a>
-        <!--마이 정보 끝-->
+        <div class="Home_sub">
+            비밀번호 임시 발급
+        </div>
+        <hr>
+        <div class="Home_form_wrapper">
+            <div class="Home_ment"> 
 
-        <div class="Home_myrecord">
-            <a href="">
-                <div class="Home_myrecord_name">에너지</div>
-                <div class="Home_myrecord_num">0</div>
-            </a>
-            <a href="">
-                <div class="Home_myrecord_name">쿠폰</div>
-                <div class="Home_myrecord_num">0</div>
-            </a>
-            <a href="">
-                <div class="Home_myrecord_name">후기</div>
-                <div class="Home_myrecord_num">0</div>
-            </a>
-            <a href="">
-                <div class="Home_myrecord_name">피드</div>
-                <div class="Home_myrecord_num">0</div>
-            </a>
+                원하시는 방법을 선택해 임시 비밀번호를 확인하실 수 있습니다
+            </div>
+            <form action="">
+                <div class="Home_select">
+                    <input type="radio" name="pw" id="" disabled> 회원정보에 등록된 이메일로 받기 <span>********@naver.com</span>
+                </div>
+                <div class="Home_select">
+                    <input type="radio" name="pw" id="" disabled> 회원정보에 등록된 휴대전화번호로 받기 <span>010-**05-05**</span>
+                </div>
+                <button class="Home_btn">임시비밀번호 전송</button>
+            </form>
+
+
+            <!--전송 완료시-->
+            <hr>
+            <div>전송이 완료되셨습니다. 선택하신 방법을 통해 확인해주세요.</div>
+            <button class="Home_btn">로그인 페이지로 돌아가기</button>
         </div>
-        <!--마이 기록 정보 끝-->
-        <hr>
-        <div class="Home_myact">
-            <div class="Home_myact_name">내 활동</div>
-            <a href="order.html">
-                <div class="Home_myact_order">
-                    결제내역
-                </div>
-            </a>
-            <a href="#">
-                <div class="Home_myact_friend1">
-                    친구초대
-                </div>
-                <div class="Home_myact_friend2">
-                    3,000원 에너지 받기
-                </div>
-            </a>
-        </div>
-        <hr>
-        <!--고객센터-->
-        <div class="Home_myact">
-            <div class="Home_myact_name">고객센터</div>
-            <a>
-                <div class="Home_myact_order">
-                    공지사항
-                </div>
-            </a>
-            <a href="#">
-                <div class="Home_myact_friend1">
-                    FAQ
-                </div>
-            </a>
-        </div>
-         <hr>
-        <!--호스트지원-->
-        <div class="Home_myact">
-            <div class="Home_myact_name">호스트</div>
-            <a href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/host_newhost.html">
-                <div class="Home_myact_order">
-                    호스트 지원
-                </div>
-            </a>
-        </div>        
     </div>
 
     <!-- 본문 끝-->

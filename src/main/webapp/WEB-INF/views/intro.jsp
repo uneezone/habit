@@ -1,5 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,7 +29,7 @@
             </div>
             <div class="global_topbar_menu2" >
             <a href="host/newMember.html" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">회원가입</div></a>
-            <a href="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/login.html" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">로그인</div></a>
+            <a href="login.html" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">로그인</div></a>
             <a href="" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">자주 묻는 질문</div></a>
             <a href="" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">공지사항</div></a>
             </div>
@@ -41,21 +42,21 @@
             <div class="global_topbar2_menu1">
                 <a href="category.html" class="global_topbar2_menu1_a">
                     <div>
-                        <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/cate.png" alt="" width="25px"  >
+                        <img src="img/cate.png" alt="" width="25px"  >
                         <span>카테고리</span>
                     </div>
                 </a>
                 
                 <a href="intro.html" class="global_topbar2_menu1_a_log">
                     <div class="global_topbar2_menu1_a_div">
-                        <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/logo%20(2).png" alt="로고" width="70px" >
+                        <img src="img/logo%20(2).png" alt="로고" width="70px" >
                     </div>         
                 </a>
 
                 <div class="global_topbar2_menu1_search">
                     <div>
                         <form action="search.html">
-                            <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/search.png" alt="로고" >
+                            <img src="img/search.png" alt="로고" >
                             <input type="text" class="global_topbar2_menu1_search_input search_input" placeholder="지금 생각나는 취미를 검색하세요.">
                         </form>
                     </div>
@@ -63,18 +64,18 @@
             </div>
 
             <div class="global_topbar2_menu2">
-                <a href="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/feed.html">
+                <a href="feed.html">
                     <div class="global_topbar2_menu2_menu">
                         <div>
-                            <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/feed.png" alt="로고" width="25px" >
+                            <img src="img/feed.png" alt="로고" width="25px" >
                         </div>
                         <span>피드</span>
                     </div>
                 </a>
-                <a href="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/zzim.html">
+                <a href="zzim.html">
                     <div class="global_topbar2_menu2_menu">
                         <div>
-                            <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/heartforpage.png" alt="로고" width="25px" >
+                            <img src="img/heartforpage.png" alt="로고" width="25px" >
                         </div>
                         <span>찜</span>
                     </div>
@@ -82,15 +83,15 @@
                 <a href="cart.html">
                     <div class="global_topbar2_menu2_menu">
                         <div>
-                            <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/cart2.png" alt="로고" width="25px" >
+                            <img src="img/cart2.png" alt="로고" width="25px" >
                         </div>
                         <span>장바구니</span>
                     </div>
                 </a>
-                <a href="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/mypage.html">
+                <a href="mypage.html">
                     <div class="global_topbar2_menu2_menu">
                         <div>
-                            <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/ME.png" alt="로고" width="25px">
+                            <img src="img/ME.png" alt="로고" width="25px">
                         </div>
                         <span>마이</span>
                     </div>
@@ -147,7 +148,7 @@
     <div class="intro_modal">
         <div class="intro_modal_body">
             <div class="intro_modal_container">
-                <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/ask2.png" alt="" class="intro_modal_img">
+                <img src="img/ask2.png" alt="" class="intro_modal_img">
                 <button class="intro_modal_enjoy_btn" onclick="location.href='survey.html';">참여하기</button>
             </div>
             <div class="intro_modal_btn">
@@ -173,7 +174,7 @@
                             <div data-index="0" class="slide slide_0 swiper-slide" id="slide0">
                                 <div class="slide-content">
                                   <h2>Slide0</h2>
-                                  <p><img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/topban4.png"></p>
+                                  <p><img src="img/topban4.png"></p>
                                 </div>
                               </div>
                             </a>
@@ -182,7 +183,7 @@
                             <div data-index="1" class="slide slide_1 swiper-slide" id="slide1">
                               <div class="slide-content">
                                 <h2>Slide1</h2>
-                                <p><img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/topban.png"></p>
+                                <p><img src="img/topban.png"></p>
                               </div>
                             </div>
                             </a>
@@ -190,7 +191,7 @@
                             <div data-index="2" class="slide slide_2 swiper-slide" id="slide2">
                               <div class="slide-content">
                                 <h2>Slide2</h2>
-                                <p><img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/topban2.png"></p>
+                                <p><img src="img/topban2.png"></p>
                               </div>
                             </div>
                             </a>
@@ -199,7 +200,7 @@
                             <div data-index="3" class="slide slide_3 swiper-slide" id="slide3">
                               <div class="slide-content">
                                 <h2>Slide3</h2>
-                                <p><img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/topban3.png"></p>
+                                <p><img src="img/topban3.png"></p>
                               </div>
                             </div>
                             </a>
@@ -208,7 +209,7 @@
                             <div data-index="4" class="slide slide_4 swiper-slide" id="slide4">
                               <div class="slide-content">
                                 <h2>Slide4</h2>
-                                <p><img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/topban4.png"></p>
+                                <p><img src="img/topban4.png"></p>
                               </div>
                             </div>
                             </a>
@@ -218,7 +219,7 @@
                             <div data-index="5" class="slide slide_5 swiper-slide" id="slide5">
                               <div class="slide-content">
                                 <h2>Slide5</h2>
-                                <p><img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/topban.png"></p>
+                                <p><img src="img/topban.png"></p>
                               </div>
                             </div>
                             </a>
@@ -249,49 +250,49 @@
                     <div class="Home_icon_container">
                         <a href="" class="Home_icon1_a">
                             <div class="Home_icon1_div">
-                                <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/logoBack.png" alt="" >
+                                <img src="img/logoBack.png" alt="" >
                                 <span>해빗추천</span>
                             </div>
                         </a>
                         <a href="" class="Home_icon1_a">
                             <div class="Home_icon1_div">
-                                <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/running.png" alt="">
+                                <img src="img/running.png" alt="">
                                 <span>스포츠</span>
                             </div>
                         </a>
                         <a href="" class="Home_icon1_a">
                             <div class="Home_icon1_div">
-                                <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/sea.png" alt="">
+                                <img src="img/sea.png" alt="">
                                 <span>여름시즌</span>
                             </div>
                         </a>
                         <a href="" class="Home_icon1_a">
                             <div class="Home_icon1_div">
-                                <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/friendwith.png" alt="">
+                                <img src="img/friendwith.png" alt="">
                                 <span>친구초대</span>
                             </div>
                         </a>
                         <a href="" class="Home_icon1_a">
                             <div class="Home_icon1_div">
-                                <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/friend.png" alt="" >
+                                <img src="img/friend.png" alt="" >
                                 <span>데이트 추천</span>
                             </div>
                         </a>
                         <a href="" class="Home_icon1_a">
                             <div class="Home_icon1_div">
-                                <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/track.png" alt="" >
+                                <img src="img/track.png" alt="" >
                                 <span>등산</span>
                             </div>
                         </a>
                         <a href="" class="Home_icon1_a">
                             <div class="Home_icon1_div">
-                                <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/bake.png" alt="">
+                                <img src="img/bake.png" alt="">
                                 <span>베이킹</span>
                             </div>
                         </a>
                         <a href="eventList.html" class="Home_icon1_a">
                             <div class="Home_icon1_div">
-                                <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/event.png" alt="" >
+                                <img src="img/event.png" alt="" >
                                 <span>이벤트</span>
                             </div>
                         </a>
@@ -317,11 +318,11 @@
                                 <a href="" class="href">
                                     <div class="Home_product_recommend_p_div">
                                         <div>
-                                            <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                            <img src="img/image.jpeg" alt="" width="150px">
                                         </div>
                                         <div>
                                             <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                             </button>
                                         </div>
                                         <div class="Home_product_recommend_p_font">
@@ -331,10 +332,10 @@
                                                     청춘유랑단 20 유럽편 With 리슬 모집
                                                 </div>
                                                 <section class="Home_recommend_img">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/halfstar.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/halfstar.png" alt="" class="Home_recommend_star">
                                                     
                                                 </section>
                                                 <hr class="Home_recommend_hr">
@@ -350,11 +351,11 @@
                                 <a href="" class="href">
                                     <div class="Home_product_recommend_p_div">
                                         <div>
-                                            <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                            <img src="img/image.jpeg" alt="" width="150px">
                                         </div>
                                         <div>
                                             <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                             </button>
                                         </div>
                                         <div class="Home_product_recommend_p_font">
@@ -364,11 +365,11 @@
                                                     청춘유랑단 20 유럽편 With 리슬 모집
                                                 </div>
                                                 <section class="Home_recommend_img">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/halfstar.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/halfstar.png" alt="" class="Home_recommend_star">
                                                 </section>
                                                 <hr class="Home_recommend_hr">
                                                 <div>
@@ -383,11 +384,11 @@
                                 <a href="" class="href">
                                     <div class="Home_product_recommend_p_div">
                                         <div>
-                                            <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                            <img src="img/image.jpeg" alt="" width="150px">
                                         </div>
                                         <div>
                                             <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img zzim_img">
+                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img zzim_img">
                                             </button>
                                         </div>
                                         <div class="Home_product_recommend_p_font">
@@ -397,11 +398,11 @@
                                                     청춘유랑단 20 유럽편 With 리슬 모집
                                                 </div>
                                                 <section class="Home_recommend_img">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
                                                 </section>
                                                 <hr class="Home_recommend_hr">
                                                 <div>
@@ -416,11 +417,11 @@
                                 <a href="" class="href">
                                     <div class="Home_product_recommend_p_div">
                                         <div>
-                                            <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                            <img src="img/image.jpeg" alt="" width="150px">
                                         </div>
                                         <div>
                                             <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                             </button>
                                         </div>
                                         <div class="Home_product_recommend_p_font">
@@ -430,11 +431,11 @@
                                                     청춘유랑단 20 유럽편 With 리슬 모집
                                                 </div>
                                                 <section class="Home_recommend_img">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
                                                 </section>
                                                 <hr class="Home_recommend_hr">
                                                 <div>
@@ -457,7 +458,7 @@
                     <img src="" alt="">
                     <div>
                         <a href="#">
-                            <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/banner1.png" alt="" class="Home_smallBanner_img">
+                            <img src="img/banner1.png" alt="" class="Home_smallBanner_img">
                         </a>
                         <!--<a>
                             <img src="banner2.png" alt="" class="Home_smallBanner_img">
@@ -485,11 +486,11 @@
                                 <a href="" class="href">
                                     <div class="Home_product_recommend_p_div">
                                         <div>
-                                            <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                            <img src="img/image.jpeg" alt="" width="150px">
                                         </div>
                                         <div>
                                             <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                             </button>
                                         </div>
                                         <div class="Home_product_recommend_p_font">
@@ -499,10 +500,10 @@
                                                     청춘유랑단 20 유럽편 With 리슬 모집
                                                 </div>
                                                 <section class="Home_recommend_img">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/halfstar.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/halfstar.png" alt="" class="Home_recommend_star">
                                                     
                                                 </section>
                                                 <hr class="Home_recommend_hr">
@@ -518,11 +519,11 @@
                                 <a href="" class="href">
                                     <div class="Home_product_recommend_p_div">
                                         <div>
-                                            <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                            <img src="img/image.jpeg" alt="" width="150px">
                                         </div>
                                         <div>
                                             <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                             </button>
                                         </div>
                                         <div class="Home_product_recommend_p_font">
@@ -532,11 +533,11 @@
                                                     청춘유랑단 20 유럽편 With 리슬 모집
                                                 </div>
                                                 <section class="Home_recommend_img">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/halfstar.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/halfstar.png" alt="" class="Home_recommend_star">
                                                 </section>
                                                 <hr class="Home_recommend_hr">
                                                 <div>
@@ -551,11 +552,11 @@
                                 <a href="" class="href">
                                     <div class="Home_product_recommend_p_div">
                                         <div>
-                                            <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                            <img src="img/image.jpeg" alt="" width="150px">
                                         </div>
                                         <div>
                                             <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img zzim_img">
+                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img zzim_img">
                                             </button>
                                         </div>
                                         <div class="Home_product_recommend_p_font">
@@ -565,11 +566,11 @@
                                                     청춘유랑단 20 유럽편 With 리슬 모집
                                                 </div>
                                                 <section class="Home_recommend_img">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
                                                 </section>
                                                 <hr class="Home_recommend_hr">
                                                 <div>
@@ -584,11 +585,11 @@
                                 <a href="" class="href">
                                     <div class="Home_product_recommend_p_div">
                                         <div>
-                                            <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                            <img src="img/image.jpeg" alt="" width="150px">
                                         </div>
                                         <div>
                                             <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                             </button>
                                         </div>
                                         <div class="Home_product_recommend_p_font">
@@ -598,11 +599,11 @@
                                                     청춘유랑단 20 유럽편 With 리슬 모집
                                                 </div>
                                                 <section class="Home_recommend_img">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
                                                 </section>
                                                 <hr class="Home_recommend_hr">
                                                 <div>
@@ -636,11 +637,11 @@
                                 <a href="" class="href">
                                     <div class="Home_product_recommend_p_div">
                                         <div>
-                                            <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                            <img src="img/image.jpeg" alt="" width="150px">
                                         </div>
                                         <div>
                                             <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                             </button>
                                         </div>
                                         <div class="Home_product_recommend_p_font">
@@ -650,10 +651,10 @@
                                                     청춘유랑단 20 유럽편 With 리슬 모집
                                                 </div>
                                                 <section class="Home_recommend_img">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/halfstar.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/halfstar.png" alt="" class="Home_recommend_star">
                                                     
                                                 </section>
                                                 <hr class="Home_recommend_hr">
@@ -669,11 +670,11 @@
                                 <a href="" class="href">
                                     <div class="Home_product_recommend_p_div">
                                         <div>
-                                            <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                            <img src="img/image.jpeg" alt="" width="150px">
                                         </div>
                                         <div>
                                             <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                             </button>
                                         </div>
                                         <div class="Home_product_recommend_p_font">
@@ -683,11 +684,11 @@
                                                     청춘유랑단 20 유럽편 With 리슬 모집
                                                 </div>
                                                 <section class="Home_recommend_img">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/halfstar.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/halfstar.png" alt="" class="Home_recommend_star">
                                                 </section>
                                                 <hr class="Home_recommend_hr">
                                                 <div>
@@ -702,11 +703,11 @@
                                 <a href="" class="href">
                                     <div class="Home_product_recommend_p_div">
                                         <div>
-                                            <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                            <img src="img/image.jpeg" alt="" width="150px">
                                         </div>
                                         <div>
                                             <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img zzim_img">
+                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img zzim_img">
                                             </button>
                                         </div>
                                         <div class="Home_product_recommend_p_font">
@@ -716,11 +717,11 @@
                                                     청춘유랑단 20 유럽편 With 리슬 모집
                                                 </div>
                                                 <section class="Home_recommend_img">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
                                                 </section>
                                                 <hr class="Home_recommend_hr">
                                                 <div>
@@ -735,11 +736,11 @@
                                 <a href="" class="href">
                                     <div class="Home_product_recommend_p_div">
                                         <div>
-                                            <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                            <img src="img/image.jpeg" alt="" width="150px">
                                         </div>
                                         <div>
                                             <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                             </button>
                                         </div>
                                         <div class="Home_product_recommend_p_font">
@@ -749,11 +750,11 @@
                                                     청춘유랑단 20 유럽편 With 리슬 모집
                                                 </div>
                                                 <section class="Home_recommend_img">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
                                                 </section>
                                                 <hr class="Home_recommend_hr">
                                                 <div>
@@ -788,11 +789,11 @@
                                 <a href="" class="href">
                                     <div class="Home_product_recommend_p_div">
                                         <div>
-                                            <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                            <img src="img/image.jpeg" alt="" width="150px">
                                         </div>
                                         <div>
                                             <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                             </button>
                                         </div>
                                         <div class="Home_product_recommend_p_font">
@@ -802,10 +803,10 @@
                                                     청춘유랑단 20 유럽편 With 리슬 모집
                                                 </div>
                                                 <section class="Home_recommend_img">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/halfstar.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/halfstar.png" alt="" class="Home_recommend_star">
                                                     
                                                 </section>
                                                 <hr class="Home_recommend_hr">
@@ -821,11 +822,11 @@
                                 <a href="" class="href">
                                     <div class="Home_product_recommend_p_div">
                                         <div>
-                                            <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                            <img src="img/image.jpeg" alt="" width="150px">
                                         </div>
                                         <div>
                                             <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                             </button>
                                         </div>
                                         <div class="Home_product_recommend_p_font">
@@ -835,11 +836,11 @@
                                                     청춘유랑단 20 유럽편 With 리슬 모집
                                                 </div>
                                                 <section class="Home_recommend_img">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/halfstar.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/halfstar.png" alt="" class="Home_recommend_star">
                                                 </section>
                                                 <hr class="Home_recommend_hr">
                                                 <div>
@@ -854,11 +855,11 @@
                                 <a href="" class="href">
                                     <div class="Home_product_recommend_p_div">
                                         <div>
-                                            <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                            <img src="img/image.jpeg" alt="" width="150px">
                                         </div>
                                         <div>
                                             <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img zzim_img">
+                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img zzim_img">
                                             </button>
                                         </div>
                                         <div class="Home_product_recommend_p_font">
@@ -868,11 +869,11 @@
                                                     청춘유랑단 20 유럽편 With 리슬 모집
                                                 </div>
                                                 <section class="Home_recommend_img">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
                                                 </section>
                                                 <hr class="Home_recommend_hr">
                                                 <div>
@@ -887,11 +888,11 @@
                                 <a href="" class="href">
                                     <div class="Home_product_recommend_p_div">
                                         <div>
-                                            <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/image.jpeg" alt="" width="150px">
+                                            <img src="img/image.jpeg" alt="" width="150px">
                                         </div>
                                         <div>
                                             <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                             </button>
                                         </div>
                                         <div class="Home_product_recommend_p_font">
@@ -901,11 +902,11 @@
                                                     청춘유랑단 20 유럽편 With 리슬 모집
                                                 </div>
                                                 <section class="Home_recommend_img">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
+                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
                                                 </section>
                                                 <hr class="Home_recommend_hr">
                                                 <div>
@@ -925,7 +926,7 @@
             <!--호스트 지원 배너-->
             <div class="Home_smallBanner2">
                 <div>
-                    <a href="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/host_newhost.html"><img src="../../../../../../frontend%20총모음%20(2)/frontend%20총모음/img/host.png" alt=""></a>
+                    <a href="host_newhost.html"><img src="img/host.png" alt=""></a>
                 </div>
             </div>
 
