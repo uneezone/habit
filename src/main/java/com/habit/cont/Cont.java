@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 public class Cont {
+    //주석
     public Cont() {
         System.out.println("Cont() 생성");
     }
