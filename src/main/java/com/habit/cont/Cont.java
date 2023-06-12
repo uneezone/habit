@@ -16,4 +16,10 @@ public class Cont {
     public String showHome () {
         return "habit";
     }
+
+    @GetMapping("/category")
+    public String category() { return "product/category";}
 }
+
+
+
