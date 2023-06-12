@@ -48,12 +48,12 @@
           <p class="paypage_title">에너지</p>
           <input type="text" placeholder="  사용할 에너지를 입력하세요" class="pay_energy" />
           <input type="button" value="전액사용" id="E_btn" />
-          <p>참고 : 에너지는 100E부터 사용가능합니다.</p>
+          <p style="padding-left: 20px;">참고 : 에너지는 100E부터 사용가능합니다.</p>
         </section>
 
         <hr style="border-width: 4px" />
 
-        <section style="display: inline-block">
+        <section style="display: inline-block; width: 100%;">
           <span class="paypage_title">총 결제금액</span>
           <input type="text" name="tot_price" id="tot_price" value="30,000"  readonly/>
           <hr />
@@ -69,7 +69,7 @@
         <hr style="border-width: 4px" />
         <section>
           <p class="paypage_title">이번 프립은 누구와 하시나요?</p>
-          <p style="padding: 10px">
+          <p class="recommend_ment">
             다음번 크루님이 좋아할만한 프립을 추천해드릴게요.
           </p>
           <div id="with_somebody">
