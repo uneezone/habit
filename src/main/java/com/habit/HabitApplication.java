@@ -28,7 +28,7 @@ public class HabitApplication {
         bean.setMapperLocations(res);
         return bean.getObject();
     }
-
+    //apfhd
     @Bean
     public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory factory) {
         return new SqlSessionTemplate(factory);
