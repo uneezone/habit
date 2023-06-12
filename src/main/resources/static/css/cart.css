@@ -1,0 +1,122 @@
+.Home_choice_btn{
+    width: 100px;
+    height: 20px;
+    background-color: #dbdbdb;
+    color: rgb(66, 66, 66);
+    border-radius: 5px;
+    border: none;
+    margin-left: 12px;
+    font-size: 12px;
+}
+
+.cartlist{
+    border:1px solid lightgray;
+    border-radius:10px;
+    margin:10px;
+    width:600px; 
+    border-collapse: separate;
+}
+
+.Home_cart_check{
+    position: relative;
+    top: -130px;
+    left: 10px;
+}
+
+
+
+.item_img {
+    width:120px;
+    height:120px;
+    border-radius: 10px;
+    margin:20px;
+}
+
+.Home_pro_name{
+    font-size: 15px;
+    font-weight: 600;
+}
+
+tr{
+    margin-bottom: 10px;
+    border: 0.5px solid #c3c3c3;
+    border-radius: 20px;
+
+}
+
+.Home_tr_wrapper{
+    border: 0.5px solid #c3c3c3;
+    border-radius: 20px;
+}
+
+td{
+    position: relative;
+}
+
+
+td>p {
+    align-items: start;
+    font-size: 16;
+    position: relative;
+    top:-90px;
+    left: -60px;
+
+}
+
+input[type='number']{
+    margin:50px;
+    width:100px;
+    height:30px;
+}
+
+#result{
+    border-width: 80px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    padding-left:35px;
+    border-color: gray;
+}
+.Home_show_qty{
+    position: relative;
+    top:-80px;
+}
+
+.Home_qty_btn_min{
+    background-color: darkgray;
+    color: white;
+    border:none;
+    width: 40px;
+    border-radius: 3px;
+}
+
+.Home_qty_btn_plus{
+    background-color: hotpink;
+    color: white;
+    border:none;
+    width: 40px;
+    border-radius: 3px;
+}
+
+
+.Homw_show_result{
+    position: relative;
+    margin-bottom: 20px;
+}
+
+input[type='submit']{
+    width:100px;
+    height:40px;
+    font-size: medium;
+    background-color: #798ef4;
+    color:white;
+    border-radius: 5px;
+    border:none;
+    float:right;
+    margin-right: 30px;
+    position: relative;
+    top: -70px;;
+}
+
+.Home_form{
+    margin-bottom: 50px;
+}
