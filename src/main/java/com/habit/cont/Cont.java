@@ -19,6 +19,11 @@ public class Cont {
 
     @GetMapping("/category")
     public String category() { return "product/category";}
+
+    @GetMapping("/payPage")
+    public String payPage(){
+        return "order/payPage";
+    }
 }
 
 
