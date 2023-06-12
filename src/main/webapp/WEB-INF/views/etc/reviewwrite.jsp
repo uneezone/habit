@@ -1,16 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../header.jsp"%>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    
-  <link rel="stylesheet" href="/css/reset.css?after">
+
   <link rel="stylesheet" href="/css/reviewwrite.css?after">
   <link rel="stylesheet" href="/css/reviewstar.css">
   <script src="/js/reviewwrite.js?after"></script>
-  <link rel="stylesheet" href="/css/modal.css?after">
+
 
 
     <!-- 본문 시작 -->
@@ -81,4 +76,3 @@
 
 
   
-</body>
