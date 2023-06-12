@@ -19,6 +19,14 @@ public class Cont {
 
     @GetMapping("/category")
     public String category() { return "product/category";}
+
+    @GetMapping("/detailpage")
+    public String detailpage() { return "product/detailpage";}
+
+    @GetMapping("/review")
+    public String review() { return "etc/review";}
+
+
 }
 
 
