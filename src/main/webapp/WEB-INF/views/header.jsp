@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,9 +11,9 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="css/reset.css?after">
   <link rel="stylesheet" href="css/basic.css?after" />
-  <script src="../../../../../../frontend%20총모음/js/jquery.cookie.js"></script>
+  <script src="js/jquery.cookie.js"></script>
   <link rel="stylesheet" href="css/modal.css">
-  <script src="../../../../../../frontend%20총모음/js/common.js"></script>
+  <script src="js/common.js"></script>
   
 
 </head>
@@ -25,8 +26,8 @@
           <a href=""><div class="global_topbar_menu1_menu">호스트지원</div></a>
           </div>
           <div class="global_topbar_menu2" >
-          <a href="../../../../../../frontend%20총모음/newMember.html" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">회원가입</div></a>
-          <a href="../../../../../../frontend%20총모음/login.html" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">로그인</div></a>
+          <a href="member/newMember.html" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">회원가입</div></a>
+          <a href="member/login.html" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">로그인</div></a>
           <a href="" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">자주 묻는 질문</div></a>
           <a href="" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">공지사항</div></a>
           </div>
@@ -37,14 +38,14 @@
     <div class="global2">
       <div class="global_topbar2">
           <div class="global_topbar2_menu1">
-              <a href="../../../../../../frontend%20총모음/category.html" class="global_topbar2_menu1_a">
+              <a href="product/category.jsp" class="global_topbar2_menu1_a">
                   <div>
                       <img src="img/cate.png" alt="" width="25px"  >
                       <span>카테고리</span>
                   </div>
               </a>
               
-              <a href="../../../../../../frontend%20총모음/intro.html" class="global_topbar2_menu1_a_log">
+              <a href="intro.html" class="global_topbar2_menu1_a_log">
                   <div class="global_topbar2_menu1_a_div">
                       <img src="img/logo (2).png" alt="로고" width="70px" >      
                   </div>         
@@ -69,7 +70,7 @@
                       <span>피드</span>
                   </div>
               </a>
-              <a href="../../../../../../frontend%20총모음/zzim.html">
+              <a href="member/zzim.html">
                   <div class="global_topbar2_menu2_menu">
                       <div>
                           <img src="img/heartforpage.png" alt="로고" width="25px" >  
@@ -77,7 +78,7 @@
                       <span>찜</span>
                   </div>
               </a>
-              <a href="../../../../../../frontend%20총모음/cart.html">
+              <a href="order/cart.html">
                 <div class="global_topbar2_menu2_menu">
                     <div>
                         <img src="img/cart2.png" alt="로고" width="25px" >  
@@ -85,7 +86,7 @@
                     <span>장바구니</span>
                 </div>
             </a>
-              <a href="../../../../../../frontend%20총모음/mypage.html">
+              <a href="member/mypage.html">
                   <div class="global_topbar2_menu2_menu">
                       <div>
                           <img src="img/ME.png" alt="로고" width="25px">  
