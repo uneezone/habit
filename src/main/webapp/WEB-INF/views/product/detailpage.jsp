@@ -47,7 +47,7 @@
                 <span>경험한 크루의 100%가 5점을 줬어요!</span>
             </div>
             <div class="Reviewblack">
-                <div class="Reviewflex">
+                <div class="Review-flex">
                     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                     <div class="Reviewgreen">
                         <img src="/img/ang.png" alt="">
