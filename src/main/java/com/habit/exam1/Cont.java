@@ -1,12 +1,13 @@
-package com.habit.tableexam2.web;
+package com.habit.exam1;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@org.springframework.stereotype.Controller
-public class Controller {
+@Controller
+public class Cont {
     //controller
     //주석
-    public Controller() {
+    public Cont() {
         System.out.println("Cont() 생성");
     }
 

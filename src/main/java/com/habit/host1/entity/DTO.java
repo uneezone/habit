@@ -1,4 +1,4 @@
-package com.habit.tableexam2.web;
+package com.habit.host1.entity;
 
 public class DTO {
     // getter, setter
