@@ -3,13 +3,13 @@ use habit;
 # [회원 테이블]
 # 이미지 기본값 설정 해야함
 CREATE TABLE user (
-                      user_id      varchar(25)   NOT NULL  primary key,  #유저 아이디
+    user_id      varchar(25)   NOT NULL  primary key,  #유저 아이디
     user_pw      varchar(25)   NOT NULL,               #비밀번호
     user_name    varchar(15)   NOT NULL,               #이름
     user_email   varchar(40)   NOT NULL,               #이메일
     user_phone   varchar(15)   NOT NULL,               #전화번호
     user_birth   varchar(10)   NOT NULL,               #생년월일(8자리)
-  user_gender  char(1)       NOT NULL,               #성별
+    user_gender  char(1)       NOT NULL,                 #성별
     user_img     varchar(100)  NOT NULL  DEFAULT 'defaultPro.png',   #프로필 이미지
     user_size    int           NULL      DEFAULT 0,    #이미지 사이즈
     user_status  char(1)       NOT NULL  DEFAULT 'O',  #회원 상태
