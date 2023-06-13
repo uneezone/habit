@@ -77,7 +77,7 @@ insert into one(pro_no, cont_no, one_date, one_maxqty, one_price,one_status)
 values(concat('o_no',nextval(habit.sq_one)), 1, '2022-04-24 14:00:00', 5, 30000,'OC');
 
 insert into one(pro_no, cont_no, one_date, one_maxqty, one_price,one_status)
-values(concat('o_no',nextval(habit.sq_one)), 1, '2022-08-10 15:00:00', 20, 30000,'OC');
+values(concat('o_no',nextval(habit.sq_one)), 3, '2022-08-10 15:00:00', 20, 30000,'OC');
 
 
 
