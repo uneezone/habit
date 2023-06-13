@@ -255,19 +255,19 @@
                   <div>
                     <input class="form-check-input" type="checkbox" value="" id="hashtag5-1">
                     <label class="form-check-label" for="hashtag5-1">
-                      ~ 3만원 미만
+                      3만원 이하
                     </label>
                   </div>
                   <div>
                     <input class="form-check-input" type="checkbox" value="" id="hashtag5-2">
                     <label class="form-check-label" for="hashtag5-2">
-                      3만원 ~ 5만원 미만
+                      3만원 ~ 5만원
                     </label>
                   </div>
                   <div>
                     <input class="form-check-input" type="checkbox" value="" id="hashtag5-3">
                     <label class="form-check-label" for="hashtag5-3">
-                      5만원 ~ 7만원 미만
+                      5만원 ~ 7만원
                     </label>
                   </div>
                   <div>
