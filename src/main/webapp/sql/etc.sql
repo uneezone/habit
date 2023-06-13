@@ -54,7 +54,7 @@ VALUES ('user-3', '3', 5, '2022-08-11 0:00:00', '빵만들기 재미있어요', 
 
 # [찜 테이블]
 CREATE TABLE zzim (
-                      zzim_no  int	        NOT NULL  auto_increment  primary key, #찜 코드
+    zzim_no  int	        NOT NULL  auto_increment  primary key, #찜 코드
     user_id  varchar(25)	NOT NULL,                              #유저 아이디
     cont_no  int	        NOT NULL                               #콘텐츠 코드
 );
