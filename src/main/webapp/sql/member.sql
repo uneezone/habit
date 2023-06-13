@@ -40,17 +40,17 @@ values ('user-6', '1234', '유저6', 'user6@itwill.com', '010-1234-1239', '19940
 
 # [호스트 테이블]
 CREATE TABLE host (
-                      host_id        varchar(25)   NOT NULL  primary key,     #호스트 아이디
-    host_name      varchar(20)   NOT NULL,                  #호스트 닉네임
-    host_phone     varchar(15)   NOT NULL,                  #호스트 전화번호
-    host_intro     varchar(200)  NOT NULL,                  #소개글
-    host_email     varchar(40)   NOT NULL,                  #호스트 이메일
-    host_img       varchar(100)  NOT NULL	 DEFAULT 'defaulthostPro.png', #프로필 이미지
-    host_size      int	       NULL	 DEFAULT 0,           #이미지 사이즈
-    host_account   varchar(50)   NOT NULL,                  #계좌번호
-    host_bank      varchar(15)   NOT NULL,                  #은행
-    host_acholder  varchar(15)   NOT NULL,                  #예금주
-    host_date      datetime      NOT NULL	 DEFAULT now()    #호스트 등록일
+    host_id        varchar(25)   NOT NULL  primary key,                  #호스트 아이디
+    host_name      varchar(20)   NOT NULL,                               #호스트 닉네임
+    host_phone     varchar(15)   NOT NULL,                               #호스트 전화번호
+    host_intro     varchar(200)  NOT NULL,                               #소개글
+    host_email     varchar(40)   NOT NULL,                               #호스트 이메일
+    host_img       varchar(100)  NOT NULL  DEFAULT 'defaulthostPro.png', #프로필 이미지
+    host_size      int	         NULL	   DEFAULT 0,                    #이미지 사이즈
+    host_account   varchar(50)   NOT NULL,                               #계좌번호
+    host_bank      varchar(15)   NOT NULL,                               #은행
+    host_acholder  varchar(15)   NOT NULL,                               #예금주
+    host_date      datetime      NOT NULL  DEFAULT now()                 #호스트 등록일
 );
 
 insert into host (host_id, host_name, host_phone, host_intro, host_email, host_img, host_account, host_bank, host_acholder, host_date)
@@ -62,20 +62,15 @@ values ('user-2', 'H2', '031-123-1234', '안녕하세요 H2 입니다', 'user2@g
 insert into host (host_id, host_name, host_phone, host_intro, host_email, host_img, host_account, host_bank, host_acholder, host_date)
 values ('user-4', 'H3', '02-123-1234', '안녕하세요 H3 입니다', 'user4@naver.com', 'host3.jpg', '1234-12-123458', '해빗은행', '호스트3', '2022-01-07 00:00:00');
 
-select * from host;
-
-select *
-from energy;
-
 
 
 # [에너지 테이블]
 CREATE TABLE energy (
-                        energy_no       int	         NOT NULL	 auto_increment  primary key, #에너지 번호
+    energy_no       int	         NOT NULL  auto_increment  primary key, #에너지 번호
     user_id         varchar(25)	 NOT NULL,                              #회원 아이디
     energy_saveuse  int	         NOT NULL,                              #적립/사용에너지
-  energy_date     datetime	   NOT NULL	 DEFAULT now(),               #에너지 변경 날짜
-  energy_sources  varchar(50)	 NOT NULL                               #에너지 출처
+    energy_date     datetime	 NOT NULL  DEFAULT now(),               #에너지 변경 날짜
+    energy_sources  varchar(50)	 NOT NULL                               #에너지 출처
 );
 
 insert into energy (user_id, energy_saveuse, energy_date, energy_sources)

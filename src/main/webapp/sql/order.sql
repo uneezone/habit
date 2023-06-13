@@ -93,15 +93,15 @@ values ('user-4', 'P202208021203001', 'o_no3', 30000, 10, 'Y', 'RO', '2022-08-02
 
 # [환불 테이블]
 CREATE TABLE refn (
-                      refn_no      int	        NOT NULL	auto_increment  primary key, #환불코드
-                                   payd_no      int	        NOT NULL,                              #주문상세번호
-                                   user_id      varchar(25)	NOT NULL,                              #회원아이디
-    pro_no       varchar(35)	NOT NULL,                              #상품코드
-    refn_qty     int	        NOT NULL	DEFAULT 0,                   #환불 수량
-    refn_point   int	        NOT NULL	DEFAULT 0,                   #환불 에너지
-    refn_pay     int	        NOT NULL	DEFAULT 0,                   #실 환불액
-    refn_method  char(1)	    NOT NULL,                              #환불 수단
-    refn_date    datetime	    NOT NULL	DEFAULT now()                #환불 날짜
+    refn_no      int          NOT NULL	auto_increment  primary key, #환불코드
+    payd_no      int          NOT NULL,                              #주문상세번호
+    user_id      varchar(25)  NOT NULL,                              #회원아이디
+    pro_no       varchar(35)  NOT NULL,                              #상품코드
+    refn_qty     int          NOT NULL	DEFAULT 0,                   #환불 수량
+    refn_point   int          NOT NULL	DEFAULT 0,                   #환불 에너지
+    refn_pay     int          NOT NULL	DEFAULT 0,                   #실 환불액
+    refn_method  char(1)      NOT NULL,                              #환불 수단
+    refn_date    datetime     NOT NULL	DEFAULT now()                #환불 날짜
 );
 
 insert into refn (payd_no, user_id, pro_no, refn_pay, refn_point, refn_method, refn_date, refn_qty)
