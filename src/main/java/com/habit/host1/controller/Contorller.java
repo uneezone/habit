@@ -10,6 +10,6 @@ public class Contorller {
 
     @GetMapping("/content")
     public String contentCreateForm() {
-        return "host/host_newhost";
+        return "host/habit_create";
     }
 }
