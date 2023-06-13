@@ -8,6 +8,6 @@ public class ZzimCont {
         System.out.println("----CartCont() 객체 생성됨");
     }
 
-    @Autowired
+//    @Autowired
 
 }

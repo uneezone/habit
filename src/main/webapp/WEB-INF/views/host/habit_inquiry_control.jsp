@@ -5,10 +5,10 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/bootstrap.journal.min.css">
-  <link rel="stylesheet" href="css/custom.min.css">
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/jquery-3.6.4.min.js"></script>
+  <link rel="stylesheet" href="/css/bootstrap.journal.min.css">
+  <link rel="stylesheet" href="/css/custom.min.css">
+  <script src="/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/jquery-3.6.4.min.js"></script>
   <title>host_inquiry_content</title>
 </head>
 
@@ -17,7 +17,7 @@
   <!-- 네비 시작 -->
   <nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="host_home.jsp"><img src="img/logo (2).png" alt="HABIT" width="100px"></a> <%--링크--%>
+      <a class="navbar-brand" href="host_home.jsp"><img src="/img/logo (2).png" alt="HABIT" width="100px"></a> <%--링크--%>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -51,7 +51,7 @@
           </li>
         </ul>
         <div>
-          <a href="host_information.jsp"><img src="img/profile-3_07724ab7a395fea9343ed7a13e59c1212e2e3d39c141edd99f83442f98340dfc.webp" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a> <%--링크--%>
+          <a href="host_information.jsp"><img src="/img/profile-3_07724ab7a395fea9343ed7a13e59c1212e2e3d39c141edd99f83442f98340dfc.webp" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a> <%--링크--%>
           <a href="host_information.jsp" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">HOST ID</span></a> <%--링크--%>
           <button type="button" class="btn btn-outline-primary btn-sm">해빗 홈으로 이동</button>
           <button type="button" class="btn btn-secondary btn-sm">로그아웃</button>
