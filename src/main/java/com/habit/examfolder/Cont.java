@@ -1,4 +1,4 @@
-package com.habit.exam1;
+package com.habit.examfolder;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
