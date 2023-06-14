@@ -17,17 +17,15 @@ public class HostContorller1 {
 
     // 컨텐츠 생성 폼으로 이동
     @GetMapping("/contentform")
-    public String contentForm() {
+    public String contentForm(Model model) {
+
         return "host/habit_create";
     }
 
     // 생성된 컨텐츠 값 insert
     @PostMapping("/contentinsert")
-    public String contentInsert(Model model, @SessionAttribute(name = "userId")String userId, @ModelAttribute ContentDTO dto) {
-
-        model.addAttribute("hostId",userId);
-        model.addAttribute("ContentDTO", dto);
-        hostService1.contentInsert(model);
-        return "";
+    public String contentInsert(@SessionAttribute(name = "userId")String userId, @ModelAttribute ContentDTO dto) {
+        hostService1.contentInsert(userId, dto);
+        return "host/habit_list";
     }
 }
