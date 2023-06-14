@@ -23,7 +23,7 @@
     <div class="global1">
       <div class="global_topbar">
           <div class="global_topbar_menu1" >
-          <a href=""><div class="global_topbar_menu1_menu">호스트지원</div></a>
+          <a href="/host"><div class="global_topbar_menu1_menu">호스트센터</div></a>
           </div>
           <div class="global_topbar_menu2" >
           <a href="member/newMember.html" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">회원가입</div></a>
@@ -38,7 +38,7 @@
     <div class="global2">
       <div class="global_topbar2">
           <div class="global_topbar2_menu1">
-              <a href="product/category.jsp" class="global_topbar2_menu1_a">
+              <a href="" class="global_topbar2_menu1_a">
                   <div>
                       <img src="/img/cate.png" alt="" width="25px"  >
                       <span>카테고리</span>

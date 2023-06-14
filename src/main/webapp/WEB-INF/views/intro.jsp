@@ -25,7 +25,7 @@
       <div class="global1">
         <div class="global_topbar">
             <div class="global_topbar_menu1" >
-            <a href="host/host_newhost.html"><div class="global_topbar_menu1_menu">호스트지원</div></a>
+            <a href="/host"><div class="global_topbar_menu1_menu">호스트 센터</div></a>
             </div>
             <div class="global_topbar_menu2" >
             <a href="host/newMember.html" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">회원가입</div></a>
