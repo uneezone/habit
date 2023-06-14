@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="zzim">
+
+    <select id="zzim_list" resultMap="rs">
+        select * from
+        (
+        select X.cont_no2 as cont_no2, X.cont_name2 as cont_name, X.pro_no2 as pro_no, X.one_price2 as one_price, X.prod_no2 as pro_no2, X.prod_name2 as prod_name, X.prod_price2 as prod_price, Y.starpoints as starpoint, Y.num_of_review
+        from (
+        select AA.cont_no as cont_no2, AA.cont_name as cont_name2, AA.pro_no as pro_no2, AA.one_price as one_price2,
+        C.pro_no as prod_no2, C.prod_name as prod_name2, C.prod_price as prod_price2 from
+        (select B.cont_no, B.cont_name, A.pro_no, A.one_price
+        from one A
+        right outer join cont B
+        on A.cont_no=B.cont_no) AA
+        left outer join prod C
+
+        on AA.cont_no=C.cont_no
+        group by AA.cont_no
+        order by AA.cont_no ASC) X
+        inner join
+        (select cont_no, avg(review_star) as starpoints, count(*) as num_of_review from review group by cont_no) Y
+        on X.cont_no2=Y.cont_no
+        ) ver2 inner join cont on cont.cont_no=ver2.cont_no2;
+
+    </select>
+
+</mapper>
