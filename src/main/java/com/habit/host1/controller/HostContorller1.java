@@ -7,8 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,26 +17,27 @@ public class HostContorller1 {
 
     private final HostService1 hostService1;
 
-    // 컨텐츠 생성 폼으로 이동
+    // 컨텐츠 생성 폼으로 이동 & 대분류 list 불러오기
     @GetMapping("/contentform")
     public String contentForm(Model model) {
         model.addAttribute("List",hostService1.cateList());
         return "host/habit_create";
     }
 
-    // 대분류 선택에 따른 중분류 list
+    // 대분류 선택에 따른 중분류 list 불러오기
     @GetMapping("/cate_middle.do")
     @ResponseBody
     public List<Map<String, Object>> selectCate(HttpServletRequest request) {
         String cate_large = request.getParameter("cate_large");
-        System.out.println(cate_large);
         return hostService1.selectCate(cate_large);
     }
 
     // 생성된 컨텐츠 값 insert
     @PostMapping("/contentinsert")
-    public String contentInsert(@SessionAttribute(name = "userId")String userId, @RequestParam Map<String, Object> map) {
-        hostService1.contentInsert(userId, map);
+    public String contentInsert(@RequestParam Map<String, Object> map) {
+        System.out.println(map);
+        System.out.println(map.get("cont_hashtag2"));
+//        hostService1.contentInsert(userId, map);
         return "host/habit_list";
     }
 }

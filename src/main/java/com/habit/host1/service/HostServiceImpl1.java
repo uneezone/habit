@@ -12,13 +12,13 @@ public class HostServiceImpl1 implements HostService1 {
 
     private final MemoryHostRepository1 memoryHostRepository1;
 
-    // 카테고리 목록 불러오기
+    // 카테고리 대분류 list 불러오기
     @Override
     public List<Map<String, Object>> cateList () {
         return memoryHostRepository1.cateList();
     }
 
-    // 대분류에 따른 중분류 가져오기
+    // 대분류 선택에 따른 중분류 list 불러오기
     @Override
     public List<Map<String, Object>> selectCate(String keyword) {
         return memoryHostRepository1.selectCate(keyword);

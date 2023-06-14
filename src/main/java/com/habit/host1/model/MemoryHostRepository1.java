@@ -13,11 +13,13 @@ public class MemoryHostRepository1 implements HostRepository1{
 
     private final SqlSession sqlSession;
 
+    // 카테고리 대분류 list 불러오기
     @Override
     public List<Map<String, Object>> cateList() {
         return sqlSession.selectList("product1.cateListLage");
     }
 
+    // 대분류 선택에 따른 중분류 list 불러오기
     @Override
     public List<Map<String, Object>> selectCate(String cateLarge) {
         return sqlSession.selectList("product1.cateListMiddle", cateLarge);
