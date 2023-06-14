@@ -52,7 +52,7 @@
         </ul>
         <div>
           <a href="host_information.jsp"><img src="/img/profile-3_07724ab7a395fea9343ed7a13e59c1212e2e3d39c141edd99f83442f98340dfc.webp" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a> <%--링크--%>
-          <a href="host_information.jsp" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">HOST ID</span></a> <%--링크--%>
+          <a href="host_information.jsp" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">${hostInfo.hostId}</span></a> <%--링크--%>
           <button type="button" class="btn btn-outline-primary btn-sm">해빗 홈으로 이동</button>
           <button type="button" class="btn btn-secondary btn-sm">로그아웃</button>
         </div>
@@ -79,10 +79,10 @@
               </div>
               <div class="item2">
                 <div style="width: 100px; height: 100px;">
-                  <img src="/img/profile-3_07724ab7a395fea9343ed7a13e59c1212e2e3d39c141edd99f83442f98340dfc.webp" id="preview" alt="" width="100%" height="100%" style="border-radius: 100%; object-fit: cover;"><br><br>
+                  <img src="/storage/${hostInfo.hostImg}" id="preview" alt="" width="100%" height="100%" style="border-radius: 100%; object-fit: cover;"><br><br>
                 </div>
                 <div>
-                  <input class="form-control" type="file" name="host_img" id="host_img" accept="image/*" onchange="imgCheck(this)">
+                  <input class="form-control" type="file" name="host_img" id="host_img" accept="image/*" onchange="imgCheck(this)" value="${hostInfo.hostImg}">
                 </div>
                 <div>
                   <small hidden id="host_img_small">용량 2MB 이하의 jpg, png 파일만 업로드 가능합니다.</small>
@@ -96,7 +96,7 @@
                 <p>호스트 명</p>
               </div>
               <div class="item2">
-                <input type="text" class="form-control" id="host_name" name="host_name" placeholder="호스트 명을 입력해 주세요." maxlength=25 onchange="hostNameCheck()">
+                <input type="text" class="form-control" id="host_name" name="host_name" placeholder="호스트 명을 입력해 주세요." value="${hostInfo.hostName}" maxlength=25 onchange="hostNameCheck()">
                 <small hidden id="host_name_small">호스트 명을 입력해주세요.</small>
                 <p class="item2-info">실제 해빗을 운영하시는 분의 연락처로 인증해 주세요.<br>
                   해당 연락처로 참가자 명단, 프립 진행 관련 중요 알림이 발송됩니다.</p>
@@ -109,7 +109,7 @@
                 <p>이메일</p>
               </div>
               <div class="item2">
-                <input type="email" class="form-control" name="host_email" id="host_email" placeholder="이메일을 입력해주세요." onchange="hostEmailCheck()">
+                <input type="email" class="form-control" name="host_email" id="host_email" value="${hostInfo.hostEmail}"  placeholder="이메일을 입력해주세요." onchange="hostEmailCheck()">
                 <small hidden id="host_email_small">올바른 이메일 형식이 아닙니다.</small>
                 <p class="item2-info">실제 사용하시는 이메일 주소를 입력해 주세요.<br>
                   해당 메일로 공지사항 및 상품 수정 요청 등 중요 알림이 발생됩니다.</p>
@@ -122,7 +122,7 @@
                 <p>공개 연락처</p>
               </div>
               <div class="item2">
-                <input type="text" class="form-control" placeholder="연락처를 입력해주세요.">
+                <input type="text" class="form-control" value="${hostInfo.hostPhone}"  placeholder="연락처를 입력해주세요.">
                 <small hidden>올바른 전화번호 형식이 아닙니다.</small>
                 <p class="item2-info">해빗 회원에게 노출되는 공개 연락처입니다.<br>
                   미입력 시 인증한 연락처가 노출됩니다.</p>
@@ -135,7 +135,7 @@
                 <p>소개</p>
               </div>
               <div class="item2">
-                <textarea class="form-control" name="" id="" cols="30" rows="5" placeholder="간단한 소개와 약력을 입력해 주세요." style="resize: none;"></textarea>
+                <textarea class="form-control" name="" id="" cols="30" rows="5" placeholder="간단한 소개와 약력을 입력해 주세요." style="resize: none;">${hostInfo.hostIntro}</textarea>
                 <p class="item2-info">0/500</p> <!--글자수-->
                 <small hidden>소개글을 5자 이상 입력해주세요.</small>
                 <p>소개 예시보기</p>
@@ -171,17 +171,20 @@
                 <div>
                   <div>
                     <select name="" id="" class="form-select" style="width: 150px;">
-                      <option value="">은행</option>
+                      <option value="0">==선택==</option>
+                      <option value="해빗은행">해빗은행</option>
+                      <option value="신한은행">신한은행</option>
+                      <option value="카카오뱅크">카카오뱅크</option>
                     </select>
                   </div>
                 </div>
                 <div style="display: flex; flex-wrap: wrap;">
                   <div>
-                    <input type="text" class="form-control" placeholder="예금주" style="width:150px;">
+                    <input type="text" class="form-control" placeholder="예금주" style="width:150px;" value="${hostInfo.hostAcholder}" >
                     <small hidden>예금주를 입력해주세요.</small>
                   </div>
                   <div>
-                    <input type="text" class="form-control" placeholder="계좌 번호를 입력해주세요." style="width:350px; margin: 0 15px;">
+                    <input type="text" class="form-control" placeholder="계좌 번호를 입력해주세요." style="width:350px; margin: 0 15px;" value="${hostInfo.hostAccount}" >
                     <small hidden>계좌번호를 입력해주세요.</small>
                   </div>
                 </div>
