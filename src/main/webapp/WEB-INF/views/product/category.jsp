@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../header.jsp"%>
-<link rel="stylesheet" href="css/category.css?after" />
-<link rel="stylesheet" href="css/modal.css?after" />
-<script src="js/jquery.cookie.js"></script>
-<script src="js/category.js?after"></script>
-<script src="js/common.js?after"></script>
+<link rel="stylesheet" href="/css/category.css?after" />
+<link rel="stylesheet" href="/css/modal.css?after" />
+<script src="/js/jquery.cookie.js"></script>
+<script src="/js/category.js?after"></script>
 
+
+<script>
+    var contextPath = '${pageContext.request.contextPath}';
+</script>
   <!-- 본문 시작 -->
   <div class="Home">
   <div class="PageWrapper">
@@ -13,8 +16,8 @@
         <h1 font-size="20px" class="Left-LeftPageTitle">카테고리</h1>
         <div class="Fade_Wrapper" style="opacity: 1; display: block;">
         <div class="CategoryList__Wrapper">
-            
-            <a href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/itemlist.html" class="CategoryItem-A" data-category="아웃도어">
+
+            <a  href="/category/list" class="CategoryItem-A" data-category="아웃도어">
                 <div class="CategoryItem1">
                     <div class="CategoryItem__Background"></div>
                     <div class="CategoryItem__Text"></div>
@@ -22,7 +25,7 @@
                 </div>
             </a>
 
-            <a href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/itemlist.html" class="CategoryItem-A" data-category="피트니스">
+            <a href="#" class="CategoryItem-A" data-category="피트니스">
                 <div class="CategoryItem2">
                     <div class="CategoryItem__Background"></div>
                     <div class="CategoryItem__Text"></div>
@@ -30,7 +33,7 @@
                 </div>
             </a>
 
-            <a href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/itemlist.html" class="CategoryItem-A" data-category="공예DIY">
+            <a href="#" class="CategoryItem-A" data-category="공예DIY">
                 <div class="CategoryItem3">
                     <div class="CategoryItem__Background"></div>
                     <div class="CategoryItem__Text"></div>
@@ -38,7 +41,7 @@
                 </div>
             </a>
 
-            <a href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/itemlist.html" class="CategoryItem-A" data-category="스포츠">
+            <a href="#" class="CategoryItem-A" data-category="스포츠">
                 <div class="CategoryItem4">
                     <div class="CategoryItem__Background"></div>
                     <div class="CategoryItem__Text"></div>
@@ -46,7 +49,7 @@
                 </div>
             </a>
 
-            <a href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/itemlist.html" class="CategoryItem-A" data-category="베이킹">
+            <a href="#" class="CategoryItem-A" data-category="베이킹">
                 <div class="CategoryItem5">
                     <div class="CategoryItem__Background"></div>
                     <div class="CategoryItem__Text"></div>
@@ -54,7 +57,7 @@
                 </div>
             </a>
 
-            <a href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/itemlist.html" class="CategoryItem-A" data-category="문화예술">
+            <a href="#" class="CategoryItem-A" data-category="문화예술">
                 <div class="CategoryItem6">
                     <div class="CategoryItem__Background"></div>
                     <div class="CategoryItem__Text"></div>
@@ -62,7 +65,7 @@
                 </div>
             </a>
 
-            <a href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/itemlist.html" class="CategoryItem-A" data-category="온라인">
+            <a href="#" class="CategoryItem-A" data-category="온라인">
                 <div class="CategoryItem7">
                     <div class="CategoryItem__Background"></div>
                     <div class="CategoryItem__Text"></div>
@@ -70,7 +73,7 @@
                 </div>
             </a>
 
-            <a href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/itemlist.html" class="CategoryItem-A" data-category="자기계발">
+            <a href="#" class="CategoryItem-A" data-category="자기계발">
                 <div class="CategoryItem8">
                     <div class="CategoryItem__Background"></div>
                     <div class="CategoryItem__Text"></div>
@@ -78,7 +81,7 @@
                 </div>
             </a>
 
-            <a href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/itemlist.html" class="CategoryItem-A" data-category="뷰티">
+            <a href="#" class="CategoryItem-A" data-category="뷰티">
                 <div class="CategoryItem9">
                     <div class="CategoryItem__Background"></div>
                     <div class="CategoryItem__Text"></div>
@@ -86,7 +89,7 @@
                 </div>
             </a>
 
-            <a href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/itemlist.html" class="CategoryItem-A" data-category="모임">
+            <a href="#" class="CategoryItem-A" data-category="모임">
                 <div class="CategoryItem10">
                     <div class="CategoryItem__Background"></div>
                     <div class="CategoryItem__Text"></div>
@@ -94,7 +97,7 @@
                 </div>
             </a>
 
-            <a href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/itemlist.html" class="CategoryItem-A" data-category="스토어">
+            <a href="#" class="CategoryItem-A" data-category="스토어">
                 <div class="CategoryItem11">
                     <div class="CategoryItem__Background"></div>
                     <div class="CategoryItem__Text"></div>
@@ -102,7 +105,7 @@
                 </div>
             </a>
 
-            <a href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/itemlist.html" class="CategoryItem-A" data-category="심리·상담">
+            <a href="#" class="CategoryItem-A" data-category="심리·상담">
                 <div class="CategoryItem12">
                     <div class="CategoryItem__Background"></div>
                     <div class="CategoryItem__Text"></div>
@@ -110,7 +113,7 @@
                 </div>
             </a>
 
-            <a href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/itemlist.html" class="CategoryItem-A" data-category="수상레포츠">
+            <a href="#" class="CategoryItem-A" data-category="수상레포츠">
                 <div class="CategoryItem13">
                     <div class="CategoryItem__Background"></div>
                     <div class="CategoryItem__Text"></div>
@@ -118,7 +121,7 @@
                 </div>
             </a>
 
-            <a href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/itemlist.html" class="CategoryItem-A" data-category="음료">
+            <a href="#" class="CategoryItem-A" data-category="음료">
                 <div class="CategoryItem14">
                     <div class="CategoryItem__Background"></div>
                     <div class="CategoryItem__Text"></div>
@@ -126,7 +129,7 @@
                 </div>
             </a>
 
-            <a href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/itemlist.html" class="CategoryItem-A" data-category="요리">
+            <a href="#" class="CategoryItem-A" data-category="요리">
                 <div class="CategoryItem15">
                     <div class="CategoryItem__Background"></div>
                     <div class="CategoryItem__Text"></div>
@@ -134,7 +137,7 @@
                 </div>
             </a>
 
-            <a href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/itemlist.html" class="CategoryItem-A" data-category="국내여행">
+            <a href="#" class="CategoryItem-A" data-category="국내여행">
                 <div class="CategoryItem16">
                     <div class="CategoryItem__Background"></div>
                     <div class="CategoryItem__Text"></div>
@@ -142,7 +145,7 @@
                 </div>
             </a>
 
-            <a href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/itemlist.html" class="CategoryItem-A" data-category="제주여행">
+            <a href="#" class="CategoryItem-A" data-category="제주여행">
                 <div class="CategoryItem17">
                     <div class="CategoryItem__Background"></div>
                     <div class="CategoryItem__Text"></div>
@@ -150,7 +153,7 @@
                 </div>
             </a>
 
-            <a href="../../../../../../../frontend%20총모음%20(2)/frontend%20총모음/itemlist.html" class="CategoryItem-A" data-category="해외여행">
+            <a href="#" class="CategoryItem-A" data-category="해외여행">
                 <div class="CategoryItem18">
                     <div class="CategoryItem__Background"></div>
                     <div class="CategoryItem__Text"></div>

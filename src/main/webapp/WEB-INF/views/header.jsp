@@ -9,11 +9,11 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="css/reset.css?after">
-  <link rel="stylesheet" href="css/basic.css?after" />
-  <script src="js/jquery.cookie.js"></script>
-  <link rel="stylesheet" href="css/modal.css">
-  <script src="js/common.js"></script>
+  <link rel="stylesheet" href="/css/reset.css?after">
+  <link rel="stylesheet" href="/css/basic.css?after" />
+  <script src="/js/jquery.cookie.js"></script>
+  <link rel="stylesheet" href="/css/modal.css">
+  <script src="/js/common.js"></script>
   
 
 </head>
@@ -40,21 +40,21 @@
           <div class="global_topbar2_menu1">
               <a href="product/category.jsp" class="global_topbar2_menu1_a">
                   <div>
-                      <img src="img/cate.png" alt="" width="25px"  >
+                      <img src="/img/cate.png" alt="" width="25px"  >
                       <span>카테고리</span>
                   </div>
               </a>
               
               <a href="/" class="global_topbar2_menu1_a_log">
                   <div class="global_topbar2_menu1_a_div">
-                      <img src="img/logo (2).png" alt="로고" width="70px" >      
+                      <img src="/img/logo (2).png" alt="로고" width="70px" >
                   </div>         
               </a>
 
               <div class="global_topbar2_menu1_search">
                   <div>
                       <form action="">
-                          <img src="img/search.png" alt="로고" >
+                          <img src="/img/search.png" alt="로고" >
                           <input type="text" class="global_topbar2_menu1_search_input search_input" placeholder="지금 생각나는 취미를 검색하세요.">
                       </form>
                   </div>
@@ -65,7 +65,7 @@
               <a href="">
                   <div class="global_topbar2_menu2_menu">
                       <div>
-                          <img src="img/feed.png" alt="로고" width="25px" >  
+                          <img src="/img/feed.png" alt="로고" width="25px" >
                       </div>
                       <span>피드</span>
                   </div>
@@ -73,7 +73,7 @@
               <a href="member/zzim.html">
                   <div class="global_topbar2_menu2_menu">
                       <div>
-                          <img src="img/heartforpage.png" alt="로고" width="25px" >  
+                          <img src="/img/heartforpage.png" alt="로고" width="25px" >
                       </div>
                       <span>찜</span>
                   </div>
@@ -81,7 +81,7 @@
               <a href="order/cart.html">
                 <div class="global_topbar2_menu2_menu">
                     <div>
-                        <img src="img/cart2.png" alt="로고" width="25px" >  
+                        <img src="/img/cart2.png" alt="로고" width="25px" >
                     </div>
                     <span>장바구니</span>
                 </div>
@@ -89,7 +89,7 @@
               <a href="member/mypage.html">
                   <div class="global_topbar2_menu2_menu">
                       <div>
-                          <img src="img/ME.png" alt="로고" width="25px">  
+                          <img src="/img/ME.png" alt="로고" width="25px">
                       </div>
                       <span>마이</span>
                   </div>

@@ -1,8 +1,8 @@
 # [카테고리 테이블]
 CREATE TABLE cate (
-    cate_no      varchar(10)  NOT NULL  primary key, #카테고리 코드(식별코드 따로 만들어서 사용)
-    cate_large   varchar(50)  NOT NULL,              #대분류
-    cate_middle  varchar(50)  NOT NULL               #중분류
+    cate_no      varchar(10)  NOT NULL  primary key,
+    cate_large   varchar(50)  NOT NULL,
+    cate_middle  varchar(50)  NOT NULL
 );
 
 insert into cate (cate_no, cate_large, cate_middle)
