@@ -28,7 +28,10 @@ CREATE TABLE cont (
     cate_no        varchar(10) 	 NOT NULL,                                #카테고리 코드
     host_id        varchar(25)	 NOT NULL,                                #호스트 아이디
     cont_name      varchar(50)	 NOT NULL,                                #콘텐츠 명
-    cont_place     varchar(30)	 NOT NULL,                                #콘텐츠 장소
+    cont_zip       varchar(30)	 NOT NULL,                                #콘텐츠 장소 zip
+    cont_addr1     varchar(30)   NOT NULL,                                #콘텐츠 장소1
+    cont_addr2     varchar(30)   NULL,                                    #콘텐츠 장소2
+    cont_extaddr   varchar(30)   NULL,                                    #콘텐츠 장소 참고항목
     cont_img       varchar(100)	 NOT NULL,                                #대표이미지
     cont_size      int	         NULL  DEFAULT 0,                         #이미지 사이즈
     cont_content   Text(6500)    NOT NULL,                                #콘텐츠 설명
@@ -43,14 +46,14 @@ CREATE TABLE cont (
     cont_status    char(1)	     NOT NULL  DEFAULT 'Y'                    #콘텐츠 판매 상태
 );
 
-insert into cont (cate_no, host_id, cont_name, cont_place, cont_stdate, cont_endate, cont_img, cont_content, cont_hashtag1, cont_hashtag2, cont_hashtag3, cont_hashtag4, cont_hashtag5,cont_status)
-values ('s_1', 'user-1', '[서핑]원데이클래스', '강릉', '2022-04-10 14:00:00', '2022-05-10 00:00:00', 'surfing.jpg', '서핑가보자고', 'N','20|30', 'OUT', 'WC|WF|WA', 'P5','N');
+insert into cont (cate_no, host_id, cont_name, cont_zip, cont_addr1, cont_addr2, cont_extaddr, cont_stdate, cont_endate, cont_img, cont_content, cont_hashtag1, cont_hashtag2, cont_hashtag3, cont_hashtag4, cont_hashtag5,cont_status)
+values ('s_1', 'user-1', '[서핑]원데이클래스', '06234', '서울 강남구 테헤란로 124', '4층', '(역삼동)', '2022-04-10 14:00:00', '2022-05-10 00:00:00', 'surfing.jpg', '서핑가보자고', 'N','20|30', 'OUT', 'WC|WF|WA', 'P5','N');
 
-insert into cont (cate_no, host_id, cont_name, cont_place, cont_stdate, cont_endate, cont_img, cont_content, cont_hashtag1, cont_hashtag2, cont_hashtag3, cont_hashtag4, cont_hashtag5,cont_status)
-values ('t_1', 'user-2', '[심리상담] 1:1 상담 회차권 판매', '여의도', '2022-07-20 12:00:00', '2022-08-20 00:00:00', 'talk.jpg', '너의 마음 건강 체크', 'N','20|30|40|50', 'IN', 'WA', 'P3' ,'N');
+insert into cont (cate_no, host_id, cont_name, cont_zip, cont_addr1, cont_addr2, cont_extaddr, cont_stdate, cont_endate, cont_img, cont_content, cont_hashtag1, cont_hashtag2, cont_hashtag3, cont_hashtag4, cont_hashtag5,cont_status)
+values ('t_1', 'user-2', '[심리상담] 1:1 상담 회차권 판매', '06234', '서울 강남구 테헤란로 124', '4층', '(역삼동)', '2022-07-20 12:00:00', '2022-08-20 00:00:00', 'talk.jpg', '너의 마음 건강 체크', 'N','20|30|40|50', 'IN', 'WA', 'P3' ,'N');
 
-insert into cont (cate_no, host_id, cont_name, cont_place, cont_stdate, cont_endate, cont_img, cont_content, cont_hashtag1, cont_hashtag2, cont_hashtag3, cont_hashtag4, cont_hashtag5,cont_status)
-values ('c_1', 'user-2', '[베이킹] 휘낭시에 만들기 원데이클래스', '강남', '2022-08-01 00:00:00', '2022-09-01 00:00:00', 'talk.jpg', '구워보자', 'N','20|30', 'IN', 'WC|WF|WA', 'P5','N' );
+insert into cont (cate_no, host_id, cont_name, cont_zip, cont_addr1, cont_addr2, cont_extaddr, cont_stdate, cont_endate, cont_img, cont_content, cont_hashtag1, cont_hashtag2, cont_hashtag3, cont_hashtag4, cont_hashtag5,cont_status)
+values ('c_1', 'user-2', '[베이킹] 휘낭시에 만들기 원데이클래스', '06234', '서울 강남구 테헤란로 124', '4층', '(역삼동)', '2022-08-01 00:00:00', '2022-09-01 00:00:00', 'talk.jpg', '구워보자', 'N','20|30', 'IN', 'WC|WF|WA', 'P5','N' );
 
 
 

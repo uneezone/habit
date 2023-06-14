@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class DAO {
+public class MemoryHostRepository1 {
     // repository
     private final SqlSession sqlSession;
 }
