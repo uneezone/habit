@@ -53,7 +53,7 @@ insert into cont (cate_no, host_id, cont_name, cont_zip, cont_addr1, cont_addr2,
 values ('t_1', 'user-2', '[심리상담] 1:1 상담 회차권 판매', '06234', '서울 강남구 테헤란로 124', '4층', '(역삼동)', '2022-07-20 12:00:00', '2022-08-20 00:00:00', 'talk.jpg', '너의 마음 건강 체크', 'N','20|30|40|50', 'IN', 'WA', 'P3' ,'N');
 
 insert into cont (cate_no, host_id, cont_name, cont_zip, cont_addr1, cont_addr2, cont_extaddr, cont_stdate, cont_endate, cont_img, cont_content, cont_hashtag1, cont_hashtag2, cont_hashtag3, cont_hashtag4, cont_hashtag5,cont_status)
-values ('c_1', 'user-2', '[베이킹] 휘낭시에 만들기 원데이클래스', '06234', '서울 강남구 테헤란로 124', '4층', '(역삼동)', '2022-08-01 00:00:00', '2022-09-01 00:00:00', 'talk.jpg', '구워보자', 'N','20|30', 'IN', 'WC|WF|WA', 'P5','N' );
+values ('c_1', 'user-2', '[베이킹] 휘낭시에 만들기 원데이클래스', '06234', '서울 강남구 테헤란로 124', '4층', '(역삼동)', '2022-08-01 00:00:00', '2022-09-01 00:00:00', 'eat.jpg', '구워보자', 'N','20|30', 'IN', 'WC|WF|WA', 'P5','N' );
 
 
 
