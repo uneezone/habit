@@ -8,16 +8,18 @@ import lombok.ToString;
 @ToString
 public class HostInfoDTO {
 
-    private String hostId;
-    private String hostImg;
-    private String hostName;
-    private String hostEmail;
-    private String hostPhone;
-    private String hostIntro;
-    private String hostBank;
-    private String hostAccount;
-    private String hostAcholder;
+    private String host_id;
+    private String host_img;
+    private String host_name;
+    private String host_email;
+    private String host_phone;
+    private String host_intro;
+    private String host_bank;
+    private String host_account;
+    private String host_acholder;
 
     public HostInfoDTO() {
     }
+
+
 }

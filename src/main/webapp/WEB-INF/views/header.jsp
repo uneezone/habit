@@ -9,11 +9,11 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="css/reset.css?after">
-  <link rel="stylesheet" href="css/basic.css?after" />
-  <script src="js/jquery.cookie.js"></script>
-  <link rel="stylesheet" href="css/modal.css">
-  <script src="js/common.js"></script>
+  <link rel="stylesheet" href="/css/reset.css?after">
+  <link rel="stylesheet" href="/css/basic.css?after" />
+  <script src="/js/jquery.cookie.js"></script>
+  <link rel="stylesheet" href="/css/modal.css">
+  <script src="/js/common.js"></script>
   
 
 </head>

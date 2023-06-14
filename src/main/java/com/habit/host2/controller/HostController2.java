@@ -10,7 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.List;
 
 
@@ -42,7 +47,9 @@ public class HostController2 {
     //호스트 가입
     @PostMapping("newHost")
     public String joinHost(@ModelAttribute NewHostDTO dto
-                            , @SessionAttribute(name = "userId",required = false)String userIds, Model model){
+                            , @SessionAttribute(name = "userId",required = false)String userIds, Model model
+                            , @RequestParam MultipartFile Img
+                            , HttpServletRequest req){
 
 
         //로그인세션 확인
@@ -76,8 +83,20 @@ public class HostController2 {
         dto.setHostEmail1(email);
 
         //프로필이미지 default
-        if(dto.getHostImg()==""){
+        if(Img == null || Img.isEmpty()){
             dto.setHostImg("defaulthostPro.png");
+        }else{
+            String filename=Img.getOriginalFilename();
+            dto.setHostImg(filename);
+            long filesize=Img.getSize();
+            try {
+                ServletContext application=req.getSession().getServletContext();
+                String path=application.getRealPath("/storage");  //실제 물리적인 경로
+                Img.transferTo(new File(path + "\\" + filename)); //파일저장
+
+            }catch (Exception e) {
+                e.printStackTrace(); //System.out.println(e);
+            }
         }
 
         //host 아이디

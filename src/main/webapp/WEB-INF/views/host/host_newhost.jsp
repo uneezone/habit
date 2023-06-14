@@ -37,7 +37,7 @@
       <div class="content">
         <p class="content-name">프로필 관리</p>
         <!-- 프로필 관리 form 시작 -->
-        <form action="host/newHost" method="post" onsubmit="return checkNewHost()">
+        <form action="host/newHost" method="post" onsubmit="return checkNewHost()" enctype="multipart/form-data">
           <!-- 프로필 사진 -->
           <div class="content-flex">
             <div class="item-name">
@@ -45,7 +45,7 @@
             </div>
             <div class="item2">
               <img src="/img/defaulthostPro.png" alt="" width="100px" height="100px" style="border-radius: 100%;" class="proImg"><br><br>
-              <input class="form-control" type="file" name="hostImg" id="hostImg" onchange="setProfile(this)">
+              <input class="form-control" type="file" name="Img" id="Img" onchange="setProfile(this)">
               <div class="error_class hostImgError"></div>
               <p class="item2-info">용량 2MB 이하 jpg, png</p>
               <p class="item2-info">미선택시 기본 이미지로 지정됨</p>
