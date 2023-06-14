@@ -6,7 +6,7 @@ function imgCheck(img) {
   let fileExtension = fileInfo[fileInfo.length-1] // 파일 확장자
 
   if(fileExtension !== 'jpg' && fileExtension !== 'png') { // 확장자가 jpg 또는 png가 아닐경우
-    document.getElementById('preview').setAttribute('src', 'img/profile-3_07724ab7a395fea9343ed7a13e59c1212e2e3d39c141edd99f83442f98340dfc.webp')
+    document.getElementById('preview').setAttribute('src', '/img/profile-3_07724ab7a395fea9343ed7a13e59c1212e2e3d39c141edd99f83442f98340dfc.webp')
     img.outerHTML = img.outerHTML; // 선택된 input:type=file 초기화
     host_img_small.removeAttribute('hidden')
     document.getElementById('host_img').focus()
@@ -19,7 +19,7 @@ function imgCheck(img) {
   let maxSize = 2 * 1024 * 1024 // 2MB
 
   if(imgSize>maxSize) { // 이미지 용량이 2MB가 넘을 경우
-    document.getElementById('preview').setAttribute('src', 'img/profile-3_07724ab7a395fea9343ed7a13e59c1212e2e3d39c141edd99f83442f98340dfc.webp')
+    document.getElementById('preview').setAttribute('src', '/img/profile-3_07724ab7a395fea9343ed7a13e59c1212e2e3d39c141edd99f83442f98340dfc.webp')
     img.outerHTML = img.outerHTML; // 선택된 input:type=file 초기화
     host_img_small.removeAttribute('hidden')
     host_img.focus()

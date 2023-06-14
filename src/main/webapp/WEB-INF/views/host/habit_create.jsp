@@ -101,10 +101,13 @@
             </div>
             <div>
               <div style="width: 450px;"> 
-                <input class="form-control" type="text" placeholder="해빗의 특징이 잘 드러나도록 해빗명을 입력해주세요">
+                <input type="text" class="form-control" id="cont_name" name="cont_name" placeholder="해빗명을 입력해주세요" onchange="contNameCheck()">
               </div>
               <div>
-                <small hidden>해빗명은 필수입니다. 40자 이내로 입력해주세요.</small>
+                <small hidden id="cont_name_small">해빗명은 필수입니다. 40자 이내로 입력해주세요.</small>
+              </div>
+              <div>
+                <p style="color: gray;">해빗의 특징이 잘 드러나도록 해빗명을 입력해주세요.</p>
               </div>
             </div>
           </div><hr>
@@ -115,7 +118,7 @@
             <div>
               <div class="item">
                 <div>
-                  <input class="form-control" type="text" id="zipcode" placeholder="우편번호" disabled>
+                  <input class="form-control" type="text" id="zipcode" name="cont_zip" placeholder="우편번호" disabled>
                 </div>
                 <div>
                   <input class="btn btn-outline-primary" type="button" onclick="DaumPostcode()" value="주소 찾기">
@@ -126,15 +129,18 @@
               </div>
               <div>
                 <div>
-                  <input class="form-control" type="text" id="address1" placeholder="주소" disabled>
+                  <input class="form-control" type="text" id="address1" name="cont_addr1" placeholder="주소" disabled>
                 </div>
               </div>
               <div>
                 <div>
-                  <input class="form-control" type="text" id="address2" placeholder="나머지 주소를 입력해주세요">
+                  <input class="form-control" type="text" id="address2" name="cont_addr2" placeholder="나머지 주소를 입력해주세요">
                 </div>
                 <div>
-                  <input class="form-control" type="text" id="sample3_extraAddress" placeholder="참고항목" disabled>
+                  <input class="form-control" type="text" id="sample3_extraAddress" name="cont_extaAddr" placeholder="참고항목" disabled>
+                </div>
+                <div>
+                  <small hidden id="cont_place_small">해빗명은 필수입니다. 40자 이내로 입력해주세요.</small>
                 </div>
               </div>
             </div>
@@ -144,7 +150,7 @@
               <p>해시태그</p>
             </div>
             <div>
-              <p style="color: gray;">해빗 이용자들에게 해시태그로 보여질 정보입니다. 해당되는 정보를 선택해 주세요. (다중선택 가능)</p>
+              <p style="color: gray;">해빗 이용자들에게 해시태그로 보여질 정보입니다.<br> 해당되는 정보를 선택해 주세요.</p>
             </div>
             <div>
               <div class="item">
@@ -153,19 +159,19 @@
                 </div>
                 <div class="checkbox">
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="hashtag1" id="hashtag1-1" value="option1">
+                    <input class="form-check-input" type="radio" name="cont_hashtag1" id="hashtag1-1" value="option1">
                     <label class="form-check-label" for="hashtag1-1">
                       남자
                     </label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="hashtag1" id="hashtag1-2" value="option1">
+                    <input class="form-check-input" type="radio" name="cont_hashtag1" id="hashtag1-2" value="option1">
                     <label class="form-check-label" for="hashtag1-2">
                       여자
                     </label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="hashtag1" id="hashtag1-3" value="option1">
+                    <input class="form-check-input" type="radio" name="cont_hashtag1" id="hashtag1-3" value="option1">
                     <label class="form-check-label" for="hashtag1-3">
                       상관없음
                     </label>
@@ -174,7 +180,7 @@
               </div>
               <div class="item">
                 <div class="item-name-sm">
-                  <p>클래스 참여에 적합한 나이대</p>
+                  <p>클래스 참여에 적합한 나이대 (다중선택 가능)</p>
                 </div>
                 <div class="checkbox">
                   <div>
@@ -209,13 +215,13 @@
                 </div>
                 <div class="checkbox">
                   <div>
-                    <input class="form-check-input" type="checkbox" value="" id="hashtag3-1">
+                    <input class="form-check-input" type="radio" name="cont_hashtag2" id="hashtag3-1">
                     <label class="form-check-label" for="hashtag3-1">
                       실내 활동
                     </label>
                   </div>
                   <div>
-                    <input class="form-check-input" type="checkbox" value="" id="hashtag3-2">
+                    <input class="form-check-input" type="radio" name="cont_hashtag2" id="hashtag3-2">
                     <label class="form-check-label" for="hashtag3-2">
                       실외 활동
                     </label>
@@ -253,25 +259,25 @@
                 </div>
                 <div class="checkbox">
                   <div>
-                    <input class="form-check-input" type="checkbox" value="" id="hashtag5-1">
+                    <input class="form-check-input" type="radio" name="cont_hashtag5" id="hashtag5-1">
                     <label class="form-check-label" for="hashtag5-1">
                       3만원 이하
                     </label>
                   </div>
                   <div>
-                    <input class="form-check-input" type="checkbox" value="" id="hashtag5-2">
+                    <input class="form-check-input" type="radio" name="cont_hashtag5" id="hashtag5-2">
                     <label class="form-check-label" for="hashtag5-2">
                       3만원 ~ 5만원
                     </label>
                   </div>
                   <div>
-                    <input class="form-check-input" type="checkbox" value="" id="hashtag5-3">
+                    <input class="form-check-input" type="radio" name="cont_hashtag5" id="hashtag5-3">
                     <label class="form-check-label" for="hashtag5-3">
                       5만원 ~ 7만원
                     </label>
                   </div>
                   <div>
-                    <input class="form-check-input" type="checkbox" value="" id="hashtag5-4">
+                    <input class="form-check-input" type="radio" name="cont_hashtag5" id="hashtag5-4">
                     <label class="form-check-label" for="hashtag5-4">
                       7만원 이상
                     </label>
@@ -295,17 +301,17 @@
               </div>
               <div class="item" style="align-items: center;">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="cont_endate" id="cont_endate1" value="option1">
-                  <label class="form-check-label" for="cont_endate1">
+                  <input class="form-check-input" type="radio" name="cont_endate" id="cont_endate_option1" value="endate_option1" checked onchange="contEndateOptionCheck1()">
+                  <label class="form-check-label" for="cont_endate_option1">
                     한달(기본)
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="cont_endate" id="cont_endate2" value="option2">
-                  <label class="form-check-label" for="cont_endate2">지정한 날짜까지 판매</label>
+                  <input class="form-check-input" type="radio" name="cont_endate" id="cont_endate_option2" value="endate_option2" onchange="contEndateOptionCheck2()">
+                  <label class="form-check-label" for="cont_endate_option2">지정한 날짜까지 판매</label>
                 </div>
                 <div>
-                  <input class="form-control" type="date" name="" id="">
+                  <input class="form-control" type="date" name="cont_endate_option2" id="endate_option2" disabled>
                 </div>
               </div>
             </div>
@@ -316,17 +322,17 @@
             </div>
             <div style="display: flex;">
               <div class="select">
-                <input type="radio" id="one" name="pro">
-                <label for="one">
+                <input type="radio" id="prod" name="pro" checked>
+                <label for="prod">
                   <p>날짜 조율형</p>
                   호스트님이 회원 연락처로 별도 연락하여 일정을 조율하는 형태의 해빗입니다. (에스테틱, 네일 등에 적합)
                 </label>
               </div>
               <div class="select">
-                <input type="radio" id="prod" name="pro">
-                <label for="prod">
+                <input type="radio" id="one" name="pro">
+                <label for="one">
                   <p>날짜 지정형</p>
-                  호스트님께서 날짜와 옵션을 등록하여 가능한 날에만 예약을 받을 수 있는 프립입니다. 일정 관리 및 고객 관리를 더 간편하게 하실 수 있습니다. (에스테틱, 네일 제외한 대부분의 프립)
+                  호스트님께서 날짜와 옵션을 등록하여 가능한 날에만 예약을 받을 수 있는 해빗입니다. 일정 관리 및 고객 관리를 더 간편하게 하실 수 있습니다. (에스테틱, 네일 제외한 대부분의 해빗)
                 </label>
               </div>
             </div>
@@ -335,9 +341,11 @@
             <div class="item-name">
               <p>옵션 목록 입력</p>
             </div>
-            <div>
+
+            <!-- 콘텐츠 옵션 : 인원권/회차권 시작 -->
+            <div id="cont_option_prod">
               <div style="text-align: right;">
-                <input type="button" class="btn btn-sm btn-primary" value="옵션 삭제">
+                <input type="button" class="btn btn-sm btn-primary" id="option_remove_prod" value="옵션 삭제">
               </div>
               <div>
                 <table class="table table-hover" style="text-align: center;">
@@ -368,9 +376,37 @@
                         </div>
                       </td>
                     </tr>
-                    <!-- 옵션추가 버튼 클릭시 생성될 테이블 row 시작 -->
+                  </thead>
+                  <!-- 옵션목록 추가 태그 시작 -->
+                  <tbody id="option_row_prod">
+                  </tbody>
+                  <!-- 옵션목록 추가 태그 종료 -->
+                    <tr id="add_option_prod">
+                      <td colspan="4" align="center" class="table-secondary">
+                        <div>+옵션 추가</div>
+                      </td>
+                    </tr>
+                </table>
+              </div>
+            </div>
+            <!-- 콘텐츠 옵션 : 인원권/회차권 종료 -->
+
+            <!-- 콘텐츠 옵션 : 원데이 클래스 시작 -->
+            <div id="cont_option_one" hidden>
+              <div style="text-align: right;">
+                <input type="button" class="btn btn-sm btn-primary" id="option_remove_one" value="옵션 삭제">
+              </div>
+              <div>
+                <table class="table table-hover" style="text-align: center;">
+                  <thead>
+                    <tr class="table-secondary">
+                      <th></th>
+                      <th>(예시) 클래스 실행 날짜</th>
+                      <th>(예시) 1인,2인,3인 등</th>
+                      <th>가격</th>
+                    </tr>
                     <tr>
-                      <td><input class="form-check-input" type="checkbox" name="" id=""></td>
+                      <td></td>
                       <td>
                         <div>
                           <input type="text" class="form-control">
@@ -389,18 +425,21 @@
                         </div>
                       </td>
                     </tr>
-                    <!-- 옵션추가 버튼 클릭시 생성될 테이블 row 종료 -->
                   </thead>
-                  <tbody>
-                    <tr>
+                  <!-- 옵션목록 추가 태그 시작 -->
+                  <tbody id="option_row_one">
+                  </tbody>
+                  <!-- 옵션목록 추가 태그 종료 -->
+                    <tr id="add_option_one">
                       <td colspan="4" align="center" class="table-secondary">
                         <div>+옵션 추가</div>
                       </td>
                     </tr>
-                  </tbody>
                 </table>
               </div>
             </div>
+            <!-- 콘텐츠 옵션 : 원데이 클래스 종료 -->
+            
           </div>
         </div>
         
@@ -414,13 +453,13 @@
             <div>
               <div class="item">
                 <div>
-                  <img src="/img/no-image01.gif" name="cont_img" id="preview_cont_img1" alt="이미지 없음" width="200px" height="200px">
+                  <img src="/img/no-image01.gif" id="preview_cont_img1" alt="이미지 없음" width="200px" height="200px">
                 </div>
                 <div>
-                  <img src="/img/no-image01.gif" name="cont_img" id="preview_cont_img2" alt="이미지 없음" width="200px" height="200px">
+                  <img src="/img/no-image01.gif" id="preview_cont_img2" alt="이미지 없음" width="200px" height="200px">
                 </div>
                 <div>
-                  <img src="/img/no-image01.gif" name="cont_img" id="preview_cont_img3" alt="이미지 없음" width="200px" height="200px">
+                  <img src="/img/no-image01.gif" id="preview_cont_img3" alt="이미지 없음" width="200px" height="200px">
                 </div>
               </div>
               <div class="input-img">
@@ -449,12 +488,12 @@
             <div style="width: 80%;">
               <textarea class="form-control" name="" id="" rows="9" cols="80" style="resize: none; color: rgb(129, 129, 129);" disabled>
 1. 결제 후 14일 이내 취소 시 : 전액 환불
-(단, 결제 후 14일 이내라도 호스트와 프립 진행일 예약 확정 후 환불 불가)
+(단, 결제 후 14일 이내라도 호스트와 해빗 진행일 예약 확정 후 환불 불가)
 2. 결제 후 14일 이후 취소 시 : 환불 불가
-※ 상품의 유효기간 만료 시 연장은 불가하며, 기간 내 호스트와 예약 확정 되지 않은 프립은 프립 에너지로 환불 됩니다.
+※ 상품의 유효기간 만료 시 연장은 불가하며, 기간 내 호스트와 예약 확정 되지 않은 해빗은 해빗 에너지로 환불 됩니다.
 ※ 환불된 에너지의 유효기간은 지급일로부터 180일이며, 유효기간 종료 후 기간연장 및 환불이 불가합니다.
 ※ 배송상품의 경우 배송 준비 전 전액 환불 가능, 배송 준비 후 환불 불가 합니다.
-※ 다회권의 경우, 1회라도 사용시 부분 환불이 불가하며, 기간 내 호스트와 예약 확정 되지 않은 프립은 프립 에너지로 환불 됩니다.
+※ 다회권의 경우, 1회라도 사용시 부분 환불이 불가하며, 기간 내 호스트와 예약 확정 되지 않은 해빗은 해빗 에너지로 환불 됩니다.
 
 [환불 신청 방법]
 1. 해당 해빗 결제한 계정으로 로그인
