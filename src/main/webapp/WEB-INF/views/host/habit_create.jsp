@@ -7,9 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/bootstrap.journal.min.css">
   <link rel="stylesheet" href="/css/custom.min.css">
-  <script src="/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/host/bootstrap.bundle.min.js"></script>
   <script src="/js/jquery-3.6.4.min.js"></script>
-  <script src="/js/habit_create.js"></script>
+  <script src="/js/host/habit_create.js"></script>
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <!-- 썸머 노트 사용을 위한 js, css 추가 시작 -->
   <script src="/js/summernote/summernote-lite.min.js"></script>
@@ -73,7 +73,7 @@
     <p class="page-name">해빗 등록</p>
 
     <!-- main 시작 -->
-    <form method="" action="" onsubmit="">
+    <form method="" action="" onsubmit="habitCreateCheck()">
       <!-- 기본 정보 -->
       <div class="content-wrap">
         <div class="content">
@@ -84,12 +84,12 @@
             </div>
             <div class="content-flex">
               <div style="width: 150px; margin-right: 10px;">
-                <select name="" id="" class="form-select">
+                <select name="cate_large" id="cate_large" class="form-select">
                   <option value="">대분류</option>
                 </select>
               </div>
               <div style="width: 150px;">
-                <select name="" id="" class="form-select">
+                <select name="cate_middle" id="cate_middle" class="form-select">
                   <option value="">중분류</option>
                 </select>
               </div>
@@ -352,8 +352,8 @@
                   <thead>
                     <tr class="table-secondary">
                       <th></th>
-                      <th>(예시) 인원,사이즈 등</th>
-                      <th>(예시) 1인,2인,3인 등</th>
+                      <th>(예시) 인원권,회차권 등</th>
+                      <th>(예시) 1인,2인 또는 1회,2회 등</th>
                       <th>가격</th>
                     </tr>
                     <tr>
@@ -401,7 +401,7 @@
                   <thead>
                     <tr class="table-secondary">
                       <th></th>
-                      <th>(예시) 클래스 실행 날짜</th>
+                      <th>(예시) 클래스 실행 일시</th>
                       <th>(예시) 1인,2인,3인 등</th>
                       <th>가격</th>
                     </tr>
@@ -409,7 +409,7 @@
                       <td></td>
                       <td>
                         <div>
-                          <input type="text" class="form-control">
+                          <input class="form-control" type="datetime-local" name="" id="">
                         </div>
                       </td>
                       <td>
@@ -487,13 +487,17 @@
           <div style="display: flex; justify-content: center;">
             <div style="width: 80%;">
               <textarea class="form-control" name="" id="" rows="9" cols="80" style="resize: none; color: rgb(129, 129, 129);" disabled>
-1. 결제 후 14일 이내 취소 시 : 전액 환불
+[날짜 조율형]
+1. 결제 후 7일 이내 취소 시 : 전액 환불
 (단, 결제 후 14일 이내라도 호스트와 해빗 진행일 예약 확정 후 환불 불가)
 2. 결제 후 14일 이후 취소 시 : 환불 불가
-※ 상품의 유효기간 만료 시 연장은 불가하며, 기간 내 호스트와 예약 확정 되지 않은 해빗은 해빗 에너지로 환불 됩니다.
-※ 환불된 에너지의 유효기간은 지급일로부터 180일이며, 유효기간 종료 후 기간연장 및 환불이 불가합니다.
-※ 배송상품의 경우 배송 준비 전 전액 환불 가능, 배송 준비 후 환불 불가 합니다.
-※ 다회권의 경우, 1회라도 사용시 부분 환불이 불가하며, 기간 내 호스트와 예약 확정 되지 않은 해빗은 해빗 에너지로 환불 됩니다.
+※ 상품의 유효기간 만료 시 연장은 불가합니다.
+※ 다회권의 경우, 1회라도 사용시 부분 환불이 불가합니다.
+
+[날짜 지정형]
+1. 구매한 클래스 이용권 사용일 전 취소 시 : 전액 환불
+2. 구매한 클래스 이용권 사용일 이후 취소 시 : 환불 불가
+※ 상품의 유효기간 만료 시 연장은 불가합니다.
 
 [환불 신청 방법]
 1. 해당 해빗 결제한 계정으로 로그인

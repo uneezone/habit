@@ -23,8 +23,6 @@ const contEndateOptionCheck2 = (e) => {
 }
 
 
-
-
 document.addEventListener("DOMContentLoaded", () => {
 
     // 판매 유형 이벤트
@@ -39,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
 
-// 옵션 목록 이벤트 : 원데이 클래스
+    // 옵션 목록 이벤트 : 인원권/회차권
     let row_prod = "<tr>\n" +
         "                      <td><input class=\"form-check-input\" type=\"checkbox\" name=\"cont_option_prod\" id=\"\"></td>\n" +
         "                      <td>\n" +
@@ -122,6 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 })
 
+
 // 대표 이미지 체크 (onChange)
 function contImgCheck(imgs) {
     let cont_img_small = document.getElementById('cont_img_small')
@@ -148,6 +147,7 @@ function contImgCheck(imgs) {
     }
 }
 
+
 /* 썸머 노트 config */
 $(document).ready(()=>{
     $('#summernote').summernote({
@@ -172,3 +172,9 @@ $(document).ready(()=>{
         fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
     })
 })
+
+
+// habit_create 유효성 검사
+const habitCreateCheck = () => {
+
+}
