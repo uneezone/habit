@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.habit.host2.model.HostMapper">
+
+    <select id="checkHost" parameterType="String" resultType="String">
+        select user_grade
+        from user
+        where user_id=#{userId}
+    </select>
+
+    <select id="getPhoneNumber" parameterType="String" resultType="String">
+        select user_phone
+        from user
+        where user_id=#{userId}
+    </select>
+
+    <insert id="newHost">
+        insert into host(host_id,host_name,host_phone,host_email,host_img)
+        values(#{hostId},#{hostName},#{hostPhone1},#{hostEmail1},#{hostImg})
+    </insert>
+
+    <update id="updateUserGrade">
+        update user
+        set user_grade="H"
+        where user_id=#{id}
+    </update>
+
+    <select id="getHostInfo" resultType="com.habit.host2.entity.HostInfoDTO" parameterType="String">
+        select host_id, host_name, host_phone, host_intro, host_email, host_img, host_account,host_bank, host_acholder
+        from host
+        where host_id=#{userId}
+    </select>
+</mapper>
