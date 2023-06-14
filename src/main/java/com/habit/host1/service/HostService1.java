@@ -1,10 +1,10 @@
 package com.habit.host1.service;
-
-import com.habit.host1.entity.ContentDTO;
-import org.springframework.ui.Model;
-
-import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
 
 public interface HostService1 {
-    void contentInsert (String userId, ContentDTO dto);
+
+    List<Map<String, Object>> cateList ();
+    List<Map<String, Object>> selectCate (String keyword);
+    void contentInsert (String userId, Map<String, Object> map);
 }

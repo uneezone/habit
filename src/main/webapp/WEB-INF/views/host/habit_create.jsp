@@ -1,4 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -83,16 +87,17 @@
               <p>카테고리</p>
             </div>
             <div class="content-flex">
-              <div style="width: 150px; margin-right: 10px;">
+              <div style="width: 200px; margin-right: 10px;">
                 <select name="cate_large" id="cate_large" class="form-select">
-                  <option value="0">대분류</option>
-                  <option value="1">large</option>
+                  <option value="0">1차 카테고리</option>
+                  <c:forEach var="map" items="${List}">
+                  <option value='${map.get("cate_large")}'>${map.get("cate_large")}</option>
+                  </c:forEach>
                 </select>
               </div>
-              <div style="width: 150px;">
+              <div style="width: 200px;">
                 <select name="cate_middle" id="cate_middle" class="form-select">
-                  <option value="0">중분류</option>
-                  <option value="1">middle</option>
+                  <option value="0">2차 카테고리</option>
                 </select>
               </div>
             </div>
@@ -617,6 +622,22 @@ function DaumPostcode() {
     // iframe을 넣은 element를 보이게 한다.
     element_wrap.style.display = 'block';
 }
+
+$('#cate_large').on('change', (e)=>{
+  let cate_large = e.currentTarget.value
+  $.ajax({
+    url: '/host/cate_middle.do',
+    type: 'get',
+    data: {'cate_large': cate_large}, // json형태로 넘김
+    success: (List) => {
+      document.getElementById('cate_middle').replaceChildren()
+      $('#cate_middle').append("<option value='0'>2차 카테고리</option>")
+      for (let map of List) {
+        $('#cate_middle').append("<option value='" + map.cate_middle + "'>" + map.cate_middle + "</option>")
+      }
+    }
+  })
+})
 </script>
 </body>
 </html>
