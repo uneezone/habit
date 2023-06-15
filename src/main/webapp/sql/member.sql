@@ -19,23 +19,23 @@ CREATE TABLE user (
 );
 drop table user;
 
-insert into user (user_id, user_pw, user_name, user_email, user_phone, user_birth, user_gender, user_img, user_date)
-values ('user-1', '1234', '유저1', 'user1@itwill.com', '010-1234-1234', '19990101', 'm', 'defaultPro.png', '2022-01-01 00:00:00');
+insert into user (user_id, user_pw, user_name, user_email, user_phone, user_birth, user_gender, user_img, user_grade,user_date)
+values ('user-1', '1234', '유저1', 'user1@itwill.com', '010-1234-1234', '19990101', 'm', 'defaultPro.png','H', '2022-01-01 00:00:00');
 
-insert into user (user_id, user_pw, user_name, user_email, user_phone, user_birth, user_gender, user_img, user_date)
-values ('user-2', '1234', '유저2', 'user2@itwill.com', '010-1234-1235', '19980101', 'w', 'user2.jpg', '2022-04-01 00:00:00');
+insert into user (user_id, user_pw, user_name, user_email, user_phone, user_birth, user_gender, user_img,user_grade, user_date)
+values ('user-2', '1234', '유저2', 'user2@itwill.com', '010-1234-1235', '19980101', 'w', 'user2.jpg','H', '2022-04-01 00:00:00');
 
-insert into user (user_id, user_pw, user_name, user_email, user_phone, user_birth, user_gender, user_img, user_grade, user_date)
-values ('user-3', '1234', '유저3', 'user3@itwill.com', '010-1234-1236', '19970101', 'w', 'defaultPro.png', 'H', '2022-07-01 00:00:00');
+insert into user (user_id, user_pw, user_name, user_email, user_phone, user_birth, user_gender, user_img,  user_date)
+values ('user-3', '1234', '유저3', 'user3@itwill.com', '010-1234-1236', '19970101', 'w', 'defaultPro.png',  '2022-07-01 00:00:00');
 
-insert into user (user_id, user_pw, user_name, user_email, user_phone, user_birth, user_gender, user_img, user_level, user_date)
-values ('user-4', '1234', '유저4', 'user4@itwill.com', '010-1234-1237', '19960101', 'w', 'user4.jpg', 'A', '2022-07-14 00:00:00');
+insert into user (user_id, user_pw, user_name, user_email, user_phone, user_birth, user_gender, user_img,user_grade, user_level, user_date)
+values ('user-4', '1234', '유저4', 'user4@itwill.com', '010-1234-1237', '19960101', 'w', 'user4.jpg', 'A','H', '2022-07-14 00:00:00');
 
-insert into user (user_id, user_pw, user_name, user_email, user_phone, user_birth, user_gender, user_img, user_status, user_grade, user_date)
-values ('user-5', '1234', '유저5', 'user5@itwill.com', '010-1234-1238', '19950101', 'm', 'defaultPro.png', 'X', 'H', '2022-10-01 00:00:00');
+insert into user (user_id, user_pw, user_name, user_email, user_phone, user_birth, user_gender, user_img, user_status, user_date)
+values ('user-5', '1234', '유저5', 'user5@itwill.com', '010-1234-1238', '19950101', 'm', 'defaultPro.png', 'X',  '2022-10-01 00:00:00');
 
-insert into user (user_id, user_pw, user_name, user_email, user_phone, user_birth, user_gender, user_img, user_status, user_grade, user_date)
-values ('user-6', '1234', '유저6', 'user6@itwill.com', '010-1234-1239', '19940101', 'm', 'user6.jpg', 'N', 'H', '2023-04-01 00:00:00');
+insert into user (user_id, user_pw, user_name, user_email, user_phone, user_birth, user_gender, user_img, user_status, user_date)
+values ('user-6', '1234', '유저6', 'user6@itwill.com', '010-1234-1239', '19940101', 'm', 'user6.jpg', 'N',  '2023-04-01 00:00:00');
 
 
 # [호스트 테이블]
