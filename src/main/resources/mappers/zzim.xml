@@ -5,35 +5,35 @@
 
 <mapper namespace="zzim">
 
-    <select id="zzim_final" resultMap="rs">
-        select cont_no, cont_name, pro_no, one_price, pro_no2, prod_price, starpoint, num_of_review, cont_place, cont_img, zzim_no, user_id from (
-        select cont_no3 as cont_no, ver3.cont_name3 as cont_name, pro_no3 as pro_no, one_price3 as one_price, prod_no3 as pro_no2, prod_price3 as prod_price, starpoints as starpoint, num_of_review, cont_place, cont_img, zzim_no, user_id from
-        (
-        select cont_no3, cont_name3, pro_no3, one_price3, prod_no3, prod_name3, prod_price3, starpoints, num_of_review, cont.cont_place, cont.cont_img from
-        (
-        select X.cont_no2 as cont_no3, X.cont_name2 as cont_name3, X.pro_no2 as pro_no3, X.one_price2 as one_price3, X.prod_no2 as prod_no3, X.prod_name2 as prod_name3, X.prod_price2 as prod_price3, Y.starpoints, Y.num_of_review
-        from (
-        select AA.cont_no as cont_no2, AA.cont_name as cont_name2, AA.pro_no as pro_no2, AA.one_price as one_price2,
-        C.pro_no as prod_no2, C.prod_name as prod_name2, C.prod_price as prod_price2 from
-        (select B.cont_no, B.cont_name, A.pro_no, A.one_price
-        from one A
-        right outer join cont B
-        on A.cont_no=B.cont_no) AA
-        left outer join prod C
+<!--    <select id="zzim_final" resultMap="rs">-->
+<!--        select cont_no, cont_name, pro_no, one_price, pro_no2, prod_price, starpoint, num_of_review, cont_place, cont_img, zzim_no, user_id from (-->
+<!--        select cont_no3 as cont_no, ver3.cont_name3 as cont_name, pro_no3 as pro_no, one_price3 as one_price, prod_no3 as pro_no2, prod_price3 as prod_price, starpoints as starpoint, num_of_review, cont_place, cont_img, zzim_no, user_id from-->
+<!--        (-->
+<!--        select cont_no3, cont_name3, pro_no3, one_price3, prod_no3, prod_name3, prod_price3, starpoints, num_of_review, cont.cont_place, cont.cont_img from-->
+<!--        (-->
+<!--        select X.cont_no2 as cont_no3, X.cont_name2 as cont_name3, X.pro_no2 as pro_no3, X.one_price2 as one_price3, X.prod_no2 as prod_no3, X.prod_name2 as prod_name3, X.prod_price2 as prod_price3, Y.starpoints, Y.num_of_review-->
+<!--        from (-->
+<!--        select AA.cont_no as cont_no2, AA.cont_name as cont_name2, AA.pro_no as pro_no2, AA.one_price as one_price2,-->
+<!--        C.pro_no as prod_no2, C.prod_name as prod_name2, C.prod_price as prod_price2 from-->
+<!--        (select B.cont_no, B.cont_name, A.pro_no, A.one_price-->
+<!--        from one A-->
+<!--        right outer join cont B-->
+<!--        on A.cont_no=B.cont_no) AA-->
+<!--        left outer join prod C-->
 
-        on AA.cont_no=C.cont_no
-        group by AA.cont_no
-        order by AA.cont_no ASC) X
-        inner join
-        (select cont_no, avg(review_star) as starpoints, count(*) as num_of_review from review group by cont_no) Y
-        on X.cont_no2=Y.cont_no
-        ) ver2
-        inner join cont on cont.cont_no=cont_no3
-        ) ver3
-        inner join zzim
-        on zzim.cont_no=ver3.cont_no3
-        ) zzim_final
+<!--        on AA.cont_no=C.cont_no-->
+<!--        group by AA.cont_no-->
+<!--        order by AA.cont_no ASC) X-->
+<!--        inner join-->
+<!--        (select cont_no, avg(review_star) as starpoints, count(*) as num_of_review from review group by cont_no) Y-->
+<!--        on X.cont_no2=Y.cont_no-->
+<!--        ) ver2-->
+<!--        inner join cont on cont.cont_no=cont_no3-->
+<!--        ) ver3-->
+<!--        inner join zzim-->
+<!--        on zzim.cont_no=ver3.cont_no3-->
+<!--        ) zzim_final-->
 
-    </select>
+<!--    </select>-->
 
 </mapper>

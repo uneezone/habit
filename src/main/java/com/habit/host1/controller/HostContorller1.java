@@ -6,10 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.util.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -46,19 +47,19 @@ public class HostContorller1 {
             @RequestParam List<String> one_maxqty,
             @RequestParam List<String> one_price,
             @RequestParam List<MultipartFile> cont_img
-
     ) {
+        map.put("cont_hashtag2", cont_hashtag2);
+        map.put("cont_hashtag4", cont_hashtag4);
+        map.put("prod_name", prod_name);
+        map.put("prod_qty", prod_qty);
+        map.put("prod_price", prod_price);
+        map.put("one_date", one_date);
+        map.put("one_maxqty", one_maxqty);
+        map.put("one_price", one_price);
+        map.put("cont_img", cont_img);
         System.out.println(map);
-        System.out.println("cont_hashtag2 = " + cont_hashtag2);
-        System.out.println("cont_hashtag4 = " + cont_hashtag4);
-        System.out.println("prod_name = " + prod_name);
-        System.out.println("prod_qty = " + prod_qty);
-        System.out.println("prod_price = " + prod_price);
-        System.out.println("one_date = " + one_date);
-        System.out.println("one_maxqty = " + one_maxqty);
-        System.out.println("one_price = " + one_price);
-        System.out.println("cont_img = " + cont_img);
-//        hostService1.contentInsert(userId, map);
+
+        int result = hostService1.contentInsert(map);
         return "host/habit_list";
     }
 }

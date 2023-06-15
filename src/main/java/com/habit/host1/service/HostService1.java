@@ -6,5 +6,5 @@ public interface HostService1 {
 
     List<Map<String, Object>> cateList ();
     List<Map<String, Object>> selectCate (String keyword);
-    void contentInsert (String userId, Map<String, Object> map);
+    int contentInsert (Map<String, Object> map);
 }
