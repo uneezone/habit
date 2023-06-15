@@ -308,7 +308,7 @@ const habitCreateCheck = () => {
     }
 
     // 옵션 목록 입력
-    let pro = $('input[name="cont_no"]:checked')
+    let pro = $('input[name="cont_type"]:checked')
     console.log(pro.attr('id'))
     if(pro.attr('id') === 'prod') { // 선택된 옵션이 날짜 조율형 일때
         let prod_names = $('input[name="prod_name"]')

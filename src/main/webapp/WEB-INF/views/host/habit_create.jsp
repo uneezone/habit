@@ -326,14 +326,14 @@
             </div>
             <div style="display: flex;">
               <div class="select">
-                <input type="radio" id="prod" name="cont_no" value="prod" checked>
+                <input type="radio" id="prod" name="cont_type" value="prod" checked>
                 <label for="prod">
                   <p>날짜 조율형</p>
                   호스트님이 회원 연락처로 별도 연락하여 일정을 조율하는 형태의 해빗입니다. (에스테틱, 네일 등에 적합)
                 </label>
               </div>
               <div class="select">
-                <input type="radio" id="one" name="cont_no" value="one">
+                <input type="radio" id="one" name="cont_type" value="one">
                 <label for="one">
                   <p>날짜 지정형</p>
                   호스트님께서 날짜와 옵션을 등록하여 가능한 날에만 예약을 받을 수 있는 해빗입니다. 일정 관리 및 고객 관리를 더 간편하게 하실 수 있습니다. (에스테틱, 네일 제외한 대부분의 해빗)

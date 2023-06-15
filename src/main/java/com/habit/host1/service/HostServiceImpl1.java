@@ -92,16 +92,17 @@ public class HostServiceImpl1 implements HostService1 {
             }
         }
         map.put("cont_img", cont_img);
-        System.out.println(map.get("cont_img"));
 
-        // 콘텐츠 테이블에 insert
-        int contInsertResult = memoryHostRepository1.insertCont(map);
-        System.out.println(contInsertResult);
+        // 콘텐츠 테이블에 insert 결과
+        int insertContResult = memoryHostRepository1.insertCont(map);
 
         // 옵션 저장
+        // insert된 콘텐츠 번호 가져오기
+        int cont_no = (int) map.get("cont_no");
+
         // 판매유형에 따른 필요없는 옵션 삭제
         List<Map<String, String>> optionList = new ArrayList<>(); // 옵션 리스트 저장 공간
-        if(map.get("cont_no").equals("prod")) { // 옵션이 회차권, 인원권이라면
+        if(map.get("cont_type").equals("prod")) { // 옵션이 회차권, 인원권이라면
 
             // 원데이클래스 옵션에 관한 map entity 삭제
             map.remove("one_date");
@@ -122,7 +123,10 @@ public class HostServiceImpl1 implements HostService1 {
                 optionList.add(option);
             }
 
-        } else if (map.get("cont_no").equals("one")) { // 옵션이 원데이 클래스 라면
+            // 인원권, 회차권 옵션 테이블 insert
+            int insertProdResult = memoryHostRepository1.insertProd(optionList);
+
+        } else if (map.get("cont_type").equals("one")) { // 옵션이 원데이 클래스 라면
 
             // 인원권, 회차권 옵션에 관한 map entity 삭제
             map.remove("prod_name");
@@ -142,10 +146,10 @@ public class HostServiceImpl1 implements HostService1 {
                 option.put("one_price", (String)one_price.get(i));
                 optionList.add(option);
             }
+
+            // 원데이 클래스 옵션 테이블 insert
+            int insertOneResult = memoryHostRepository1.insertOne(optionList);
         }
-        System.out.println(map.get("cont_no"));
-        System.out.println(map.get("prod_name"));
-        System.out.println(map.get("one_date"));
 
         return 0;
     }
