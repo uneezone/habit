@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../header.jsp"%>
-<script src="js/zzim.js?after"></script>
-<link rel="stylesheet" href="css/zzim.css?after">
+<script src="/js/zzim.js?after"></script>
+<link rel="stylesheet" href="/css/zzim.css?after">
 
     <!-------------- 본문 시작------------------- -->
 
