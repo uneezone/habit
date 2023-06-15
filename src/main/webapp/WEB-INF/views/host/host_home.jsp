@@ -24,7 +24,7 @@
       <div class="collapse navbar-collapse" id="navbarColor03">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link active" href="host_home.jsp" style="font-size: larger;">호스트 관리 페이지</a> <%--링크--%>
+            <a class="nav-link active" href="" style="font-size: larger;">호스트 관리 페이지</a> <%--링크--%>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">내 정보</a>
@@ -37,7 +37,7 @@
             <div class="dropdown-menu">
               <a class="dropdown-item" href="habit_list.jsp">해빗 목록</a> <%--링크--%>
               <a class="dropdown-item" href="habit_create.jsp">해빗 등록</a> <%--링크--%>
-              <a class="dropdown-item" href="habit_product_control.jsp">판매 관리</a> <%--링크--%>
+              <a class="dropdown-item" href="/host/product">판매 관리</a> <%--링크--%>
               <a class="dropdown-item" href="habit_reservation_control.jsp">예약 관리</a> <%--링크--%>
               <a class="dropdown-item" href="habit_inquiry_control.jsp">문의 관리</a> <%--링크--%>
               <a class="dropdown-item" href="habit_review_control.jsp">리뷰 관리</a> <%--링크--%>

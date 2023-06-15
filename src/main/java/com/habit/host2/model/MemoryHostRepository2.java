@@ -1,7 +1,9 @@
 package com.habit.host2.model;
 
+import com.habit.host2.entity.HostEditDTO;
 import com.habit.host2.entity.HostInfoDTO;
 import com.habit.host2.entity.NewHostDTO;
+import com.habit.host2.entity.ProductDTO;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,5 +69,15 @@ public class MemoryHostRepository2 implements HostRepository2 {
     @Override
     public HostInfoDTO getHostInfo(String userId) {
         return sqlSession.selectOne("host2.getHostInfo",userId);
+    }
+
+    @Override
+    public void editHostInfo(HostEditDTO dto) {
+        sqlSession.insert("host2.editHostInfo",dto);
+    }
+
+    @Override
+    public List<ProductDTO> getProduct(String hostId) {
+        return sqlSession.selectList("host2.getProduct",hostId);
     }
 }

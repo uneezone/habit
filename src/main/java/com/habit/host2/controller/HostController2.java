@@ -1,7 +1,9 @@
 package com.habit.host2.controller;
 
+import com.habit.host2.entity.HostEditDTO;
 import com.habit.host2.entity.HostInfoDTO;
 import com.habit.host2.entity.NewHostDTO;
+import com.habit.host2.entity.ProductDTO;
 import com.habit.host2.service.HostService2;
 import com.habit.host2.service.HostServiceImpl2;
 import lombok.RequiredArgsConstructor;
@@ -70,7 +72,8 @@ public class HostController2 {
 
         //전환번호
         String phoneNumber="";
-        if(dto.getHostPhone1()==""){
+        System.out.println(dto.getHostPhone1()+"/"+dto.getHostPhone2());
+        if(dto.getHostPhone1()==null||dto.getHostPhone1().isEmpty()){
             phoneNumber = hostService.getPhoneNumber(userId);
             log.info("phoneNum={}",phoneNumber);
         }else{
@@ -122,5 +125,66 @@ public class HostController2 {
         model.addAttribute("hostInfo",hostInfoDTO);
 
         return "host/host_information";
+    }
+
+    @PostMapping("/info")                                                       //나중에 true로 바꿔야함
+    public String modifyInfo(@SessionAttribute(name = "userId",required = false)String userIds,@RequestParam MultipartFile Img, @ModelAttribute HostEditDTO dto,HttpServletRequest req){
+        if(!(Img == null || Img.isEmpty())){
+
+            String filename=Img.getOriginalFilename();
+            log.info("filename={}",filename);
+            long filesize=Img.getSize();
+            dto.setHost_img(filename);
+
+            try {
+                ServletContext application=req.getSession().getServletContext();
+                String path=application.getRealPath("/storage");  //실제 물리적인 경로
+                Img.transferTo(new File(path + "\\" + filename)); //파일저장
+
+            }catch (Exception e) {
+                e.printStackTrace(); //System.out.println(e);
+            }
+        }
+
+        //이메일 합치기
+        String email= dto.getHost_email1()+"@"+dto.getHost_email2();
+        dto.setHost_email1(email);
+
+        //전화번호 합치기
+        String phone=dto.getHost_phone1()+"-"+dto.getHost_phone2()+"-"+dto.getHost_phone3();
+        dto.setHost_phone1(phone);
+
+
+        //임시 Id
+        String userId="user-3";
+        dto.setHost_id(userId);
+
+        //db에 수정사항 저장
+        hostService.editHostInfo(dto);
+        log.info("hostEdit={}",dto);
+        return "redirect:";
+    }
+
+    //판매관리
+    @GetMapping("/product")
+    public String showProduct(@SessionAttribute(name = "userId",required = false)String userIds,Model model){
+        //임시 Id
+        String userId="user-2";
+
+        //판매및 환불 상품 가져와
+        List<ProductDTO> products = hostService.getProduct(userId);
+        log.info("products={}",products);
+
+        model.addAttribute("products",products);
+        model.addAttribute("host_id",userId);
+        return "host/habit_product_control";
+    }
+
+    //예약
+    @GetMapping("/reserve")
+    public String showReserve(@SessionAttribute(name = "userId",required = false)String userIds){
+        //임시 Id
+        String userId="user-3";
+        return "host/habit_reservation_control";
     }
 }

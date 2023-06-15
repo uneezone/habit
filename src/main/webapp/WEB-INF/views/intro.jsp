@@ -44,7 +44,7 @@
       <div class="global2">
         <div class="global_topbar2">
             <div class="global_topbar2_menu1">
-                <a href="category.html" class="global_topbar2_menu1_a">
+                <a href="/category" class="global_topbar2_menu1_a">
                     <div>
                         <img src="img/cate.png" alt="" width="25px"  >
                         <span>카테고리</span>

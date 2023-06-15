@@ -95,11 +95,11 @@ document.addEventListener("DOMContentLoaded", () => {
         "                      </td>\n" +
         "                    </tr>"
     $('#add_option_prod').on('click', ()=>{
-        $('#option_row_prod').append(row_one)
+        $('#option_row_prod').append(row_prod)
     })
 
     $('#option_remove_prod').on('click', () => {
-        let checked = $('input:checkbox[name="cont_option_one"]:checked')
+        let checked = $('input:checkbox[name="cont_option_prod"]:checked')
 
         if(checked.length === 0) {
             alert("삭제할 항목을 선택해 주세요")
@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "                      <td><input class=\"form-check-input\" type=\"checkbox\" name=\"cont_option_one\" id=\"\"></td>\n" +
         "                      <td>\n" +
         "                        <div>\n" +
-        "                          <input type=\"text\" name='one_date' class=\"form-control\">\n" +
+        "                          <input class=\"form-control\" name=\"one_date\" type=\"datetime-local\">\n" +
         "                        </div>\n" +
         "                      </td>\n" +
         "                      <td>\n" +
@@ -308,7 +308,7 @@ const habitCreateCheck = () => {
     }
 
     // 옵션 목록 입력
-    let pro = $('input[name="pro"]:checked')
+    let pro = $('input[name="cont_no"]:checked')
     console.log(pro.attr('id'))
     if(pro.attr('id') === 'prod') { // 선택된 옵션이 날짜 조율형 일때
         let prod_names = $('input[name="prod_name"]')

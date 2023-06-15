@@ -1,7 +1,9 @@
 package com.habit.host2.service;
 
+import com.habit.host2.entity.HostEditDTO;
 import com.habit.host2.entity.HostInfoDTO;
 import com.habit.host2.entity.NewHostDTO;
+import com.habit.host2.entity.ProductDTO;
 import com.habit.host2.model.HostRepository2;
 import com.habit.host2.model.MemoryHostRepository2;
 import lombok.RequiredArgsConstructor;
@@ -55,5 +57,16 @@ public class HostServiceImpl2 implements HostService2 {
     @Override
     public HostInfoDTO getHostInfo(String userId){
         return repository.getHostInfo(userId);
+    }
+
+    @Transactional
+    @Override
+    public void editHostInfo(HostEditDTO dto) {
+        repository.editHostInfo(dto);
+    }
+
+    @Override
+    public List<ProductDTO> getProduct(String hostId) {
+        return repository.getProduct(hostId);
     }
 }

@@ -77,7 +77,7 @@
     <p class="page-name">해빗 등록</p>
 
     <!-- main 시작 -->
-    <form method="post" action="/host/contentinsert" onsubmit="return habitCreateCheck()">
+    <form method="post" action="/host/contentinsert" onsubmit="return habitCreateCheck()" enctype="multipart/form-data">
       <!-- 기본 정보 -->
       <div class="content-wrap">
         <div class="content">
@@ -356,8 +356,8 @@
                   <thead>
                     <tr class="table-secondary">
                       <th></th>
-                      <th>(예시) 인원권,회차권 등</th>
-                      <th>(예시) 1인,2인 또는 1회,2회 등</th>
+                      <th>(예시) 1인권, 1회권 등</th>
+                      <th>(예시) 판매수량</th>
                       <th>가격</th>
                     </tr>
                     <tr>
@@ -406,14 +406,14 @@
                     <tr class="table-secondary">
                       <th></th>
                       <th>(예시) 클래스 실행 일시</th>
-                      <th>(예시) 최대 모집인원 (5인,10인 등)</th>
+                      <th>(예시) 최대 모집인원</th>
                       <th>가격</th>
                     </tr>
                     <tr>
                       <td></td>
                       <td>
                         <div>
-                          <input class="form-control" name="one_date" type="datetime-local" name="" id="">
+                          <input class="form-control" name="one_date" type="datetime-local">
                         </div>
                       </td>
                       <td>
