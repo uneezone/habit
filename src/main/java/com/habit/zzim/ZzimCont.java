@@ -20,7 +20,6 @@ import java.util.Map;
 @RequestMapping("/zzim")
 public class ZzimCont {
 
-<<<<<<< HEAD
     public ZzimCont() {
         System.out.println("----ZzimCont() 객체 생성됨");
     }
@@ -73,7 +72,7 @@ public class ZzimCont {
 
         return mav;
     }
-=======
+
 //    public ZzimCont() {
 //        System.out.println("----CartCont() 객체 생성됨");
 //    }
@@ -86,7 +85,7 @@ public class ZzimCont {
 //        String id="test";
 //
 //    }
->>>>>>> 55bd6e7cfef7e6fdbb0d053aab9d1e47272a00f1
+
 
 
 }
