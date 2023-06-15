@@ -49,6 +49,4 @@
         values (#{cate_no}, #{host_id}, #{cont_name}, #{cont_zip}, #{cont_addr1}, #{cont_addr2}, #{cont_extaddr}, #{cont_endate}, #{cont_img}, #{cont_content}, #{cont_hashtag1}, #{cont_hashtag2}, #{cont_hashtag3}, #{cont_hashtag4}, #{cont_hashtag5});
     </insert>
 
-
-
 </mapper>
