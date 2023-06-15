@@ -6,25 +6,21 @@
 
 <div class="PageWrapper">
     <div style="margin-top: 30px; display: flex;">
-        <img style="width: 300px; border-radius: 3px;" src="./img/thumnail.png">
+        <img style="width: 300px; border-radius: 3px;" src="/img/thumnail.png">
         <div style="margin-left: 20px; width: 280px;">
             <div style="height: 255px;">
                 <div style="display: flex;">
-                    <div style="font-size: 20px;">보컬레슨, 녹음하며 정복하자! (예약 가능)</div>
-                    <img src="./img/share.svg">
+                    <div style="font-size: 20px;">${detail.cont_name}</div>
+                    <img src="/img/share.svg">
                 </div>
                 <div style="display: flex; align-items: flex-end; margin-top: 20px;">
-                    <div style="color: rgb(255, 115, 0); font-weight: bold; font-size: 20px; margin-right: 10px;">
-                        47%</div>
-                    <div style="font-weight: bold; font-size: 20px; margin-right: 4px">20,000원</div>
-                    <div style="font-size: 13px; color: rgb(184, 184, 184); text-decoration:line-through;">37,500원
-                    </div>
+                    <div style="font-weight: bold; font-size: 20px; margin-right: 4px">100,000원</div>
                 </div>
             </div>
             <hr>
             <div style="display: flex; align-items: center;">
                 <div style="display: flex; align-items: center;">
-                    <img src="./img/ME.png"
+                    <img src="/img/ME.png"
                          style="border-radius: 40px; width: 40px; height: 40px; background-color: rgb(0, 0, 0);"></img>
                     <div>
                         <div style="margin-left: 20px; display: flex; flex-direction: column">
@@ -34,7 +30,7 @@
                     </div>
                 </div>
                 <div style="margin-left: 35px;">
-                    <img style="width: 20px;" src="./img/heart.png">
+                    <img style="width: 20px;" src="/img/heart.png">
                 </div>
             </div>
         </div>
@@ -51,22 +47,22 @@
             <div class="Reviewflex">
                 <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                 <div class="Reviewgreen">
-                    <img src="img/ang.png" alt="">
+                    <img src="/img/ang.png" alt="">
                     <p>user</p>
                     <span>내용</span>
                 </div>
                 <div class="Reviewgreen1">
-                    <img src="img/ang.png" alt="">
+                    <img src="/img/ang.png" alt="">
                     <p>user</p>
                     <span>내용</span>
                 </div>
                 <div class="Reviewgreen2">
-                    <img src="img/ang.png" alt="">
+                    <img src="/img/ang.png" alt="">
                     <p>user</p>
                     <span>내용</span>
                 </div>
                 <div class="Reviewgreen3">
-                    <img src="img/ang.png" alt="">
+                    <img src="/img/ang.png" alt="">
                     <p>user</p>
                     <span>내용</span>
                 </div>
@@ -81,10 +77,12 @@
 
         <div class="Classintroduction">
             <h2>해빗 소개</h2>
+            ${detail.cont_content}
         </div>
         <hr>
         <div class="Classplace">
             <h2>진행하는 장소</h2>
+<%--            ${detail.cont_addr1 + '/' + detail.cont_addr2 + '/' + detail.cont_extaddr}--%>
         </div>
         <hr>
         <div class="Classsupplies">

@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Slf4j
@@ -46,6 +47,13 @@ public class ProductCont {
         return mav;
     }
 
+    @RequestMapping("/category/products/{cont_no}")
+    public ModelAndView detail(@PathVariable int cont_no) {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("product/detailpage");
+        mav.addObject("detail", productDao.detail(cont_no));
+        return mav;
+    }
 
 
 }

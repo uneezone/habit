@@ -30,5 +30,9 @@ public class ProductDAO {
         return sqlSession.selectList("product.middle", cate_large);
     }
 
+    public Map<String, Object> detail(int cont_no) {
+         return sqlSession.selectOne("product.detail", cont_no);
+    }
+
 
 }
