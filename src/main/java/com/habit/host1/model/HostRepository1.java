@@ -8,4 +8,8 @@ public interface HostRepository1 {
     List<Map<String, Object>> cateList();
 
     List<Map<String, Object>> selectCate(String keyword);
+
+    String selectCateNo(String keyword);
+
+    int insertCont(Map<String, Object> map);
 }

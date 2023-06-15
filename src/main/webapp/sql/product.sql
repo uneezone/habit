@@ -5,6 +5,11 @@ CREATE TABLE cate (
     cate_middle  varchar(50)  NOT NULL
 );
 
+select cate_large
+from cate
+group by cate_large
+order by cate_large;
+
 # o 아웃도어 (서핑, 등산, 캠핑),
 insert into cate (cate_no, cate_large, cate_middle)
 values ('o1','아웃도어', '서핑');
@@ -90,6 +95,10 @@ values ('l3', '상담', '성격심리검사');
 # a 문화예술 (미술, 연기, 공연),
 # d 자기계발 (투잡, 재테크),
 # l 상담 (사주, 심리상담, 성격심리검사)
+
+select *
+from cate a join cont b on a.cate_no = b.cate_no
+where cate_large = '베이킹';
 
 
 # [콘텐츠 테이블]
