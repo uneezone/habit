@@ -1,4 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -73,7 +77,7 @@
     <p class="page-name">해빗 등록</p>
 
     <!-- main 시작 -->
-    <form method="post" action="#" onsubmit="return habitCreateCheck()">
+    <form method="post" action="/host/contentinsert" onsubmit="return habitCreateCheck()" enctype="multipart/form-data">
       <!-- 기본 정보 -->
       <div class="content-wrap">
         <div class="content">
@@ -83,16 +87,17 @@
               <p>카테고리</p>
             </div>
             <div class="content-flex">
-              <div style="width: 150px; margin-right: 10px;">
+              <div style="width: 200px; margin-right: 10px;">
                 <select name="cate_large" id="cate_large" class="form-select">
-                  <option value="0">대분류</option>
-                  <option value="1">large</option>
+                  <option value="0">1차 카테고리</option>
+                  <c:forEach var="map" items="${List}">
+                  <option value='${map.get("cate_large")}'>${map.get("cate_large")}</option>
+                  </c:forEach>
                 </select>
               </div>
-              <div style="width: 150px;">
+              <div style="width: 200px;">
                 <select name="cate_middle" id="cate_middle" class="form-select">
-                  <option value="0">중분류</option>
-                  <option value="1">middle</option>
+                  <option value="0">2차 카테고리</option>
                 </select>
               </div>
             </div>
@@ -120,7 +125,7 @@
             <div>
               <div class="item">
                 <div>
-                  <input class="form-control" type="text" id="zipcode" name="cont_zip" placeholder="우편번호" disabled>
+                  <input class="form-control" type="text" id="zipcode" name="cont_zip" placeholder="우편번호" readonly>
                 </div>
                 <div>
                   <input class="btn btn-outline-primary" type="button" onclick="DaumPostcode()" value="주소 찾기">
@@ -131,7 +136,7 @@
               </div>
               <div>
                 <div>
-                  <input class="form-control" type="text" id="address1" name="cont_addr1" placeholder="주소" disabled>
+                  <input class="form-control" type="text" id="address1" name="cont_addr1" placeholder="주소" readonly>
                 </div>
               </div>
               <div>
@@ -139,10 +144,7 @@
                   <input class="form-control" type="text" id="address2" name="cont_addr2" placeholder="나머지 주소를 입력해주세요">
                 </div>
                 <div>
-                  <input class="form-control" type="text" id="sample3_extraAddress" name="cont_extaAddr" placeholder="참고항목" disabled>
-                </div>
-                <div>
-                  <small hidden id="cont_place_small">해빗명은 필수입니다. 40자 이내로 입력해주세요.</small>
+                  <input class="form-control" type="text" id="sample3_extraAddress" name="cont_extaddr" placeholder="참고항목" readonly>
                 </div>
               </div>
             </div>
@@ -161,19 +163,19 @@
                 </div>
                 <div class="checkbox">
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="cont_hashtag1" id="hashtag1-1" value="option1">
+                    <input class="form-check-input" type="radio" name="cont_hashtag1" id="hashtag1-1" value="M">
                     <label class="form-check-label" for="hashtag1-1">
                       남자
                     </label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="cont_hashtag1" id="hashtag1-2" value="option1">
+                    <input class="form-check-input" type="radio" name="cont_hashtag1" id="hashtag1-2" value="W">
                     <label class="form-check-label" for="hashtag1-2">
                       여자
                     </label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="cont_hashtag1" id="hashtag1-3" value="option1">
+                    <input class="form-check-input" type="radio" name="cont_hashtag1" id="hashtag1-3" value="N">
                     <label class="form-check-label" for="hashtag1-3">
                       상관없음
                     </label>
@@ -186,25 +188,25 @@
                 </div>
                 <div class="checkbox">
                   <div>
-                    <input class="form-check-input" type="checkbox" value="" name="cont_hashtag2" id="hashtag2-1">
+                    <input class="form-check-input" type="checkbox" name="cont_hashtag2" id="hashtag2-1" value="20">
                     <label class="form-check-label" for="hashtag2-1">
                       20대
                     </label>
                   </div>
                   <div>
-                    <input class="form-check-input" type="checkbox" value="" name="cont_hashtag2" id="hashtag2-2">
+                    <input class="form-check-input" type="checkbox" name="cont_hashtag2" id="hashtag2-2" value="30">
                     <label class="form-check-label" for="hashtag2-2">
                       30대
                     </label>
                   </div>
                   <div>
-                    <input class="form-check-input" type="checkbox" value="" name="cont_hashtag2" id="hashtag2-3">
+                    <input class="form-check-input" type="checkbox" name="cont_hashtag2" id="hashtag2-3" value="40">
                     <label class="form-check-label" for="hashtag2-3">
                       40대
                     </label>
                   </div>
                   <div>
-                    <input class="form-check-input" type="checkbox" value="" name="cont_hashtag2" id="hashtag2-4">
+                    <input class="form-check-input" type="checkbox" name="cont_hashtag2" id="hashtag2-4" value="50">
                     <label class="form-check-label" for="hashtag2-4">
                       50대 이상
                     </label>
@@ -217,13 +219,13 @@
                 </div>
                 <div class="checkbox">
                   <div>
-                    <input class="form-check-input" type="radio" name="cont_hashtag3" id="hashtag3-1">
+                    <input class="form-check-input" type="radio" name="cont_hashtag3" id="hashtag3-1" value="IN">
                     <label class="form-check-label" for="hashtag3-1">
                       실내 활동
                     </label>
                   </div>
                   <div>
-                    <input class="form-check-input" type="radio" name="cont_hashtag3" id="hashtag3-2">
+                    <input class="form-check-input" type="radio" name="cont_hashtag3" id="hashtag3-2" value="OUT">
                     <label class="form-check-label" for="hashtag3-2">
                       실외 활동
                     </label>
@@ -236,19 +238,19 @@
                 </div>
                 <div class="checkbox">
                   <div>
-                    <input class="form-check-input" type="checkbox" value="" name="cont_hashtag4" id="hashtag4-1">
+                    <input class="form-check-input" type="checkbox" value="WC" name="cont_hashtag4" id="hashtag4-1">
                     <label class="form-check-label" for="hashtag4-1">
                       연인과 함께
                     </label>
                   </div>
                   <div>
-                    <input class="form-check-input" type="checkbox" value="" name="cont_hashtag4" id="hashtag4-2">
+                    <input class="form-check-input" type="checkbox" value="WF" name="cont_hashtag4" id="hashtag4-2">
                     <label class="form-check-label" for="hashtag4-2">
                       친구와 함께
                     </label>
                   </div>
                   <div>
-                    <input class="form-check-input" type="checkbox" value="" name="cont_hashtag4" id="hashtag4-3">
+                    <input class="form-check-input" type="checkbox" value="WA" name="cont_hashtag4" id="hashtag4-3">
                     <label class="form-check-label" for="hashtag4-3">
                       혼자
                     </label>
@@ -261,25 +263,25 @@
                 </div>
                 <div class="checkbox">
                   <div>
-                    <input class="form-check-input" type="radio" name="cont_hashtag5" id="hashtag5-1">
+                    <input class="form-check-input" type="radio" name="cont_hashtag5" id="hashtag5-1" value="p3">
                     <label class="form-check-label" for="hashtag5-1">
                       3만원 이하
                     </label>
                   </div>
                   <div>
-                    <input class="form-check-input" type="radio" name="cont_hashtag5" id="hashtag5-2">
+                    <input class="form-check-input" type="radio" name="cont_hashtag5" id="hashtag5-2" value="p5">
                     <label class="form-check-label" for="hashtag5-2">
                       3만원 ~ 5만원
                     </label>
                   </div>
                   <div>
-                    <input class="form-check-input" type="radio" name="cont_hashtag5" id="hashtag5-3">
+                    <input class="form-check-input" type="radio" name="cont_hashtag5" id="hashtag5-3" value="p7">
                     <label class="form-check-label" for="hashtag5-3">
                       5만원 ~ 7만원
                     </label>
                   </div>
                   <div>
-                    <input class="form-check-input" type="radio" name="cont_hashtag5" id="hashtag5-4">
+                    <input class="form-check-input" type="radio" name="cont_hashtag5" id="hashtag5-4" value="pp">
                     <label class="form-check-label" for="hashtag5-4">
                       7만원 이상
                     </label>
@@ -303,13 +305,13 @@
               </div>
               <div class="item" style="align-items: center;">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="cont_endate" id="cont_endate_option1" value="endate_option1" checked onchange="contEndateOptionCheck1()">
+                  <input class="form-check-input" type="radio" name="cont_endate" id="cont_endate_option1" value="default" checked onchange="contEndateOptionCheck1()">
                   <label class="form-check-label" for="cont_endate_option1">
                     한달(기본)
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="cont_endate" id="cont_endate_option2" value="endate_option2" onchange="contEndateOptionCheck2()">
+                  <input class="form-check-input" type="radio" id="cont_endate_option2" name="cont_endate" onchange="contEndateOptionCheck2()">
                   <label class="form-check-label" for="cont_endate_option2">지정한 날짜까지 판매</label>
                 </div>
                 <div>
@@ -324,14 +326,14 @@
             </div>
             <div style="display: flex;">
               <div class="select">
-                <input type="radio" id="prod" name="pro" value="prod" checked>
+                <input type="radio" id="prod" name="cont_no" value="prod" checked>
                 <label for="prod">
                   <p>날짜 조율형</p>
                   호스트님이 회원 연락처로 별도 연락하여 일정을 조율하는 형태의 해빗입니다. (에스테틱, 네일 등에 적합)
                 </label>
               </div>
               <div class="select">
-                <input type="radio" id="one" name="pro" value="one">
+                <input type="radio" id="one" name="cont_no" value="one">
                 <label for="one">
                   <p>날짜 지정형</p>
                   호스트님께서 날짜와 옵션을 등록하여 가능한 날에만 예약을 받을 수 있는 해빗입니다. 일정 관리 및 고객 관리를 더 간편하게 하실 수 있습니다. (에스테틱, 네일 제외한 대부분의 해빗)
@@ -411,7 +413,7 @@
                       <td></td>
                       <td>
                         <div>
-                          <input class="form-control" name="one_date" type="datetime-local" name="" id="">
+                          <input class="form-control" name="one_date" type="datetime-local">
                         </div>
                       </td>
                       <td>
@@ -467,7 +469,7 @@
               <div class="input-img">
                 <small hidden id="cont_img_small">이미지 파일은 3개까지 첨부 가능합니다.</small><br>
                 <label for="cont_img" class="btn btn-outline-primary">이미지 추가하기</label>
-                <input type="file" id="cont_img" class="form-control" accept="image/*" onchange="contImgCheck(this)" multiple>
+                <input type="file" id="cont_img" name="cont_img" class="form-control" accept="image/*" onchange="contImgCheck(this)" multiple>
               </div>
             </div>
           </div><hr>
@@ -478,7 +480,7 @@
             </div>
           <!-- 썸머노트 사용 textarea -->
             <div>
-              <textarea id="summernote" name="editordata" maxlength="2000"></textarea>
+              <textarea id="summernote" name="cont_content" maxlength="2000"></textarea>
             </div>
           </div>
         </div>
@@ -617,6 +619,22 @@ function DaumPostcode() {
     // iframe을 넣은 element를 보이게 한다.
     element_wrap.style.display = 'block';
 }
+
+$('#cate_large').on('change', (e)=>{
+  let cate_large = e.currentTarget.value
+  $.ajax({
+    url: '/host/cate_middle.do',
+    type: 'get',
+    data: {'cate_large': cate_large}, // json형태로 넘김
+    success: (List) => {
+      document.getElementById('cate_middle').replaceChildren()
+      $('#cate_middle').append("<option value='0'>2차 카테고리</option>")
+      for (let map of List) {
+        $('#cate_middle').append("<option value='" + map.cate_middle + "'>" + map.cate_middle + "</option>")
+      }
+    }
+  })
+})
 </script>
 </body>
 </html>

@@ -24,7 +24,13 @@ const contEndateOptionCheck2 = (e) => {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-
+    
+    // 판매종료일 : 지정한 날짜까지 판매일 최대 날짜 현재일로 부터 한달 지정
+    let now = new Date()
+    let maxDate = new Date(now.setMonth(now.getMonth() + 1)).toISOString().split("T")[0]
+    document.getElementById('endate_option2').setAttribute('max', maxDate)
+    
+    
     // 판매 유형 이벤트
     $('#one').on('click', ()=>{
         if (confirm('기존에 입력하신 옵션들이 초기화 됩니다. 유형을 변경하시겠습니까?')) {
@@ -89,11 +95,11 @@ document.addEventListener("DOMContentLoaded", () => {
         "                      </td>\n" +
         "                    </tr>"
     $('#add_option_prod').on('click', ()=>{
-        $('#option_row_prod').append(row_one)
+        $('#option_row_prod').append(row_prod)
     })
 
     $('#option_remove_prod').on('click', () => {
-        let checked = $('input:checkbox[name="cont_option_one"]:checked')
+        let checked = $('input:checkbox[name="cont_option_prod"]:checked')
 
         if(checked.length === 0) {
             alert("삭제할 항목을 선택해 주세요")
@@ -113,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "                      <td><input class=\"form-check-input\" type=\"checkbox\" name=\"cont_option_one\" id=\"\"></td>\n" +
         "                      <td>\n" +
         "                        <div>\n" +
-        "                          <input type=\"text\" name='one_date' class=\"form-control\">\n" +
+        "                          <input class=\"form-control\" name=\"one_date\" type=\"datetime-local\">\n" +
         "                        </div>\n" +
         "                      </td>\n" +
         "                      <td>\n" +
@@ -166,10 +172,10 @@ function contImgCheck(imgs) {
         for(let i=0; i<imgs.files.length; i++) {
             if(imgs.files && imgs.files[i]) {
                 const reader = new FileReader()
-            reader.onload = function (e) {
-                document.getElementById('preview_cont_img' + (i+1)).src = e.target.result
-            }
-            reader.readAsDataURL(imgs.files[i])
+                reader.onload = function (e) {
+                    document.getElementById('preview_cont_img' + (i+1)).src = e.target.result
+                }
+                reader.readAsDataURL(imgs.files[i])
             } else {
                 document.getElementById('preview_cont_img' + (i+1)).src = ""
             }
@@ -302,7 +308,7 @@ const habitCreateCheck = () => {
     }
 
     // 옵션 목록 입력
-    let pro = $('input[name="pro"]:checked')
+    let pro = $('input[name="cont_no"]:checked')
     console.log(pro.attr('id'))
     if(pro.attr('id') === 'prod') { // 선택된 옵션이 날짜 조율형 일때
         let prod_names = $('input[name="prod_name"]')
@@ -343,7 +349,7 @@ const habitCreateCheck = () => {
             return false
         }
 
-    } else { // 선택된 옵션이 날짜 지정형 일때
+    } else if(pro.attr('id') === 'one') { // 선택된 옵션이 날짜 지정형 일때
         let one_dates = $('input[name="one_date"]')
         let count_one_date = 0
         for (let one_date of one_dates) {
