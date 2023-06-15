@@ -67,27 +67,27 @@ CREATE TABLE payd (
     payd_price   int          NOT NULL  DEFAULT 0,                   #상품 금액(1개단위)
   payd_qty     int          NOT NULL  DEFAULT 0,                   #주문 수량
     payd_status  char(1)      NOT NULL  DEFAULT 'R',                 #주문 상세 상태
-  refn_status  char(3)      NOT NULL  DEFAULT 'RO',                #환불 상태
+  refn_status  char(4)      NOT NULL  DEFAULT 'RO',                #환불 상태
     payd_date    datetime     NOT NULL  DEFAULT now()                #주문 날짜
 );
 
 insert into payd (user_id, pay_no, pro_no, payd_price, payd_qty, payd_status, refn_status, payd_date)
-values ('user-2', 'P202204130202021', 'o_no1', 30000, 5, 'Y', 'RO', '2022-04-13 02:02:02');
+values ('user-2', 'P202204130202021', 'o_no1', 30000, 5, 'Y', 'NRO', '2022-04-13 02:02:02');
 
 insert into payd (user_id, pay_no, pro_no, payd_price, payd_qty, payd_status, refn_status, payd_date)
-values ('user-1','P202207220101011', 'p_no2', 18000, 1, 'C', 'FRO', '2022-07-22 01:01:01');
+values ('user-1','P202207220101011', 'p_no2', 18000, 1, 'C', 'CFRO', '2022-07-22 01:01:01');
 
 insert into payd (user_id, pay_no, pro_no, payd_price, payd_qty, payd_status, refn_status, payd_date)
-values ('user-1','P202207231833001', 'p_no3', 24000, 1, 'Y', 'RO', '2022-07-23 18:33:00');
+values ('user-1','P202207231833001', 'p_no3', 24000, 1, 'Y', 'NRO', '2022-07-23 18:33:00');
 
 insert into payd (user_id, pay_no, pro_no, payd_price, payd_qty, payd_status, refn_status, payd_date)
-values ('user-3', 'P202208011835001', 'p_no3', 24000, 1, 'Y', 'RO', '2022-08-01 18:35:00');
+values ('user-3', 'P202208011835001', 'p_no3', 24000, 1, 'Y', 'NRO', '2022-08-01 18:35:00');
 
 insert into payd (user_id, pay_no, pro_no, payd_price, payd_qty, payd_status, refn_status, payd_date)
-values ('user-3', 'P202208011835001', 'o_no3', 30000, 2, 'Y', 'RO', '2022-08-01 18:35:00');
+values ('user-3', 'P202208011835001', 'o_no3', 30000, 2, 'Y', 'NRO', '2022-08-01 18:35:00');
 
 insert into payd (user_id, pay_no, pro_no, payd_price, payd_qty, payd_status, refn_status, payd_date)
-values ('user-4', 'P202208021203001', 'o_no3', 30000, 10, 'Y', 'RO', '2022-08-02 12:03:00');
+values ('user-4', 'P202208021203001', 'o_no3', 30000, 10, 'Y', 'NRO', '2022-08-02 12:03:00');
 
 
 
