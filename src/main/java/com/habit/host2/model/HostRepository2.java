@@ -1,7 +1,9 @@
 package com.habit.host2.model;
 
+import com.habit.host2.entity.HostEditDTO;
 import com.habit.host2.entity.HostInfoDTO;
 import com.habit.host2.entity.NewHostDTO;
+import com.habit.host2.entity.ProductDTO;
 
 import java.util.List;
 
@@ -20,5 +22,12 @@ public interface HostRepository2 {
     //유저테이블단에서 user_grade H로 바꾸기
     void updateUserGrade(String userId);
 
+    //호스트 정보 가져오기
     HostInfoDTO getHostInfo(String userId);
+
+    //호스트 정보 수정
+    void editHostInfo(HostEditDTO dto);
+
+    //해당 호스트 회차권/인원권 판매 및 환불된거 가져오기
+    List<ProductDTO> getProduct(String hostId);
 }

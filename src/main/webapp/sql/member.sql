@@ -19,23 +19,23 @@ CREATE TABLE user (
 );
 drop table user;
 
-insert into user (user_id, user_pw, user_name, user_email, user_phone, user_birth, user_gender, user_img, user_date)
-values ('user-1', '1234', '유저1', 'user1@itwill.com', '010-1234-1234', '19990101', 'm', 'defaultPro.png', '2022-01-01 00:00:00');
+insert into user (user_id, user_pw, user_name, user_email, user_phone, user_birth, user_gender, user_img, user_grade,user_date)
+values ('user-1', '1234', '유저1', 'user1@itwill.com', '010-1234-1234', '19990101', 'm', 'defaultPro.png','H', '2022-01-01 00:00:00');
 
-insert into user (user_id, user_pw, user_name, user_email, user_phone, user_birth, user_gender, user_img, user_date)
-values ('user-2', '1234', '유저2', 'user2@itwill.com', '010-1234-1235', '19980101', 'w', 'user2.jpg', '2022-04-01 00:00:00');
+insert into user (user_id, user_pw, user_name, user_email, user_phone, user_birth, user_gender, user_img,user_grade, user_date)
+values ('user-2', '1234', '유저2', 'user2@itwill.com', '010-1234-1235', '19980101', 'w', 'user2.jpg','H', '2022-04-01 00:00:00');
 
-insert into user (user_id, user_pw, user_name, user_email, user_phone, user_birth, user_gender, user_img, user_grade, user_date)
-values ('user-3', '1234', '유저3', 'user3@itwill.com', '010-1234-1236', '19970101', 'w', 'defaultPro.png', 'H', '2022-07-01 00:00:00');
+insert into user (user_id, user_pw, user_name, user_email, user_phone, user_birth, user_gender, user_img,  user_date)
+values ('user-3', '1234', '유저3', 'user3@itwill.com', '010-1234-1236', '19970101', 'w', 'defaultPro.png',  '2022-07-01 00:00:00');
 
-insert into user (user_id, user_pw, user_name, user_email, user_phone, user_birth, user_gender, user_img, user_level, user_date)
-values ('user-4', '1234', '유저4', 'user4@itwill.com', '010-1234-1237', '19960101', 'w', 'user4.jpg', 'A', '2022-07-14 00:00:00');
+insert into user (user_id, user_pw, user_name, user_email, user_phone, user_birth, user_gender, user_img,user_grade, user_level, user_date)
+values ('user-4', '1234', '유저4', 'user4@itwill.com', '010-1234-1237', '19960101', 'w', 'user4.jpg', 'A','H', '2022-07-14 00:00:00');
 
-insert into user (user_id, user_pw, user_name, user_email, user_phone, user_birth, user_gender, user_img, user_status, user_grade, user_date)
-values ('user-5', '1234', '유저5', 'user5@itwill.com', '010-1234-1238', '19950101', 'm', 'defaultPro.png', 'X', 'H', '2022-10-01 00:00:00');
+insert into user (user_id, user_pw, user_name, user_email, user_phone, user_birth, user_gender, user_img, user_status, user_date)
+values ('user-5', '1234', '유저5', 'user5@itwill.com', '010-1234-1238', '19950101', 'm', 'defaultPro.png', 'X',  '2022-10-01 00:00:00');
 
-insert into user (user_id, user_pw, user_name, user_email, user_phone, user_birth, user_gender, user_img, user_status, user_grade, user_date)
-values ('user-6', '1234', '유저6', 'user6@itwill.com', '010-1234-1239', '19940101', 'm', 'user6.jpg', 'N', 'H', '2023-04-01 00:00:00');
+insert into user (user_id, user_pw, user_name, user_email, user_phone, user_birth, user_gender, user_img, user_status, user_date)
+values ('user-6', '1234', '유저6', 'user6@itwill.com', '010-1234-1239', '19940101', 'm', 'user6.jpg', 'N',  '2023-04-01 00:00:00');
 
 
 # [호스트 테이블]
@@ -43,13 +43,13 @@ CREATE TABLE host (
     host_id        varchar(25)   NOT NULL  primary key,                  #호스트 아이디
     host_name      varchar(20)   NOT NULL,                               #호스트 닉네임
     host_phone     varchar(15)   NOT NULL,                               #호스트 전화번호
-    host_intro     varchar(200)  NOT NULL,                               #소개글
+    host_intro     varchar(200)  NULL,                               #소개글
     host_email     varchar(40)   NOT NULL,                               #호스트 이메일
     host_img       varchar(100)  NOT NULL  DEFAULT 'defaulthostPro.png', #프로필 이미지
     host_size      int	         NULL	   DEFAULT 0,                    #이미지 사이즈
-    host_account   varchar(50)   NOT NULL,                               #계좌번호
-    host_bank      varchar(15)   NOT NULL,                               #은행
-    host_acholder  varchar(15)   NOT NULL,                               #예금주
+    host_account   varchar(50)   NULL,                               #계좌번호
+    host_bank      varchar(15)   NULL,                               #은행
+    host_acholder  varchar(15)   NULL,                               #예금주
     host_date      datetime      NOT NULL  DEFAULT now()                 #호스트 등록일
 );
 
