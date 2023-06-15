@@ -235,7 +235,7 @@
                         <div class="Home_product_recommend_list">
                             <c:forEach items="${list}" var="row" varStatus="vs">
                                 <div class="Home_product_recommend_p">
-                                    <a href="#" class="href">
+                                    <a href="products/${row.cont_no}" class="href">
                                         <div class="Home_product_recommend_p_div">
                                             <div>
                                                 <img src="/img/image.jpeg" alt="" width="150px">
@@ -247,7 +247,7 @@
                                             </div>
                                             <div class="Home_product_recommend_p_font">
                                                 <div>
-                                                    <span class="Miniarea">${row.cont_addr1}</span>
+                                                    <span class="Miniarea">${fn:substring(row.cont_addr1, 0, 7)}</span>
                                                     <div>
                                                             ${row.cont_name}
                                                     </div>
@@ -257,7 +257,7 @@
                                                         <img src="/img/star.png" alt="" class="Home_recommend_star">
                                                         <img src="/img/star.png" alt="" class="Home_recommend_star">
                                                         <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
+                                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);"></span>
                                                     </section>
                                                     <hr class="Home_recommend_hr">
                                                     <div>
