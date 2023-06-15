@@ -13,27 +13,46 @@
         ORDER BY cont_no DESC;
     </select>
 
+    <!-- 대분류 전체 select -->
     <select id="cateListLage" resultType="java.util.Map">
         SELECT cate_large
         FROM habit.cate
         group by cate_large
     </select>
 
+    <!-- 대분류에 따른 중분류 select -->
     <select id="cateListMiddle" parameterType="String" resultType="java.util.Map">
         SELECT cate_middle
         FROM habit.cate
         WHERE cate_large = #{cate_large}
     </select>
 
+    <!-- 해당 카테고리의 cate_no 가져오기 -->
     <select id="selectCateNo" parameterType="String" resultType="String">
         SELECT cate_no
         FROM habit.cate
         WHERE cate_middle = #{cate_middle}
     </select>
 
-    <insert id="insertCont" parameterType="java.util.Map">
+    <!-- 콘텐츠 테이블 insert -->
+    <insert id="insertCont" useGeneratedKeys="true" keyProperty="cont_no" parameterType="java.util.Map" >
         INSERT INTO cont (cate_no, host_id, cont_name, cont_zip, cont_addr1, cont_addr2, cont_extaddr, cont_endate, cont_img, cont_content, cont_hashtag1, cont_hashtag2, cont_hashtag3, cont_hashtag4, cont_hashtag5)
-        values (#{cate_no}, #{host_id}, #{cont_name}, #{cont_zip}, #{cont_addr1}, #{cont_addr2}, #{cont_extaddr}, #{cont_endate}, #{cont_img}, #{cont_content}, #{cont_hashtag1}, #{cont_hashtag2}, #{cont_hashtag3}, #{cont_hashtag4}, #{cont_hashtag5});
+        values (#{cate_no}, #{host_id}, #{cont_name}, #{cont_zip}, #{cont_addr1}, #{cont_addr2}, #{cont_extaddr}, #{cont_endate}, #{cont_img}, #{cont_content}, #{cont_hashtag1}, #{cont_hashtag2}, #{cont_hashtag3}, #{cont_hashtag4}, #{cont_hashtag5})
+        <selectKey keyProperty="cont_no" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <!-- 원데이 클래스 테이블 insert -->
+    <insert id="insertOne" parameterType="java.util.Map">
+        insert into one(pro_no, cont_no, one_date, one_maxqty, one_price,one_status)
+        values(concat('o_no',nextval(habit.sq_one)), 1, '2022-04-17 14:00:00', 5, 30000,'OS')
+    </insert>
+
+    <!-- 회차권/인원권 테이블 insert -->
+    <insert id="insertProd" parameterType="java.util.Map">
+        insert into prod(pro_no, cont_no, prod_name, prod_qty, prod_price,prod_status)
+        values(concat('p_no',nextval(habit.sq_prod)), 2, '1회권', 10, 10000, 'PC')
     </insert>
 
 </mapper>

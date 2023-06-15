@@ -12,4 +12,7 @@ public interface HostRepository1 {
     String selectCateNo(String keyword);
 
     int insertCont(Map<String, Object> map);
+
+    int insertOne(List<Map<String, String>> list);
+    int insertProd(List<Map<String, String>> list);
 }

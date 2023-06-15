@@ -31,9 +31,21 @@ public class MemoryHostRepository1 implements HostRepository1{
         return sqlSession.selectOne("product.selectCateNo", cate_middle);
     }
 
-    // 콘텐츠 insert
+    // 콘텐츠 테이블 insert
     @Override
     public int insertCont(Map<String, Object> map) {
         return sqlSession.insert("product.insertCont", map);
+    }
+
+    // 원데이 클래스 테이블 insert
+    @Override
+    public int insertOne(List<Map<String, String>> list) {
+        return sqlSession.insert("product.insertOne", list);
+    }
+
+    // 인원권, 회차권 테이블 insert
+    @Override
+    public int insertProd(List<Map<String, String>> list) {
+        return sqlSession.insert("product.insertProd", list);
     }
 }

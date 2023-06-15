@@ -61,7 +61,6 @@ public class HostContorller1 {
         map.put("one_maxqty", one_maxqty);
         map.put("one_price", one_price);
         map.put("cont_img", cont_img);
-        System.out.println(map);
 
         int result = hostService1.contentInsert(map);
         return "host/habit_list";
