@@ -10,7 +10,21 @@
     <select id="list" resultType="java.util.Map">
         SELECT cont_no, cont_name, cont_place, cont_img, cont_size
         FROM cont
-        ORDER BY cont_no DESC;
+        ORDER BY cont_no DESC
     </select>
+
+    <select id="mid" resultType="java.util.Map">
+        SELECT cate.cate_middle
+        FROM cont
+                 JOIN cate ON cont.cate_no = cate.cate_no
+    </select>
+
+    <select id="suf" resultType="java.util.Map" parameterType="String">
+    SELECT cont.cate_no, cont.cont_no, cont.cont_name, cont.cont_place, cate.cate_large, cate.cate_middle
+        FROM cont
+        JOIN cate ON cont.cate_no = cate.cate_no
+     WHERE cate.cate_large = #{cate_large}
+    </select>
+
 
 </mapper>

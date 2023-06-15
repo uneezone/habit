@@ -6,6 +6,7 @@ window.onload=function(){
 
 }
 
+
 $(document).ready(function() {
     // 카테고리 항목 클릭 처리
     $('.CategoryItem-A').on('click', function(event) {
@@ -15,7 +16,8 @@ $(document).ready(function() {
 
     // 선택한 카테고리 이름 저장
     localStorage.setItem('selectedCategory', categoryText);
-    // 원하는 페이지로 이동
+
+        // 원하는 페이지로 이동
         window.location.href = contextPath + '/category/list';
     });
 });

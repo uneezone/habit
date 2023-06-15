@@ -17,7 +17,8 @@
         <div class="Fade_Wrapper" style="opacity: 1; display: block;">
         <div class="CategoryList__Wrapper">
 
-            <a  href="/category/list" class="CategoryItem-A" data-category="아웃도어">
+
+            <a  href="category/${cate_large}" class="CategoryItem-A" data-category="아웃도어">
                 <div class="CategoryItem1">
                     <div class="CategoryItem__Background"></div>
                     <div class="CategoryItem__Text"></div>
@@ -49,11 +50,11 @@
                 </div>
             </a>
 
-            <a href="#" class="CategoryItem-A" data-category="베이킹">
+            <a  href="#"  class="CategoryItem-A" data-category="베이킹">
                 <div class="CategoryItem5">
                     <div class="CategoryItem__Background"></div>
                     <div class="CategoryItem__Text"></div>
-                    <span>베이킹</span>
+                    <span >베이킹</span>
                 </div>
             </a>
 

@@ -21,4 +21,14 @@ public class ProductDAO {
         return sqlSession.selectList("product.list");
     }
 
+    //test code
+    public List<Map<String, Object>> mid() {
+        return sqlSession.selectList("product.mid");
+    }
+
+    public  List<Map<String, Object>> suf(String cate_large) {
+        return sqlSession.selectList("product.suf", cate_large);
+    }
+
+
 }

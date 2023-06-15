@@ -14,6 +14,7 @@ $(document).ready(function () {
     localStorage.setItem("selectedCategory", selectedCategory);
     $("#selectedCategory").text(selectedCategory);
 
+
     // 필터단 유동 적용
     const productSectionTitle = `인기 ${selectedCategory}`;
     $(".ProductSectionHeader_Title").text(productSectionTitle);
@@ -23,6 +24,7 @@ $(document).ready(function () {
 
     const productSectionTitle2 = `신규 ${selectedCategory}`;
     $(".ProductSectionHeader_Title_b").text(productSectionTitle2);
+
     }
 
     // =====전체보기====== 버튼 클릭 이벤트

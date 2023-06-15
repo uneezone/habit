@@ -181,6 +181,9 @@
 
 
 <!-- *본문 시작 -->
+<div class="nice">
+
+</div>
 <div class="Home">
     <div class="PageWrapper">
         <div class="Fade_Wrapper" style="opacity: 1; display: block;">
@@ -191,11 +194,19 @@
             <div>
                 <div class="ItemList_Wrapper jEQWdY">
                     <a class="active" href="" style="font-weight: bold; color: rgb(51, 151, 255);">전체</a>
-                    <a href="">중분류1</a>
-                    <a href="">중분류2</a>
-                    <a href="">중분류3</a>
-                    <a href="">중분류4</a>
-                    <a href="">중분류5</a>
+                    <c:forEach items="${itemList}" var="item">
+                        <c:out value="${item.cont_middle}" />
+                    </c:forEach>
+<%--                    <a href="">중분류1</a>--%>
+<%--                    <a href="">중분류2</a>--%>
+<%--                    <a href="">중분류4</a>--%>
+<%--                    <a href="">중분류3</a>--%>
+<%--                    <a href="">중분류5</a>--%>
+                    <div id="otherParagraph"></div>
+                    <script>
+                    const selectedCategory = $("#selectedCategory").text();
+                    $("#otherParagraph").text(selectedCategory);
+                    </script>
                 </div>
             </div>
 
@@ -594,5 +605,7 @@
 
 
 <!-- 본문 끝 -->
+
+
 
 <%@include file="../footer.jsp"%>
