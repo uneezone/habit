@@ -33,4 +33,20 @@
         from host
         where host_id=#{userId}
     </select>
+
+    <update id="editHostInfo" parameterType="com.habit.host2.entity.HostEditDTO">
+        update host
+        set host_name=#{host_name}, host_phone=#{host_phone1}, host_intro=#{host_intro}, host_email=#{host_email1},
+            host_account=#{host_account}, host_bank=#{host_bank},host_acholder=#{host_acholder}
+        <if test="host_img != null">
+            ,host_img=#{host_img}
+        </if>
+        where host_id=#{host_id}
+    </update>
+
+    <select id="getProduct" parameterType="String" resultType="com.habit.host2.entity.ProductDTO">
+        select AA.*, p.payd_no,p.user_id,p.pay_no,p.payd_price,p.payd_qty,p.payd_status,p.refn_status,p.payd_date
+        from(select p.pro_no,p.prod_name,c.cont_name from cont c join prod p on c.cont_no=p.cont_no where host_id=#{hostId}) AA join payd p on AA.pro_no=p.pro_no
+        order by p.payd_date asc;
+    </select>
 </mapper>
