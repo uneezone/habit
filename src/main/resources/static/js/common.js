@@ -46,7 +46,7 @@ function common(){
         if( this.children[0].src.indexOf("black2.png")!=-1){
           // alert("ddd");
             this.children[0].src="/img/redheart2.png";
-            
+            //$.ajax 써야 함. async:true 잊지 않고 추가하기
             
         }else {   //찜일떄
             //alert("ddssd");
