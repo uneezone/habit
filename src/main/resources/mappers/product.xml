@@ -25,4 +25,15 @@
         WHERE cate_large = #{cate_large}
     </select>
 
+    <select id="selectCateNo" parameterType="String" resultType="String">
+        SELECT cate_no
+        FROM habit.cate
+        WHERE cate_middle = #{cate_middle}
+    </select>
+
+    <insert id="insertCont" parameterType="java.util.Map">
+        INSERT INTO cont (cate_no, host_id, cont_name, cont_zip, cont_addr1, cont_addr2, cont_extaddr, cont_endate, cont_img, cont_content, cont_hashtag1, cont_hashtag2, cont_hashtag3, cont_hashtag4, cont_hashtag5)
+        values (#{cate_no}, #{host_id}, #{cont_name}, #{cont_zip}, #{cont_addr1}, #{cont_addr2}, #{cont_extaddr}, #{cont_endate}, #{cont_img}, #{cont_content}, #{cont_hashtag1}, #{cont_hashtag2}, #{cont_hashtag3}, #{cont_hashtag4}, #{cont_hashtag5});
+    </insert>
+
 </mapper>

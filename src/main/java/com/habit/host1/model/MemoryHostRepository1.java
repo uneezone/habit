@@ -24,4 +24,16 @@ public class MemoryHostRepository1 implements HostRepository1{
     public List<Map<String, Object>> selectCate(String cateLarge) {
         return sqlSession.selectList("product.cateListMiddle", cateLarge);
     }
+
+    // 카테고리코드 가져오기
+    @Override
+    public String selectCateNo(String cate_middle) {
+        return sqlSession.selectOne("product.selectCateNo", cate_middle);
+    }
+
+    // 콘텐츠 insert
+    @Override
+    public int insertCont(Map<String, Object> map) {
+        return sqlSession.insert("product.insertCont", map);
+    }
 }
