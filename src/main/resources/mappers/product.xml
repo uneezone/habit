@@ -1,9 +1,17 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="product1">
+<!-- product1.xml -->
+
+<mapper namespace="product">
+
+    <select id="list" resultType="java.util.Map">
+        SELECT cont_no, cont_name, cont_place, cont_img, cont_size
+        FROM cont
+        ORDER BY cont_no DESC;
+    </select>
 
     <select id="cateListLage" resultType="java.util.Map">
         SELECT cate_large

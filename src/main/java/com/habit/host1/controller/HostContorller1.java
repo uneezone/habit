@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -34,9 +35,29 @@ public class HostContorller1 {
 
     // 생성된 컨텐츠 값 insert
     @PostMapping("/contentinsert")
-    public String contentInsert(@RequestParam Map<String, Object> map) {
+    public String contentInsert(
+            @RequestParam Map<String, Object> map,
+            @RequestParam List<String> cont_hashtag2,
+            @RequestParam List<String> cont_hashtag4,
+            @RequestParam List<String> prod_name,
+            @RequestParam List<String> prod_qty,
+            @RequestParam List<String> prod_price,
+            @RequestParam List<String> one_date,
+            @RequestParam List<String> one_maxqty,
+            @RequestParam List<String> one_price,
+            @RequestParam List<MultipartFile> cont_img
+
+    ) {
         System.out.println(map);
-        System.out.println(map.get("cont_hashtag2"));
+        System.out.println("cont_hashtag2 = " + cont_hashtag2);
+        System.out.println("cont_hashtag4 = " + cont_hashtag4);
+        System.out.println("prod_name = " + prod_name);
+        System.out.println("prod_qty = " + prod_qty);
+        System.out.println("prod_price = " + prod_price);
+        System.out.println("one_date = " + one_date);
+        System.out.println("one_maxqty = " + one_maxqty);
+        System.out.println("one_price = " + one_price);
+        System.out.println("cont_img = " + cont_img);
 //        hostService1.contentInsert(userId, map);
         return "host/habit_list";
     }
