@@ -77,7 +77,7 @@
     <p class="page-name">해빗 등록</p>
 
     <!-- main 시작 -->
-    <form method="post" action="/host/contentinsert" onsubmit="return habitCreateCheck()">
+    <form method="post" action="/host/contentinsert" onsubmit="return habitCreateCheck()" enctype="multipart/form-data">
       <!-- 기본 정보 -->
       <div class="content-wrap">
         <div class="content">
@@ -413,7 +413,7 @@
                       <td></td>
                       <td>
                         <div>
-                          <input class="form-control" name="one_date" type="datetime-local" name="" id="">
+                          <input class="form-control" name="one_date" type="datetime-local">
                         </div>
                       </td>
                       <td>

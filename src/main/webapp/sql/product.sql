@@ -5,21 +5,91 @@ CREATE TABLE cate (
     cate_middle  varchar(50)  NOT NULL
 );
 
+# o 아웃도어 (서핑, 등산, 캠핑),
 insert into cate (cate_no, cate_large, cate_middle)
-values ('s_1','스포츠', '서핑');
+values ('o1','아웃도어', '서핑');
 
 insert into cate (cate_no, cate_large, cate_middle)
-values ('s_2', '스포츠', '요트');
+values ('o2', '아웃도어', '등산');
 
 insert into cate (cate_no, cate_large, cate_middle)
-values ('s_3', '스포츠', '요가');
+values ('o3', '아웃도어', '캠핑');
+
+# s 스포츠 (댄스, 클라이밍, 실내다이빙),
+insert into cate (cate_no, cate_large, cate_middle)
+values ('s1','스포츠', '댄스');
 
 insert into cate (cate_no, cate_large, cate_middle)
-values ('t_1', '상담', '심리상담');
+values ('s2', '스포츠', '클라이밍');
 
 insert into cate (cate_no, cate_large, cate_middle)
-values ('c_1', '요리', '베이킹');
+values ('s3', '스포츠', '실내다이빙');
 
+# f 피트니스 (요가, 필라테스, 헬스),
+insert into cate (cate_no, cate_large, cate_middle)
+values ('f1','피트니스', '요가');
+
+insert into cate (cate_no, cate_large, cate_middle)
+values ('f2', '피트니스', '필라테스');
+
+insert into cate (cate_no, cate_large, cate_middle)
+values ('f3', '피트니스', '헬스');
+
+# c 공예DIY (가죽, 도자기, 플라워),
+insert into cate (cate_no, cate_large, cate_middle)
+values ('c1','공예DIY', '가죽');
+
+insert into cate (cate_no, cate_large, cate_middle)
+values ('c2', '공예DIY', '도자기');
+
+insert into cate (cate_no, cate_large, cate_middle)
+values ('c3', '공예DIY', '플라워');
+
+# b 베이킹 (휘낭시에, 스콘, 케이크),
+insert into cate (cate_no, cate_large, cate_middle)
+values ('b1','베이킹', '휘낭시에');
+
+insert into cate (cate_no, cate_large, cate_middle)
+values ('b2', '베이킹', '스콘');
+
+insert into cate (cate_no, cate_large, cate_middle)
+values ('b3', '베이킹', '케이크');
+
+# a 문화예술 (미술, 연기, 공연),
+insert into cate (cate_no, cate_large, cate_middle)
+values ('a1','문화예술', '미술');
+
+insert into cate (cate_no, cate_large, cate_middle)
+values ('a2', '문화예술', '연기');
+
+insert into cate (cate_no, cate_large, cate_middle)
+values ('a3', '문화예술', '공연');
+
+# d 자기계발 (투잡, 재테크),
+insert into cate (cate_no, cate_large, cate_middle)
+values ('d1', '자기계발', '투잡');
+
+insert into cate (cate_no, cate_large, cate_middle)
+values ('d2', '자기계발', '재테크');
+
+# l 상담 (사주, 심리상담, 성격심리검사)
+insert into cate (cate_no, cate_large, cate_middle)
+values ('l1','상담', '사주');
+
+insert into cate (cate_no, cate_large, cate_middle)
+values ('l2', '상담', '심리상담');
+
+insert into cate (cate_no, cate_large, cate_middle)
+values ('l3', '상담', '성격심리검사');
+
+# o 아웃도어 (서핑, 등산, 캠핑),
+# s 스포츠 (댄스, 클라이밍, 실내다이빙),
+# f 피트니스 (요가, 필라테스, 헬스),
+# c 공예DIY (가죽, 도자기, 플라워),
+# b 베이킹 (휘낭시에, 스콘, 케이크),
+# a 문화예술 (미술, 연기, 공연),
+# d 자기계발 (투잡, 재테크),
+# l 상담 (사주, 심리상담, 성격심리검사)
 
 
 # [콘텐츠 테이블]
@@ -32,7 +102,7 @@ CREATE TABLE cont (
     cont_addr1     varchar(30)   NOT NULL,                                #콘텐츠 장소1
     cont_addr2     varchar(30)   NULL,                                    #콘텐츠 장소2
     cont_extaddr   varchar(30)   NULL,                                    #콘텐츠 장소 참고항목
-    cont_img       varchar(100)	 NOT NULL,                                #대표이미지
+    cont_img       varchar(200)	 NOT NULL,                                #대표이미지
     cont_size      int	         NULL  DEFAULT 0,                         #이미지 사이즈
     cont_content   Text(6500)    NOT NULL,                                #콘텐츠 설명
     cont_view      int	         NOT NULL	 DEFAULT 0,                   #조회수

@@ -5,10 +5,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.util.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,10 +36,30 @@ public class HostContorller1 {
 
     // 생성된 컨텐츠 값 insert
     @PostMapping("/contentinsert")
-    public String contentInsert(@RequestParam Map<String, Object> map) {
+    public String contentInsert(
+            @RequestParam Map<String, Object> map,
+            @RequestParam List<String> cont_hashtag2,
+            @RequestParam List<String> cont_hashtag4,
+            @RequestParam List<String> prod_name,
+            @RequestParam List<String> prod_qty,
+            @RequestParam List<String> prod_price,
+            @RequestParam List<String> one_date,
+            @RequestParam List<String> one_maxqty,
+            @RequestParam List<String> one_price,
+            @RequestParam List<MultipartFile> cont_img
+    ) {
+        map.put("cont_hashtag2", cont_hashtag2);
+        map.put("cont_hashtag4", cont_hashtag4);
+        map.put("prod_name", prod_name);
+        map.put("prod_qty", prod_qty);
+        map.put("prod_price", prod_price);
+        map.put("one_date", one_date);
+        map.put("one_maxqty", one_maxqty);
+        map.put("one_price", one_price);
+        map.put("cont_img", cont_img);
         System.out.println(map);
-        System.out.println(map.get("cont_hashtag2"));
-//        hostService1.contentInsert(userId, map);
+
+        int result = hostService1.contentInsert(map);
         return "host/habit_list";
     }
 }
