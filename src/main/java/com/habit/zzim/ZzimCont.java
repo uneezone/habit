@@ -72,4 +72,20 @@ public class ZzimCont {
 
         return mav;
     }
+
+//    public ZzimCont() {
+//        System.out.println("----CartCont() 객체 생성됨");
+//    }
+//
+//    @Autowired
+//    ZzimDAO zzimDAO;
+//
+//    @RequestMapping("/list")
+//    public ModelAndView list(HttpSession session, HttpServletRequest req){
+//        String id="test";
+//
+//    }
+
+
+
 }

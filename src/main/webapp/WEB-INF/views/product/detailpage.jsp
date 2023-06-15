@@ -82,7 +82,7 @@
         <hr>
         <div class="Classplace">
             <h2>진행하는 장소</h2>
-<%--            ${detail.cont_addr1 + '/' + detail.cont_addr2 + '/' + detail.cont_extaddr}--%>
+           ${detail.cont_addr1 + detail.cont_addr2 + detail.cont_extaddr}
         </div>
         <hr>
         <div class="Classsupplies">
