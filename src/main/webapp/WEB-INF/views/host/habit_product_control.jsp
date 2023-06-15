@@ -156,7 +156,7 @@
                 </td>
                 <td><button class="btn btn-sm btn-primary">사용완료처리</button></td> <!-- 버튼 클릭시 사용 완료처리되며 버튼은 사라짐 -->
               </tr>
-              <c:forEach items="${products}" var="product">
+              <c:forEach items="${products}" var="product" varStatus="status">
                 <tr>
                 <td>${product.user_id}</td>
                 <td>${product.payd_date}</td>
@@ -168,21 +168,36 @@
                 </td>
                 <td>
                   <script>
+                    window.addEventListener('load', function() {
 
+                        $(".pstatus").eq("${status.index}").val('${product.payd_status}').prop("selected",true);
 
-                      /*$("#status").val("${product.payd_status}").prop("selected", true);*/
-                      /*$('#status option[value="${product.payd_status}"]').prop('selected', true);*/
-                      $("#status").attr('id', +$("#status").attr('id') + 1);
-                      $('#status').val('${product.payd_status}').prop("selected",true);
-
+                    });
                   </script>
-                  <select class="form-select" name="" id="status">
+                  <select class="form-select pstatus" name="" >
                     <option value="R">사용중</option>
                     <option value="Y">사용완료</option>
                     <option value="C">취소완료</option>
                   </select>
                 </td>
-                <td><button class="btn btn-sm btn-primary">사용완료처리</button></td>
+                <td>
+                  <script>
+                    window.addEventListener('load', function() {
+
+                      console.log($(".pstatus").eq("${status.index}").val());
+                      let pstatus=$(".pstatus").eq("${status.index}").val();
+                      if(pstatus=="C"||pstatus=="Y"){
+
+                        $(".use").eq("${status.index}").attr("disabled",true);
+                        $(".use").eq("${status.index}").css("background-color","gray");
+                        $(".use").eq("${status.index}").css("border","none");
+                        $(".pstatus").eq("${status.index}").attr("disabled",true);
+                      }
+
+                    });
+                  </script>
+                  <input type="button" value="사용완료처리" class="btn btn-sm btn-primary use">
+                </td>
                 </tr>
               </c:forEach>
               <tr>
@@ -191,6 +206,9 @@
             </tbody>
           </table>
         </div>
+        <c:forEach items="${products}" var="p">
+
+        </c:forEach>
         <!-- 페이징 -->
         <div style="display: flex; align-items: center; justify-content: center;">
           <ul class="pagination">
