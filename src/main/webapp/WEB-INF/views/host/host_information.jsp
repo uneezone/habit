@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/bootstrap.journal.min.css">
   <link rel="stylesheet" href="/css/custom.min.css">
+  <link rel="stylesheet" href="/css/hostInfo.css">
   <script src="/js/bootstrap.bundle.min.js"></script>
   <script src="/js/jquery-3.6.4.min.js"></script>
   <script src="/js/hostInfo.js"></script>
@@ -25,12 +26,12 @@
       <div class="collapse navbar-collapse" id="navbarColor03">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link active" href="host_home.jsp" style="font-size: larger;">호스트 관리 페이지</a> <%--링크--%>
+            <a class="nav-link active" href="" style="font-size: larger;">호스트 관리 페이지</a> <%--링크--%>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">내 정보</a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="host_information.jsp">프로필/정산정보 관리</a> <%--링크--%>
+              <a class="dropdown-item"  href="/host/info">프로필/정산정보 관리</a> <%--링크--%>
             </div>
           </li>
           <li class="nav-item dropdown">
@@ -38,7 +39,7 @@
             <div class="dropdown-menu">
               <a class="dropdown-item" href="habit_list.jsp">해빗 목록</a> <%--링크--%>
               <a class="dropdown-item" href="habit_create.jsp">해빗 등록</a> <%--링크--%>
-              <a class="dropdown-item" href="habit_product_control.jsp">판매 관리</a> <%--링크--%>
+              <a class="dropdown-item" href="/host/product">판매 관리</a> <%--링크--%>
               <a class="dropdown-item" href="habit_reservation_control.jsp">예약 관리</a> <%--링크--%>
               <a class="dropdown-item" href="habit_inquiry_control.jsp">문의 관리</a> <%--링크--%>
               <a class="dropdown-item" href="habit_review_control.jsp">리뷰 관리</a> <%--링크--%>
@@ -67,7 +68,7 @@
     <p class="page-name">프로필/정산정보 관리</p>
     
     <!-- main 시작 -->
-    <form method="post" enctype="multipart/form-data" action="" onsubmit="profileCheck()">
+    <form method="post" enctype="multipart/form-data" action="" onsubmit="return profileCheck()">
       <div class="content-wrap">
         <!-- 프로필 관리 -->
           <div class="content">
@@ -80,13 +81,14 @@
               </div>
               <div class="item2">
                 <div style="width: 100px; height: 100px;">
-                  <img src="/storage/${hostInfo.host_img}" id="preview" alt="" width="100%" height="100%" style="border-radius: 100%; object-fit: cover;"><br><br>
+                  <img src="/storage/${hostInfo.host_img}" id="preview" alt="" width="100%" height="100%" style="border-radius: 100%; object-fit: cover;" class="proImg"><br><br>
                 </div>
                 <div>
-                  <input class="form-control" type="file" name="host_img" id="host_img" accept="image/*" onchange="imgCheck(this)" >
+                  <input class="form-control" type="file" name="Img" id="host_img" accept="image/*" onchange="setProfile(this)" >
                 </div>
+                <div>파일 용량 2MB 이하 jpg, png 로 첨부해주세요.</div>
                 <div>
-                  <small hidden id="host_img_small">용량 2MB 이하의 jpg, png 파일만 업로드 가능합니다.</small>
+                  <div class="error_class hostImgError" style="display: none; color: red;"></div>
                 </div>
               </div>
             </div>
@@ -98,7 +100,7 @@
               </div>
               <div class="item2">
                 <input type="text" class="form-control" id="host_name" name="host_name" placeholder="호스트 명을 입력해 주세요." value="${hostInfo.host_name}" maxlength=25 onchange="hostNameCheck()">
-                <small hidden id="host_name_small">호스트 명을 입력해주세요.</small>
+                <small style="display: none;color:red;" id="host_name_small">호스트 명을 입력해주세요.</small>
                 <p class="item2-info">실제 해빗을 운영하시는 분의 연락처로 인증해 주세요.<br>
                   해당 연락처로 참가자 명단, 프립 진행 관련 중요 알림이 발송됩니다.</p>
               </div>
@@ -110,8 +112,15 @@
                 <p>이메일</p>
               </div>
               <div class="item2">
-                <input type="email" class="form-control" name="host_email" id="host_email" value="${hostInfo.host_email}"  placeholder="이메일을 입력해주세요." onchange="hostEmailCheck()">
-                <small hidden id="host_email_small">올바른 이메일 형식이 아닙니다.</small>
+                <input type="text" class="form-control" name="host_email1" id="host_email"   placeholder="이메일을 입력해주세요."  style="width: 250px; display: inline-block;" onchange="hostEmailCheck()">@
+                <select name="host_email2" id="hostEmail2"  class="form-control" style="width: 200px; display: inline-block; ">
+                  <option value="0">=====선택=====</option>
+                  <option value="gmail.com">gmail.com</option>
+                  <option value="naver.com">naver.com</option>
+                  <option value="daum.com">daum.com</option>
+                  <option value="hanmail.com">hanmail.com</option>
+                </select>
+                <small style="display: none;color:red;" id="host_email_small">올바른 이메일 형식이 아닙니다.</small>
                 <p class="item2-info">실제 사용하시는 이메일 주소를 입력해 주세요.<br>
                   해당 메일로 공지사항 및 상품 수정 요청 등 중요 알림이 발생됩니다.</p>
               </div>
@@ -123,8 +132,10 @@
                 <p>공개 연락처</p>
               </div>
               <div class="item2">
-                <input type="text" class="form-control" value="${hostInfo.host_phone}"  placeholder="연락처를 입력해주세요.">
-                <small hidden>올바른 전화번호 형식이 아닙니다.</small>
+                <input type="number" name="host_phone1" class="form-control" id="hostPhone1" style="width: 100px; display: inline-block;" oninput="checkLength()"> -
+                <input type="number" name="host_phone2"  class="form-control" id="hostPhone2" style="width: 100px; display: inline-block;" oninput="checkLength()"> -
+                <input type="number" name="host_phone3"  class="form-control" id="hostPhone3" style="width: 100px; display: inline-block;" oninput="checkLength()">
+                <small style="display: none;color:red;" id="host_phone_error">올바른 전화번호 형식이 아닙니다.</small>
                 <p class="item2-info">해빗 회원에게 노출되는 공개 연락처입니다.<br>
                   미입력 시 인증한 연락처가 노출됩니다.</p>
               </div>
@@ -136,9 +147,10 @@
                 <p>소개</p>
               </div>
               <div class="item2">
-                <textarea class="form-control" name="" id="" cols="30" rows="5" placeholder="간단한 소개와 약력을 입력해 주세요." style="resize: none;">${hostInfo.host_intro}</textarea>
-                <p class="item2-info">0/500</p> <!--글자수-->
-                <small hidden>소개글을 5자 이상 입력해주세요.</small>
+                <textarea class="form-control " name="host_intro" id="host_intro" cols="30" rows="5" placeholder="간단한 소개와 약력을 입력해 주세요." style="resize: none;" onkeyup="countText(this)">${hostInfo.host_intro}</textarea>
+                <p class="item2-info1" style="display: inline-block;">0</p>
+                <p style="display: inline-block;">/200</p><!--글자수-->
+                <small style="display: none;color:red;" id="host_intro_error">소개글을 5자 이상 입력해주세요.</small>
                 <p>소개 예시보기</p>
                 <p class="item2-info">해빗 회원에게 호스트님을 소개해 주세요.<br>
                   호스트님만의 개성을 담거나, 신뢰감을 줄 수 있는 전문적인 사항들을 입력하시면 좋습니다.</p><br>
@@ -171,22 +183,23 @@
               <div class="item2">
                 <div>
                   <div>
-                    <select name="hostBank" id="hostBank" class="form-select" style="width: 150px;">
+                    <select name="host_bank" id="hostBank" class="form-select" style="width: 150px;">
                       <option value="0">==선택==</option>
                       <option value="해빗은행">해빗은행</option>
                       <option value="신한은행">신한은행</option>
                       <option value="카카오뱅크">카카오뱅크</option>
                     </select>
                   </div>
+                  <small style="display: none;color:red;"  id="host_bank_error" >은행을 선택해주세요</small>
                 </div>
                 <div style="display: flex; flex-wrap: wrap;">
                   <div>
-                    <input type="text" class="form-control" placeholder="예금주" style="width:150px;" value="${hostInfo.host_acholder}" >
-                    <small hidden>예금주를 입력해주세요.</small>
+                    <input type="text" name="host_acholder" class="form-control" placeholder="예금주" style="width:150px;" value="${hostInfo.host_acholder}" id="host_acholder">
+                    <small style="display: none;color:red;"  id="host_acholder_error" >예금주를 입력해주세요</small>
                   </div>
                   <div>
-                    <input type="text" class="form-control" placeholder="계좌 번호를 입력해주세요." style="width:350px; margin: 0 15px;" value="${hostInfo.host_account}" >
-                    <small hidden>계좌번호를 입력해주세요.</small>
+                    <input type="text" name="host_account" class="form-control" placeholder="계좌 번호를 입력해주세요." style="width:350px; margin: 0 15px;" value="${hostInfo.host_account}" oninput="checkAccount()" id="hostAccount">
+                    <small style="display: none;color:red;"  id="host_account_error">계좌번호를 입력해주세요.</small>
                   </div>
                 </div>
                 <div>
@@ -240,10 +253,40 @@
 <!--footer 종료-->
 </body>
 <script>
+
+  //은행 선택
   let bank="${hostInfo.host_bank}";
   if(bank!=""){
     $("#hostBank").val("${hostInfo.host_bank}").prop("selected", true);
   }
+
+  //이메일 나누기
+  let email="${hostInfo.host_email}";
+  let find=email.indexOf("@");
+  let email1=email.substring(0,find);
+  let email2=email.substring(find+1,email.length);
+  $("#host_email").val(email1);
+  $("#hostEmail2").val(email2).prop("selected",true);
+
+
+
+  //전화번호 나누기
+  let phone="${hostInfo.host_phone}";
+  let pos1=0;
+  let pos2=1;
+  while (pos2!=4){
+    let foundPos=phone.indexOf("-",pos1);
+
+    $("#hostPhone"+pos2).val(phone.substring(pos1,foundPos));
+    if(foundPos==-1){
+      $("#hostPhone"+pos2).val(phone.substring(9,phone.length));
+    }
+    pos1=foundPos+1;
+    pos2+=1;
+
+
+  }
+
 
 
 </script>

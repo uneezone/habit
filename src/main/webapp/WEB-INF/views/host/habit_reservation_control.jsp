@@ -37,7 +37,7 @@
             <div class="dropdown-menu">
               <a class="dropdown-item" href="habit_list.jsp">해빗 목록</a> <%--링크--%>
               <a class="dropdown-item" href="habit_create.jsp">해빗 등록</a> <%--링크--%>
-              <a class="dropdown-item" href="habit_product_control.jsp">판매 관리</a> <%--링크--%>
+              <a class="dropdown-item" href="/host/product">판매 관리</a> <%--링크--%>
               <a class="dropdown-item" href="habit_reservation_control.jsp">예약 관리</a> <%--링크--%>
               <a class="dropdown-item" href="habit_inquiry_control.jsp">문의 관리</a> <%--링크--%>
               <a class="dropdown-item" href="habit_review_control.jsp">리뷰 관리</a> <%--링크--%>
