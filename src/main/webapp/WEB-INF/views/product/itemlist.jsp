@@ -194,19 +194,11 @@
             <div>
                 <div class="ItemList_Wrapper jEQWdY">
                     <a class="active" href="" style="font-weight: bold; color: rgb(51, 151, 255);">전체</a>
-                    <c:forEach items="${itemList}" var="item">
-                        <c:out value="${item.cont_middle}" />
+                    <c:forEach items="${middle}" var="item">
+                        <a href="">${item.cate_middle}</a>
                     </c:forEach>
-<%--                    <a href="">중분류1</a>--%>
-<%--                    <a href="">중분류2</a>--%>
-<%--                    <a href="">중분류4</a>--%>
-<%--                    <a href="">중분류3</a>--%>
-<%--                    <a href="">중분류5</a>--%>
+
                     <div id="otherParagraph"></div>
-                    <script>
-                    const selectedCategory = $("#selectedCategory").text();
-                    $("#otherParagraph").text(selectedCategory);
-                    </script>
                 </div>
             </div>
 
@@ -242,40 +234,40 @@
                         <!-- ^ 인기 리스트 아이템 -->
                         <div class="Home_product_recommend_list">
                             <c:forEach items="${list}" var="row" varStatus="vs">
-                            <div class="Home_product_recommend_p">
-                                <a href="#" class="href">
-                                    <div class="Home_product_recommend_p_div">
-                                        <div>
-                                            <img src="/img/image.jpeg" alt="" width="150px">
-                                        </div>
-                                        <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                                <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                            </button>
-                                        </div>
-                                        <div class="Home_product_recommend_p_font">
+                                <div class="Home_product_recommend_p">
+                                    <a href="#" class="href">
+                                        <div class="Home_product_recommend_p_div">
                                             <div>
-                                                <span class="Miniarea">${row.cont_place}</span>
+                                                <img src="/img/image.jpeg" alt="" width="150px">
+                                            </div>
+                                            <div>
+                                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
+                                                    <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                                </button>
+                                            </div>
+                                            <div class="Home_product_recommend_p_font">
                                                 <div>
-                                                    ${row.cont_name}
-                                                </div>
-                                                <section class="Home_recommend_img">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
-                                                </section>
-                                                <hr class="Home_recommend_hr">
-                                                <div>
-                                                    100,000원
+                                                    <span class="Miniarea">${row.cont_addr1}</span>
+                                                    <div>
+                                                            ${row.cont_name}
+                                                    </div>
+                                                    <section class="Home_recommend_img">
+                                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
+                                                    </section>
+                                                    <hr class="Home_recommend_hr">
+                                                    <div>
+                                                        100,000원
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
-                            </div>
+                                    </a>
+                                </div>
                             </c:forEach>
 
                         </div>

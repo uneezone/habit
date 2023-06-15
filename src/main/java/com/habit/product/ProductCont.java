@@ -19,7 +19,6 @@ import java.util.List;
 
 @Controller
 @Slf4j
-@RequestMapping("/category")
 public class ProductCont {
 
     public ProductCont () {
@@ -29,33 +28,24 @@ public class ProductCont {
     @Autowired
     ProductDAO productDao;
 
-    @RequestMapping  ("")
-    public String cate() {
-        return "product/category";
+    @RequestMapping  ("/category")
+    public ModelAndView category() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("product/category");
+
+        mav.addObject("category", productDao.category());
+        return mav;
     }
 
-
-
-    @RequestMapping("/list")
-    public ModelAndView list(){
+    @RequestMapping("category/{cate_large}")
+    public ModelAndView list(@PathVariable String cate_large){
         ModelAndView mav = new ModelAndView();
-        log.info("list={}",productDao.list());
         mav.setViewName("product/itemlist");
-
-        mav.addObject("list", productDao.list());
-
-        //test code
-        mav.addObject("mid", productDao.mid());
-
+        mav.addObject("list", productDao.list(cate_large));
+        mav.addObject("middle", productDao.middle(cate_large));
         return mav;
     }
 
-    @RequestMapping("/category/{cate_large}")
-    public ModelAndView middle(@PathVariable String cate_large){
-        ModelAndView mav = new ModelAndView();
-        mav. setViewName("product/itemlist");
-        mav.addObject("suf", cate_large);
-        return mav;
-    }
+
 
 }

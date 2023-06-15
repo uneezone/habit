@@ -17,17 +17,17 @@ public class ProductDAO {
     @Autowired
     SqlSession sqlSession;
 
-    public List<Map<String, Object>> list() {
-        return sqlSession.selectList("product.list");
+
+    public  List<Map<String, Object>> category() {
+        return sqlSession.selectList("product.category");
     }
 
-    //test code
-    public List<Map<String, Object>> mid() {
-        return sqlSession.selectList("product.mid");
+    public  List<Map<String, Object>> list(String cate_large) {
+        return sqlSession.selectList("product.list", cate_large);
     }
 
-    public  List<Map<String, Object>> suf(String cate_large) {
-        return sqlSession.selectList("product.suf", cate_large);
+    public  List<Map<String, Object>> middle(String cate_large) {
+        return sqlSession.selectList("product.middle", cate_large);
     }
 
 

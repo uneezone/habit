@@ -7,10 +7,23 @@
 
 <mapper namespace="product">
 
-    <select id="list" resultType="java.util.Map">
-        SELECT cont_no, cont_name, cont_place, cont_img, cont_size
-        FROM cont
-        ORDER BY cont_no DESC;
+    <select id="list" resultType="java.util.Map" parameterType="String">
+        SELECT *
+        FROM cate a
+                 JOIN cont b ON a.cate_no = b.cate_no
+        WHERE  cate_large = #{cate_large}
+    </select>
+
+    <select id="category" resultType="java.util.Map">
+        SELECT cate_large
+        FROM cate
+        GROUP BY cate_large
+    </select>
+
+    <select id="middle" resultType="java.util.Map" parameterType="String">
+        SELECT cate_large, cate_middle
+        FROM cate
+        WHERE  cate_large = #{cate_large}
     </select>
 
 </mapper>
