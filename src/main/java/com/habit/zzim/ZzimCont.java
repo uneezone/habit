@@ -1,13 +1,9 @@
 package com.habit.zzim;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,10 +16,6 @@ import java.util.Map;
 @RequestMapping("/zzim")
 public class ZzimCont {
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 3573ff8efb8dc57a7dbdc5af2e9d3a561e70d9da
     public ZzimCont() {
         System.out.println("----ZzimCont() 객체 생성됨");
     }
