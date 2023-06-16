@@ -252,16 +252,27 @@
                                                             ${row.cont_name}
                                                     </div>
                                                     <section class="Home_recommend_img">
-                                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                        <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);"></span>
+                                                        <c:set var="starItem" value="${starMap[row.cont_no]}" />
+                                                        <c:set var="avgStarRating" value="${starItem['avg_star']}" />
+                                                        <c:choose>
+                                                            <c:when test="${avgStarRating != null}">
+                                                                <c:set var="roundedStarRating" value="${Math.round(avgStarRating.doubleValue())}" />
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <c:set var="roundedStarRating" value="0" />
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                        <c:forEach begin="1" end="${roundedStarRating > 5 ? 5 : roundedStarRating}" varStatus="starStatus">
+                                                            <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                                        </c:forEach>
+                                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 ${starItem['cnt']}</span>
                                                     </section>
                                                     <hr class="Home_recommend_hr">
                                                     <div>
-                                                        100,000원
+                                                        <c:set var="priceItem" value="${priceMap[row.cont_no]}" />
+                                                        <c:set var="money" value="${priceItem['money']}" />
+                                                        <fmt:formatNumber type="number" value="${money}" pattern="###,###" var="formattedMoney" />
+                                                            ${formattedMoney}원
                                                     </div>
                                                 </div>
                                             </div>

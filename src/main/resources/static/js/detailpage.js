@@ -13,3 +13,11 @@ function plusSlides(n) {
         slides[i].style.display = "none";
     } slides[slideIndex - 1].style.display = "block";
 }
+
+function showModal() {
+    document.getElementById("modal").style.display = "block";
+}
+
+function hideModal() {
+    document.getElementById("modal").style.display = "none";
+}

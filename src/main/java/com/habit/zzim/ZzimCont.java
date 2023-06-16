@@ -1,13 +1,9 @@
 package com.habit.zzim;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -33,7 +29,7 @@ public class ZzimCont {
         // @RequestParam Map<String, Object> map(요것도 필요없음. 값 잘 받아져있음)
 
         String user_id;
-        user_id="user-2";
+        user_id="user-3";
         //test
         List<Map<String, Object>> zzimlist = zzimDao.zzimlist(user_id);
 
@@ -73,6 +69,8 @@ public class ZzimCont {
         return mav;
     }
 
+<<<<<<< HEAD
+=======
 //    public ZzimCont() {
 //        System.out.println("----CartCont() 객체 생성됨");
 //    }
@@ -86,6 +84,7 @@ public class ZzimCont {
 //
 //    }
 
+>>>>>>> 3573ff8efb8dc57a7dbdc5af2e9d3a561e70d9da
 
 
 }
