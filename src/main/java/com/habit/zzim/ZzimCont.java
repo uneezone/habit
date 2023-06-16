@@ -20,7 +20,10 @@ import java.util.Map;
 @RequestMapping("/zzim")
 public class ZzimCont {
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3573ff8efb8dc57a7dbdc5af2e9d3a561e70d9da
     public ZzimCont() {
         System.out.println("----ZzimCont() 객체 생성됨");
     }
@@ -74,6 +77,22 @@ public class ZzimCont {
         return mav;
     }
 
+<<<<<<< HEAD
+=======
+//    public ZzimCont() {
+//        System.out.println("----CartCont() 객체 생성됨");
+//    }
+//
+//    @Autowired
+//    ZzimDAO zzimDAO;
+//
+//    @RequestMapping("/list")
+//    public ModelAndView list(HttpSession session, HttpServletRequest req){
+//        String id="test";
+//
+//    }
+
+>>>>>>> 3573ff8efb8dc57a7dbdc5af2e9d3a561e70d9da
 
 
 }

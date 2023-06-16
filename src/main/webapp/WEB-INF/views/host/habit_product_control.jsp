@@ -196,7 +196,7 @@
 
                     });
                   </script>
-                  <input type="button" value="사용완료처리" class="btn btn-sm btn-primary use"></input>
+                  <input type="button" value="사용완료처리" class="btn btn-sm btn-primary use">
                 </td>
                 </tr>
               </c:forEach>

@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -50,10 +51,15 @@ public class HostContorller1 {
             @RequestParam List<String> one_price,
             @RequestParam List<MultipartFile> cont_img
     ) throws IOException {
+        System.out.println("map = " + map);
         String userId = "user-1"; //임시 세션 아이디
         map.put("host_id", userId);
-        map.put("cont_hashtag2", cont_hashtag2);
-        map.put("cont_hashtag4", cont_hashtag4);
+        if (cont_hashtag2.size() != 0) {
+            map.put("cont_hashtag2", cont_hashtag2);
+        }
+        if (cont_hashtag4.size() != 0) {
+            map.put("cont_hashtag4", cont_hashtag4);
+        }
         map.put("prod_name", prod_name);
         map.put("prod_qty", prod_qty);
         map.put("prod_price", prod_price);
@@ -61,7 +67,6 @@ public class HostContorller1 {
         map.put("one_maxqty", one_maxqty);
         map.put("one_price", one_price);
         map.put("cont_img", cont_img);
-        System.out.println(map);
 
         int result = hostService1.contentInsert(map);
         return "host/habit_list";

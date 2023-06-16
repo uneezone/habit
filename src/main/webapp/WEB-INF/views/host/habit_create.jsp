@@ -175,7 +175,7 @@
                     </label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="cont_hashtag1" id="hashtag1-3" value="N">
+                    <input class="form-check-input" type="radio" name="cont_hashtag1" id="hashtag1-3" value="N" checked>
                     <label class="form-check-label" for="hashtag1-3">
                       상관없음
                     </label>
@@ -219,7 +219,7 @@
                 </div>
                 <div class="checkbox">
                   <div>
-                    <input class="form-check-input" type="radio" name="cont_hashtag3" id="hashtag3-1" value="IN">
+                    <input class="form-check-input" type="radio" name="cont_hashtag3" id="hashtag3-1" value="IN" checked>
                     <label class="form-check-label" for="hashtag3-1">
                       실내 활동
                     </label>
@@ -263,7 +263,7 @@
                 </div>
                 <div class="checkbox">
                   <div>
-                    <input class="form-check-input" type="radio" name="cont_hashtag5" id="hashtag5-1" value="p3">
+                    <input class="form-check-input" type="radio" name="cont_hashtag5" id="hashtag5-1" value="p3" checked>
                     <label class="form-check-label" for="hashtag5-1">
                       3만원 이하
                     </label>
@@ -305,17 +305,17 @@
               </div>
               <div class="item" style="align-items: center;">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="cont_endate" id="cont_endate_option1" value="default" checked onchange="contEndateOptionCheck1()">
+                  <input class="form-check-input" type="radio" name="cont_endate_type" id="cont_endate_option1" value="default" checked onchange="contEndateOptionCheck1()">
                   <label class="form-check-label" for="cont_endate_option1">
                     한달(기본)
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" id="cont_endate_option2" name="cont_endate" onchange="contEndateOptionCheck2()">
+                  <input class="form-check-input" type="radio" id="cont_endate_option2" name="cont_endate_type" onchange="contEndateOptionCheck2()">
                   <label class="form-check-label" for="cont_endate_option2">지정한 날짜까지 판매</label>
                 </div>
                 <div>
-                  <input class="form-control" type="date" name="cont_endate_option2" id="endate_option2" disabled>
+                  <input class="form-control" type="date" name="cont_endate" id="endate_option2" disabled>
                 </div>
               </div>
             </div>
@@ -326,14 +326,14 @@
             </div>
             <div style="display: flex;">
               <div class="select">
-                <input type="radio" id="prod" name="cont_no" value="prod" checked>
+                <input type="radio" id="prod" name="cont_type" value="prod" checked>
                 <label for="prod">
                   <p>날짜 조율형</p>
                   호스트님이 회원 연락처로 별도 연락하여 일정을 조율하는 형태의 해빗입니다. (에스테틱, 네일 등에 적합)
                 </label>
               </div>
               <div class="select">
-                <input type="radio" id="one" name="cont_no" value="one">
+                <input type="radio" id="one" name="cont_type" value="one">
                 <label for="one">
                   <p>날짜 지정형</p>
                   호스트님께서 날짜와 옵션을 등록하여 가능한 날에만 예약을 받을 수 있는 해빗입니다. 일정 관리 및 고객 관리를 더 간편하게 하실 수 있습니다. (에스테틱, 네일 제외한 대부분의 해빗)
@@ -369,13 +369,13 @@
                       </td>
                       <td>
                         <div>
-                          <input type="text" name="prod_qty" class="form-control">
+                          <input type="number" min="0" name="prod_qty" class="form-control">
                         </div>
                       </td>
                       <td>
                         <div class="input-group mb-2">
                           <span class="input-group-text">판매가</span>
-                          <input type="text" class="form-control" name="prod_price" aria-label="Amount (to the nearest dollar)">
+                          <input type="number" class="form-control" min="0" name="prod_price" aria-label="Amount (to the nearest dollar)">
                           <span class="input-group-text">원</span>
                         </div>
                       </td>
@@ -418,13 +418,13 @@
                       </td>
                       <td>
                         <div>
-                          <input type="text" name="one_maxqty" class="form-control">
+                          <input type="number" name="one_maxqty" min="0" class="form-control">
                         </div>
                       </td>
                       <td>
                         <div class="input-group mb-2">
                           <span class="input-group-text">판매가</span>
-                          <input type="text" class="form-control" name="one_price" aria-label="Amount (to the nearest dollar)">
+                          <input type="number" class="form-control" name="one_price" min="0" aria-label="Amount (to the nearest dollar)">
                           <span class="input-group-text">원</span>
                         </div>
                       </td>

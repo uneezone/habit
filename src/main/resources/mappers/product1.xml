@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- product.xml -->
+<mapper namespace="product1">
+
+    <!-- 대분류 전체 select -->
+    <select id="cateListLage" resultType="java.util.Map">
+        SELECT cate_large
+        FROM habit.cate
+        GROUP BY cate_large
+    </select>
+
+    <!-- 대분류에 따른 중분류 select -->
+    <select id="cateListMiddle" parameterType="String" resultType="java.util.Map">
+        SELECT cate_middle
+        FROM habit.cate
+        WHERE cate_large = #{cate_large}
+    </select>
+
+    <!-- 해당 카테고리의 cate_no 가져오기 -->
+    <select id="selectCateNo" parameterType="String" resultType="String">
+        SELECT cate_no
+        FROM habit.cate
+        WHERE cate_middle = #{cate_middle}
+    </select>
+
+    <!-- 콘텐츠 테이블 insert -->
+    <insert id="insertCont" useGeneratedKeys="true" keyProperty="cont_no" parameterType="java.util.Map" >
+        INSERT INTO cont (cate_no, host_id, cont_name, cont_zip, cont_addr1, cont_addr2, cont_extaddr, cont_endate, cont_img, cont_content, cont_hashtag1, cont_hashtag2, cont_hashtag3, cont_hashtag4, cont_hashtag5)
+        values (#{cate_no}, #{host_id}, #{cont_name}, #{cont_zip}, #{cont_addr1}, #{cont_addr2}, #{cont_extaddr}, #{cont_endate}, #{cont_img}, #{cont_content}, #{cont_hashtag1}, #{cont_hashtag2}, #{cont_hashtag3}, #{cont_hashtag4}, #{cont_hashtag5})
+        <selectKey keyProperty="cont_no" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <!-- 원데이 클래스 테이블 insert -->
+    <insert id="insertOne" parameterType="com.habit.host1.entity.OneDTO">
+        insert into one(pro_no, cont_no, one_date, one_maxqty, one_price)
+        values
+        <foreach collection="list" item="oneDTO" separator=",">
+            (concat('o_no',nextval(habit.sq_one)), #{oneDTO.cont_no}, #{oneDTO.one_date}, #{oneDTO.one_maxqty}, #{oneDTO.one_price})
+        </foreach>
+    </insert>
+
+    <!-- 회차권/인원권 테이블 insert -->
+    <insert id="insertProd" parameterType="com.habit.host1.entity.ProdDTO">
+        insert into prod(pro_no, cont_no, prod_name, prod_qty, prod_price)
+        values
+        <foreach collection="list" item="prodDTO" separator=",">
+            (concat('p_no',nextval(habit.sq_prod)), #{prodDTO.cont_no}, #{prodDTO.prod_name}, #{prodDTO.prod_qty}, #{prodDTO.prod_price})
+        </foreach>
+    </insert>
+
+</mapper>
