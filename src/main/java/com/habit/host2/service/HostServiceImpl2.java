@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class HostServiceImpl2 implements HostService2 {
@@ -45,7 +46,7 @@ public class HostServiceImpl2 implements HostService2 {
     }
     //없애도됨
 
-    //새로운 하스트 가입
+    //새로운 하스트 가입 newHost메소드와 updateUserGrade메소드 합친거
     @Transactional
     @Override
     public void newHostPro(NewHostDTO dto, String id) {
@@ -68,5 +69,36 @@ public class HostServiceImpl2 implements HostService2 {
     @Override
     public List<ProductDTO> getProduct(String hostId) {
         return repository.getProduct(hostId);
+    }
+
+    @Override
+    @Transactional
+    public void updatePaydStatus(Long payd_no, String status) {
+        repository.updatePaydStatus(payd_no,status);
+    }
+
+    @Override
+    public String getPayNo(Long payd_no) {
+        return repository.getPayNo(payd_no);
+    }
+
+    @Override
+    public Long getRefnCount(String pay_no) {
+        return repository.getRefnCount(pay_no);
+    }
+
+    @Override
+    public String getPayMethod(String pay_no) {
+        return repository.getPayMethod(pay_no);
+    }
+
+    @Override
+    public Map<String, Object> getInfoByPaydNo(Long payd_no) {
+        return repository.getInfoByPaydNo(payd_no);
+    }
+
+    @Override
+    public void insertRefund(Map<String, Object> params) {
+        repository.insertRefund(params);
     }
 }

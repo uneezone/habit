@@ -49,4 +49,36 @@
         from(select p.pro_no,p.prod_name,c.cont_name from cont c join prod p on c.cont_no=p.cont_no where host_id=#{hostId}) AA join payd p on AA.pro_no=p.pro_no
         order by p.payd_date asc;
     </select>
+
+    <update id="updatePaydStatus" parameterType="java.util.Map">
+        update payd set payd_status=#{status}
+        <if test='status=="Y"'>
+            ,refn_status="NRO"
+        </if>
+        <if test='status=="C"'>
+            ,refn_status="HFRO"
+        </if>
+        where payd_no=#{payd_no};
+    </update>
+
+    <select id="getPayNo" parameterType="Long" resultType="String">
+        select pay_no from payd where payd_no=#{payd_no}
+    </select>
+
+    <select id="getRefnCount" parameterType="String" resultType="Long">
+        select count(refn_status) from payd where pay_no=#{pay_no} and(refn_status="RO" || refn_status="NRO")
+    </select>
+
+    <select id="getPayMethod" parameterType="String" resultType="String">
+        select pay_method from pay where pay_no=#{pay_no}
+    </select>
+
+    <select id="getInfoByPaydNo" parameterType="Long" resultType="java.util.Map">
+        select pro_no,payd_price, payd_qty,user_id from payd where payd_no=#{payd_no}
+    </select>
+
+    <insert id="insertRefund" parameterType="java.util.Map">
+        insert into refn(payd_no, user_id, pro_no, refn_qty, refn_pay, refn_method)
+        values (#{payd_no},#{user_id},#{pro_no},#{pay_qty},#{refund_price},#{pay_method})
+    </insert>
 </mapper>

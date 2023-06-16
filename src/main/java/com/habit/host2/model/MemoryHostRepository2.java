@@ -9,7 +9,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -79,5 +82,38 @@ public class MemoryHostRepository2 implements HostRepository2 {
     @Override
     public List<ProductDTO> getProduct(String hostId) {
         return sqlSession.selectList("host2.getProduct",hostId);
+    }
+
+    @Override
+    public void updatePaydStatus(Long payd_no, String status) {
+        Map<String,Object> params= new HashMap<>();
+        params.put("payd_no",payd_no);
+        params.put("status",status);
+        sqlSession.update("host2.updatePaydStatus",params);
+    }
+
+    @Override
+    public String getPayNo(Long payd_no) {
+        return sqlSession.selectOne("host2.getPayNo",payd_no);
+    }
+
+    @Override
+    public Long getRefnCount(String pay_no) {
+        return sqlSession.selectOne("host2.getRefnCount",pay_no);
+    }
+
+    @Override
+    public String getPayMethod(String pay_no) {
+        return sqlSession.selectOne("host2.getPayMethod",pay_no);
+    }
+
+    @Override
+    public Map getInfoByPaydNo(Long payd_no) {
+        return sqlSession.selectOne("host2.getInfoByPaydNo",payd_no);
+    }
+
+    @Override
+    public void insertRefund(Map<String,Object> params) {
+        sqlSession.insert("host2.insertRefund",params);
     }
 }

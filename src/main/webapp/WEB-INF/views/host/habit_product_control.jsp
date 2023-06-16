@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="/css/custom.min.css">
   <script src="/js/bootstrap.bundle.min.js"></script>
   <script src="/js/jquery-3.6.4.min.js"></script>
+  <script src="/js/host_product.js"></script>
   <title>content_product_control</title>
 </head>
 
@@ -174,7 +175,7 @@
 
                     });
                   </script>
-                  <select class="form-select pstatus" name="" >
+                  <select class="form-select pstatus" name="" id="staus${product.payd_no}">
                     <option value="R">사용중</option>
                     <option value="Y">사용완료</option>
                     <option value="C">취소완료</option>
@@ -196,19 +197,19 @@
 
                     });
                   </script>
-                  <input type="button" value="사용완료처리" class="btn btn-sm btn-primary use">
+                  <input type="button" value="상태처리" class="btn btn-sm btn-primary use" onclick="changeStatus('${product.payd_no}')">
                 </td>
                 </tr>
               </c:forEach>
-              <tr>
-                <td colspan="7">검색 결과가 없습니다</td>
-              </tr>
+              <c:if test="${products.size()==0}">
+                <tr>
+                  <td colspan="7">검색 결과가 없습니다</td>
+                </tr>
+              </c:if>
             </tbody>
           </table>
         </div>
-        <c:forEach items="${products}" var="p">
 
-        </c:forEach>
         <!-- 페이징 -->
         <div style="display: flex; align-items: center; justify-content: center;">
           <ul class="pagination">

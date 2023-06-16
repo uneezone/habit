@@ -6,6 +6,7 @@ import com.habit.host2.entity.NewHostDTO;
 import com.habit.host2.entity.ProductDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface HostRepository2 {
 
@@ -30,4 +31,22 @@ public interface HostRepository2 {
 
     //해당 호스트 회차권/인원권 판매 및 환불된거 가져오기
     List<ProductDTO> getProduct(String hostId);
+
+    //판매관리 상태 변경시 R-> Y
+    void updatePaydStatus(Long payd_no, String status);
+
+    //주문서번호 알아오기
+    String getPayNo(Long payd_no);
+
+    //주문서번호 기준으로 RO혹은 NRO있는지 확인
+    Long getRefnCount(String pay_no);
+
+    //환불을 위한 결제수단 가져오기
+    String getPayMethod(String pay_no);
+
+    //주문상세번호 기준 제품의 금액과 구매수량,상품코드,유저아이디
+    Map<String, Object> getInfoByPaydNo(Long payd_no);
+
+    //호스트가 취소시 환불테이블 추가
+    void insertRefund(Map<String,Object> params);
 }
