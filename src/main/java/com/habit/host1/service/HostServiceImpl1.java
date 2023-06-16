@@ -166,4 +166,11 @@ public class HostServiceImpl1 implements HostService1 {
 
         return 0;
     }
+
+    // 리뷰 List 가져오기
+
+    @Override
+    public List<Map<String, Object>> reviewList(Map<String, Object> map) {
+        return memoryHostRepository1.reviewList(map);
+    }
 }

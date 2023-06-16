@@ -49,4 +49,5 @@
         from(select p.pro_no,p.prod_name,c.cont_name from cont c join prod p on c.cont_no=p.cont_no where host_id=#{hostId}) AA join payd p on AA.pro_no=p.pro_no
         order by p.payd_date asc;
     </select>
+
 </mapper>

@@ -18,4 +18,6 @@ public interface HostRepository1 {
 
     int insertOne(List<OneDTO> list);
     int insertProd(List<ProdDTO> list);
+
+    List<Map<String, Object>> reviewList(Map<String, Object> map);
 }

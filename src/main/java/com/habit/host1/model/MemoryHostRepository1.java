@@ -50,4 +50,10 @@ public class MemoryHostRepository1 implements HostRepository1{
     public int insertProd(List<ProdDTO> list) {
         return sqlSession.insert("product1.insertProd", list);
     }
+
+    // 리뷰 테이블 불러오기
+    @Override
+    public List<Map<String, Object>> reviewList(Map<String, Object> map) {
+        return sqlSession.selectList("product1.reviewList", map);
+    }
 }

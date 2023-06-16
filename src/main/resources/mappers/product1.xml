@@ -54,4 +54,25 @@
         </foreach>
     </insert>
 
+    <!-- 리뷰 리스트 불러오기 -->
+    <select id="reviewList" parameterType="java.util.Map" resultType="java.util.Map">
+        select user_id, cont_name, review_star, review_cont, review_date
+        from review a join cont b
+        on a.cont_no = b.cont_no
+        where host_id = #{user_id}
+        <choose>
+        <when test="starScore != null">
+            <foreach collection="starScore" item="star" open="(" close=")" separator=",">
+                or review_star = #{star}
+            </foreach>
+        </when>
+        <when test="review_cont != null">
+            and review_cont like '%'||#{reviewContKeyword}||'%'
+        </when>
+        <when test="user_id != null">
+            and user_id = #{searchUserId}
+        </when>
+        </choose>
+        order by review_date desc
+    </select>
 </mapper>
