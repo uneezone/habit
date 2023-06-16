@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../header.jsp"%>
-<link rel="stylesheet" href="css/detailpage.css?after" />
+<link rel="stylesheet" href="/css/detailpage.css?after" />
 
 <!-- 본문 시작 -->
 
@@ -82,7 +82,7 @@
         <hr>
         <div class="Classplace">
             <h2>진행하는 장소</h2>
-           ${detail.cont_addr1 + detail.cont_addr2 + detail.cont_extaddr}
+            ${detail.cont_addr1}/${detail.cont_addr2}/${detail.cont_extaddr}
         </div>
         <hr>
         <div class="Classsupplies">

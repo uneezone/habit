@@ -2,7 +2,10 @@ package com.habit.host1.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+
 @Getter @Setter
+@ToString
 public class ProdDTO {
         public ProdDTO() {}
 

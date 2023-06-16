@@ -69,7 +69,7 @@ public class HostServiceImpl1 implements HostService1 {
         map.put("cont_hashtag4", cont_hashtag4);
 
         // 판매 종료일 저장
-        if(map.get("cont_endate").equals("default")) {
+        if(map.get("cont_endate_type").equals("default")) {
             LocalDate now = LocalDate.now();
             now.plusMonths(1);
             map.put("cont_endate", now.plusMonths(1) + " 00:00:00");
@@ -99,9 +99,11 @@ public class HostServiceImpl1 implements HostService1 {
         // 옵션 저장
         // insert된 콘텐츠 번호 가져오기
         int cont_no = (int) map.get("cont_no");
+        System.out.println("cont_no = " + cont_no);
 
         // 판매유형에 따른 필요없는 옵션 삭제
-        List<Map<String, String>> optionList = new ArrayList<>(); // 옵션 리스트 저장 공간
+        List<ProdDTO> optionListP = new ArrayList<>(); // 회차권, 인원권 옵션 리스트 저장 공간
+        List<OneDTO> optionListO = new ArrayList<>(); // 회차권, 인원권 옵션 리스트 저장 공간
         if(map.get("cont_type").equals("prod")) { // 옵션이 회차권, 인원권이라면
 
             // 원데이클래스 옵션에 관한 map entity 삭제
@@ -113,18 +115,23 @@ public class HostServiceImpl1 implements HostService1 {
             List prod_name = (List) map.get("prod_name");
             List prod_qty = (List) map.get("prod_qty");
             List prod_price = (List) map.get("prod_price");
+            System.out.println("prod_qty = " + prod_qty);
+            System.out.println("prod_name = " + prod_name);
+            System.out.println("prod_price = " + prod_price);
 
             // map 타입으로 저장하여 옵션리스트에 저장
             for (int i = 0; i < prod_name.size(); i++) {
-                Map<String, String> option = new HashMap<>();
-                option.put("prod_name", (String)prod_name.get(i));
-                option.put("prod_qty", (String)prod_qty.get(i));
-                option.put("prod_price", (String)prod_price.get(i));
-                optionList.add(option);
+                ProdDTO prodDTO = new ProdDTO();
+                prodDTO.setCont_no(cont_no);
+                prodDTO.setProd_name((String) prod_name.get(i));
+                prodDTO.setProd_qty(Integer.parseInt((String) prod_qty.get(i)));
+                prodDTO.setProd_price(Integer.parseInt((String) prod_price.get(i)));
+                System.out.println("prodDTO = " + prodDTO);
+                optionListP.add(prodDTO);
             }
 
             // 인원권, 회차권 옵션 테이블 insert
-            int insertProdResult = memoryHostRepository1.insertProd(optionList);
+            int insertProdResult = memoryHostRepository1.insertProd(optionListP);
 
         } else if (map.get("cont_type").equals("one")) { // 옵션이 원데이 클래스 라면
 
@@ -140,15 +147,21 @@ public class HostServiceImpl1 implements HostService1 {
 
             // map 타입으로 저장하여 옵션리스트에 저장
             for (int i = 0; i < one_date.size(); i++) {
-                Map<String, String> option = new HashMap<>();
-                option.put("one_date", (String)one_date.get(i));
-                option.put("one_maxqty", (String)one_maxqty.get(i));
-                option.put("one_price", (String)one_price.get(i));
-                optionList.add(option);
+                OneDTO oneDTO = new OneDTO();
+                oneDTO.setCont_no(cont_no);
+
+                List str = List.of(((String) one_date.get(i)).split("T"));
+                String oneDate = str.get(0) + " " + str.get(1) + ":00";
+                System.out.println("oneDate = " + oneDate);
+                oneDTO.setOne_date(oneDate);
+
+                oneDTO.setOne_maxqty(Integer.parseInt((String)one_maxqty.get(i)));
+                oneDTO.setOne_price(Integer.parseInt((String)one_price.get(i)));
+                optionListO.add(oneDTO);
             }
 
             // 원데이 클래스 옵션 테이블 insert
-            int insertOneResult = memoryHostRepository1.insertOne(optionList);
+            int insertOneResult = memoryHostRepository1.insertOne(optionListO);
         }
 
         return 0;
