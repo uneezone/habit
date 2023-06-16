@@ -28,7 +28,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // 판매종료일 : 지정한 날짜까지 판매일 최대 날짜 현재일로 부터 한달 지정
     let now = new Date()
     let maxDate = new Date(now.setMonth(now.getMonth() + 1)).toISOString().split("T")[0]
+    let minDate = new Date(new Date().setDate(new Date().getDate()+7)).toISOString().split("T")[0]
+    console.log(minDate)
     document.getElementById('endate_option2').setAttribute('max', maxDate)
+    document.getElementById('endate_option2').setAttribute('min', minDate)
 
 
     // 판매 유형 이벤트
