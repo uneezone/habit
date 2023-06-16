@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -71,39 +72,39 @@
       <div class="content">
         <p class="content-name">리뷰 검색</p>
         <!-- 리뷰 검색 form 시작 -->
-        <form method="" action="" onsubmit="">
-          <!-- 평점 -->
+        <form method="post" onsubmit="" name="reviewForm">
+          <!-- 별점 -->
           <div class="content-flex">
             <div class="item-name">
-              <p>평점(미선택시 전체)</p>
+              <p>별점(미선택시 전체)</p>
             </div>
             <div style="display: flex; flex-wrap: wrap;">
               <div>
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked1" checked="">
+                <input class="form-check-input" type="checkbox" value=1 name="starScore" id="flexCheckChecked1" checked="">
                 <label class="form-check-label" for="flexCheckChecked1">
                   1점&nbsp;&nbsp;
                 </label>
               </div>
               <div>
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked2" checked="">
+                <input class="form-check-input" type="checkbox" value=2 name="starScore" id="flexCheckChecked2" checked="">
                 <label class="form-check-label" for="flexCheckChecked2">
                   2점&nbsp;&nbsp;
                 </label>
               </div>
               <div>
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked3" checked="">
+                <input class="form-check-input" type="checkbox" value=3 name="starScore" id="flexCheckChecked3" checked="">
                 <label class="form-check-label" for="flexCheckChecked3">
                   3점&nbsp;&nbsp;
                 </label>
               </div>
               <div>
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked4" checked="">
+                <input class="form-check-input" type="checkbox" value=4 name="starScore" id="flexCheckChecked4" checked="">
                 <label class="form-check-label" for="flexCheckChecked4">
                   4점&nbsp;&nbsp;
                 </label>
               </div>
               <div>
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked5" checked="">
+                <input class="form-check-input" type="checkbox" value=5 name="starScore" id="flexCheckChecked5" checked="">
                 <label class="form-check-label" for="flexCheckChecked5">
                   5점&nbsp;&nbsp;
                 </label>
@@ -116,7 +117,8 @@
               <p>리뷰 내용</p>
             </div>
             <div>
-            <input type="text" class="form-control" placeholder="내용을 입력해주세요" style="width: 300px;">
+            <input type="text" class="form-control" name="reviewContKeyword" placeholder="내용을 입력해주세요" style="width: 300px;">
+            <p class="item2-info">입력한 내용이 리뷰내용에 포함되어있는 내역만 검색 됩니다.</p>
             </div>
           </div>
           <!-- 회원ID -->
@@ -125,22 +127,12 @@
               <p>회원 ID</p>
             </div>
             <div>
-              <input type="text" class="form-control" placeholder="회원 ID를 입력해주세요" style="width: 300px;">
-              <p class="item2-info">입력한 ID와 정확히 일치하는 내역만 검색 됩니다.</p>
-            </div>
-          </div>
-          <!-- 상품ID -->
-          <div class="content-flex">
-            <div class="item-name">
-              <p>상품 ID</p>
-            </div>
-            <div>
-              <input type="text" class="form-control" placeholder="상품 ID를 입력해주세요" style="width: 300px;">
+              <input type="text" class="form-control" name="searchUserId" placeholder="회원 ID를 입력해주세요" style="width: 300px;">
               <p class="item2-info">입력한 ID와 정확히 일치하는 내역만 검색 됩니다.</p>
             </div>
           </div>
           <!-- 리뷰 검색 버튼 -->
-          <div style="text-align: right;"><input type="button" class="btn btn-primary" value="검색"></div>
+          <div style="text-align: right;"><input id="searchReview" type="button" class="btn btn-primary" value="검색"></div>
         </form>
         <!-- 리뷰 검색 form 종료 --> 
       </div>
@@ -153,14 +145,14 @@
             <thead>
               <tr class="table-secondary">
                 <th>회원ID</th>
-                <th>리뷰컨텐츠</th>
+                <th>해빗명</th>
                 <th>별점</th>
                 <th>리뷰내용</th>
                 <th>리뷰작성일</th>
                 <th>리뷰삭제</th> <!-- 리뷰 삭제를 누르면 해당 리뷰는 공개되지만 별점은 그대로 적용됨을 호스트에게 인지시켜야함 -->
               </tr>
             </thead>
-            <tbody>
+            <tbody id="table-body">
               <tr>
                 <td>user-1</td>
                 <td><a href="#">[서핑] 원데이 클래스</a></td>
@@ -234,4 +226,35 @@
   </footer>
 <!--footer 종료-->
 </body>
+<script>
+    $('#searchReview').on('click', ()=>{
+
+        let tableBody = $('#table-body')
+        let queryString = $('form[name=reviewForm]').serialize()
+        let list = $('input[name=starScore]:checked')
+        const starScore = [];
+        for (const score of list) {
+            starScore.push(score.value)
+        }
+
+        console.log(starScore)
+
+        $.ajax({
+            url: '/host/review.do',
+            contentType:'application/json',
+            type: 'post',
+            data: JSON.stringify({
+              'map': queryString,
+              'starScore': starScore
+            }),
+            success: (list) => {
+                if (list.length === 0) {
+                  tableBody.append("<tr><td colspan='6'>검색 결과가 없습니다</td></tr>")
+                }
+
+
+            }
+        })
+    })
+</script>
 </html>
