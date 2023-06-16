@@ -24,13 +24,16 @@ const contEndateOptionCheck2 = (e) => {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    
+
     // 판매종료일 : 지정한 날짜까지 판매일 최대 날짜 현재일로 부터 한달 지정
     let now = new Date()
     let maxDate = new Date(now.setMonth(now.getMonth() + 1)).toISOString().split("T")[0]
+    let minDate = new Date(new Date().setDate(new Date().getDate()+7)).toISOString().split("T")[0]
+    console.log(minDate)
     document.getElementById('endate_option2').setAttribute('max', maxDate)
-    
-    
+    document.getElementById('endate_option2').setAttribute('min', minDate)
+
+
     // 판매 유형 이벤트
     $('#one').on('click', ()=>{
         if (confirm('기존에 입력하신 옵션들이 초기화 됩니다. 유형을 변경하시겠습니까?')) {
@@ -83,13 +86,13 @@ document.addEventListener("DOMContentLoaded", () => {
         "                      </td>\n" +
         "                      <td>\n" +
         "                        <div>\n" +
-        "                          <input type=\"text\" name='prod_qty' class=\"form-control\">\n" +
+        "                          <input type=\"number\" name='prod_qty' min='0' class=\"form-control\">\n" +
         "                        </div>\n" +
         "                      </td>\n" +
         "                      <td>\n" +
         "                        <div class=\"input-group mb-2\">\n" +
         "                          <span class=\"input-group-text\">판매가</span>\n" +
-        "                          <input type=\"text\" class=\"form-control\" name='prod_price' aria-label=\"Amount (to the nearest dollar)\">\n" +
+        "                          <input type=\"number\" class=\"form-control\" name='prod_price' min='0' aria-label=\"Amount (to the nearest dollar)\">\n" +
         "                          <span class=\"input-group-text\">원</span>\n" +
         "                        </div>\n" +
         "                      </td>\n" +
@@ -124,13 +127,13 @@ document.addEventListener("DOMContentLoaded", () => {
         "                      </td>\n" +
         "                      <td>\n" +
         "                        <div>\n" +
-        "                          <input type=\"text\" name='one_maxqty' class=\"form-control\">\n" +
+        "                          <input type=\"number\" name='one_maxqty' min='0' class=\"form-control\">\n" +
         "                        </div>\n" +
         "                      </td>\n" +
         "                      <td>\n" +
         "                        <div class=\"input-group mb-2\">\n" +
         "                          <span class=\"input-group-text\">판매가</span>\n" +
-        "                          <input type=\"text\" class=\"form-control\" name='one_price' aria-label=\"Amount (to the nearest dollar)\">\n" +
+        "                          <input type=\"number\" class=\"form-control\" name='one_price' min='0' aria-label=\"Amount (to the nearest dollar)\">\n" +
         "                          <span class=\"input-group-text\">원</span>\n" +
         "                        </div>\n" +
         "                      </td>\n" +
@@ -309,7 +312,6 @@ const habitCreateCheck = () => {
 
     // 옵션 목록 입력
     let pro = $('input[name="cont_type"]:checked')
-    console.log(pro.attr('id'))
     if(pro.attr('id') === 'prod') { // 선택된 옵션이 날짜 조율형 일때
         let prod_names = $('input[name="prod_name"]')
         let count_prod_name = 0
@@ -397,22 +399,20 @@ const habitCreateCheck = () => {
     }
 
     // 해시태그
-    let hashtag1 = $('input:radio[name="cont_hashtag1"]:checked')
-    let hashtag2 = $('input:checkbox[name="cont_hashtag1"]:checked')
-    let hashtag3 = $('input:radio[name="cont_hashtag1"]:checked')
-    let hashtag4 = $('input:checkbox[name="cont_hashtag1"]:checked')
-    let hashtag5 = $('input:radio[name="cont_hashtag1"]:checked')
+    let hashtag2 = $('input:checkbox[name="cont_hashtag2"]:checked')
+    let hashtag4 = $('input:checkbox[name="cont_hashtag4"]:checked')
 
     // let summernote = $('#summernote')
     // if(summernote.value.length<10) {
     //     alert('해빗 상세 설명을 10자 이상 입력해주세요.')
     // }
 
-    if (hashtag1.length === 0 && hashtag2.length === 0 && hashtag3.length === 0 && hashtag4.length === 0 && hashtag5.length === 0) {
-        if (!confirm('해시태그를 선택하지 않았습니다. 해시태그 없이 해빗을 등록할까요?')) {
-            return false
-        }
+    if (hashtag2.length === 0 || hashtag4.length === 0) {
+        alert("해시태그를 문항당 한개 이상 체크해주세요.")
+        return false
     }
 
-    return true
+    if (confirm('해빗을 등록하시겠습니까?')) {
+        return true
+    }
 }
