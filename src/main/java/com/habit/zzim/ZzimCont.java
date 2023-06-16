@@ -20,7 +20,7 @@ import java.util.Map;
 @RequestMapping("/zzim")
 public class ZzimCont {
 
-<<<<<<< HEAD
+
     public ZzimCont() {
         System.out.println("----ZzimCont() 객체 생성됨");
     }
@@ -34,7 +34,7 @@ public class ZzimCont {
         // @RequestParam Map<String, Object> map(요것도 필요없음. 값 잘 받아져있음)
 
         String user_id;
-        user_id="user-2";
+        user_id="user-3";
         //test
         List<Map<String, Object>> zzimlist = zzimDao.zzimlist(user_id);
 
@@ -73,20 +73,7 @@ public class ZzimCont {
 
         return mav;
     }
-=======
-//    public ZzimCont() {
-//        System.out.println("----CartCont() 객체 생성됨");
-//    }
-//
-//    @Autowired
-//    ZzimDAO zzimDAO;
-//
-//    @RequestMapping("/list")
-//    public ModelAndView list(HttpSession session, HttpServletRequest req){
-//        String id="test";
-//
-//    }
->>>>>>> 55bd6e7cfef7e6fdbb0d053aab9d1e47272a00f1
+
 
 
 }
