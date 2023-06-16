@@ -113,4 +113,6 @@ public class memberDTO {
     public void setUser_date(String user_date) {
         this.user_date = user_date;
     }
+
+
 }
