@@ -15,6 +15,35 @@
         WHERE  cate_large = #{cate_large}
     </select>
 
+    <!--  리스트와 리뷰 연결고리  -->
+    <select id="contNoList" resultType="int" parameterType="String">
+        SELECT b.cont_no
+        FROM cate a
+                 JOIN cont b ON a.cate_no = b.cate_no
+        WHERE cate_large = #{cate_large}
+    </select>
+
+    <!--    아이템 리스트 리뷰 출력 -->
+    <select id="star" resultType="java.util.Map" parameterType="int">
+        SELECT round(avg(review_star),0) as avg_star, count(*) as cnt
+        FROM review a
+                 JOIN cont b ON a.cont_no = b.cont_no
+        WHERE a.cont_no = #{cont_no}
+    </select>
+
+    <!--    아이템 리스트 가격 출력-->
+    <select id="price" resultType="java.util.Map" parameterType="int">
+        SELECT min(one_price) as money
+        FROM (SELECT * FROM one
+              UNION
+              SELECT * FROM prod) a
+                 JOIN cont c
+                      ON a.cont_no = c.cont_no
+                 JOIN cate ct
+                      ON c.cate_no = ct.cate_no
+        WHERE  a.cont_no = #{cont_no}
+    </select>
+
     <!-- DB 등록 된 카테고리  출력   -->
     <select id="category" resultType="java.util.Map">
         SELECT cate_large
