@@ -1,5 +1,7 @@
 package com.habit.host1.model;
 
+import com.habit.host1.entity.OneDTO;
+import com.habit.host1.entity.ProdDTO;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -39,13 +41,13 @@ public class MemoryHostRepository1 implements HostRepository1{
 
     // 원데이 클래스 테이블 insert
     @Override
-    public int insertOne(List<Map<String, String>> list) {
+    public int insertOne(List<OneDTO> list) {
         return sqlSession.insert("product1.insertOne", list);
     }
 
     // 인원권, 회차권 테이블 insert
     @Override
-    public int insertProd(List<Map<String, String>> list) {
+    public int insertProd(List<ProdDTO> list) {
         return sqlSession.insert("product1.insertProd", list);
     }
 }
