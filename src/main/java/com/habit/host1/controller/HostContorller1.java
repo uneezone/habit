@@ -1,5 +1,8 @@
 package com.habit.host1.controller;
 
+import com.habit.host1.DTO.RequestContentInsertDTO;
+import com.habit.host1.DTO.RequestReviewDTO;
+import com.habit.host1.DTO.ResponseReviewDTO;
 import com.habit.host1.service.HostService1;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -36,37 +39,10 @@ public class HostContorller1 {
 
     // 생성된 컨텐츠 값 insert
     @PostMapping("/contentinsert")
-    public String contentInsert(
-            @SessionAttribute(name = "userId", required = false) String userIdd,
-            @RequestParam Map<String, Object> map,
-            @RequestParam List<String> cont_hashtag2,
-            @RequestParam List<String> cont_hashtag4,
-            @RequestParam List<String> prod_name,
-            @RequestParam List<String> prod_qty,
-            @RequestParam List<String> prod_price,
-            @RequestParam List<String> one_date,
-            @RequestParam List<String> one_maxqty,
-            @RequestParam List<String> one_price,
-            @RequestParam List<MultipartFile> cont_img
-    ) throws IOException {
-        System.out.println("map = " + map);
+    public String contentInsert(@SessionAttribute(name = "userId", required = false) String userIdd, RequestContentInsertDTO rciDTO) throws IOException {
         String userId = "user-1"; //임시 세션 아이디
-        map.put("host_id", userId);
-        if (cont_hashtag2.size() != 0) {
-            map.put("cont_hashtag2", cont_hashtag2);
-        }
-        if (cont_hashtag4.size() != 0) {
-            map.put("cont_hashtag4", cont_hashtag4);
-        }
-        map.put("prod_name", prod_name);
-        map.put("prod_qty", prod_qty);
-        map.put("prod_price", prod_price);
-        map.put("one_date", one_date);
-        map.put("one_maxqty", one_maxqty);
-        map.put("one_price", one_price);
-        map.put("cont_img", cont_img);
-
-        int result = hostService1.contentInsert(map);
+        rciDTO.setHost_id(userId);
+        int result = hostService1.contentInsert(rciDTO);
         return "host/habit_list";
     }
 
@@ -78,21 +54,19 @@ public class HostContorller1 {
 
     @PostMapping("/review.do")
     @ResponseBody
-    public List<Map<String, Object>> reviewSearch(@SessionAttribute(name = "userId", required = false) String userIdd, @RequestBody Map<String, Object> map) {
+    public List<ResponseReviewDTO> reviewSearch(@SessionAttribute(name = "userId", required = false) String userIdd, RequestReviewDTO reqReviewDTO) {
         //임시 세션 아이디
-        Map<String, Object> map1 = new HashMap<>();
-        String user_id = "user-1";
-        map1.put("user_id", user_id);
-
-        List<Integer> starScore = (List<Integer>) map.get("starScore");
-
-        map1.put("reviewContKeyword", map.get("reviewContKeyword"));
-        map1.put("searchUserId", map.get("searchUserId"));
-        map1.put("starScore", starScore);
-
-        System.out.println(map1.get("starScore"));
-
-        System.out.println(hostService1.reviewList(map1));
-        return hostService1.reviewList(map1);
+        String user_id = "user-2";
+        reqReviewDTO.setHost_id(user_id);
+        System.out.println("reqReviewDTO = " + reqReviewDTO);
+        System.out.println(hostService1.reviewList(reqReviewDTO));
+        return hostService1.reviewList(reqReviewDTO);
     }
+
+//    @GetMapping("/reviewPaging/{page}")
+//    @ResponseBody
+//    public List<ResponseReviewDTO> reviewPaging(@SessionAttribute(name = "userId", required = false) String userIdd, @PathVariable int page) {
+//        String user_id = "user-2";
+//
+//    }
 }
