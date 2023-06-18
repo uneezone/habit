@@ -1,15 +1,11 @@
 package com.habit.host2.model;
 
-import com.habit.host2.entity.HostEditDTO;
-import com.habit.host2.entity.HostInfoDTO;
-import com.habit.host2.entity.NewHostDTO;
-import com.habit.host2.entity.ProductDTO;
+import com.habit.host2.entity.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,9 +75,15 @@ public class MemoryHostRepository2 implements HostRepository2 {
         sqlSession.insert("host2.editHostInfo",dto);
     }
 
+
     @Override
-    public List<ProductDTO> getProduct(String hostId) {
-        return sqlSession.selectList("host2.getProduct",hostId);
+    public int getProductsLength(SearchProDTO dto) {
+        return sqlSession.selectOne("host2.getProductsLength",dto);
+    }
+
+    @Override
+    public List<ProductDTO> getProduct(SearchProDTO dto) {
+        return sqlSession.selectList("host2.getProduct",dto);
     }
 
     @Override
@@ -115,5 +117,37 @@ public class MemoryHostRepository2 implements HostRepository2 {
     @Override
     public void insertRefund(Map<String,Object> params) {
         sqlSession.insert("host2.insertRefund",params);
+    }
+
+    @Override
+    public Integer getRefundPoint(String pay_no) {
+        return sqlSession.selectOne("host2.getRefundPoint",pay_no);
+    }
+
+    @Override
+    public void insertEnergy(Map<String, Object> params) {
+        sqlSession.insert("host2.insertEnergy",params);
+    }
+
+    @Override
+    public List<Map<String, Object>> getProductNames(String host_id) {
+        return sqlSession.selectList("host2.getProductNames",host_id);
+    }
+
+    @Override
+    public List<Map<String, Object>> getProductOptions(Long cont_no) {
+        return sqlSession.selectList("host2.getProductOptions",cont_no);
+    }
+
+    @Override
+    public Map<String, Object> showUserInfo(String user_id) {
+        return sqlSession.selectOne("host2.showUserInfo",user_id);
+    }
+
+    //=======정산서
+
+    @Override
+    public List<AdjustInfoDTO> getAdjustList(String host_id) {
+        return sqlSession.selectList("host2.getAdjustList",host_id);
     }
 }

@@ -1,20 +1,14 @@
 package com.habit.host2.controller;
 
-import com.habit.host2.entity.HostEditDTO;
-import com.habit.host2.entity.HostInfoDTO;
-import com.habit.host2.entity.NewHostDTO;
-import com.habit.host2.entity.ProductDTO;
-import com.habit.host2.service.HostService2;
+import com.habit.host2.entity.*;
 import com.habit.host2.service.HostServiceImpl2;
+import com.sun.jdi.LongType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -168,18 +162,56 @@ public class HostController2 {
         return "redirect:";
     }
 
-    //판매관리
+
+
+    //=======================판매관리 시작======================
+
     @GetMapping("/product")
-    public String showProduct(@SessionAttribute(name = "userId",required = false)String userIds,Model model){
+    public String showProduct(@SessionAttribute(name = "userId",required = false) String userIds
+                            , Model model
+                            , @ModelAttribute SearchProDTO searchdto
+                            , @RequestParam(value = "paging", defaultValue = "1") Long paging){
         //임시 Id
         String userId="user-2";
+        searchdto.setHost_id(userId);
 
-        //판매및 환불 상품 가져와
-        List<ProductDTO> products = hostService.getProduct(userId);
+        //아이디 공백체크
+        if(searchdto.getUser_id()!=null) {
+            searchdto.setUser_id(searchdto.getUser_id().trim());
+        }
+
+        //=========등록한 해빗 상품명과 옵션들
+        List<Map<String, Object>> productNames = hostService.getProductNames(userId);
+        log.info("proname={}",productNames.stream().toList());
+
+
+        //=========페이징
+        //등록한 상품 전체갯수
+        int productsLength = hostService.getProductsLength(searchdto);
+        searchdto.setAllProductsLength((long) productsLength);
+        //보여질 상품들수(행수)
+        Long showProductsLength=5L;
+        //pagin index 갯수
+        int pagingIndex= (int) (Math.ceil(productsLength/(double)showProductsLength));
+        searchdto.setPagingIndex(pagingIndex);
+
+
+        //sql문 limit 값
+        Long startPaging=showProductsLength*(paging-1);
+        searchdto.setStartPaging(startPaging);
+        searchdto.setShowLength(showProductsLength);
+
+        log.info("SearchDTO={}", searchdto);
+
+        //============판매및 환불 상품 가져오기(필터링)
+        List<ProductDTO> products = hostService.getProduct(searchdto);
         log.info("products={}",products);
+        log.info("products Length={}",products.size());
 
+
+        model.addAttribute("searchFilter",searchdto);
         model.addAttribute("products",products);
-        model.addAttribute("host_id",userId);
+        model.addAttribute("productNames",productNames);
         return "host/habit_product_control";
     }
 
@@ -212,13 +244,16 @@ public class HostController2 {
 
             //주문상세번호로 주문서번호 알아오기
             String payNo = hostService.getPayNo(payd_no);
-
+            log.info("주문서번호={}",payNo);
             //주문서번호 기준으로 RO혹은 NRO가 있는지 확인
             Long refnCount = hostService.getRefnCount(payNo);
 
             //주문서번호로 결제수단 가져오기(해당 결제수단으로 환불해주기 위해서)
             String payMethod = hostService.getPayMethod(payNo);
             log.info("결제수단={}",payMethod);
+
+            //환불에너지 선언
+            Integer refundPoint=0;
             
             if(refnCount>=1){
                 //에너지 환붍 X
@@ -237,17 +272,110 @@ public class HostController2 {
                 params.put("pay_qty",info.get("payd_qty"));
                 params.put("refund_price",refundPrice);
                 params.put("pay_method",payMethod);
+                params.put("refn_point",refundPoint);
 
                 //환불테이블에 insert 하기
                 hostService.insertRefund(params);
-                log.info("환불테이블 insert 성공");
+                log.info("환불테이블 insert 성공1");
 
             }else{
                 //에너지 환불 O
+                //주문상세번호 해당 제품의 금액과 수량,상품코드,유저아이디
+                Map<String, Object> info = hostService.getInfoByPaydNo(payd_no);
+                log.info("info={}",info.toString());
+
+                //환불금액 계산
+                int refundPrice=(Integer)info.get("payd_qty")*(Integer)info.get("payd_price");
+
+                //환불에너지 가져오기
+                log.info("주문서번호={}",payNo);
+                refundPoint = hostService.getRefundPoint(payNo);
+                log.info("환불에너지={}",refundPoint);
+
+                if(refundPoint==null) {
+                    //에너지 로그안안남김
+                    //환불테이블에 insert할 값들 모으기
+
+                    refundPoint=0;
+
+                    Map<String, Object> params = new HashMap<>();
+                    params.put("payd_no",payd_no);
+                    params.put("user_id",info.get("user_id"));
+                    params.put("pro_no",info.get("pro_no"));
+                    params.put("pay_qty",info.get("payd_qty"));
+                    params.put("refund_price",refundPrice);
+                    params.put("pay_method",payMethod);
+                    params.put("refn_point",refundPoint);
+
+                    //환불테이블에 insert 하기
+                    hostService.insertRefund(params);
+                    log.info("환불테이블 insert 성공2");
+
+                }else{
+                    //에너지 로그남기기
+                    //환불테이블에 insert할 값들 모으기
+                    Map<String, Object> params = new HashMap<>();
+                    params.put("payd_no",payd_no);
+                    params.put("user_id",info.get("user_id"));
+                    params.put("pro_no",info.get("pro_no"));
+                    params.put("pay_qty",info.get("payd_qty"));
+                    params.put("refund_price",refundPrice);
+                    params.put("pay_method",payMethod);
+                    params.put("refn_point",refundPoint);
+
+                    //환불테이블에 insert 하기
+                    hostService.insertRefund(params);
+                    log.info("환불테이블 insert 성공3");
+
+                    //에너지테이블에 환불에너지 남기기
+                    Map<String, Object> energyParams= new HashMap<>();
+                    energyParams.put("user_id",info.get("user_id"));
+                    energyParams.put("energy_saveuse",refundPoint);
+                    energyParams.put("energy_sources","[결제]호스트취소");
+
+                    hostService.insertEnergy(energyParams);
+                }
             }
             
             return "COK"; //취소완료
         }
         return "COK"; //취소완료
     }
+
+    //상품에 대한 옵션 ajax 가져오기
+    @GetMapping("/option")
+    @ResponseBody
+    public List<Map<String, Object>> showOptions(@RequestParam("cont_no") Long cont_no){
+        //log.info("컨텐츠 옵션={}",cont_no);
+        List<Map<String, Object>> productOptions = hostService.getProductOptions(Long.valueOf(cont_no));
+        //log.info("옵션들={}",productOptions.stream().toList());
+
+        return productOptions;
+    }
+
+    //회원에대한 정보 가져오기
+    @GetMapping("/userInfo")
+    @ResponseBody
+    public Map<String, Object> showUserInfo(@RequestParam("user_id") String user_id){
+        Map<String, Object> params = hostService.showUserInfo(user_id);
+        return params;
+    }
+
+    //정산서 view페이지
+    @GetMapping("/adjust")
+    public String showAdjust(@SessionAttribute(name = "userId",required = false)String userIds
+                                ,Model model){
+        //임시
+        String userid="user-2";
+
+        //정산서 리스트가져오기
+        List<AdjustInfoDTO> adjustList = hostService.getAdjustList(userid);
+        log.info("adjustlist={}",adjustList);
+
+        model.addAttribute("adjustList",adjustList);
+        model.addAttribute("host_id",userid);
+        return "host/adjustment_control";
+    }
+
+
 }

@@ -1,9 +1,6 @@
 package com.habit.host2.service;
 
-import com.habit.host2.entity.HostEditDTO;
-import com.habit.host2.entity.HostInfoDTO;
-import com.habit.host2.entity.NewHostDTO;
-import com.habit.host2.entity.ProductDTO;
+import com.habit.host2.entity.*;
 import com.habit.host2.model.HostRepository2;
 import com.habit.host2.model.MemoryHostRepository2;
 import lombok.RequiredArgsConstructor;
@@ -67,8 +64,13 @@ public class HostServiceImpl2 implements HostService2 {
     }
 
     @Override
-    public List<ProductDTO> getProduct(String hostId) {
-        return repository.getProduct(hostId);
+    public int getProductsLength(SearchProDTO dto) {
+        return repository.getProductsLength(dto);
+    }
+
+    @Override
+    public List<ProductDTO> getProduct(SearchProDTO dto) {
+        return repository.getProduct(dto);
     }
 
     @Override
@@ -100,5 +102,37 @@ public class HostServiceImpl2 implements HostService2 {
     @Override
     public void insertRefund(Map<String, Object> params) {
         repository.insertRefund(params);
+    }
+
+    @Override
+    public Integer getRefundPoint(String pay_no) {
+        return repository.getRefundPoint(pay_no);
+    }
+
+    @Override
+    public void insertEnergy(Map<String, Object> params) {
+        repository.insertEnergy(params);
+    }
+
+    @Override
+    public List<Map<String, Object>> getProductNames(String host_id) {
+        return repository.getProductNames(host_id);
+    }
+
+    @Override
+    public List<Map<String, Object>> getProductOptions(Long cont_no) {
+        return repository.getProductOptions(cont_no);
+    }
+
+    @Override
+    public Map<String, Object> showUserInfo(String user_id) {
+        return repository.showUserInfo(user_id);
+    }
+
+    //정산서
+
+    @Override
+    public List<AdjustInfoDTO> getAdjustList(String host_id) {
+        return repository.getAdjustList(host_id);
     }
 }

@@ -1,0 +1,77 @@
+.adjust-line:hover td{
+    background-color: #ffdfed ;
+}
+
+/*디테일 보여주기*/
+.show-modal{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 30;
+
+}
+
+.show-detail{
+    position: absolute;
+    background-color: #f1f1f5;
+    width: 800px;
+    height: 700px;
+    top:10%;
+    right: 25%;
+    z-index: 30;
+    border: none;
+    border-radius: 15px;
+}
+
+.show-detail-con{
+    --background-color: #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: 90%;
+    display: block;
+    border: none;
+    border-radius: 15px;
+}
+
+.close-modal{
+    font-size: 23px;
+    font-weight: 600;
+    float: right;
+    margin-right: 10px;
+}
+.show-detail-wrapper{
+    width: 100%;
+    --height: 100%;
+    text-align: left;
+    padding: 15px 15px 10px 15px;
+
+    background-color: #ffffff;
+
+    border: none;
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+
+.detail-sub1{
+    font-weight: 600;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.detail-sub2{
+    font-size: 17px;
+    margin-top: 5px;
+}
+
+
+
+
+
+

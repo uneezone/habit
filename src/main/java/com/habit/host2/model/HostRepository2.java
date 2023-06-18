@@ -1,9 +1,6 @@
 package com.habit.host2.model;
 
-import com.habit.host2.entity.HostEditDTO;
-import com.habit.host2.entity.HostInfoDTO;
-import com.habit.host2.entity.NewHostDTO;
-import com.habit.host2.entity.ProductDTO;
+import com.habit.host2.entity.*;
 
 import java.util.List;
 import java.util.Map;
@@ -29,8 +26,11 @@ public interface HostRepository2 {
     //호스트 정보 수정
     void editHostInfo(HostEditDTO dto);
 
+    //필터링조건으로 전제상품갯수 조회
+    int getProductsLength(SearchProDTO dto);
+
     //해당 호스트 회차권/인원권 판매 및 환불된거 가져오기
-    List<ProductDTO> getProduct(String hostId);
+    List<ProductDTO> getProduct(SearchProDTO dto);
 
     //판매관리 상태 변경시 R-> Y
     void updatePaydStatus(Long payd_no, String status);
@@ -49,4 +49,25 @@ public interface HostRepository2 {
 
     //호스트가 취소시 환불테이블 추가
     void insertRefund(Map<String,Object> params);
+
+    //환불할 에너지 값가져오기
+    Integer getRefundPoint(String pay_no);
+
+    //에너지 테이블에 로그남기기
+    void insertEnergy(Map<String,Object> params);
+
+    //필터링을 위한 것들
+    List<Map<String, Object>> getProductNames(String host_id);
+
+    //상품에대한 옵션들 가져오기
+    List<Map<String, Object>> getProductOptions(Long cont_no);
+
+    //상품구매한 회원들 정보 가져오기
+    Map<String,Object> showUserInfo(String user_id);
+
+    //===========정산서
+
+    //정산tb리스트 가져오기
+    List<AdjustInfoDTO> getAdjustList(String host_id);
+
 }
