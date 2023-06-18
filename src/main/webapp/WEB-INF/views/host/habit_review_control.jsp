@@ -1,3 +1,4 @@
+<%@ page import="org.json.simple.JSONObject" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -117,7 +118,7 @@
               <p>리뷰 내용</p>
             </div>
             <div>
-            <input type="text" class="form-control" name="reviewContKeyword" placeholder="내용을 입력해주세요" style="width: 300px;">
+            <input type="text" class="form-control" name="reviewContKeyword" id="reviewContKeyword" placeholder="내용을 입력해주세요" style="width: 300px;">
             <p class="item2-info">입력한 내용이 리뷰내용에 포함되어있는 내역만 검색 됩니다.</p>
             </div>
           </div>
@@ -127,7 +128,7 @@
               <p>회원 ID</p>
             </div>
             <div>
-              <input type="text" class="form-control" name="searchUserId" placeholder="회원 ID를 입력해주세요" style="width: 300px;">
+              <input type="text" class="form-control" name="searchUserId" id="searchUserId" placeholder="회원 ID를 입력해주세요" style="width: 300px;">
               <p class="item2-info">입력한 ID와 정확히 일치하는 내역만 검색 됩니다.</p>
             </div>
           </div>
@@ -139,7 +140,8 @@
 
       <!-- 검색 결과 -->
       <div class="content">
-        <p class="content-name">검색 결과 : 0 건</p>
+        <div id="search-result">
+        </div>
         <div style="text-align: center;">
           <table class="table">
             <thead>
@@ -153,46 +155,33 @@
               </tr>
             </thead>
             <tbody id="table-body">
-              <tr>
-                <td>user-1</td>
-                <td><a href="#">[서핑] 원데이 클래스</a></td>
-                <td>⭐⭐⭐⭐⭐</td>
-                <td>재미났습니다 호호</td>
-                <td>2023-04-14 00:00:00</td>
-                <td>
-                  <button class="btn btn-sm btn-primary">삭제</button>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="6">검색 결과가 없습니다</td>
-              </tr>
             </tbody>
           </table>
         </div>
         <!-- 페이징 -->
         <div style="display: flex; align-items: center; justify-content: center;">
-          <ul class="pagination">
-            <li class="page-item disabled">
-              <a class="page-link" href="#">&laquo;</a>
-            </li>
-            <li class="page-item active">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">4</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">5</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">&raquo;</a>
-            </li>
+          <ul class="pagination" id="pagination">
+<%--            <li class="page-item disabled">--%>
+<%--              <a class="page-link" href="#">&laquo;</a>--%>
+<%--            </li>--%>
+<%--            <li class="page-item active">--%>
+<%--              <a class="page-link" href="#">1</a>--%>
+<%--            </li>--%>
+<%--            <li class="page-item">--%>
+<%--              <a class="page-link" href="#">2</a>--%>
+<%--            </li>--%>
+<%--            <li class="page-item">--%>
+<%--              <a class="page-link" href="#">3</a>--%>
+<%--            </li>--%>
+<%--            <li class="page-item">--%>
+<%--              <a class="page-link" href="#">4</a>--%>
+<%--            </li>--%>
+<%--            <li class="page-item">--%>
+<%--              <a class="page-link" href="#">5</a>--%>
+<%--            </li>--%>
+<%--            <li class="page-item">--%>
+<%--              <a class="page-link" href="#">&raquo;</a>--%>
+<%--            </li>--%>
           </ul>
         </div>
       </div>
@@ -202,59 +191,108 @@
 
   <!--footer 시작-->
   <footer>
-    <div class="footer">
-      <div class="footer_wrap">
-        <div>
-          <strong>(주) Habit Borker</strong>
-        </div>
-        <div>
-          주소 : 서울특별시 강남구 테헤란로 124 4층(역삼동, 삼원타워)
-        </div>
-        <div>
-          <div>대표 : 2조 | 개인정보 관리 책임자 : 모두</div>
-        </div>
-        <div>
-          <a href="#">개인정보 처리방침</a> | 
-          <a href="#">이용약관</a> | 
-          <span>개인정보취급책임자 : 김태윤</span>
-        </div>
-        <div>
-          <br>COPYRIGHT &copy;HABIT
-        </div>
+      <div class="footer">
+          <div class="footer_wrap">
+              <div>
+                  <strong>(주) Habit Borker</strong>
+              </div>
+              <div>
+                  주소 : 서울특별시 강남구 테헤란로 124 4층(역삼동, 삼원타워)
+              </div>
+              <div>
+                  <div>대표 : 2조 | 개인정보 관리 책임자 : 모두</div>
+              </div>
+              <div>
+                  <a href="#">개인정보 처리방침</a> |
+                  <a href="#">이용약관</a> |
+                  <span>개인정보취급책임자 : 김태윤</span>
+              </div>
+              <div>
+                  <br>COPYRIGHT &copy;HABIT
+              </div>
+          </div>
       </div>
-    </div>
   </footer>
 <!--footer 종료-->
 </body>
 <script>
-    $('#searchReview').on('click', ()=>{
+  $(document).ready(()=>{
+      let searchResult = $('#search-result')
+      let tableBody = $('#table-body')
+      let pagination = $('#pagination')
+      searchResult.append("<p class='content-name'>검색 결과 : 0 건</p>")
+      tableBody.append("<tr><td colspan='6'>검색 결과가 없습니다</td></tr>")
+      $('#searchReview').on('click', ()=>{
 
-        let tableBody = $('#table-body')
-        let queryString = $('form[name=reviewForm]').serialize()
-        let list = $('input[name=starScore]:checked')
-        const starScore = [];
-        for (const score of list) {
-            starScore.push(score.value)
-        }
+          // let queryString = $('form[name=reviewForm]').serialize()
+          let list = $('input[name=starScore]:checked')
+          const starScore = [];
+          for (const score of list) {
+              starScore.push(score.value)
+          }
 
-        console.log(starScore)
+          let reviewContKeyword = $('#reviewContKeyword').val()
+          let searchUserId = $('#searchUserId').val()
 
-        $.ajax({
-            url: '/host/review.do',
-            contentType:'application/json',
-            type: 'post',
-            data: JSON.stringify({
-              'map': queryString,
-              'starScore': starScore
-            }),
-            success: (list) => {
-                if (list.length === 0) {
-                  tableBody.append("<tr><td colspan='6'>검색 결과가 없습니다</td></tr>")
-                }
+          $.ajax({
+              url: '/host/review.do',
+              type: 'post',
+              dataType: 'json',
+              data: {
+                'starScore': starScore,
+                'reviewContKeyword': reviewContKeyword,
+                'searchUserId' : searchUserId
+              },
+              success: (list) => {
+                  searchResult.children().remove()
+                  tableBody.children().remove()
+                  pagination.children().remove()
+                  if (list.length === 0) {
+                    searchResult.append("<p class='content-name'>검색 결과 : 0 건</p>")
+                    tableBody.append("<tr><td colspan='6'>검색 결과가 없습니다</td></tr>")
+                  } else {
+                      let totalCount = list[0].totalCount
+                      searchResult.append("<p class='content-name'>검색 결과 : " + totalCount + " 건</p>")
+                      for (let item of list) {
 
+                          // 검색 결과 리스트 (table)
+                          let str = "<tr>\n" +
+                                  "    <td>" + item.user_id + "</td>\n" +
+                                  "    <td><a href=\"#\">" + item.cont_name + "</a></td>\n" +
+                                  "    <td>" + item.review_star + "</td>\n" +
+                                  "    <td>" + item.review_cont + "</td>\n" +
+                                  "    <td>" + item.review_date + "</td>\n" +
+                                  "    <td>\n" +
+                                  "    <button class=\"btn btn-sm btn-primary\">삭제</button>\n" +
+                                  "    </td>\n" +
+                                  "</tr>"
+                          tableBody.append(str)
+                      }
 
-            }
-        })
-    })
+                      // 페이징
+                      let paging = "  <li class='page-item disabled'>\n" +
+                                    "    <a class='page-link'>&laquo;</a>\n" +
+                                    "  </li>\n"
+                      for (let i = 1; i <= list.length; i++) {
+                          paging += "  <li class='page-item'>\n" +
+                                    "    <a class='page-link' href='/host/reviewPaging/" + i + "'>" + i + "</a>\n" +
+                                    "  </li>\n"
+                      }
+
+                      if (totalCount <= 5) {
+                          paging += "  <li class='page-item'>\n" +
+                                    "    <a class='page-link'>&raquo;</a>\n" +
+                                    "  </li>\n"
+                      } else {
+                          paging += "  <li class='page-item'>\n" +
+                                    "    <a class='page-link' href='/host/reviewPaging/6'>&raquo;</a>\n" +
+                                    "  </li>\n"
+                      }
+                      pagination.append(paging)
+                  }
+              }
+          })
+      })
+  })
 </script>
 </html>
