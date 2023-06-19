@@ -21,4 +21,8 @@ public interface HostRepository1 {
     List<ResponseReviewDTO> reviewList(RequestReviewDTO reqReviewDTO);
 
     int totalCount(RequestReviewDTO reqReviewDTO);
+
+    List<ResponseInquiryDTO> inquiryList(RequestInquiryDTO requestInquiryDTO);
+
+    int inquiryCount(RequestInquiryDTO requestInquiryDTO);
 }

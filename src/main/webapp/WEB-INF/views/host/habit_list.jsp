@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="/css/custom.min.css">
   <script src="/js/bootstrap.bundle.min.js"></script>
   <script src="/js/jquery-3.6.4.min.js"></script>
+  <script src="/js/host/habit_list.js"></script>
   <title>content_list</title>
 </head>
 
@@ -74,20 +75,14 @@
           <!-- 검색어 -->
           <div class="content-flex">
             <div class="item-name">
-              <p>검색어</p>
+              <p>해빗명 검색</p>
             </div>
             <div class="item">
               <div>
-                <select name="" id="" style="width: 150px;" class="form-select">
-                  <option value="">상품명</option>
-                  <option value="">상품ID</option>
-                </select>
+                <input type="text" class="form-control" name="cont_name" placeholder="검색어를 입력해주세요">
               </div>
               <div>
-                <input type="text" class="form-control" placeholder="검색어를 입력해주세요">
-              </div>
-              <div>
-                <input type="submit" class="btn btn-primary" value="검색">
+                <input type="button" class="btn btn-primary" value="검색">
                 <input type="reset" class="btn btn-outline-primary" value="초기화">
               </div>
             </div>
@@ -99,27 +94,27 @@
             </div>
             <div class="item">
               <div>
-                <select name="" id="" style="width: 150px;" class="form-select">
-                  <option value="">판매시작일</option>
-                  <option value="">판매종료일</option>
+                <select name="searchDateType" id="" style="width: 150px;" class="form-select">
+                  <option value="cont_stdate">판매시작일</option>
+                  <option value="cont_endate">판매종료일</option>
                 </select>
               </div>
               <div style="display: flex;">
-                <input type="date" class="form-control"> &nbsp;~&nbsp; <input type="date" class="form-control">
+                <input type="date" id="date-calendar-start" class="form-control"> &nbsp;~&nbsp; <input type="date" id="date-calendar-end" class="form-control">
               </div>
               <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
-                <label class="btn btn-sm btn-outline-primary" for="btnradio1">오늘</label>
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                <label class="btn btn-sm btn-outline-primary" for="btnradio2">1개월</label>
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                <label class="btn btn-sm btn-outline-primary" for="btnradio3">6개월</label>
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
-                <label class="btn btn-sm btn-outline-primary" for="btnradio4">&nbsp;1년&nbsp;</label>
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off">
-                <label class="btn btn-sm btn-outline-primary" for="btnradio5">&nbsp;5년&nbsp;</label>
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off" checked>
-                <label class="btn btn-sm btn-outline-primary" for="btnradio6">전체</label>
+                <input type="radio" class="btn-check" name="btnradio" id="today" value="today" autocomplete="off">
+                <label class="btn btn-sm btn-outline-primary" for="today">오늘</label>
+                <input type="radio" class="btn-check" name="btnradio" id="1Month" value="1Month" autocomplete="off">
+                <label class="btn btn-sm btn-outline-primary" for="1Month">1개월</label>
+                <input type="radio" class="btn-check" name="btnradio" id="6Month" value="6Month" autocomplete="off">
+                <label class="btn btn-sm btn-outline-primary" for="6Month">6개월</label>
+                <input type="radio" class="btn-check" name="btnradio" id="1year" value="1year" autocomplete="off">
+                <label class="btn btn-sm btn-outline-primary" for="1year">&nbsp;1년&nbsp;</label>
+                <input type="radio" class="btn-check" name="btnradio" id="5year" value="5year" autocomplete="off">
+                <label class="btn btn-sm btn-outline-primary" for="5year">&nbsp;5년&nbsp;</label>
+                <input type="radio" class="btn-check" name="btnradio" id="all" value="all" autocomplete="off" checked>
+                <label class="btn btn-sm btn-outline-primary" for="all">전체</label>
               </div>
             </div>
           </div>
@@ -128,28 +123,16 @@
             <div class="item-name">
               <p>상품 상태</p>
             </div>
-            <div class="item2">
+            <div class="item2" style="display: flex">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked1" checked>
-                <label class="form-check-label" for="flexCheckChecked1">
+                <input class="form-check-input" type="checkbox" name="cont_status" value="Y" id="cont_status1" checked>
+                <label class="form-check-label" for="cont_status1">
                   판매중
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked2" checked>
-                <label class="form-check-label" for="flexCheckChecked2">
-                  품절
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked3" checked>
-                <label class="form-check-label" for="flexCheckChecked3">
-                  판매중지
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked4" checked>
-                <label class="form-check-label" for="flexCheckChecked4">
+                <input class="form-check-input" type="checkbox" name="cont_status" value="N" id="cont_status2" checked>
+                <label class="form-check-label" for="cont_status2">
                   판매종료
                 </label>
               </div>
@@ -161,8 +144,10 @@
 
       <!-- 조회 결과 -->
       <div class="content">
-        <p class="content-name">조회 결과 : 0 건</p>
-        <div class="class-flex">
+        <div id="searchResult">
+<%--          <p class="content-name">조회 결과 : 0 건</p>--%>
+        </div>
+        <div class="class-flex" id="tableBody">
           <div class="class-box">
             <div>
               <a href="#"><img src="" alt="" style="background-color: cornflowerblue;"></a>

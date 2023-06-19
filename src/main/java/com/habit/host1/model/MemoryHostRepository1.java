@@ -61,4 +61,15 @@ public class MemoryHostRepository1 implements HostRepository1{
     public int totalCount(RequestReviewDTO reqReviewDTO) {
         return sqlSession.selectOne("product1.reviewCount", reqReviewDTO);
     }
+
+    // 문의사항 검색 List
+    @Override
+    public List<ResponseInquiryDTO> inquiryList(RequestInquiryDTO reqInqDTO) {
+        return sqlSession.selectList("product1.inquiryList", reqInqDTO);
+    }
+
+    @Override
+    public int inquiryCount(RequestInquiryDTO reqInqDTO) {
+        return sqlSession.selectOne("product1.inquiryCount", reqInqDTO);
+    }
 }
