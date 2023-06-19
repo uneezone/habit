@@ -1,12 +1,55 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="zzim">
 
 
+    <select id="zzimlist_one" parameterType="String" resultType="java.util.Map">
+        select * from (
+            select AA.*, BB.avg as avg, BB.cnt as cnt from
+                (
+
+                    select one.pro_no, cont.cont_no as cont_no2, one_price, cont.host_id, cont.cont_name, cont.cont_addr1, cont.cont_img
+                    from one inner join cont
+                    on one.cont_no = cont.cont_no
+
+                ) AA
+            inner join
+                (
+                    select cont_no, count(*) as cnt, avg(review_star) as avg from review group by cont_no
+
+                ) BB
+        on AA.cont_no2=BB.cont_no) AAA
+        inner join zzim on AAA.cont_no2=zzim.cont_no
+        where zzim.user_id=#{user_id} group by AAA.cont_no2
+
+    </select>
+
+    <select id="zzimlist_two" parameterType="String" resultType="java.util.Map">
+        select * from (select zzim.user_id, zzim.cont_no, cont.cont_name, cont_addr1, cont_img
+        from zzim
+        inner join cont
+        on zzim.cont_no=cont.cont_no where zzim.cont_no in (select prod.cont_no from prod)) AAAA
+        left outer join (select review.cont_no, avg(review_star) as avg, count(*) as cnt from review where cont_no in (select cont_no from prod)) BBBB on AAAA.cont_no=BBBB.cont_no where user_id=#{user_id}
+    </select>
+
+
+    <select id="min_price" parameterType="String" resultType="java.util.Map">
+        select min_price,zzim.cont_no
+        from (select min(prod_price) as min_price, cont_no from prod group by cont_no) AA
+        inner join zzim
+        on AA.cont_no=zzim.cont_no
+        where user_id=#{user_id}
+    </select>
 
 
 </mapper>
+
+
+
+
+
 
