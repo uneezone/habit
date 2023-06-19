@@ -5,7 +5,6 @@
 
 <!-- product.xml -->
 <mapper namespace="product1">
-
     <!-- 대분류 전체 select -->
     <select id="cateListLage" resultType="java.util.Map">
         SELECT cate_large
@@ -65,7 +64,7 @@
         select user_id, cont_name, review_star, review_cont, review_date
         from habit.review a join habit.cont b
         on a.cont_no = b.cont_no
-        where host_id = #{host_id}
+        where host_id = #{host_id} and review_status = 'Y'
         <if test="starScore != null">
         and <foreach collection="starScore" item="score" separator="or" open="(" close=")">review_star = ${score}</foreach>
         </if>
@@ -75,12 +74,12 @@
         limit ${recordSize} offset ${(page-1)*recordSize}
     </select>
 
-    <!-- 검색 페이지 count(*) -->
+    <!-- 검색 페이지 count(*)-->
     <select id="reviewCount" parameterType="com.habit.host1.DTO.RequestReviewDTO" resultType="int">
         select count(*)
         from habit.review a join habit.cont b
         on a.cont_no = b.cont_no
-        where host_id = #{host_id}
+        where host_id = #{host_id} and review_status = 'Y'
         <if test="starScore != null">
         and <foreach collection="starScore" item="score" separator="or" open="(" close=")">review_star = ${score}</foreach>
         </if>

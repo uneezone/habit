@@ -243,17 +243,17 @@
                 'reviewContKeyword': reviewContKeyword,
                 'searchUserId' : searchUserId
               },
-              success: (list) => {
+              success: (row) => {
                   searchResult.children().remove()
                   tableBody.children().remove()
                   pagination.children().remove()
-                  if (list.length === 0) {
+                  if (row.length === 0) {
                     searchResult.append("<p class='content-name'>검색 결과 : 0 건</p>")
                     tableBody.append("<tr><td colspan='6'>검색 결과가 없습니다</td></tr>")
                   } else {
-                      let totalCount = list[0].totalCount
+                      let totalCount = row[0].totalCount
                       searchResult.append("<p class='content-name'>검색 결과 : " + totalCount + " 건</p>")
-                      for (let item of list) {
+                      for (let item of row) {
 
                           // 검색 결과 리스트 (table)
                           let str = "<tr>\n" +
@@ -270,16 +270,17 @@
                       }
 
                       // 페이징
+                      let pageSize = Math.floor(row.length/5)
                       let paging = "  <li class='page-item disabled'>\n" +
                                     "    <a class='page-link'>&laquo;</a>\n" +
                                     "  </li>\n"
-                      for (let i = 1; i <= list.length; i++) {
+                      for (let i = 1; i <= pageSize+1; i++) {
                           paging += "  <li class='page-item'>\n" +
                                     "    <a class='page-link' href='/host/reviewPaging/" + i + "'>" + i + "</a>\n" +
                                     "  </li>\n"
                       }
 
-                      if (totalCount <= 5) {
+                      if (pageSize <= 5) {
                           paging += "  <li class='page-item'>\n" +
                                     "    <a class='page-link'>&raquo;</a>\n" +
                                     "  </li>\n"
