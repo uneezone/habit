@@ -231,6 +231,15 @@ a:hover{
     font-weight: 600;
     
 }
+.Home_recommend_img{
+    margin-bottom: 5px;
+    display: block;
+}
+
+.Home_recommend_star{
+    width: 11px;
+    display: inline-block;
+}
 
 .btn_circle1{
   

@@ -1,76 +1,48 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="zzim">
 
-<<<<<<< HEAD
+    <select id="zzimlist_one" parameterType="String" resultType="java.util.Map">
+        select * from (
+            select AA.*, BB.avg as avg, BB.cnt as cnt from
+                (
 
-<select id="zzimlist1" resultType="">
+                    select one.pro_no, cont.cont_no as cont_no2, one_price, cont.host_id, cont.cont_name, cont.cont_addr1, cont.cont_img
+                    from one inner join cont
+                    on one.cont_no = cont.cont_no
 
-</select>
+                ) AA
+            inner join
+                (
+                    select cont_no, count(*) as cnt, avg(review_star) as avg from review group by cont_no
+
+                ) BB
+        on AA.cont_no2=BB.cont_no) AAA
+        inner join zzim on AAA.cont_no2=zzim.cont_no
+        where zzim.user_id=#{user_id} group by AAA.cont_no2
+
+    </select>
+
+    <select id="zzimlist_two" parameterType="String" resultType="java.util.Map">
+        select * from (select zzim.user_id, zzim.cont_no, cont.cont_name, cont_addr1, cont_img
+        from zzim
+        inner join cont
+        on zzim.cont_no=cont.cont_no where zzim.cont_no in (select prod.cont_no from prod)) AAAA
+        left outer join (select review.cont_no, avg(review_star) as avg, count(*) as cnt from review where cont_no in (select cont_no from prod)) BBBB on AAAA.cont_no=BBBB.cont_no where user_id=#{user_id}
+    </select>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--첫번째 시도... 쿼리문 너무 복잡하니까 시행착오 과정으로 생각하고 주석만 남김-->
-<!--    <select id="zzim_info" resultType="java.util.Map" parameterType="String">-->
-=======
-<!--    <select id="zzim_final" resultMap="rs">-->
->>>>>>> 3573ff8efb8dc57a7dbdc5af2e9d3a561e70d9da
-<!--        select cont_no, cont_name, pro_no, one_price, pro_no2, prod_price, starpoint, num_of_review, cont_place, cont_img, zzim_no, user_id from (-->
-<!--        select cont_no3 as cont_no, ver3.cont_name3 as cont_name, pro_no3 as pro_no, one_price3 as one_price, prod_no3 as pro_no2, prod_price3 as prod_price, starpoints as starpoint, num_of_review, cont_place, cont_img, zzim_no, user_id from-->
-<!--        (-->
-<!--        select cont_no3, cont_name3, pro_no3, one_price3, prod_no3, prod_name3, prod_price3, starpoints, num_of_review, cont.cont_place, cont.cont_img from-->
-<!--        (-->
-<!--        select X.cont_no2 as cont_no3, X.cont_name2 as cont_name3, X.pro_no2 as pro_no3, X.one_price2 as one_price3, X.prod_no2 as prod_no3, X.prod_name2 as prod_name3, X.prod_price2 as prod_price3, Y.starpoints, Y.num_of_review-->
-<!--        from (-->
-<!--        select AA.cont_no as cont_no2, AA.cont_name as cont_name2, AA.pro_no as pro_no2, AA.one_price as one_price2,-->
-<!--        C.pro_no as prod_no2, C.prod_name as prod_name2, C.prod_price as prod_price2 from-->
-<!--        (select B.cont_no, B.cont_name, A.pro_no, A.one_price-->
-<!--        from one A-->
-<!--        right outer join cont B-->
-<!--        on A.cont_no=B.cont_no) AA-->
-<!--        left outer join prod C-->
-
-<!--        on AA.cont_no=C.cont_no-->
-<!--        group by AA.cont_no-->
-<!--        order by AA.cont_no ASC) X-->
-<!--        inner join-->
-<!--        (select cont_no, avg(review_star) as starpoints, count(*) as num_of_review from review group by cont_no) Y-->
-<!--        on X.cont_no2=Y.cont_no-->
-<!--        ) ver2-->
-<!--        inner join cont on cont.cont_no=cont_no3-->
-<!--        ) ver3-->
-<!--        inner join zzim-->
-<!--        on zzim.cont_no=ver3.cont_no3 where zzim.user_id=#{user_id}-->
-<!--        ) zzim_final-->
-<<<<<<< HEAD
-<!--    </select>-->
+    <select id="min_price" parameterType="String" resultType="java.util.Map">
+        select min_price,zzim.cont_no
+        from (select min(prod_price) as min_price, cont_no from prod group by cont_no) AA
+        inner join zzim
+        on AA.cont_no=zzim.cont_no
+        where user_id=#{user_id}
+    </select>
 
 
 </mapper>
-
-
-
-
-
-=======
-
-<!--    </select>-->
-
-</mapper>
->>>>>>> 3573ff8efb8dc57a7dbdc5af2e9d3a561e70d9da

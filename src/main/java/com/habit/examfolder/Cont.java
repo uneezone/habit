@@ -23,14 +23,6 @@ public class Cont {
     @GetMapping("/itemdetail")
     public String itemdetail() { return "product/detailpage";}
 
-    @GetMapping("/payPage")
-<<<<<<< Updated upstream:src/main/java/com/habit/examfolder/Cont.java
-    public String payPage() { return "order/payPage";}
-=======
-    public String payPage(){
-        return "order/payPage";
-    }
->>>>>>> Stashed changes:src/main/java/com/habit/cont/Cont.java
 
 }
 
