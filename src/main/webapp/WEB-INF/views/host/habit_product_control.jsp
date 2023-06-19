@@ -10,8 +10,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/bootstrap.journal.min.css">
   <link rel="stylesheet" href="/css/custom.min.css">
+  <link rel="stylesheet" href="/css/productCon.css">
   <script src="/js/bootstrap.bundle.min.js"></script>
   <script src="/js/jquery-3.6.4.min.js"></script>
+  <script src="/js/host_product.js"></script>
   <title>content_product_control</title>
 </head>
 
@@ -49,13 +51,13 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">정산 관리</a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="adjustment_control.jsp">정산서 관리</a> <%--링크--%>
+              <a class="dropdown-item" href="/host/adjust">정산서 관리</a> <%--링크--%>
             </div>
           </li>
         </ul>
         <div>
           <a href="host_information.jsp"><img src="/img/profile-3_07724ab7a395fea9343ed7a13e59c1212e2e3d39c141edd99f83442f98340dfc.webp" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a> <%--링크--%>
-          <a href="host_information.jsp" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">${host_id}</span></a> <%--링크--%>
+          <a href="host_information.jsp" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">${searchFilter.host_id}</span></a> <%--링크--%>
           <button type="button" class="btn btn-outline-primary btn-sm">해빗 홈으로 이동</button>
           <button type="button" class="btn btn-secondary btn-sm">로그아웃</button>
         </div>
@@ -74,53 +76,114 @@
         <!-- 판매조회 -->
         <p class="content-name">판매 조회</p>
         <!-- 판매 조회 form 시작 -->
-        <form method="" action="" onsubmit="">
+        <form method="get" action="/host/product" onsubmit="checkFiltering()">
           <!-- 검색어 -->
-          <div class="content-flex">
-            <div class="item-name">
-              <p>검색어</p>
+          <div class="content-flex" style="margin-top: 30px;">
+            <div class="item-name" style="display: block;">
+              <p>등록한 해빗 검색</p>
             </div>
             <div class="item">
               <div>
-                <select name="" id="" style="width: 150px;" class="form-select">
-                  <option value="">상품명</option>
-                  <option value="">상품ID</option>
-                  <option value="">옵션명</option>
+                <select name="cont_no" id="productName" style="width: 300px;" class="form-select" onchange="showOption()">
+                  <option value="0">선택</option>
+                  <c:forEach items="${productNames}" var="pname">
+                    <fmt:formatDate value="${pname.cont_endate}" var="endDate" pattern="yyyy-MM-dd"/>
+                    <option value="${pname.cont_no}">${pname.cont_name} (판매종료일 : ${endDate} )</option>
+
+                  </c:forEach>
                 </select>
               </div>
               <div>
-                <input type="text" class="form-control" placeholder="검색어를 입력해주세요">
+                <select name="pro_no" id="productOption" style="width: 150px;" class="form-select">
+                  <option value="0">선택</option>
+                </select>
               </div>
+            </div>
+          </div>
+          <!--유저아이디 기준 검색-->
+          <div class="content-flex" style="margin-top: 30px;">
+            <div class="item-name">
+              <p>회원ID</p>
+            </div>
+            <div>
+              <input type="text" name="user_id" id="user_id" class="form-control" style="width: 320px;" placeholder="검색하실 회원아이디를 입력해주세요">
+            </div>
+          </div>
+
+          <!-- 상태기준-->
+          <div class="content-flex" style="margin-top: 30px;">
+            <div class="item-name">
+              <p>상태</p>
+            </div>
+            <div class="item">
               <div>
-                <input type="submit" class="btn btn-primary" value="검색">
-                <input type="reset" class="btn btn-outline-primary" value="초기화">
+                <select name="payd_status" id="productStatus" style="width: 150px;" class="form-select">
+                  <option value="0">선택</option>
+                  <option value="R">사용중</option>
+                  <option value="Y">사용완료</option>
+                  <option value="C">취소완료</option>
+                </select>
               </div>
             </div>
           </div>
           <!-- 조회기간 -->
-          <div class="content-flex">
+          <div class="content-flex" style="margin-top: 30px;">
             <div class="item-name">
-              <p>조회기간</p>
+              <p>조회기간 (결제일 기준)</p>
             </div>
             <div class="item">
               <div style="display: flex;">
-                <input type="date" class="form-control"> &nbsp;~&nbsp; <input type="date" class="form-control">
+                <input type="date" class="form-control" id="startDate" name="startDate"> &nbsp;~&nbsp; <input type="date" class="form-control" id="endDate" name="endDate">
               </div>
               <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+                <input type="radio" class="btn-check dateBtn" name="btnradio" id="btnradio1" autocomplete="off">
                 <label class="btn btn-sm btn-outline-primary" for="btnradio1">오늘</label>
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                <input type="radio" class="btn-check dateBtn" name="btnradio" id="btnradio2" autocomplete="off">
                 <label class="btn btn-sm btn-outline-primary" for="btnradio2">1개월</label>
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                <input type="radio" class="btn-check dateBtn" name="btnradio" id="btnradio3" autocomplete="off">
                 <label class="btn btn-sm btn-outline-primary" for="btnradio3">6개월</label>
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+                <input type="radio" class="btn-check dateBtn" name="btnradio" id="btnradio4" autocomplete="off">
                 <label class="btn btn-sm btn-outline-primary" for="btnradio4">&nbsp;1년&nbsp;</label>
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off">
+                <input type="radio" class="btn-check dateBtn" name="btnradio" id="btnradio5" autocomplete="off">
                 <label class="btn btn-sm btn-outline-primary" for="btnradio5">&nbsp;5년&nbsp;</label>
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off" checked>
+                <input type="radio" class="btn-check dateBtn" name="btnradio" id="btnradio6" autocomplete="off" checked>
                 <label class="btn btn-sm btn-outline-primary" for="btnradio6">전체</label>
               </div>
             </div>
+          </div>
+          <script>
+
+            //필터링한 조건들 넣기
+            //console.log(filter);
+            if("${searchFilter.cont_no}"!=null &&"${searchFilter.cont_no}"!=0 ){
+              $("#productName").val("${searchFilter.cont_no}").prop("selected",true);
+              showOption();
+            }
+
+            if("${searchFilter.pro_no}"!=null && "${searchFilter.pro_no}"!=0 ){
+              $("#productOption").val("${searchFilter.pro_no}").prop("selected",true);
+            }
+
+            if("${searchFilter.user_id}"!=null && "${searchFilter.user_id}"!=""){
+              $("#user_id").val("${searchFilter.user_id}");
+            }
+
+            if("${searchFilter.payd_status}"!=null && "${searchFilter.payd_status}"!=0){
+              $("#productStatus").val("${searchFilter.payd_status}").prop("selected",true);
+            }
+
+            if("${searchFilter.startDate}"!=null &&"${searchFilter.startDate}"!=""){
+              $("#startDate").val("${searchFilter.startDate}");
+            }
+
+            if("${searchFilter.endDate}"!=null &&"${searchFilter.endDate}"!=""){
+              $("#endDate").val("${searchFilter.endDate}");
+            }
+          </script>
+
+          <div style="float: right;">
+            <input type="submit" class="btn btn-primary" value="검색">
+            <input type="reset" class="btn btn-outline-primary" value="초기화">
           </div>
         </form>
         <!-- 판매 조회 form 종료 -->
@@ -130,7 +193,7 @@
     <!-- 검색 결과 -->
     <div class="content-wrap">
       <div class="content">
-        <p class="content-name">검색 결과 : <span>${products.size()}</span> 건</p>
+        <p class="content-name">검색 결과 : <span>${searchFilter.allProductsLength}</span> 건</p>
         <div style="text-align: center;">
           <table class="table">
             <thead>
@@ -145,20 +208,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>user-1</td>
-                <td>2023-06-01 00:00:00</td>
-                <td>[심리상담] 1:1 상담 회차권 / 3회권</td>
-                <td>1</td>
-                <td>30,000원</td>
-                <td>
-                  사용중
-                </td>
-                <td><button class="btn btn-sm btn-primary">사용완료처리</button></td> <!-- 버튼 클릭시 사용 완료처리되며 버튼은 사라짐 -->
-              </tr>
               <c:forEach items="${products}" var="product" varStatus="status">
                 <tr>
-                <td>${product.user_id}</td>
+                <td onclick="showUserInfo(this)" class="user_td">${product.user_id}</td>
                 <td>${product.payd_date}</td>
                 <td>${product.cont_name}/${product.prod_name}</td>
                 <td>${product.payd_qty}</td>
@@ -174,7 +226,7 @@
 
                     });
                   </script>
-                  <select class="form-select pstatus" name="" >
+                  <select class="form-select pstatus" name="" id="staus${product.payd_no}">
                     <option value="R">사용중</option>
                     <option value="Y">사용완료</option>
                     <option value="C">취소완료</option>
@@ -184,7 +236,7 @@
                   <script>
                     window.addEventListener('load', function() {
 
-                      console.log($(".pstatus").eq("${status.index}").val());
+                      //console.log($(".pstatus").eq("${status.index}").val());
                       let pstatus=$(".pstatus").eq("${status.index}").val();
                       if(pstatus=="C"||pstatus=="Y"){
 
@@ -196,42 +248,32 @@
 
                     });
                   </script>
-                  <input type="button" value="사용완료처리" class="btn btn-sm btn-primary use">
+                  <input type="button" value="상태처리" class="btn btn-sm btn-primary use" onclick="changeStatus('${product.payd_no}')">
                 </td>
                 </tr>
               </c:forEach>
-              <tr>
-                <td colspan="7">검색 결과가 없습니다</td>
-              </tr>
+              <c:if test="${products.size()==0}">
+                <tr>
+                  <td colspan="7">검색 결과가 없습니다</td>
+                </tr>
+              </c:if>
             </tbody>
           </table>
         </div>
-        <c:forEach items="${products}" var="p">
 
-        </c:forEach>
         <!-- 페이징 -->
         <div style="display: flex; align-items: center; justify-content: center;">
           <ul class="pagination">
-            <li class="page-item disabled">
-              <a class="page-link" href="#">&laquo;</a>
+            <li class="page-item page-way ">
+              <a class="page-link" id="pagePrev" >&laquo;</a>
             </li>
-            <li class="page-item active">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">4</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">5</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">&raquo;</a>
+            <c:forEach begin="1" end="${searchFilter.pagingIndex}" varStatus="status">
+              <li class="page-item page-num">
+                <a class="page-link page" id="page${status.index}">${status.index}</a>
+              </li>
+            </c:forEach>
+            <li class="page-item page-way ">
+              <a class="page-link" id="pageNext" >&raquo;</a>
             </li>
           </ul>
         </div>
@@ -239,6 +281,10 @@
     </div>
     <!-- main 종료 -->
   </div>
+
+<!-- 회원 정보 모달 -->
+<div class="show_userInfo">
+</div>
 
   <!--footer 시작-->
   <footer>

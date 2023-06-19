@@ -23,6 +23,11 @@ public class Cont {
     @GetMapping("/itemdetail")
     public String itemdetail() { return "product/detailpage";}
 
+    @GetMapping("/payPage")
+    public String payPage() { return "order/payPage";}
+
+
+
 
 }
 

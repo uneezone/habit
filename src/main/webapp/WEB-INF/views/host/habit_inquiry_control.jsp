@@ -9,7 +9,8 @@
   <link rel="stylesheet" href="/css/custom.min.css">
   <script src="/js/bootstrap.bundle.min.js"></script>
   <script src="/js/jquery-3.6.4.min.js"></script>
-  <title>host_inquiry_content</title>
+  <script src="/js/host/habit_inquiry_control.js"></script>
+  <title>habit_inquiry_control</title>
 </head>
 
 <body>
@@ -78,20 +79,20 @@
             </div>
             <div class="item">
               <div style="display: flex;">
-                <input type="date" class="form-control"> &nbsp;~&nbsp; <input type="date" class="form-control">
+                <input type="date" class="form-control" id="date-calendar-start" name="searchDate"> &nbsp;~&nbsp; <input type="date" id="date-calendar-end" name="searchDate" class="form-control">
               </div>
               <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" value="today" autocomplete="off">
                 <label class="btn btn-sm btn-outline-primary" for="btnradio1">오늘</label>
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" value="1Month" autocomplete="off">
                 <label class="btn btn-sm btn-outline-primary" for="btnradio2">1개월</label>
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" value="6Month" autocomplete="off">
                 <label class="btn btn-sm btn-outline-primary" for="btnradio3">6개월</label>
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio4" value="1year" autocomplete="off">
                 <label class="btn btn-sm btn-outline-primary" for="btnradio4">&nbsp;1년&nbsp;</label>
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off">
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio5" value="5year" autocomplete="off">
                 <label class="btn btn-sm btn-outline-primary" for="btnradio5">&nbsp;5년&nbsp;</label>
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off" checked>
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio6" value="all" autocomplete="off" checked>
                 <label class="btn btn-sm btn-outline-primary" for="btnradio6">전체</label>
               </div>
             </div>

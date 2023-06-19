@@ -1,3 +1,5 @@
+<%@ page import="org.json.simple.JSONObject" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -71,39 +73,39 @@
       <div class="content">
         <p class="content-name">리뷰 검색</p>
         <!-- 리뷰 검색 form 시작 -->
-        <form method="" action="" onsubmit="">
-          <!-- 평점 -->
+        <form method="post" onsubmit="" name="reviewForm">
+          <!-- 별점 -->
           <div class="content-flex">
             <div class="item-name">
-              <p>평점(미선택시 전체)</p>
+              <p>별점(미선택시 전체)</p>
             </div>
             <div style="display: flex; flex-wrap: wrap;">
               <div>
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked1" checked="">
+                <input class="form-check-input" type="checkbox" value=1 name="starScore" id="flexCheckChecked1" checked="">
                 <label class="form-check-label" for="flexCheckChecked1">
                   1점&nbsp;&nbsp;
                 </label>
               </div>
               <div>
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked2" checked="">
+                <input class="form-check-input" type="checkbox" value=2 name="starScore" id="flexCheckChecked2" checked="">
                 <label class="form-check-label" for="flexCheckChecked2">
                   2점&nbsp;&nbsp;
                 </label>
               </div>
               <div>
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked3" checked="">
+                <input class="form-check-input" type="checkbox" value=3 name="starScore" id="flexCheckChecked3" checked="">
                 <label class="form-check-label" for="flexCheckChecked3">
                   3점&nbsp;&nbsp;
                 </label>
               </div>
               <div>
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked4" checked="">
+                <input class="form-check-input" type="checkbox" value=4 name="starScore" id="flexCheckChecked4" checked="">
                 <label class="form-check-label" for="flexCheckChecked4">
                   4점&nbsp;&nbsp;
                 </label>
               </div>
               <div>
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked5" checked="">
+                <input class="form-check-input" type="checkbox" value=5 name="starScore" id="flexCheckChecked5" checked="">
                 <label class="form-check-label" for="flexCheckChecked5">
                   5점&nbsp;&nbsp;
                 </label>
@@ -116,7 +118,8 @@
               <p>리뷰 내용</p>
             </div>
             <div>
-            <input type="text" class="form-control" placeholder="내용을 입력해주세요" style="width: 300px;">
+            <input type="text" class="form-control" name="reviewContKeyword" id="reviewContKeyword" placeholder="내용을 입력해주세요" style="width: 300px;">
+            <p class="item2-info">입력한 내용이 리뷰내용에 포함되어있는 내역만 검색 됩니다.</p>
             </div>
           </div>
           <!-- 회원ID -->
@@ -125,82 +128,60 @@
               <p>회원 ID</p>
             </div>
             <div>
-              <input type="text" class="form-control" placeholder="회원 ID를 입력해주세요" style="width: 300px;">
-              <p class="item2-info">입력한 ID와 정확히 일치하는 내역만 검색 됩니다.</p>
-            </div>
-          </div>
-          <!-- 상품ID -->
-          <div class="content-flex">
-            <div class="item-name">
-              <p>상품 ID</p>
-            </div>
-            <div>
-              <input type="text" class="form-control" placeholder="상품 ID를 입력해주세요" style="width: 300px;">
+              <input type="text" class="form-control" name="searchUserId" id="searchUserId" placeholder="회원 ID를 입력해주세요" style="width: 300px;">
               <p class="item2-info">입력한 ID와 정확히 일치하는 내역만 검색 됩니다.</p>
             </div>
           </div>
           <!-- 리뷰 검색 버튼 -->
-          <div style="text-align: right;"><input type="button" class="btn btn-primary" value="검색"></div>
+          <div style="text-align: right;"><input id="searchReview" type="button" class="btn btn-primary" value="검색"></div>
         </form>
         <!-- 리뷰 검색 form 종료 --> 
       </div>
 
       <!-- 검색 결과 -->
       <div class="content">
-        <p class="content-name">검색 결과 : 0 건</p>
+        <div id="search-result">
+        </div>
         <div style="text-align: center;">
           <table class="table">
             <thead>
               <tr class="table-secondary">
                 <th>회원ID</th>
-                <th>리뷰컨텐츠</th>
+                <th>해빗명</th>
                 <th>별점</th>
                 <th>리뷰내용</th>
                 <th>리뷰작성일</th>
                 <th>리뷰삭제</th> <!-- 리뷰 삭제를 누르면 해당 리뷰는 공개되지만 별점은 그대로 적용됨을 호스트에게 인지시켜야함 -->
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>user-1</td>
-                <td><a href="#">[서핑] 원데이 클래스</a></td>
-                <td>⭐⭐⭐⭐⭐</td>
-                <td>재미났습니다 호호</td>
-                <td>2023-04-14 00:00:00</td>
-                <td>
-                  <button class="btn btn-sm btn-primary">삭제</button>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="6">검색 결과가 없습니다</td>
-              </tr>
+            <tbody id="table-body">
             </tbody>
           </table>
         </div>
         <!-- 페이징 -->
         <div style="display: flex; align-items: center; justify-content: center;">
-          <ul class="pagination">
-            <li class="page-item disabled">
-              <a class="page-link" href="#">&laquo;</a>
-            </li>
-            <li class="page-item active">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">4</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">5</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">&raquo;</a>
-            </li>
+          <ul class="pagination" id="pagination">
+<%--            <li class="page-item disabled">--%>
+<%--              <a class="page-link" href="#">&laquo;</a>--%>
+<%--            </li>--%>
+<%--            <li class="page-item active">--%>
+<%--              <a class="page-link" href="#">1</a>--%>
+<%--            </li>--%>
+<%--            <li class="page-item">--%>
+<%--              <a class="page-link" href="#">2</a>--%>
+<%--            </li>--%>
+<%--            <li class="page-item">--%>
+<%--              <a class="page-link" href="#">3</a>--%>
+<%--            </li>--%>
+<%--            <li class="page-item">--%>
+<%--              <a class="page-link" href="#">4</a>--%>
+<%--            </li>--%>
+<%--            <li class="page-item">--%>
+<%--              <a class="page-link" href="#">5</a>--%>
+<%--            </li>--%>
+<%--            <li class="page-item">--%>
+<%--              <a class="page-link" href="#">&raquo;</a>--%>
+<%--            </li>--%>
           </ul>
         </div>
       </div>
@@ -210,28 +191,109 @@
 
   <!--footer 시작-->
   <footer>
-    <div class="footer">
-      <div class="footer_wrap">
-        <div>
-          <strong>(주) Habit Borker</strong>
-        </div>
-        <div>
-          주소 : 서울특별시 강남구 테헤란로 124 4층(역삼동, 삼원타워)
-        </div>
-        <div>
-          <div>대표 : 2조 | 개인정보 관리 책임자 : 모두</div>
-        </div>
-        <div>
-          <a href="#">개인정보 처리방침</a> | 
-          <a href="#">이용약관</a> | 
-          <span>개인정보취급책임자 : 김태윤</span>
-        </div>
-        <div>
-          <br>COPYRIGHT &copy;HABIT
-        </div>
+      <div class="footer">
+          <div class="footer_wrap">
+              <div>
+                  <strong>(주) Habit Borker</strong>
+              </div>
+              <div>
+                  주소 : 서울특별시 강남구 테헤란로 124 4층(역삼동, 삼원타워)
+              </div>
+              <div>
+                  <div>대표 : 2조 | 개인정보 관리 책임자 : 모두</div>
+              </div>
+              <div>
+                  <a href="#">개인정보 처리방침</a> |
+                  <a href="#">이용약관</a> |
+                  <span>개인정보취급책임자 : 김태윤</span>
+              </div>
+              <div>
+                  <br>COPYRIGHT &copy;HABIT
+              </div>
+          </div>
       </div>
-    </div>
   </footer>
 <!--footer 종료-->
 </body>
+<script>
+  $(document).ready(()=>{
+      let searchResult = $('#search-result')
+      let tableBody = $('#table-body')
+      let pagination = $('#pagination')
+      searchResult.append("<p class='content-name'>검색 결과 : 0 건</p>")
+      tableBody.append("<tr><td colspan='6'>검색 결과가 없습니다</td></tr>")
+      $('#searchReview').on('click', ()=>{
+
+          // let queryString = $('form[name=reviewForm]').serialize()
+          let list = $('input[name=starScore]:checked')
+          const starScore = [];
+          for (const score of list) {
+              starScore.push(score.value)
+          }
+
+          let reviewContKeyword = $('#reviewContKeyword').val()
+          let searchUserId = $('#searchUserId').val()
+
+          $.ajax({
+              url: '/host/review.do',
+              type: 'post',
+              dataType: 'json',
+              data: {
+                'starScore': starScore,
+                'reviewContKeyword': reviewContKeyword,
+                'searchUserId' : searchUserId
+              },
+              success: (row) => {
+                  searchResult.children().remove()
+                  tableBody.children().remove()
+                  pagination.children().remove()
+                  if (row.length === 0) {
+                    searchResult.append("<p class='content-name'>검색 결과 : 0 건</p>")
+                    tableBody.append("<tr><td colspan='6'>검색 결과가 없습니다</td></tr>")
+                  } else {
+                      let totalCount = row[0].totalCount
+                      searchResult.append("<p class='content-name'>검색 결과 : " + totalCount + " 건</p>")
+                      for (let item of row) {
+
+                          // 검색 결과 리스트 (table)
+                          let str = "<tr>\n" +
+                                  "    <td>" + item.user_id + "</td>\n" +
+                                  "    <td><a href=\"#\">" + item.cont_name + "</a></td>\n" +
+                                  "    <td>" + item.review_star + "</td>\n" +
+                                  "    <td>" + item.review_cont + "</td>\n" +
+                                  "    <td>" + item.review_date + "</td>\n" +
+                                  "    <td>\n" +
+                                  "    <button class=\"btn btn-sm btn-primary\">삭제</button>\n" +
+                                  "    </td>\n" +
+                                  "</tr>"
+                          tableBody.append(str)
+                      }
+
+                      // 페이징
+                      let pageSize = Math.floor(row.length/5)
+                      let paging = "  <li class='page-item disabled'>\n" +
+                                    "    <a class='page-link'>&laquo;</a>\n" +
+                                    "  </li>\n"
+                      for (let i = 1; i <= pageSize+1; i++) {
+                          paging += "  <li class='page-item'>\n" +
+                                    "    <a class='page-link' href='/host/reviewPaging/" + i + "'>" + i + "</a>\n" +
+                                    "  </li>\n"
+                      }
+
+                      if (pageSize <= 5) {
+                          paging += "  <li class='page-item'>\n" +
+                                    "    <a class='page-link'>&raquo;</a>\n" +
+                                    "  </li>\n"
+                      } else {
+                          paging += "  <li class='page-item'>\n" +
+                                    "    <a class='page-link' href='/host/reviewPaging/6'>&raquo;</a>\n" +
+                                    "  </li>\n"
+                      }
+                      pagination.append(paging)
+                  }
+              }
+          })
+      })
+  })
+</script>
 </html>

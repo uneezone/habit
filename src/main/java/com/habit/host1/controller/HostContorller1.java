@@ -1,17 +1,20 @@
 package com.habit.host1.controller;
 
+//import com.habit.host1.DTO.RequestContentInsertDTO;
+//import com.habit.host1.DTO.RequestReviewDTO;
+//import com.habit.host1.DTO.ResponseReviewDTO;
+import com.habit.host1.DTO.RequestContentInsertDTO;
+import com.habit.host1.DTO.RequestReviewDTO;
+import com.habit.host1.DTO.ResponseReviewDTO;
 import com.habit.host1.service.HostService1;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.text.ParseException;
-import java.time.LocalDate;
 import java.util.*;
 
 @Controller
@@ -21,10 +24,11 @@ public class HostContorller1 {
 
     private final HostService1 hostService1;
 
+    // [habit_create.jsp]
     // 컨텐츠 생성 폼으로 이동 & 대분류 list 불러오기
     @GetMapping("/contentform")
     public String contentForm(Model model) {
-        model.addAttribute("List",hostService1.cateList());
+        model.addAttribute("List", hostService1.cateList());
         return "host/habit_create";
     }
 
@@ -38,37 +42,40 @@ public class HostContorller1 {
 
     // 생성된 컨텐츠 값 insert
     @PostMapping("/contentinsert")
-    public String contentInsert(
-            @SessionAttribute(name = "userId",required = false)String userIds,
-            @RequestParam Map<String, Object> map,
-            @RequestParam List<String> cont_hashtag2,
-            @RequestParam List<String> cont_hashtag4,
-            @RequestParam List<String> prod_name,
-            @RequestParam List<String> prod_qty,
-            @RequestParam List<String> prod_price,
-            @RequestParam List<String> one_date,
-            @RequestParam List<String> one_maxqty,
-            @RequestParam List<String> one_price,
-            @RequestParam List<MultipartFile> cont_img
-    ) throws IOException {
-        System.out.println("map = " + map);
+    public String contentInsert(@SessionAttribute(name = "userId", required = false) String userIdd, RequestContentInsertDTO rciDTO) throws IOException {
         String userId = "user-1"; //임시 세션 아이디
-        map.put("host_id", userId);
-        if (cont_hashtag2.size() != 0) {
-            map.put("cont_hashtag2", cont_hashtag2);
-        }
-        if (cont_hashtag4.size() != 0) {
-            map.put("cont_hashtag4", cont_hashtag4);
-        }
-        map.put("prod_name", prod_name);
-        map.put("prod_qty", prod_qty);
-        map.put("prod_price", prod_price);
-        map.put("one_date", one_date);
-        map.put("one_maxqty", one_maxqty);
-        map.put("one_price", one_price);
-        map.put("cont_img", cont_img);
-
-        int result = hostService1.contentInsert(map);
+        rciDTO.setHost_id(userId);
+        int result = hostService1.contentInsert(rciDTO);
         return "host/habit_list";
+    }
+
+    // [habit_review_control.jsp]
+    @GetMapping("/review")
+    public String reviewControl(@SessionAttribute(name = "userId", required = false) String userIdd) {
+        return "host/habit_review_control";
+    }
+
+    @PostMapping("/review.do")
+    @ResponseBody
+    public List<ResponseReviewDTO> reviewSearch(@SessionAttribute(name = "userId", required = false) String userIdd, RequestReviewDTO reqReviewDTO) {
+        //임시 세션 아이디
+        String user_id = "user-1";
+        reqReviewDTO.setHost_id(user_id);
+        System.out.println("reqReviewDTO = " + reqReviewDTO);
+        System.out.println(hostService1.reviewList(reqReviewDTO));
+        return hostService1.reviewList(reqReviewDTO);
+    }
+
+    @GetMapping("/reviewPaging/{page}")
+    @ResponseBody
+    public List<ResponseReviewDTO> reviewPaging(@SessionAttribute(name = "userId", required = false) String userIdd, @PathVariable int page) {
+        String user_id = "user-1";
+        return null;
+    }
+
+    // [habit_inquiry_control.jsp]
+    @GetMapping("/inquiry")
+    public String inquiryControl() {
+        return "host/habit_inquiry_control";
     }
 }

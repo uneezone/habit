@@ -44,9 +44,119 @@
         where host_id=#{host_id}
     </update>
 
-    <select id="getProduct" parameterType="String" resultType="com.habit.host2.entity.ProductDTO">
+    <select id="getProductsLength" parameterType="com.habit.host2.entity.SearchProDTO" resultType="Integer">
+        select count(*)
+        from(select p.pro_no,p.prod_name,c.cont_name
+        from cont c join prod p on c.cont_no=p.cont_no
+        where host_id=#{host_id}
+        <if test="cont_no !=0 and cont_no!=null">
+            and c.cont_no=#{cont_no}
+        </if>
+        <if test='pro_no !="0" and pro_no!=null'>
+            and pro_no=#{pro_no}
+        </if>)
+        AA join payd p on AA.pro_no=p.pro_no
+        <where>
+            <if test='user_id !="" and user_id !=null'>
+                and p.user_id=#{user_id}
+            </if>
+            <if test='startDate !="" and startDate!=null'>
+                and payd_date between #{startDate} and #{endDate}
+            </if>
+            <if test='payd_status !="0" and payd_status !=null'>
+                and payd_status=#{payd_status}
+            </if>
+        </where>
+        order by p.payd_date asc
+    </select>
+
+    <select id="getProduct" parameterType="com.habit.host2.entity.SearchProDTO" resultType="com.habit.host2.entity.ProductDTO">
         select AA.*, p.payd_no,p.user_id,p.pay_no,p.payd_price,p.payd_qty,p.payd_status,p.refn_status,p.payd_date
-        from(select p.pro_no,p.prod_name,c.cont_name from cont c join prod p on c.cont_no=p.cont_no where host_id=#{hostId}) AA join payd p on AA.pro_no=p.pro_no
-        order by p.payd_date asc;
+        from(select p.pro_no,p.prod_name,c.cont_name
+             from cont c join prod p on c.cont_no=p.cont_no
+             where host_id=#{host_id}
+             <if test="cont_no !=0 and cont_no!=null">
+                and c.cont_no=#{cont_no}
+             </if>
+             <if test='pro_no !="0" and pro_no!=null'>
+                 and pro_no=#{pro_no}
+             </if>)
+        AA join payd p on AA.pro_no=p.pro_no
+        <where>
+            <if test='user_id !="" and user_id !=null'>
+               and p.user_id=#{user_id}
+            </if>
+            <if test='startDate !="" and startDate!=null'>
+                and payd_date between #{startDate} and #{endDate}
+            </if>
+            <if test='payd_status !="0" and payd_status !=null'>
+                and payd_status=#{payd_status}
+            </if>
+        </where>
+        order by p.payd_date desc
+        limit #{startPaging},#{showLength};
+    </select>
+
+
+    <update id="updatePaydStatus" parameterType="java.util.Map">
+        update payd set payd_status=#{status}
+        <if test='status=="Y"'>
+            ,refn_status="NRO"
+        </if>
+        <if test='status=="C"'>
+            ,refn_status="HFRO"
+        </if>
+        where payd_no=#{payd_no};
+    </update>
+
+    <select id="getPayNo" parameterType="Long" resultType="String">
+        select pay_no from payd where payd_no=#{payd_no}
+    </select>
+
+    <select id="getRefnCount" parameterType="String" resultType="Long">
+        select count(refn_status) from payd where pay_no=#{pay_no} and(refn_status="RO" || refn_status="NRO")
+    </select>
+
+    <select id="getPayMethod" parameterType="String" resultType="String">
+        select pay_method from pay where pay_no=#{pay_no}
+    </select>
+
+    <select id="getInfoByPaydNo" parameterType="Long" resultType="java.util.Map">
+        select pro_no,payd_price, payd_qty,user_id from payd where payd_no=#{payd_no}
+    </select>
+
+    <insert id="insertRefund" parameterType="java.util.Map">
+        insert into refn(payd_no, user_id, pro_no, refn_qty, refn_pay, refn_method,refn_point)
+        values (#{payd_no},#{user_id},#{pro_no},#{pay_qty},#{refund_price},#{pay_method},#{refn_point})
+    </insert>
+
+    <select id="getRefundPoint" parameterType="String" resultType="Integer">
+        select pay_point from pay where pay_no=#{pay_no}
+    </select>
+
+    <insert id="insertEnergy" parameterType="java.util.Map">
+        insert into energy(user_id, energy_saveuse, energy_sources)
+        values (#{user_id},#{energy_saveuse},#{energy_sources})
+    </insert>
+
+    <select id="getProductNames" parameterType="String" resultType="java.util.Map">
+        select c.cont_no as cont_no, cont_name, cont_endate
+        from cont c join prod p on c.cont_no = p.cont_no
+        where host_id=#{host_id}
+        group by c.cont_no
+        order by c.cont_no;
+    </select>
+
+    <select id="getProductOptions" parameterType="Long" resultType="java.util.Map">
+        select pro_no,prod_name from prod where cont_no=#{cont_no}
+    </select>
+
+    <select id="showUserInfo" parameterType="String" resultType="java.util.Map">
+        select user_name, user_phone from user where user_id=#{user_id}
+    </select>
+
+    <!--정산서-->
+    <select id="getAdjustList" parameterType="String" resultType="com.habit.host2.entity.AdjustInfoDTO">
+        select * from calc where host_id=#{host_id}
     </select>
 </mapper>

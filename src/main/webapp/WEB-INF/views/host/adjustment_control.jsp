@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -9,7 +11,9 @@
   <link rel="stylesheet" href="/css/custom.min.css">
   <script src="/js/bootstrap.bundle.min.js"></script>
   <script src="/js/jquery-3.6.4.min.js"></script>
+  <script src="/js/hostadjust.js"></script>
   <title>adjustment_list</title>
+  <link rel="stylesheet" href="/css/hostadjust.css">
 </head>
 
 <body>
@@ -37,7 +41,7 @@
               <div class="dropdown-menu">
                 <a class="dropdown-item" href="habit_list.jsp">해빗 목록</a> <%--링크--%>
                 <a class="dropdown-item" href="habit_create.jsp">해빗 등록</a> <%--링크--%>
-                <a class="dropdown-item" href="habit_product_control.jsp">판매 관리</a> <%--링크--%>
+                <a class="dropdown-item" href="/host/product">판매 관리</a> <%--링크--%>
                 <a class="dropdown-item" href="habit_reservation_control.jsp">예약 관리</a> <%--링크--%>
                 <a class="dropdown-item" href="habit_inquiry_control.jsp">문의 관리</a> <%--링크--%>
                 <a class="dropdown-item" href="habit_review_control.jsp">리뷰 관리</a> <%--링크--%>
@@ -46,13 +50,13 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">정산 관리</a>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="adjustment_control.jsp">정산서 관리</a> <%--링크--%>
+                <a class="dropdown-item" href="/host/adjust">정산서 관리</a> <%--링크--%>
               </div>
             </li>
           </ul>
           <div>
             <a href="host_information.jsp"><img src="/img/profile-3_07724ab7a395fea9343ed7a13e59c1212e2e3d39c141edd99f83442f98340dfc.webp" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a> <%--링크--%>
-            <a href="host_information.jsp" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">HOST ID</span></a> <%--링크--%>
+            <a href="host_information.jsp" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">${host_id}</span></a> <%--링크--%>
             <button type="button" class="btn btn-outline-primary btn-sm">해빗 홈으로 이동</button>
             <button type="button" class="btn btn-secondary btn-sm">로그아웃</button>
           </div>
@@ -124,47 +128,79 @@
             <thead>
               <tr class="table-secondary">
                 <th></th>
-                <th>정산 기간</th>
+                <th>정산기간(판매기간)</th>
                 <th>정산서 제목</th>
-                <th>총 지급액</th>
-                <th>총 수수료</th>
+                <th style="width:100px; ">총 합산액</th>
+                <th style="width:100px; ">총 수수료(20%)</th>
+                <th style="width:140px; ">총 지급액<span style="font-size: 12px; display: block;">(총 합산액-총 수수료)</span></th>
                 <th>등록일</th>
                 <th>지급상태</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><input class="form-check-input" type="checkbox" name="" id=""></td>
-                <td>2023-05-01 ~ 2023-05-31</td>
-                <td>5월 정산 총액</td>
-                <td>70,000</td>
-                <td>14,000</td>
-                <td>2023-06-01</td>
-                <td>지급대기</td>
-              </tr>
-              <tr>
-                <td><input class="form-check-input" type="checkbox" name="" id=""></td>
-                <td>2023-05-01 ~ 2023-05-31</td>
-                <td>5월 정산 총액</td>
-                <td>70,000</td>
-                <td>14,000</td>
-                <td>2023-06-01</td>
-                <td>지급대기</td>
-              </tr>
-              <tr>
-                <td><input class="form-check-input" type="checkbox" name="" id=""></td>
-                <td>2023-05-01 ~ 2023-05-31</td>
-                <td>5월 정산 총액</td>
-                <td>70,000</td>
-                <td>14,000</td>
-                <td>2023-06-01</td>
-                <td>지급대기</td>
-              </tr>
+              <c:forEach items="${adjustList}" var="adjust" varStatus="status">
+                <tr onclick="showDetail('${adjust.calc_no}',this)" class="adjust-line">
+                  <td><input class="form-check-input" type="checkbox" name="" id=""></td>
+                  <td>${adjust.calc_date}</td>
+                  <td>${adjust.calc_title} 정산총액</td>
+                  <td><fmt:formatNumber value="${adjust.calc_ttlprice}" pattern="#,###"/> 원</td>
+                  <td><fmt:formatNumber value="${adjust.calc_fee}" pattern="#,###"/> 원</td>
+                  <td>
+                    <c:set var="price" value="${adjust.calc_ttlprice-adjust.calc_fee}"/>
+                    <fmt:formatNumber value="${price}" pattern="#,###"/> 원
+                  </td>
+                  <td>${adjust.calc_addate}</td>
+                  <td>
+                    <script>
+                        if('${adjust.calc_status}'==="Y") {
+                          document.write("지급완료");
+                        }else{
+                          document.write("지급대기");
+                        }
+                    </script>
+                  </td>
+                </tr>
+              </c:forEach>
+              <c:if test="${adjustList.size()==0}">
               <tr>
                 <td colspan="7">검색 결과가 없습니다</td>
               </tr>
+              </c:if>
             </tbody>
           </table>
+
+          <div class="show-modal">
+            <div class="show-detail">
+              <div class="show-detail-con">
+                <div class="close-modal">X</div>
+                <div class="show-detail-wrapper">
+                  <div class="detail-sub1">정산서 상세</div>
+                  <div class="detail-sub2">정산상세코드 <span style="font-weight: 600;" class="adjust-no"></span></div>
+                  <div class="detail-sub2">정산서 제목 <span style="font-weight: 600;" class="adjust-name"></span></div>
+                  <div class="detail-sub2">판매 기간 <span style="font-weight: 600;" class="adjust-date"></span></div>
+                </div>
+                <div class="show-detail-wrapper">
+                  <div>
+                    <table class="table">
+                      <thead>
+                       <tr class="table-secondary">
+                         <th>판매상품</th>
+                         <th>가격</th>
+                         <th>수량</th>
+                         <th>결제상태</th>
+                         <th>결제날짜</th>
+                       </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
         <!-- 페이징 -->
         <div style="display: flex; align-items: center; justify-content: center;">

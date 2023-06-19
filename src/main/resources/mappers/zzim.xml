@@ -6,6 +6,7 @@
 
 <mapper namespace="zzim">
 
+
     <select id="zzimlist_one" parameterType="String" resultType="java.util.Map">
         select * from (
             select AA.*, BB.avg as avg, BB.cnt as cnt from
@@ -46,3 +47,9 @@
 
 
 </mapper>
+
+
+
+
+
+

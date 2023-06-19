@@ -469,7 +469,7 @@
               <div class="input-img">
                 <small hidden id="cont_img_small">이미지 파일은 3개까지 첨부 가능합니다.</small><br>
                 <label for="cont_img" class="btn btn-outline-primary">이미지 추가하기</label>
-                <input type="file" id="cont_img" name="cont_img" class="form-control" accept="image/*" onchange="contImgCheck(this)" multiple>
+                <input type="file" id="cont_img" name="cont_imgs" class="form-control" accept="image/*" onchange="contImgCheck(this)" multiple>
               </div>
             </div>
           </div><hr>
@@ -523,6 +523,7 @@
     <div class="footer">
       <div class="footer_wrap">
         <div>
+          <strong>(주) Habit Borker</strong>
           <strong>(주) Habit Borker</strong>
         </div>
         <div>

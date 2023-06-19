@@ -1,7 +1,6 @@
 package com.habit.host1.model;
 
-import com.habit.host1.entity.OneDTO;
-import com.habit.host1.entity.ProdDTO;
+import com.habit.host1.DTO.*;
 
 import java.util.List;
 import java.util.Map;
@@ -14,8 +13,12 @@ public interface HostRepository1 {
 
     String selectCateNo(String keyword);
 
-    int insertCont(Map<String, Object> map);
+    int insertCont(RequestContentInsertDTO rciDTO);
 
-    int insertOne(List<OneDTO> list);
-    int insertProd(List<ProdDTO> list);
+    int insertOne(List<OneEntity> list);
+    int insertProd(List<ProdEntity> list);
+
+    List<ResponseReviewDTO> reviewList(RequestReviewDTO reqReviewDTO);
+
+    int totalCount(RequestReviewDTO reqReviewDTO);
 }
