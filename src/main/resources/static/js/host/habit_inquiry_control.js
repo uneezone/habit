@@ -51,16 +51,18 @@ $(document).ready(()=>{
         let searchKeywordType =  $('#searchKeywordType').val()
         let searchKeyword = $('#searchKeyword').val()
 
+        let requestData = {
+            'searchStartDate': searchStartDate,
+            'searchEndDate': searchEndDate,
+            'searchKeywordType' : searchKeywordType,
+            'searchKeyword': searchKeyword
+        }
+
         $.ajax({
             url: '/host/inquiry.do',
             type: 'post',
             dataType: 'json',
-            data: {
-                'searchStartDate': searchStartDate,
-                'searchEndDate': searchEndDate,
-                'searchKeywordType' : searchKeywordType,
-                'searchKeyword': searchKeyword
-            },
+            data: requestData,
             success: (list) => {
                 searchResult.children().remove()
                 tableBody.children().remove()
@@ -76,10 +78,10 @@ $(document).ready(()=>{
                         let status1 = ''
                         if(row.q_status === 'N') {
                             status = '미응답'
-                            status1 = '-'
+                            status1 = "<input class='btn btn-sm btn-primary' type='button' value='답변하기'>"
                         } else {
                             status = "응답"
-                            status1 = "<input class='btn btn-sm btn-primary' type='button' value='답변하기'>"
+                            status1 = "-"
                         }
                         let str = "              <tr>\n" +
                               "                <td>" + row.id + "</td>\n" +

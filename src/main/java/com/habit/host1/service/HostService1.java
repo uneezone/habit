@@ -16,6 +16,7 @@ public interface HostService1 {
     List<Map<String, Object>> selectCate (String keyword);
     int contentInsert (RequestContentInsertDTO rciDTO) throws IOException;
     List<ResponseReviewDTO> reviewList (RequestReviewDTO reqReviewDTO);
-
     List<ResponseInquiryDTO> inquiryList(RequestInquiryDTO requestInquiryDTO);
+    List<ResponseContentListDTO> contentList (RequestContentListDTO requestContentListDTO);
+
 }

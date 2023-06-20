@@ -1,8 +1,8 @@
 package com.habit.host1.controller;
 
-//import com.habit.host1.DTO.RequestContentInsertDTO;
-//import com.habit.host1.DTO.RequestReviewDTO;
-//import com.habit.host1.DTO.ResponseReviewDTO;
+import com.habit.host1.DTO.RequestContentInsertDTO;
+import com.habit.host1.DTO.RequestReviewDTO;
+import com.habit.host1.DTO.ResponseReviewDTO;
 import com.habit.host1.DTO.*;
 import com.habit.host1.service.HostService1;
 import lombok.RequiredArgsConstructor;
@@ -84,13 +84,22 @@ public class HostContorller1 {
         //임시 세션 아이디
         String user_id = "user-1";
         reqInqDTO.setHost_id(user_id);
-        System.out.println("reqInqDTO = " + reqInqDTO);
-        System.out.println(hostService1.inquiryList(reqInqDTO));
         return hostService1.inquiryList(reqInqDTO);
     }
 
-    @GetMapping("/content")
-    public String ContentList () {
+    @GetMapping("/contentlist")
+    public String Content () {
         return "host/habit_list";
+    }
+
+    @PostMapping("/contentlist.do")
+    @ResponseBody
+    public List<ResponseContentListDTO> ContentList (@SessionAttribute(name = "userId", required = false) String userIdd, RequestContentListDTO reqContListDTO) {
+        //임시 세션 아이디
+        String user_id = "user-1";
+        reqContListDTO.setHost_id(user_id);
+        System.out.println("reqContListDTO = " + reqContListDTO);
+        System.out.println(hostService1.contentList(reqContListDTO));
+        return hostService1.contentList(reqContListDTO);
     }
 }
