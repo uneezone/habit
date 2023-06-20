@@ -14,11 +14,9 @@
   <script src="/js/jquery.cookie.js"></script>
   <link rel="stylesheet" href="/css/modal.css">
   <script src="/js/common.js"></script>
-  
-
 </head>
 <body> 
-   <!--헤더시작--> 
+   <!--헤더시작-->
    <header>
     <div class="global1">
       <div class="global_topbar">
@@ -78,7 +76,7 @@
                       <span>찜</span>
                   </div>
               </a>
-              <a href="order/cart.html">
+              <a href="/order/cart/list">
                 <div class="global_topbar2_menu2_menu">
                     <div>
                         <img src="/img/cart2.png" alt="로고" width="25px" >
