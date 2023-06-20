@@ -1,16 +1,16 @@
 window.onload=function(){
 
-  //common.js
-  common();
+    //common.js
+    common();
 
 
-  // 페이지 로드 후 페이징 초기화
-  onPageClick(1);
+    // 페이지 로드 후 페이징 초기화
+    onPageClick(1);
 
-}    
+}
 
-    // 페이징 함수
-    function paginate(page) {
+// 페이징 함수
+function paginate(page) {
     var itemsPerPage = 8; // 페이지당 아이템 수
     var items = document.getElementsByClassName('Home_product_recommend_p');
     var numPages = Math.ceil(items.length / itemsPerPage); // 전체 페이지 수
@@ -30,11 +30,11 @@ window.onload=function(){
             items[j].style.display = 'block';
         }
     }
-    }
+}
 
-        var currentPage = 1;
-    // 페이지 버튼 클릭 이벤트 처리
-        function onPageClick(page) {
+var currentPage = 1;
+// 페이지 버튼 클릭 이벤트 처리
+function onPageClick(page) {
 
     // 이전 버튼을 클릭한 경우 currentPage에서 1을 빼줍니다.
     if (page === -1) {
@@ -49,17 +49,17 @@ window.onload=function(){
         currentPage = page;
     }
 
-        paginate(currentPage);
+    paginate(currentPage);
 
-        }
-
-
+}
 
 
-    $(document).ready(function() {
-        const largeCategory = localStorage.getItem("selectedCategory");
 
-        $("#selectedCategory").text(largeCategory);
-        const productSectionTitle_hot = `인기 ${largeCategory}  `;
-        $(".ProductSectionHeader_Title_hot").text(productSectionTitle_hot);
-    });
+
+$(document).ready(function() {
+    let selectedMiddle = localStorage.getItem("selectedMiddle");
+
+    $("#selectedCategory").text(selectedMiddle);
+    const productSectionTitle_hot = `인기 ${selectedMiddle}  `;
+    $(".ProductSectionHeader_Title_hot").text(productSectionTitle_hot);
+});

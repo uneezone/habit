@@ -40,7 +40,7 @@ a:hover {
     --display: inline-block;
     --width: 50%;
     padding: 10px 100px;
-    width: 870px;
+    width: 840px;
     margin: 0 auto;
     --height: 40px;
     font-size: 12px;
@@ -318,9 +318,11 @@ a:hover {
 }
 
 .Reviewblack {
-    width: 100%;
-    margin: 0 auto;
-    border: #d9d9d9;
+    padding-top: 24px;
+    border-top: 1px solid rgb(244, 244, 244);
+    border-bottom: 1px solid rgb(244, 244, 244);
+    background-color: rgb(250, 250, 250);
+    overflow: hidden;
 }
 
 .Reviewflex {
@@ -389,6 +391,233 @@ a:hover {
     cursor: pointer;
 }
 
+.reviewplus>a{
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    color: rgb(0, 117, 239);
+    height: 56px;
+    border-top: 1px solid rgb(244, 244, 244);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: -0.48px;
+}
+
+.Classintroduction{
+    padding: 40px 0px;
+    display: block;
+}
+
+
+
+.DescriptionSection{
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.Buttoninfo{
+    -webkit-text-size-adjust: 100%;
+    word-break: normal;
+    overflow-wrap: break-word;
+    background-repeat: no-repeat;
+    box-sizing: inherit;
+    outline: none;
+    font-family: inherit;
+    background-color: transparent;
+    color: inherit;
+    font-size: 1em;
+    margin: 0;
+    overflow: visible;
+    text-transform: none;
+    touch-action: manipulation;
+    cursor: pointer;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 327px;
+    height: 56px;
+    border: 1.5px solid rgb(17, 17, 17);
+    -webkit-appearance: button;
+}
+
+.DescriptionSection_Container {
+    margin: 0px 0px 82px;
+}
+
+
+.product-description {
+    padding: 0 20px;
+    margin: 0;
+}
+.product-description img {
+    width: calc(100% + 40px);
+    max-width: calc(100% + 40px);
+    margin-left: -20px;
+
+}
+.product-description li {
+    list-style-position: inside;
+}
+.product-description p {
+    margin: 0;
+}
+.product-description span.fr-emoticon.fr-emoticon-img {
+    min-width: 20px;
+    min-height: 20px;
+    display: inline-block;
+}
+
+.Article_Header {
+    cursor: default;
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+    font-size: 14px;
+    color: black;
+    word-break: normal;
+    overflow-wrap: break-word;
+    background-repeat: no-repeat;
+    box-sizing: inherit;
+    outline: none;
+    font-family: inherit;
+    display: block;
+    margin: 0px 0px 40px;
+    padding: 0px;
+}
+
+
+.FloatingActionBar{
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    padding: 12px 20px 24px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px -10px 30px -10px;
+    background-color: white;
+    z-index: 200;
+}
+
+.FloatingButton{
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    margin: 0px auto;
+    max-width: 768px;
+}
+
+.SaveActionButton{
+    padding: 0px;
+    margin-right: 20px;
+    height: 48px;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    background-color: white;
+    border: none;
+}
+
+.SaveActionButton>img{
+    width: 32px;
+    height: 32px;
+
+}
+
+.SaveActionButton>span{
+    font-size: 12px;
+    line-height: 16px;
+    color: rgb(51, 51, 51);
+    white-space: nowrap;
+    margin-top: 4px;
+
+}
+
+
+.ActionButton{
+    width: 100%;
+    height: 56px;
+    line-height: 24px;
+    padding: 16px;
+    background-color: deeppink;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    margin: 0px;
+    border: none;
+}
+
+
+.DefaultButton{
+    -webkit-box-flex: 0;
+    flex: 0 0 auto;
+
+}
+
+
+.Wrapper_Paging {
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-flex: 0;
+    flex: 0 0 auto;
+    width: 100%;
+    padding: 30px 0px;
+    background-color: white;
+}
+
+.Wrapper_Paging .paging button {
+    width: 40px;
+    height: 40px;
+    float: left;
+    padding: 35px;
+    margin: auto;
+    width: 15px;
+    color: #000;
+    font-size: 18px;
+    font-weight: normal;
+    border-radius: 50%;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.Wrapper_Paging .paging button:hover,
+.Wrapper_Paging .paging button:focus {
+    color: rgb(51, 151, 255);
+    background-color: white;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: none;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+
+
+.paging>button {
+    border: none;
+    font-weight: bold;
+    padding: 10px;
+    background-color: white;
+}
+
 
 .RoundTag{
     padding: 6px 11px;
@@ -406,47 +635,369 @@ a:hover {
     background-color: rgb(255, 249, 247);
 }
 
-.OpenBtn {
-    width: 100%;
-    height: 56px;
-    color: white;
-    background-color: deeppink;
-}
-
-
-.modal {
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+.BasicInfoSection {
     display: flex;
-    justify-content: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
     align-items: center;
 }
 
-.modal .bg {
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
+.BasicInfoSecion_Title {
+    display: flex;
+    flex-direction: column;
 }
 
-.modalBox {
+.BIS_title {
+    margin: 0px;
+    max-width: 320px;
+    line-height: 28px;
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: -0.6px;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    color: rgb(51, 51, 51);
+}
+
+.BasicInfoSection_Action {
+    white-space: nowrap;
+}
+
+.ButtonShare {
+    border: none;
+    background-color: white;
+}
+
+.detailstar {
+    -webkit-box-align: center;
+    align-items: center;
+    width: 25px;
+    display: inline-block;
+    color: deeppink;
+}
+
+.Main_Wrapper{
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    display: flex;
+    flex-direction: column;
+    max-width: 375px;
+    height: 50vh;
+    padding: 24px 20px 0px;
+    margin: 0px auto;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 6px;
+    border-radius: 20px 20px 0px 0px;
+    z-index: 3000;
+    touch-action: none;
+}
+
+.Toggle_Purch {
     position: absolute;
-    background-color: #fff;
-    width: 400px;
-    height: 200px;
-    padding: 15px;
+    top: -10px;
+    left: 50%;
+    z-index: -100;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    align-items: flex-end;
+    max-width: 66px;
+    width: 66px;
+    height: 21px;
+    background-color: rgb(255, 255, 255);
+    border-top: 1px solid rgb(238, 238, 238);
+    border-right: 1px solid rgb(238, 238, 238);
+    border-left: 1px solid rgb(238, 238, 238);
+    border-image: initial;
+    border-bottom: none;
+    border-top-left-radius: 35px 40px;
+    border-top-right-radius: 35px 40px;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
 }
 
-.modalBox button {
+.Toggle_PurchIcon {
     display: block;
-    width: 80px;
-    margin: 0 auto;
+    width: 16px;
+    margin-bottom: 2px;
 }
 
-.hidden {
-    display: none;
+.OptionBottomSheet {
+    padding-bottom: 143px;
+    overflow-y: scroll;
+    overscroll-behavior: contain;
+    height: 50vh;
 }
+
+.OptionSelect_Wrapper{
+    margin-bottom: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: rgb(250, 250, 250);
+    border: 1px solid rgb(51, 51, 51);
+}
+
+.OptionSelect_Title {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    height: 46px;
+    padding: 14px 16px;
+    border-bottom: 1px solid rgb(221, 221, 221);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 19px
+}
+
+.OptionSelect_Icon {
+    display: block;
+    width: 17px;
+    height: 17px;
+    transform: rotate(180deg);
+}
+
+.OptionItem_Wrapper {
+    padding: 0px 16px;
+    background-color: rgb(255, 255, 255);
+}
+
+.OptionItem_Container {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 10px 0px;
+}
+
+.OptionItem_ContentContainer {
+    display: flex;
+    flex-direction: column;
+    max-width: 221px;
+    padding: 4px 0px;
+}
+
+.OptionItem_TitleContainer {
+    display: flex;
+}
+
+.OptionItem_Title {
+    width: auto;
+    color: rgb(51, 51, 51);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: -0.01em;
+}
+
+.OptionItem_PriceContainer {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.OptionItem_Price {
+    display: block;
+    color: rgb(51, 51, 51);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 20px;
+    letter-spacing: -0.01em;
+}
+
+.OptionItem_Remains {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    color: rgb(153, 153, 153);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: -0.01em;
+    margin: 3px 0px 0px 7px
+}
+
+.BottomContent_Wrapper {
+    position: fixed;
+    left: 50%;
+    bottom: 0px;
+    width: 100%;
+    max-width: 375px;
+    padding: 0px 20px;
+    border-top: 1px solid rgb(244, 244, 244);
+    background-color: rgb(255, 255, 255);
+    transform: translateX(-50%);
+    display: none;
+    min-height: 123px;
+}
+
+.OptionBottomSheet_OptionItem {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    padding-top: 11px;
+
+}
+
+.OptionBottomSheet_Count {
+    /*margin-left: 10px;*/
+    color: rgb(51, 51, 51);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 19px;
+    letter-spacing: -0.01em;
+}
+
+.OptionBottomSheet_Price {
+    color: deeppink;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 27px;
+    letter-spacing: -0.01em;
+}
+
+.OptionBottomSheet_ProductInfo {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 12px 0px 24px;
+}
+
+.SaveActionButton {
+    padding: 0px;
+    margin-right: 20px;
+    height: 48px;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.SaveActionButton_Count {
+    font-size: 12px;
+    line-height: 16px;
+    color: rgb(51, 51, 51);
+    white-space: nowrap;
+    margin-top: -4px;
+}
+
+.OptionBottomSheet_Button {
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 100%;
+    height: 56px;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 21px;
+    background-color: deeppink;
+    border-radius: 10px;
+    border-style: none;
+}
+
+.PurchaseCell_Wrapper {
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 124px;
+    padding: 16px;
+    margin-top: 18px;
+    border: 1px solid rgb(221, 221, 221);
+    border-radius: 10px;
+    background-color: rgb(250, 250, 250);
+}
+
+.purchaseCell_TitleWrapper {
+    display: flex;
+    align-items: flex-start;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    white-space: pre-wrap;
+}
+
+.PurchaseCell_Title {
+    max-width: 243px;
+    margin-bottom: 12px;
+    color: rgb(51, 51, 51);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: -0.01rem;
+}
+
+.PurchaseCell_DeleteIcon {
+    display: block;
+    width: 20px;
+    cursor: pointer;
+    border-style: none;
+}
+
+.PurchaseCell_PriceWrapper {
+    display: flex;
+    align-items: flex-end;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.Counter_Wrapper {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    height: 32px;
+    color: black;
+}
+
+.Counter_ControlButton {
+    -webkit-box-flex: 0;
+    flex: 0 0 18px;
+    cursor: not-allowed;
+    border-style: none;
+}
+
+.Counter_Value {
+    -webkit-box-flex: 1;
+    flex: 1 1 auto;
+    width: 36px;
+    height: 100%;
+    line-height: 12px;
+    font-size: 12px;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(221, 221, 221);
+    border-radius: 0px;
+}
+
+.PurchaseCell_Price {
+    color: rgb(51, 51, 51);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 21px;
+}
+
+
+
+
+
 
 /*==================FOOTER===============*/
 .footer {

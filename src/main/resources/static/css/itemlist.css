@@ -922,6 +922,12 @@ display: table;
     font-weight: bold;
 }
 
+.midbtn.active{
+
+    font-weight: bold;
+    color: rgb(51, 151, 255);
+}
+
 .Filter__FilterButtonWrapper {
     cursor: default;
     line-height: 1.5;
@@ -1066,6 +1072,61 @@ display: table;
     text-overflow: ellipsis;
 }
 
+.ProductSectionHeader_Title_hot {
+    display: block;
+    margin-right: 8px;
+    font-weight: bold;
+    color: black;
+    font-size: inherit;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.ProductSectionHeader_Title_new {
+    display: block;
+    margin-right: 8px;
+    font-weight: bold;
+    color: black;
+    font-size: inherit;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.ProductSectionHeader_Title_mid_a {
+    display: block;
+    margin-right: 8px;
+    font-weight: bold;
+    color: black;
+    font-size: inherit;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.ProductSectionHeader_Title_mid_b {
+    display: block;
+    margin-right: 8px;
+    font-weight: bold;
+    color: black;
+    font-size: inherit;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.ProductSectionHeader_Title_mid_c {
+    display: block;
+    margin-right: 8px;
+    font-weight: bold;
+    color: black;
+    font-size: inherit;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 
 /* * 상품 리스트 */
 
@@ -1178,6 +1239,31 @@ display: table;
 }
 
 .ButtonLinkAllProduct {
+    -webkit-text-size-adjust: 100%;
+    word-break: normal;
+    overflow-wrap: break-word;
+    background-repeat: no-repeat;
+    box-sizing: inherit;
+    outline: none;
+    font-family: inherit;
+    background-color: transparent;
+    touch-action: manipulation;
+    color: inherit;
+    text-decoration: none;
+    padding: 18px;
+    display: block;
+    margin: 0px auto 40px;
+    width: 100%;
+    max-width: 450px;
+    line-height: 13px;
+    border: 1px solid rgb(238, 238, 238);
+    border-radius: 5px;
+    font-size: 13px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.ButtonLinkAllProduct_mid {
     -webkit-text-size-adjust: 100%;
     word-break: normal;
     overflow-wrap: break-word;

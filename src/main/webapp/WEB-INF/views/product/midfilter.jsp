@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="/css/feed.css" />
 <link rel="stylesheet" href="/css/itemlist.css">
 <script src="/js/jquery.cookie.js"></script>
+<script src="/js/midfilter.js"></script>
 <script src="/js/itemlist.js"></script>
 <script src="/js/common.js"></script>
 
@@ -193,10 +194,18 @@
             </div>
             <div>
                 <div class="ItemList_Wrapper jEQWdY">
-                    <a  href="" class="midbtn" style="font-weight: bold; color: rgb(51, 151, 255);">전체</a>
+                    <a  href="/category/${cate_large}" class="midbtn " >전체</a>
                     <c:forEach items="${middle}" var="item">
-                        <a href="/category/${item.cate_large}/${item.cate_middle}" class="midbtn">${item.cate_middle}</a>
+                        <a href="/category/${item.cate_large}/${item.cate_middle}" class="midbtn ">${item.cate_middle}</a>
                     </c:forEach>
+
+                    <script>
+
+
+
+
+
+                    </script>
 
                     <div id="otherParagraph"></div>
                 </div>
@@ -223,19 +232,19 @@
                     <div>
                         <div font-size="14px" class="ProductSectionHeader_Wrapper">
                             <div font-size="18" class="ProductSectionHeader_Header">
-                                <h2 class="ProductSectionHeader_Title">인기 리스트</h2>
-                                <span class="ProductSectionHeader_Count">${hotListCount}</span>
+                                <h2 class="ProductSectionHeader_Title_mid_a">인기 리스트</h2>
+                                <span class="ProductSectionHeader_Count">${midHotListCount}</span>
                             </div>
                             <div class="ProductSectionHeader_LinkWrapper">
-                                <a href="/category/${cate_large}/hot" class="ProductSectionHeader_Link" style="color: black;">전체 보기</a>
+                                <a href="/category/${cate_large}/${cate_middle}/hot" class="ProductSectionHeader_Link" style="color: black;">전체 보기</a>
                             </div>
                         </div>
 
                         <!-- ^ 인기 리스트 아이템 -->
                         <div class="Home_product_recommend_list">
-                            <c:forEach items="${hotTop}" var="ht" varStatus="vs">
+                            <c:forEach items="${midHotTop}" var="mid" varStatus="vs">
                                 <div class="Home_product_recommend_p">
-                                    <a href="products/${ht.cont_no}" class="href">
+                                    <a href="products/${mid.cont_no}" class="href">
                                         <div class="Home_product_recommend_p_div">
                                             <div>
                                                 <img src="/img/image.jpeg" alt="" width="150px">
@@ -247,12 +256,12 @@
                                             </div>
                                             <div class="Home_product_recommend_p_font">
                                                 <div>
-                                                    <span class="Miniarea">${fn:substring(ht.cont_addr1, 0, 7)}</span>
+                                                    <span class="Miniarea">${fn:substring(mid.cont_addr1, 0, 7)}</span>
                                                     <div>
-                                                            ${ht.cont_name}
+                                                            ${mid.cont_name}
                                                     </div>
                                                     <section class="Home_recommend_img">
-                                                        <c:set var="starItem" value="${starMap[ht.cont_no]}" />
+                                                        <c:set var="starItem" value="${starMap[mid.cont_no]}" />
                                                         <c:set var="avgStarRating" value="${starItem['avg_star']}" />
                                                         <c:choose>
                                                             <c:when test="${avgStarRating != null}">
@@ -269,7 +278,7 @@
                                                     </section>
                                                     <hr class="Home_recommend_hr">
                                                     <div>
-                                                        <c:set var="priceItem" value="${priceMap[ht.cont_no]}" />
+                                                        <c:set var="priceItem" value="${priceMap[mid.cont_no]}" />
                                                         <c:set var="money" value="${priceItem['money']}" />
                                                         <fmt:formatNumber type="number" value="${money}" pattern="###,###" var="formattedMoney" />
                                                             ${formattedMoney}원
@@ -282,14 +291,14 @@
                             </c:forEach>
 
                         </div>
-                    </div>
+
                     <!-- ! 인기 리스트 끝  -->
 
                     <!--* 금주 리스트 시작 -->
                     <div>
                         <div font-size="14px" class="ProductSectionHeader_Wrapper">
                             <div font-size="18" class="ProductSectionHeader_Header">
-                                <h2 class="ProductSectionHeader_Title_a">금주 리스트</h2>
+                                <h2 class="ProductSectionHeader_Title_mid_b">금주 리스트</h2>
                                 <span class="ProductSectionHeader_Count"></span>
                             </div>
                             <div class="ProductSectionHeader_LinkWrapper">
@@ -376,19 +385,19 @@
                     <div>
                         <div font-size="14px" class="ProductSectionHeader_Wrapper">
                             <div font-size="18" class="ProductSectionHeader_Header">
-                                <h2 class="ProductSectionHeader_Title_b">신규 리스트</h2>
-                                <span class="ProductSectionHeader_Count">${newListCount}</span>
+                                <h2 class="ProductSectionHeader_Title_mid_c">신규 리스트</h2>
+                                <span class="ProductSectionHeader_Count">${midNewListCount}</span>
                             </div>
-                            <div class="ProductSectionHeader_LinkWrapper">
-                                <a href="/category/${cate_large}/new" class="ProductSectionHeader_Link_new" style="color: black;">전체 보기</a>
+                            <div class="ProductSectionHeader_LinkWrapper_new">
+                                <a href="/category/${cate_large}/${cate_middle}/new" class="ProductSectionHeader_Link_new" style="color: black;">전체 보기</a>
                             </div>
                         </div>
 
                         <!-- ^ 신규 리스트 아이템 -->
                         <div class="Home_product_recommend_list">
-                            <c:forEach items="${newTop}" var="nt" varStatus="vs">
+                            <c:forEach items="${midNewTop}" var="mnt" varStatus="vs">
                                 <div class="Home_product_recommend_p">
-                                    <a href="products/${nt.cont_no}" class="href">
+                                    <a href="products/${mnt.cont_no}" class="href">
                                         <div class="Home_product_recommend_p_div">
                                             <div>
                                                 <img src="/img/image.jpeg" alt="" width="150px">
@@ -400,12 +409,12 @@
                                             </div>
                                             <div class="Home_product_recommend_p_font">
                                                 <div>
-                                                    <span class="Miniarea">${fn:substring(nt.cont_addr1, 0, 7)}</span>
+                                                    <span class="Miniarea">${fn:substring(mnt.cont_addr1, 0, 7)}</span>
                                                     <div>
-                                                            ${nt.cont_name}
+                                                            ${mnt.cont_name}
                                                     </div>
                                                     <section class="Home_recommend_img">
-                                                        <c:set var="starItem" value="${starMap[nt.cont_no]}" />
+                                                        <c:set var="starItem" value="${starMap[mnt.cont_no]}" />
                                                         <c:set var="avgStarRating" value="${starItem['avg_star']}" />
                                                         <c:choose>
                                                             <c:when test="${avgStarRating != null}">
@@ -422,7 +431,7 @@
                                                     </section>
                                                     <hr class="Home_recommend_hr">
                                                     <div>
-                                                        <c:set var="priceItem" value="${priceMap[nt.cont_no]}" />
+                                                        <c:set var="priceItem" value="${priceMap[mnt.cont_no]}" />
                                                         <c:set var="money" value="${priceItem['money']}" />
                                                         <fmt:formatNumber type="number" value="${money}" pattern="###,###" var="formattedMoney" />
                                                             ${formattedMoney}원
@@ -435,29 +444,30 @@
                             </c:forEach>
                         </div>
 
-                    <!--! 신규 리스트 끝 -->
+                        <!--! 신규 리스트 끝 -->
 
 
 
-                    <div font-size="13px" class="ButtonLinkAllProduct_Wrapper">
-                        <a href="/category/${cate_large}/all" class="ButtonLinkAllProduct"></a>
+                        <div font-size="13px" class="ButtonLinkAllProduct_Wrapper">
+                            <a href="/${cate_middle}/all" class="ButtonLinkAllProduct_mid"></a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
 </div>
-</div>
 
 <script>
-    var hotListCount = ${hotListCount};
+    var midHotListCount = ${midHotListCount};
     var selectedCategory = "${selectedCategory}";
 
     const selectedMiddle = $(this).text();
     const cateLarge = '${cate_large}';
     $('.active').removeClass('active');
     $(this).addClass('active');
+
 </script>
 
 <!-- 본문 끝 -->

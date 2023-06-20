@@ -2,10 +2,46 @@ window.onload=function(){
 
     //common.js
     common();
+
+}
+
+$(function(){
+    console.log(window.location.pathname);
+    let pathname=decodeURI(window.location.pathname);
+    let index= pathname.lastIndexOf("/");
+    console.log(index);
+    console.log(pathname.substring(index,pathname.length));
+    pathname= pathname.substring(index+1,pathname.length);
+    console.log("ddd"+pathname);
+    let btn= $(".midbtn");
+    //$('.midbtn').removeClass("active");
+    if(btn.text())
+        for(let i=0;i<btn.length;i++){
+            console.log(btn.eq(i).text());
+            if(btn.eq(i).text()==pathname){
+
+
+                btn.eq(i).addClass("active");
+                console.log(btn.eq(i));
+            }
+        }
+});
+
+// 현재 URL에서 중분류 이름 추출
+function getSelectedMiddleFromUrl() {
+    const url = window.location.href;
+    const urlParts = url.split('/');
+    if (urlParts.length >= 8) {
+        return decodeURI(urlParts[7]);
+    } else {
+        return null;
+    }
 }
 
 
 $(document).ready(function () {
+
+
     // 처음 페이지 로드 시 카테고리 이름 설정
     const selectedCategory = localStorage.getItem("newCategory") || localStorage.getItem("selectedCategory");
 
@@ -13,6 +49,7 @@ $(document).ready(function () {
     localStorage.removeItem("newCategory");
     localStorage.setItem("selectedCategory", selectedCategory);
     $("#selectedCategory").text(selectedCategory);
+
 
 
     // 필터단 유동 적용
@@ -25,6 +62,9 @@ $(document).ready(function () {
     const productSectionTitle2 = `신규 ${selectedCategory}`;
     $(".ProductSectionHeader_Title_b").text(productSectionTitle2);
 
+        const ButtonLinkAllProduct = `${hotListCount}개의 ${selectedCategory} 전체보기 `;
+        $('.ButtonLinkAllProduct').text(ButtonLinkAllProduct);
+
     }
 
     // =====전체보기====== 버튼 클릭 이벤트
@@ -33,7 +73,8 @@ $(document).ready(function () {
     
 
     // 원하는 페이지로 이동
-    window.location.href = `allitemlist.html?category=${selectedCategory}`;
+    window.location.href = `${selectedCategory}/all`;
+
     });
 
 
@@ -42,7 +83,7 @@ $(document).ready(function () {
     event.preventDefault();
 
     // 원하는 페이지로 이동
-    window.location.href = `hotlist.html?category=${selectedCategory}`;
+    window.location.href = `${selectedCategory}/hot`;
     });
 
 
@@ -51,7 +92,28 @@ $(document).ready(function () {
     event.preventDefault();
 
     // 원하는 페이지로 이동
-    window.location.href = `newlist.html?category=${selectedCategory}`;
+    window.location.href = `${selectedCategory}/new`;
+    });
+
+    // =====중분류=====  버튼 클릭 이벤트
+    $(".midbtn").on("click", function (event) {
+        event.preventDefault();
+
+
+        const selectedMiddle = $(this).text();
+        const selectedCategory = $("#selectedCategory").text();
+
+        // 저장된 중분류를 로컬 저장소에 추가
+        localStorage.setItem("selectedMiddle", selectedMiddle);
+
+        let newUrl;
+        // 원하는 페이지로 이동
+        if (selectedMiddle === "전체") {
+            newUrl = `/category/${selectedCategory}`;
+        } else {
+            newUrl = `/category/${selectedCategory}/${selectedMiddle}`;
+        }
+        window.location.assign(newUrl);
     });
 
 
@@ -89,8 +151,13 @@ $(document).ready(function () {
 
         const productSectionTitle2 = `신규 ${categoryText}`;
         $('.ProductSectionHeader_Title_b').text(productSectionTitle2);
-    
+
+        const ButtonLinkAllProduct = `${hotListCount}개의 ${categoryText} 전체보기 `;
+        $('.ButtonLinkAllProduct').text(ButtonLinkAllProduct);
+
     });
+
+
     });
 
    
