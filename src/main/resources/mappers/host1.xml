@@ -116,7 +116,7 @@
 
     <!-- 해빗 리스트 조회 -->
     <select id="contentList" parameterType="com.habit.host1.DTO.RequestContentListDTO" resultType="com.habit.host1.DTO.ResponseContentListDTO">
-        select host_id, cont_no, cont_img, cont_name, cont_endate, cate_middle, cate_large
+        select host_id, cont_no, cont_img, cont_name, cont_stdate, cont_endate, cate_middle, cate_large
         from cont a join cate b
         on a.cate_no = b.cate_no
         where host_id = #{host_id}
@@ -125,16 +125,17 @@
         </if>
         <if test='!searchStartDate.equals("")'>
             and ${searchDateType} between #{searchStartDate} and #{searchEndDate}
+<!--            <![CDATA[and (${searchDateType} >= #{searchStartDate} or ${searchDateType} <= #{searchEndDate})]]>-->
         </if>
         <if test="cont_status != null">
             and <foreach collection="cont_status" item="status" separator="or" open="(" close=")">cont_status = #{status}</foreach>
         </if>
         <choose>
             <when test='!searchStartDate.equals("")'>
-                order by #{searchDateType} desc
+                order by ${searchDateType} desc
             </when>
             <otherwise>
-                order by cont_endate desc
+                order by cont_stdate desc
             </otherwise>
         </choose>
     </select>

@@ -1,3 +1,4 @@
+// habit_inquiry_control.js
 $(document).ready(()=>{
 
     let searchResult = $('#searchResult')
