@@ -26,7 +26,7 @@
       <div class="collapse navbar-collapse" id="navbarColor03">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link active" href="" style="font-size: larger;">호스트 관리 페이지</a> <%--링크--%>
+            <a class="nav-link active" href="/host" style="font-size: larger;">호스트 관리 페이지</a> <%--링크--%>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">내 정보</a>
@@ -48,15 +48,15 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">정산 관리</a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="adjustment_control.jsp">정산서 관리</a> <%--링크--%>
+              <a class="dropdown-item" href="/host/adjust">정산서 관리</a> <%--링크--%>
             </div>
           </li>
         </ul>
         <div>
-          <a href="host_information.jsp"><img src="/img/profile-3_07724ab7a395fea9343ed7a13e59c1212e2e3d39c141edd99f83442f98340dfc.webp" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a> <%--링크--%>
-          <a href="host_information.jsp" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">${hostInfo.host_id}</span></a> <%--링크--%>
+          <a href="/host/info"><img src="/img/profile-3_07724ab7a395fea9343ed7a13e59c1212e2e3d39c141edd99f83442f98340dfc.webp" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a> <%--링크--%>
+          <a href="/host/info" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">${hostInfo.host_id}</span></a> <%--링크--%>
           <button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='/'">해빗 홈으로 이동</button>
-          <button type="button" class="btn btn-secondary btn-sm">로그아웃</button>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="location.href='/host/logout'">로그아웃</button>
         </div>
       </div>
     </div>
