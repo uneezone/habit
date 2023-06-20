@@ -7,8 +7,9 @@
 <script src="/js/cart.js"></script>
 <script>
     function order(){
-    if(confirm("주문할까요?")){
+        if(confirm("주문할까요?")){
         location.href='/order/payPage';
+        }
     }
 </script>
     <!--헤더끝-->
@@ -23,6 +24,7 @@
             let sum1=0;
             let sum2=0;
 
+            //onChange 이벤트 관련
             function myFunction(){
                     let value = document.getElementById('').value;
                     console.log(value);
