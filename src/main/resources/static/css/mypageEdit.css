@@ -477,6 +477,8 @@ a:hover{
     height: 30px;
     margin-top: 40px;
     width: 250px;
+    border-radius: 5px;
+    border: 0.5px solid gray;
 }
 
 .pw_check{
@@ -485,6 +487,20 @@ a:hover{
     background-color: #a0d7ff;
     border: none;
     border-radius: 3px;
+}
+.Home_pro_btn1>input[type="number"]::-webkit-outer-spin-button,
+.Home_pro_btn1>input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.change_pw_btn{
+    width: 60px;
+    height: 30px;
+    background-color: #a0d7ff;
+    border: none;
+    border-radius: 3px;
+
 }
 
 .intro_modal_btn{

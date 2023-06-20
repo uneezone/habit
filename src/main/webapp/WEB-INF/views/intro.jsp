@@ -9,11 +9,11 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="css/reset.css?after">
-  <link rel="stylesheet" href="css/intro.css?after">
+  <link rel="stylesheet" href="/css/reset.css?after">
+  <link rel="stylesheet" href="/css/intro.css?after">
   
-  <script src="js/jquery.cookie.js"></script>
-  <script src="js/intro.js?after"></script>
+  <script src="/js/jquery.cookie.js"></script>
+  <script src="/js/intro.js?after"></script>
 
   
 </head>
@@ -28,8 +28,8 @@
             <a href="/host"><div class="global_topbar_menu1_menu">호스트 센터</div></a>
             </div>
             <div class="global_topbar_menu2" >
-            <a href="host/newMember.html" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">회원가입</div></a>
-            <a href="login.html" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">로그인</div></a>
+            <a href="/newMember" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">회원가입</div></a>
+            <a href="/login" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">로그인</div></a>
 <%--
             <a href="login.html" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu"><span>박해빈</span>님</div></a>
             <a href="login.html" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu"><button style="display: inline-block; border:0.5px solid rgb(165, 165, 165); background-color: white; border-radius: 2px;">로그아웃</button></div></a>
@@ -84,7 +84,7 @@
                         <span>찜</span>
                     </div>
                 </a>
-                <a href="cart.html">
+                <a href="/cart/list">
                     <div class="global_topbar2_menu2_menu">
                         <div>
                             <img src="img/cart2.png" alt="로고" width="25px" >

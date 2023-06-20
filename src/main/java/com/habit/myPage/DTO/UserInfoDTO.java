@@ -13,4 +13,5 @@ public class UserInfoDTO {
     private String user_phone;
     private String user_birth;
     private String user_img;
+    private String user_id;
 }

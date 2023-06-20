@@ -1,7 +1,9 @@
 package com.habit.myPage.model;
 
+import com.habit.myPage.DTO.OrderAllDTO;
 import com.habit.myPage.DTO.UserInfoDTO;
 
+import java.util.List;
 import java.util.Map;
 
 public interface MyPageRepository {
@@ -18,6 +20,22 @@ public interface MyPageRepository {
     //유저정보 가져오기
     UserInfoDTO getUserInfo(String user_id);
 
-    //유저비밀번호 가져오기
+    //유저비밀번호 가져오기(비밀번호 바꾸기위해 비번 체크)
     String getPass(String user_id);
+
+    //비번체크후 비번 바꾸기
+    int updatePass(String user_id,String pw);
+
+    //유저정보 수정
+    int updateUserInfo(UserInfoDTO infoDTO);
+
+    //결제내역
+    List<Map<String,Object>> getFromPayForOrder(String user_id);
+
+    //결제내역에 대한 상세를 위한 PAYD 탐색
+    List<OrderAllDTO> getPayDForOrder(String pay_no);
+
+    //결제내역에 보여줄 상품상세내용
+    Map<String,Object> getOneForOrder(String pro_no);
+    Map<String,Object> getProForOrder(String pro_no);
 }
