@@ -44,7 +44,7 @@ public class HostContorller1 {
         String userId = "user-1"; //임시 세션 아이디
         rciDTO.setHost_id(userId);
         int result = hostService1.contentInsert(rciDTO);
-        return "redirect:/content";
+        return "redirect:/contentlist";
     }
 
     // [habit_review_control.jsp]
