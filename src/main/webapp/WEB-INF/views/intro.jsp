@@ -76,7 +76,7 @@
                         <span>피드</span>
                     </div>
                 </a>
-                <a href="zzim.html">
+                <a href="/zzim/list">
                     <div class="global_topbar2_menu2_menu">
                         <div>
                             <img src="img/heartforpage.png" alt="로고" width="25px" >
