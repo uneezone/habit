@@ -14,11 +14,9 @@
   <script src="/js/jquery.cookie.js"></script>
   <link rel="stylesheet" href="/css/modal.css">
   <script src="/js/common.js"></script>
-  
-
 </head>
 <body> 
-   <!--헤더시작--> 
+   <!--헤더시작-->
    <header>
     <div class="global1">
       <div class="global_topbar">
