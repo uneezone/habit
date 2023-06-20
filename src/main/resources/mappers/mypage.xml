@@ -20,4 +20,8 @@
         select user_pw, user_name, user_email, user_phone,user_birth,user_img
         from user where user_id=#{user_id};
     </select>
+
+    <select id="getPass" parameterType="String" resultType="String">
+        select user_pw from user where user_id=#{user_id}
+    </select>
 </mapper>

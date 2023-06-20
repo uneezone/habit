@@ -20,7 +20,7 @@
                     <label for="pro_img">
                         <img src="/storage/${userInfo.user_img}" alt="" class="Home_proimg">
                         <div>
-                            <img src="../img/camera.png" alt="" class="Home_proimg_change">
+                            <img src="/img/camera.png" alt="" class="Home_proimg_change">
                         </div>
                     </label>
                     <input type="file" id="pro_img" name="user_img" class="Home_pro_imgFile" style="display: none" onchange="setProfile(event)">
@@ -65,8 +65,8 @@
                 <div>
                     <div class="Home_pro_sub">비밀번호</div>
                     <div class="Home_pro_btn_pw">
-                        <input type="password" name="user_pw" id="user_pw" value="${userInfo.user_pw}">
-                        <input type="button" value="변경하기">
+                        <input type="password" name="user_pw" id="user_pw" readonly value="${userInfo.user_pw}">
+                        <input type="button" value="변경하기" onclick="showModal()">
                     </div>
                 </div>
                 <div>
@@ -80,6 +80,29 @@
             </div>
         </form>
     </div>
+
+<!--모달창-->
+
+<div class="intro_modal">
+    <div class="intro_modal_body">
+        <div class="intro_modal_container">
+            <div class="change_pw">비밀번호 바꾸기</div>
+            <div class="change_pw_com">현재 비밀번호를 입력해주세요</div>
+            <input type="password" name="nowpw" id="nowpw">
+            <div class="error_pw">
+
+            </div>
+            <div  style="margin-top: 20px;">
+            <input type="button" value="확인" class="pw_check" onclick="checkPw()">
+            </div>
+        </div>
+        <div class="intro_modal_btn">
+            <div onclick="closeEvent()" class="modal_close">닫기</div>
+        </div>
+    </div>
+</div>
+
+<!--모달끝-->
 
     <!-- 본문 끝-->
 

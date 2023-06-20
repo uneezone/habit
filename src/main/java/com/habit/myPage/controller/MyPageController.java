@@ -5,9 +5,7 @@ import com.habit.myPage.service.MyPageServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -50,6 +48,16 @@ public class MyPageController {
 
         model.addAttribute("userInfo",userInfo);
         return "member/mypageEdit";
+    }
+
+    //ajax 비밀번호 체크
+    @GetMapping("/checkpw")
+    @ResponseBody
+    public String checkPw(@SessionAttribute(name = "userId",required = false)String userIds,@RequestParam("pw")String pw){
+
+        String status= myPageService.getPass(userId, pw);
+
+        return status;
     }
 
     @GetMapping("/order")

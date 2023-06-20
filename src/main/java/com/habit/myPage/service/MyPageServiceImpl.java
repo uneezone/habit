@@ -35,4 +35,15 @@ public class MyPageServiceImpl implements MyPageService{
     public UserInfoDTO getUserInfo(String user_id) {
         return repository.getUserInfo(user_id);
     }
+
+    @Override
+    public String getPass(String user_id, String checkpw) {
+        String realpass = repository.getPass(user_id);
+
+        if(realpass.equals(checkpw)){
+            return "OK";
+        }
+
+        return "NOK";
+    }
 }

@@ -17,4 +17,7 @@ public interface MyPageRepository {
 
     //유저정보 가져오기
     UserInfoDTO getUserInfo(String user_id);
+
+    //유저비밀번호 가져오기
+    String getPass(String user_id);
 }

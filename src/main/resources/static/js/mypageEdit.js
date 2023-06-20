@@ -32,6 +32,30 @@ function checkLength(){
     }
 
 }
+
+function showModal(){
+    $(".intro_modal").css("display","block");
+}
+
+function closeEvent(){
+    $(".intro_modal").css("display","none");
+}
+
+function checkPw(){
+
+    let pw=$("#nowpw").val();
+    let params={"pw":pw};
+    $.ajax({
+        type:"GET"
+        ,url :"/mypage/checkpw"
+        ,data:params
+        ,async:false
+        ,success:function(data) {
+            console.log(data);
+
+        }
+    });
+}
 function myProfile(){
     if($('#user_name').val()==""){
         alert("닉네임을 입력해주세요");

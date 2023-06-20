@@ -11,4 +11,6 @@ public interface MyPageService {
     Map<String,Object> getMyEnergyAndReview(String user_id);
 
     UserInfoDTO getUserInfo(String user_id);
+
+    String getPass(String user_id,String checkpw);
 }

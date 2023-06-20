@@ -33,4 +33,9 @@ public class MemoryMyPageRepository implements MyPageRepository{
     public UserInfoDTO getUserInfo(String user_id) {
         return sqlSession.selectOne("mypage.getUserInfo",user_id);
     }
+
+    @Override
+    public String getPass(String user_id) {
+        return sqlSession.selectOne("mypage.getPass",user_id);
+    }
 }
