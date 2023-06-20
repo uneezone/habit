@@ -56,6 +56,20 @@
         </foreach>
     </select>
 
+    <select id="getQuestionUserCount" resultType="Long">
+        select count(*) from question 
+        where cont_no in
+        <foreach item="item" index="index" collection="list"
+                 open="(" separator="," close=")" nullable="true">
+            #{item}
+        </foreach>
+        and q_div="U";
+    </select>
+    
+    <select id="getQuestionHostCount" parameterType="String" resultType="Long">
+        select count(*) from question where id =#{host_id} and q_div="H";
+    </select>
+
     <select id="getPhoneNumber" parameterType="String" resultType="String">
         select user_phone
         from user

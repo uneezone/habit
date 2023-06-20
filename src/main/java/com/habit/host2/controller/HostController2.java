@@ -36,7 +36,7 @@ public class HostController2 {
     @GetMapping("")
     public String showHostPage(@SessionAttribute(name = "userId",required = false)String userIds, Model model){
 
-        String userId="user-1";
+        String userId="user-5";
         //host인지 확인
         String userGrade = hostService.checkHost(userId);
         if(userGrade.equals("H")){
@@ -64,7 +64,7 @@ public class HostController2 {
         }*/
 
         //임시
-        String userId="user-3";
+        String userId="user-2";
 
         //임시 host인지 확인
         String userGrade = hostService.checkHost(userId);
@@ -132,7 +132,7 @@ public class HostController2 {
     public String info(@SessionAttribute(name = "userId",required = false)String userIds, Model model){
 
         //임시
-        String userId="user-3";
+        String userId="user-2";
 
         //호스트 정보 가져오기
         HostInfoDTO hostInfoDTO = hostService.getHostInfo(userId);
@@ -171,7 +171,7 @@ public class HostController2 {
 
 
         //임시 Id
-        String userId="user-3";
+        String userId="user-2";
         dto.setHost_id(userId);
 
         //db에 수정사항 저장
@@ -190,7 +190,7 @@ public class HostController2 {
                             , @ModelAttribute SearchProDTO searchdto
                             , @RequestParam(value = "paging", defaultValue = "1") Long paging){
         //임시 Id
-        String userId="user-3";
+        String userId="user-2";
         searchdto.setHost_id(userId);
 
         //아이디 공백체크
