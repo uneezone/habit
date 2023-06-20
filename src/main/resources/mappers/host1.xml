@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- product.xml -->
-<mapper namespace="product1">
+<mapper namespace="host1">
     <!-- 대분류 전체 select -->
     <select id="cateListLage" resultType="java.util.Map">
         SELECT cate_large
@@ -30,12 +30,12 @@
     <insert id="insertCont" useGeneratedKeys="true" keyProperty="cont_no" parameterType="com.habit.host1.DTO.RequestContentInsertDTO" >
         INSERT INTO cont (cate_no, host_id, cont_name, cont_zip, cont_addr1, cont_addr2, cont_extaddr, cont_endate, cont_img, cont_content, cont_hashtag1, cont_hashtag2, cont_hashtag3, cont_hashtag4, cont_hashtag5)
         values (#{cate_no}, #{host_id}, #{cont_name}, #{cont_zip}, #{cont_addr1}, #{cont_addr2}, #{cont_extaddr}, #{cont_endate},
-                <foreach collection="cont_img" item="img" open="'" close="'" separator="|">${img}</foreach>
-                , #{cont_content}, #{cont_hashtag1},
-                <foreach collection="cont_hashtag2" item="hashtag2" open="'" close="'" separator="|">${hashtag2}</foreach>
-                , #{cont_hashtag3},
-                <foreach collection="cont_hashtag4" item="hashtag4" open="'" close="'" separator="|">${hashtag4}</foreach>
-                , #{cont_hashtag5})
+        <foreach collection="cont_img" item="img" open="'" close="'" separator="|">${img}</foreach>
+        , #{cont_content}, #{cont_hashtag1},
+        <foreach collection="cont_hashtag2" item="hashtag2" open="'" close="'" separator="|">${hashtag2}</foreach>
+        , #{cont_hashtag3},
+        <foreach collection="cont_hashtag4" item="hashtag4" open="'" close="'" separator="|">${hashtag4}</foreach>
+        , #{cont_hashtag5})
         <selectKey keyProperty="cont_no" resultType="int" order="AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>
@@ -66,7 +66,7 @@
         on a.cont_no = b.cont_no
         where host_id = #{host_id} and review_status = 'Y'
         <if test="starScore != null">
-        and <foreach collection="starScore" item="score" separator="or" open="(" close=")">review_star = ${score}</foreach>
+            and <foreach collection="starScore" item="score" separator="or" open="(" close=")">review_star = ${score}</foreach>
         </if>
         <if test='!reviewContKeyword.equals("")'>and review_cont like concat('%',#{reviewContKeyword},'%')</if>
         <if test='!searchUserId.equals("")'>and user_id = #{searchUserId}</if>
@@ -81,9 +81,77 @@
         on a.cont_no = b.cont_no
         where host_id = #{host_id} and review_status = 'Y'
         <if test="starScore != null">
-        and <foreach collection="starScore" item="score" separator="or" open="(" close=")">review_star = ${score}</foreach>
+            and <foreach collection="starScore" item="score" separator="or" open="(" close=")">review_star = ${score}</foreach>
         </if>
         <if test='!reviewContKeyword.equals("")'>and review_cont like concat('%',#{reviewContKeyword},'%')</if>
         <if test='!searchUserId.equals("")'>and user_id = #{searchUserId}</if>
+    </select>
+
+    <!--  문의 조회  -->
+    <select id="inquiryList" parameterType="com.habit.host1.DTO.RequestInquiryDTO" resultType="com.habit.host1.DTO.ResponseInquiryDTO">
+        select id, cont_name, q_question, q_bedate, q_div, q_group, a.cont_no, q_status
+        from question a join cont b on a.cont_no = b.cont_no
+        where host_id = #{host_id} and q_div = 'U'
+        <if test='!searchStartDate.equals("")'>
+            and q_bedate between #{searchStartDate} and #{searchEndDate}
+        </if>
+        <if test='!searchKeyword.equals("")'>
+            and ${searchKeywordType} like concat('%',#{searchKeyword},'%')
+        </if>
+        order by q_bedate desc
+    </select>
+
+    <!--  검색한 문의 count  -->
+    <select id="inquiryCount" parameterType="com.habit.host1.DTO.RequestInquiryDTO" resultType="int">
+        select count(*)
+        from question a join cont b on a.cont_no = b.cont_no
+        where host_id = #{host_id} and q_div = 'U'
+        <if test='!searchStartDate.equals("")'>
+            and q_bedate between #{searchStartDate} and #{searchEndDate}
+        </if>
+        <if test='!searchKeyword.equals("")'>
+            and ${searchKeywordType} like concat('%',#{searchKeyword},'%')
+        </if>
+    </select>
+
+    <!-- 해빗 리스트 조회 -->
+    <select id="contentList" parameterType="com.habit.host1.DTO.RequestContentListDTO" resultType="com.habit.host1.DTO.ResponseContentListDTO">
+        select host_id, cont_no, cont_img, cont_name, cont_endate, cate_middle, cate_large
+        from cont a join cate b
+        on a.cate_no = b.cate_no
+        where host_id = #{host_id}
+        <if test='!cont_name.equals("")'>
+            and cont_name like concat('%',#{cont_name},'%')
+        </if>
+        <if test='!searchStartDate.equals("")'>
+            and ${searchDateType} between #{searchStartDate} and #{searchEndDate}
+        </if>
+        <if test="cont_status != null">
+            and <foreach collection="cont_status" item="status" separator="or" open="(" close=")">cont_status = #{status}</foreach>
+        </if>
+        <choose>
+            <when test='!searchStartDate.equals("")'>
+                order by #{searchDateType} desc
+            </when>
+            <otherwise>
+                order by cont_endate desc
+            </otherwise>
+        </choose>
+    </select>
+
+    <!-- 해빗 리스트 조회 count -->
+    <select id="contentListCount" parameterType="com.habit.host1.DTO.RequestContentListDTO" resultType="int">
+        select count(*)
+        from cont
+        where host_id = #{host_id}
+        <if test='!cont_name.equals("")'>
+            and cont_name like concat('%',#{cont_name},'%')
+        </if>
+        <if test='!searchStartDate.equals("")'>
+            and ${searchDateType} between #{searchStartDate} and #{searchEndDate}
+        </if>
+        <if test="cont_status != null">
+            and <foreach collection="cont_status" item="status" separator="or" open="(" close=")">cont_status = #{status}</foreach>
+        </if>
     </select>
 </mapper>

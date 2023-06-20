@@ -201,7 +201,7 @@ a:hover{
 .Home{
     height: 100%;
     width: 840px;
-    margin: 0 auto;
+    margin: 0 auto 30px auto;
     padding:0 100px;
 
 }
@@ -274,9 +274,72 @@ a:hover{
     padding-left: 10px;
 }
 
+.Home_pro_btn_name{
+    margin-bottom: 20px;
+}
+
+.Home_pro_btn_name>input{
+    margin: 5px auto;
+    --width: 40px;
+    width:50%;
+    height:34px;
+    font-size:15px;
+    border: 1px solid rgb(205, 205, 205);
+    border-radius: 2px;
+    background-color: #f1f1f1;
+    padding-left: 10px;
+}
+
+
+.Home_pro_btn1{
+    margin-bottom: 20px;
+
+    width: 200px;
+}
+
+.Home_pro_btn1>input{
+    margin: 5px auto;
+    --width: 40px;
+    width:25%;
+    height:34px;
+    font-size:15px;
+    border: 1px solid rgb(205, 205, 205);
+    border-radius: 2px;
+    background-color: #f1f1f1;
+    padding-left: 10px;
+}
+
 .Home_pro_btn>input:focus{
     outline: 1px solid #bbc6ff;
     background-color: white; 
+}
+
+.Home_pro_btn_email{
+    margin-bottom: 20px;
+}
+
+.Home_pro_btn_email>input{
+    margin: 5px auto;
+    --width: 40px;
+    width:48%;
+    height:34px;
+    font-size:15px;
+    border: 1px solid rgb(205, 205, 205);
+    border-radius: 2px;
+    background-color: #f1f1f1;
+    padding-left: 10px;
+}
+
+.Home_pro_btn_email>select{
+    margin: 5px auto;
+    --width: 40px;
+    width:48%;
+    height:34px;
+    font-size:15px;
+    border: 1px solid rgb(205, 205, 205);
+    border-radius: 2px;
+    background-color: #f1f1f1;
+    padding-left: 10px;
 }
 
 .Home_pro_btn_pw{

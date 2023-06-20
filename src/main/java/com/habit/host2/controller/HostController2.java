@@ -12,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
@@ -28,14 +30,19 @@ public class HostController2 {
     private final HostServiceImpl2 hostService;
 
 
+
+
     //호스트 홈으로
     @GetMapping("")
     public String showHostPage(@SessionAttribute(name = "userId",required = false)String userIds, Model model){
 
-        String userId="user-3";
+        String userId="user-2";
         //host인지 확인
         String userGrade = hostService.checkHost(userId);
         if(userGrade.equals("H")){
+            //home관련 정보들 가져오기(누적금액, 이번달금액, 전체건수, 취소건수, 전레리뷰거스,별점)
+            HostHomeDTO hostHomeDTO = hostService.gethostHomeInfo(userId);
+            model.addAttribute("HomeInfo",hostHomeDTO);
             model.addAttribute("hostId",userId);
             return "host/host_home";
         }
@@ -57,7 +64,7 @@ public class HostController2 {
         }*/
 
         //임시
-        String userId="user-3";
+        String userId="user-2";
 
         //임시 host인지 확인
         String userGrade = hostService.checkHost(userId);
@@ -109,12 +116,23 @@ public class HostController2 {
         return "host/host_home";
     }
 
-    //프로필/정산정보 관리
+    //============호스트 로그아우
+    @GetMapping("/logout")
+    public String hostLogout(@SessionAttribute(name = "userId",required = false)String userIds, HttpSession session){
+
+        //임시
+        String host_id="user-2";
+
+        session.removeAttribute("userId");
+        return "redirect:/";
+    }
+
+    //===============프로필/정산정보 관리
     @GetMapping("/info")                             //나중에 true로 바꿔야함
     public String info(@SessionAttribute(name = "userId",required = false)String userIds, Model model){
 
         //임시
-        String userId="user-3";
+        String userId="user-2";
 
         //호스트 정보 가져오기
         HostInfoDTO hostInfoDTO = hostService.getHostInfo(userId);
@@ -153,13 +171,13 @@ public class HostController2 {
 
 
         //임시 Id
-        String userId="user-3";
+        String userId="user-2";
         dto.setHost_id(userId);
 
         //db에 수정사항 저장
         hostService.editHostInfo(dto);
         log.info("hostEdit={}",dto);
-        return "redirect:";
+        return "redirect:/host/info";
     }
 
 
@@ -361,20 +379,123 @@ public class HostController2 {
         return params;
     }
 
-    //정산서 view페이지
+    //================정산서 view페이지
     @GetMapping("/adjust")
     public String showAdjust(@SessionAttribute(name = "userId",required = false)String userIds
-                                ,Model model){
+                                ,Model model
+                                ,@ModelAttribute SearchAdjustDTO dto
+                                ,@RequestParam(value = "paging", defaultValue = "1") int paging){
         //임시
         String userid="user-2";
+        dto.setHost_id(userid);
 
-        //정산서 리스트가져오기
-        List<AdjustInfoDTO> adjustList = hostService.getAdjustList(userid);
+        //정산계좌 입력했는지 확인
+        int check = hostService.checkWriteAccount(userid);
+        
+
+        if(check==0){
+            return "redirect:/host/info";
+        }
+
+        //정산해라
+        calcMethod(userid);
+
+        //=====날짜 포맷 변경
+        if(dto.getStart_date()!=null) {
+            dto.setStart_date(dto.getStart_date().replace("-", "."));
+            dto.setEnd_date(dto.getEnd_date().replace("-", "."));
+        }
+        log.info("search={}",dto);
+
+        //====페이징
+        Map<String ,Object> pagingMap= new HashMap<>();
+
+        //보여줄 상품수
+        int showAdjust=2;
+        //sql문 limit 값
+        int startPaging=showAdjust*(paging-1);
+        //전체행갯수
+        Integer adjustListLength = hostService.getAdjustListLength(dto);
+        int index=(int)Math.ceil(adjustListLength/(double)showAdjust);
+        log.info("index={}",index);
+        pagingMap.put("listLength",adjustListLength);
+        pagingMap.put("index",index);
+
+        dto.setStartPaging(startPaging);
+        dto.setShowLength(showAdjust);
+
+
+
+        //======정산서 리스트가져오기
+        List<AdjustInfoDTO> adjustList = hostService.getAdjustList(dto);
         log.info("adjustlist={}",adjustList);
 
+
+
+        model.addAttribute("pagingMap",pagingMap);
         model.addAttribute("adjustList",adjustList);
-        model.addAttribute("host_id",userid);
+        model.addAttribute("searchAdjust",dto);
         return "host/adjustment_control";
+    }
+
+    //정산서 디테일 ajax
+    @GetMapping("/adjustDetail")
+    @ResponseBody
+    public List<Map<String,Object>> showAdjustDetail(@SessionAttribute(name = "userId",required = false)String userIds
+                                    ,@RequestParam(value = "calc_no") String calc_no){
+        //임시
+        String user_id="user-3";
+        List<Map<String, Object>> adjustDetail = hostService.getAdjustDetail(calc_no);
+
+        //호스트계좌
+        Map<String, Object> hostAccount = hostService.getCalcAccount(calc_no);
+        log.info("호스트 계좌={}",hostAccount);
+
+        for (Map<String, Object> stringObjectMap : adjustDetail) {
+            //System.out.println("상품코드 "+stringObjectMap.get("pro_no"));
+            Map<String,Object> params= new HashMap<>();
+            String pro_no = (String)stringObjectMap.get("pro_no");
+            String optionName="";
+            if(pro_no.startsWith("p")){
+                params.put("table","prod");
+                params.put("pro_no",pro_no);
+                optionName = hostService.getOptionName(params);
+            }else{
+                params.put("table","one");
+                params.put("pro_no",pro_no);
+                optionName = hostService.getOptionName(params);
+            }
+
+            stringObjectMap.put("name",optionName);
+
+        }
+        adjustDetail.add(hostAccount);
+
+        return adjustDetail;
+    }
+
+    private void calcMethod(String host_id){
+
+        List<Integer> contNos = hostService.updateForDonePro(host_id);
+        Long result=0L;
+
+        //정산해야할 것이 있다면 정산테이블 및 정산상셑테이블  insert 시작
+        if(contNos.size()!=0) {
+            result = hostService.adjustFee(contNos, host_id);
+
+        }
+
+    }
+
+    @PostMapping("/adjustGive")
+    @ResponseBody
+    public String adjustGive(@SessionAttribute(name = "userId",required = false)String userIds,@RequestParam(value = "calc_no")String calc_no){
+        //임시
+        String host_id="user-3";
+
+        String status = hostService.checkAccount(host_id, calc_no);
+
+        return status;
     }
 
 

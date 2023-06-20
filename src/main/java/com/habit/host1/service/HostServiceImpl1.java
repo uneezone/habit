@@ -131,4 +131,28 @@ public class HostServiceImpl1 implements HostService1 {
         }
         return reviewList;
     }
+
+    // 문의사항 리스트 가져오기
+
+    @Override
+    public List<ResponseInquiryDTO> inquiryList(RequestInquiryDTO reqInqDTO) {
+        List<ResponseInquiryDTO> list = memoryHostRepository1.inquiryList(reqInqDTO);
+        if (list.size() > 0) {
+            int totalCount = memoryHostRepository1.inquiryCount(reqInqDTO);
+            list.get(0).setTotalCount(totalCount);
+        }
+        return list;
+    }
+
+    // 해빗 리스트 가져오기
+    @Override
+    public List<ResponseContentListDTO> contentList(RequestContentListDTO reqContListDTO) {
+
+        List<ResponseContentListDTO> list = memoryHostRepository1.contentList(reqContListDTO);
+        if (list.size() > 0) {
+            int totalCount = memoryHostRepository1.contentListCount(reqContListDTO);
+            list.get(0).setTotalCount(totalCount);
+        }
+        return list;
+    }
 }

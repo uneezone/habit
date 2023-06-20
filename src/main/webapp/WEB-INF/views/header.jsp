@@ -68,7 +68,7 @@
                       <span>피드</span>
                   </div>
               </a>
-              <a href="member/zzim.html">
+              <a href="/zzim/list">
                   <div class="global_topbar2_menu2_menu">
                       <div>
                           <img src="/img/heartforpage.png" alt="로고" width="25px" >
@@ -84,7 +84,7 @@
                     <span>장바구니</span>
                 </div>
             </a>
-              <a href="member/mypage.html">
+              <a href="/mypage">
                   <div class="global_topbar2_menu2_menu">
                       <div>
                           <img src="/img/ME.png" alt="로고" width="25px">

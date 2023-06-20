@@ -1,11 +1,9 @@
 package com.habit.host1.controller;
 
-//import com.habit.host1.DTO.RequestContentInsertDTO;
-//import com.habit.host1.DTO.RequestReviewDTO;
-//import com.habit.host1.DTO.ResponseReviewDTO;
 import com.habit.host1.DTO.RequestContentInsertDTO;
 import com.habit.host1.DTO.RequestReviewDTO;
 import com.habit.host1.DTO.ResponseReviewDTO;
+import com.habit.host1.DTO.*;
 import com.habit.host1.service.HostService1;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -46,7 +44,7 @@ public class HostContorller1 {
         String userId = "user-1"; //임시 세션 아이디
         rciDTO.setHost_id(userId);
         int result = hostService1.contentInsert(rciDTO);
-        return "host/habit_list";
+        return "redirect:/contentlist";
     }
 
     // [habit_review_control.jsp]
@@ -66,7 +64,8 @@ public class HostContorller1 {
         return hostService1.reviewList(reqReviewDTO);
     }
 
-    @GetMapping("/reviewPaging/{page}")
+    // 리뷰 페이징 번호에 따른 list 불러오기
+    @GetMapping("/review/{page}")
     @ResponseBody
     public List<ResponseReviewDTO> reviewPaging(@SessionAttribute(name = "userId", required = false) String userIdd, @PathVariable int page) {
         String user_id = "user-1";
@@ -77,5 +76,30 @@ public class HostContorller1 {
     @GetMapping("/inquiry")
     public String inquiryControl() {
         return "host/habit_inquiry_control";
+    }
+
+    @PostMapping("/inquiry.do")
+    @ResponseBody
+    public List<ResponseInquiryDTO> inquiryList(@SessionAttribute(name = "userId", required = false) String userIdd, RequestInquiryDTO reqInqDTO) {
+        //임시 세션 아이디
+        String user_id = "user-1";
+        reqInqDTO.setHost_id(user_id);
+        return hostService1.inquiryList(reqInqDTO);
+    }
+
+    @GetMapping("/contentlist")
+    public String Content () {
+        return "host/habit_list";
+    }
+
+    @PostMapping("/contentlist.do")
+    @ResponseBody
+    public List<ResponseContentListDTO> ContentList (@SessionAttribute(name = "userId", required = false) String userIdd, RequestContentListDTO reqContListDTO) {
+        //임시 세션 아이디
+        String user_id = "user-1";
+        reqContListDTO.setHost_id(user_id);
+        System.out.println("reqContListDTO = " + reqContListDTO);
+        System.out.println(hostService1.contentList(reqContListDTO));
+        return hostService1.contentList(reqContListDTO);
     }
 }

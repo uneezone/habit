@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../header.jsp"%>
-<link rel="stylesheet" href="css/refund.css?after" />'
-<script src="js/refund.js"></script>
+<link rel="stylesheet" href="/css/refund.css?after" />'
+<script src="/js/refund.js"></script>
     <!-- 본문 시작 -->
 
     <div class="Home">
@@ -71,7 +71,7 @@
             * 알아서 되니까 기다려
         </div>
         <div class="Home_refund_btn">
-          <div><button class="refund_btn" onclick="location.href='refundfinish.jsp'">환불하기</button></div>
+          <div><button class="refund_btn" onclick="location.href='/mypage/refundfinish'">환불하기</button></div>
         </div>
     </div>
 
