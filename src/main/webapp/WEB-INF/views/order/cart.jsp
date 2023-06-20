@@ -24,23 +24,25 @@
           <c:forEach var="item" items="${list1}" varStatus="one_status">
           <table class="cartlist">
           <tr>
-            <td class="checkTd">
-              <input type="checkbox" id="oneck${one_status.index}" class="Home_cart_check">
+            <td class="img_td">
+              <img src="/img/${item.cont_img}" class="item_img" />
             </td>
             <td>
-              <img src="/img/${item.cont_img}" class="item_img" height="160px"/>
-            </td>
-            <td>
-              <p class="Home_pro_name">
-                ${item.cont_name}
-              </p>
-              <p style="margin-top:40px; padding-left:30px;">가격 : ${item.one_price}</p>
+              <div class="show_pro_info">
+                <p >
+                  ${item.cont_name}
+                </p>
+                <p >가격 : ${item.one_price}</p>
+              </div>
             </td>
             <td>
               <div class="Home_show_qty">
                 <div id="result">${item.cl_qty}</div>
                 <input type="button"   value="-" class="Home_qty_btn_min btn_min"/>
                 <input type="button"  value="+" class="Home_qty_btn_plus btn_plus"/>
+              </div>
+              <div class="Home_show_checkBox">
+                <input type="checkbox" id="oneck${one_status.index}" class="Home_cart_check">
               </div>
             </td>
            </tr>
@@ -52,23 +54,25 @@
           <c:forEach var="item" items="${list2}" varStatus="prod_status">
           <table class="cartlist">
           <tr>
-            <td>
-              <input type="checkbox" class="Home_cart_check" id="prodck${prod_status.index}">
+            <td class="img_td">
+              <img src="/img/${item.cont_img}" class="item_img" />
             </td>
             <td>
-              <img src="/img/${item.cont_img}" class="item_img" height="160px"/>
-            </td>
-            <td>
-              <p class="Home_pro_name">
-                ${item.cont_name}
-              </p>
-              <p style="margin-top:40px; padding-left:30px;">가격 : ${item.prod_price}</p>
+              <div class="show_pro_info">
+                <p >
+                    ${item.cont_name}
+                </p>
+                <p >가격 : ${item.prod_price}</p>
+              </div>
             </td>
             <td>
               <div class="Home_show_qty">
                 <div id="result">${item.cl_qty}</div>
                 <input type="button"   value="-" class="Home_qty_btn_min btn_min"/>
                 <input type="button"  value="+" class="Home_qty_btn_plus btn_plus"/>
+              </div>
+              <div class="Home_show_checkBox">
+                <input type="checkbox" id="oneck${one_status.index}" class="Home_cart_check">
               </div>
             </td>
           </tr>
