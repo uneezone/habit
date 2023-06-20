@@ -37,4 +37,7 @@ $(document).ready(()=>{
             $('#date-calendar-end').val(nowDate)
         }
     })
+
+    $.ajax({
+    })
 })

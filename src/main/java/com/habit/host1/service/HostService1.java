@@ -19,4 +19,6 @@ public interface HostService1 {
     List<ResponseInquiryDTO> inquiryList(RequestInquiryDTO requestInquiryDTO);
     List<ResponseContentListDTO> contentList (RequestContentListDTO requestContentListDTO);
 
+    List<ResponseReservationDTO> reservationList(String id);
+
 }
