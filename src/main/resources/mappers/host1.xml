@@ -155,4 +155,59 @@
             and <foreach collection="cont_status" item="status" separator="or" open="(" close=")">cont_status = #{status}</foreach>
         </if>
     </select>
+
+    <!-- 원데이 클래스 리스트 조회 -->
+    <select id="ReservationList" parameterType="com.habit.host1.DTO.RequestReservationDTO" resultType="com.habit.host1.DTO.ResponseReservationDTO">
+        select e.*, cont_name
+        from (select c.*, one_date, cont_no
+              from (select a.user_id, user_gender, user_phone, payd_qty, payd_status, pro_no
+                    from payd a
+                    join user b
+                    on a.user_id = b.user_id) c
+              join one d
+              on c.pro_no = d.pro_no) e
+        join cont f
+        on e.cont_no = f.cont_no
+        where host_id = #{host_id}
+        <if test='!cont_name.equals("")'>
+            and cont_name = #{cont_name}
+        </if>
+        <if test='!searchStartDate.equals("")'>
+            and one_date #{searchStartDate} and #{searchEndDate}
+        </if>
+        <if test='!searchKeyword.equals("")'>
+            and ${searchType} like concat('%',#{searchKeyword},'%')
+        </if>
+        <if test='!payd_status != null'>
+            and <foreach collection="payd_status" item="status" separator="or" open="(" close=")">payd_status = #{status}</foreach>
+        </if>
+        order by one_date desc
+    </select>
+
+<!--    &lt;!&ndash; 원데이 클래스 리스트 count &ndash;&gt;-->
+<!--    <select id="ReservationList" parameterType="com.habit.host1.DTO.RequestReservationDTO" resultType="com.habit.host1.DTO.ResponseReservationDTO">-->
+<!--        select e.*, cont_name-->
+<!--        from (select c.*, one_date, cont_no-->
+<!--              from (select a.user_id, user_gender, user_phone, payd_qty, payd_status, pro_no-->
+<!--                    from payd a-->
+<!--                    join user b-->
+<!--                    on a.user_id = b.user_id) c-->
+<!--              join one d-->
+<!--              on c.pro_no = d.pro_no) e-->
+<!--        join cont f-->
+<!--        on e.cont_no = f.cont_no-->
+<!--        where host_id = #{host_id}-->
+<!--        <if test='!cont_name.equals("")'>-->
+<!--            and cont_name = #{cont_name}-->
+<!--        </if>-->
+<!--        <if test='!searchStartDate.equals("")'>-->
+<!--            and one_date #{searchStartDate} and #{searchEndDate}-->
+<!--        </if>-->
+<!--        <if test='!searchKeyword.equals("")'>-->
+<!--            and ${searchType} like concat('%',#{searchKeyword},'%')-->
+<!--        </if>-->
+<!--        <if test='!payd_status != null'>-->
+<!--            and <foreach collection="payd_status" item="status" separator="or" open="(" close=")">payd_status = #{status}</foreach>-->
+<!--        </if>-->
+<!--    </select>-->
 </mapper>

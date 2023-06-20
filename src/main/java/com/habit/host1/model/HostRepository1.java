@@ -20,4 +20,6 @@ public interface HostRepository1 {
     List<ResponseContentListDTO> contentList (RequestContentListDTO requestContentListDTO);
 
     int contentListCount(RequestContentListDTO requestContentListDTO);
+
+    public List<ResponseReservationDTO> reservationList(String id);
 }
