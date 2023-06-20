@@ -1,11 +1,11 @@
-package com.habit.host1.entity;
+package com.habit.host1.DTO;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class CateDTO {
-    public CateDTO() {}
+public class CateEntity {
+    public CateEntity() {}
 
     private String cate_no;
     private String cate_large;

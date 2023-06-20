@@ -11,6 +11,65 @@
         where user_id=#{userId}
     </select>
 
+    <select id="getContNoForHome" parameterType="String" resultType="Integer">
+        select cont_no from cont where host_id=#{userId}
+    </select>
+
+    <select id="getAllPriceForHome" resultType="java.util.Map">
+        select count(*) as count,sum(payd_qty*payd.payd_price) as sum from payd
+        where pro_no in
+                <foreach item="item" index="index" collection="list"
+                        open="(" separator="," close=")" nullable="true">
+                    #{item}
+                </foreach>
+              and payd_status !='C'
+    </select>
+
+    <select id="getMonthPriceForHome" resultType="Long">
+        select  IFNULL(sum(payd_qty*payd.payd_price),0) as sum from payd
+        where pro_no in
+        <foreach item="item" index="index" collection="list"
+                 open="(" separator="," close=")" nullable="true">
+            #{item}
+        </foreach>
+        and payd_status !='C'
+        and DATE_FORMAT(payd_date,'%Y-%m') =DATE_FORMAT(now(),'%Y-%m')
+    </select>
+
+    <select id="getMonthCancel" resultType="Long">
+        select count(*) from payd
+        where pro_no in
+        <foreach item="item" index="index" collection="list"
+                 open="(" separator="," close=")" nullable="true">
+            #{item}
+        </foreach>
+        and payd_status ='C'
+        and DATE_FORMAT(payd_date,'%Y-%m') =DATE_FORMAT(now(),'%Y-%m') ;
+    </select>
+
+    <select id="getReviewAndStar" resultType="java.util.Map">
+        select count(*) as count , IFNULL(avg(review_star),0) as avg
+        from review where cont_no in
+        <foreach item="item" index="index" collection="list"
+                 open="(" separator="," close=")" nullable="true">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="getQuestionUserCount" resultType="Long">
+        select count(*) from question 
+        where cont_no in
+        <foreach item="item" index="index" collection="list"
+                 open="(" separator="," close=")" nullable="true">
+            #{item}
+        </foreach>
+        and q_div="U";
+    </select>
+    
+    <select id="getQuestionHostCount" parameterType="String" resultType="Long">
+        select count(*) from question where id =#{host_id} and q_div="H";
+    </select>
+
     <select id="getPhoneNumber" parameterType="String" resultType="String">
         select user_phone
         from user
@@ -44,9 +103,259 @@
         where host_id=#{host_id}
     </update>
 
-    <select id="getProduct" parameterType="String" resultType="com.habit.host2.entity.ProductDTO">
-        select AA.*, p.payd_no,p.user_id,p.pay_no,p.payd_price,p.payd_qty,p.payd_status,p.refn_status,p.payd_date
-        from(select p.pro_no,p.prod_name,c.cont_name from cont c join prod p on c.cont_no=p.cont_no where host_id=#{hostId}) AA join payd p on AA.pro_no=p.pro_no
-        order by p.payd_date asc;
+    <!--판매관리 -->
+
+    <select id="getProductsLength" parameterType="com.habit.host2.entity.SearchProDTO" resultType="Integer">
+        select count(*)
+        from(select p.pro_no,p.prod_name,c.cont_name
+        from cont c join prod p on c.cont_no=p.cont_no
+        where host_id=#{host_id}
+        <if test="cont_no !=0 and cont_no!=null">
+            and c.cont_no=#{cont_no}
+        </if>
+        <if test='pro_no !="0" and pro_no!=null'>
+            and pro_no=#{pro_no}
+        </if>)
+        AA join payd p on AA.pro_no=p.pro_no
+        <where>
+            <if test='user_id !="" and user_id !=null'>
+                and p.user_id=#{user_id}
+            </if>
+            <if test='startDate !="" and startDate!=null'>
+                and payd_date between #{startDate} and #{endDate}
+            </if>
+            <if test='payd_status !="0" and payd_status !=null'>
+                and payd_status=#{payd_status}
+            </if>
+        </where>
+        order by p.payd_date asc
     </select>
+
+    <select id="getProduct" parameterType="com.habit.host2.entity.SearchProDTO" resultType="com.habit.host2.entity.ProductDTO">
+        select AA.*, p.payd_no,p.user_id,p.pay_no,p.payd_price,p.payd_qty,p.payd_status,p.refn_status,p.payd_date
+        from(select p.pro_no,p.prod_name,c.cont_name
+             from cont c join prod p on c.cont_no=p.cont_no
+             where host_id=#{host_id}
+             <if test="cont_no !=0 and cont_no!=null">
+                and c.cont_no=#{cont_no}
+             </if>
+             <if test='pro_no !="0" and pro_no!=null'>
+                 and pro_no=#{pro_no}
+             </if>)
+        AA join payd p on AA.pro_no=p.pro_no
+        <where>
+            <if test='user_id !="" and user_id !=null'>
+               and p.user_id=#{user_id}
+            </if>
+            <if test='startDate !="" and startDate!=null'>
+                and payd_date between #{startDate} and #{endDate}
+            </if>
+            <if test='payd_status !="0" and payd_status !=null'>
+                and payd_status=#{payd_status}
+            </if>
+        </where>
+        order by p.payd_date desc
+        limit #{startPaging},#{showLength};
+    </select>
+
+
+    <update id="updatePaydStatus" parameterType="java.util.Map">
+        update payd set payd_status=#{status}
+        <if test='status=="Y"'>
+            ,refn_status="NRO"
+        </if>
+        <if test='status=="C"'>
+            ,refn_status="HFRO"
+        </if>
+        where payd_no=#{payd_no};
+    </update>
+
+    <select id="getPayNo" parameterType="Long" resultType="String">
+        select pay_no from payd where payd_no=#{payd_no}
+    </select>
+
+    <select id="getRefnCount" parameterType="String" resultType="Long">
+        select count(refn_status) from payd where pay_no=#{pay_no} and(refn_status="RO" || refn_status="NRO")
+    </select>
+
+    <select id="getPayMethod" parameterType="String" resultType="String">
+        select pay_method from pay where pay_no=#{pay_no}
+    </select>
+
+    <select id="getInfoByPaydNo" parameterType="Long" resultType="java.util.Map">
+        select pro_no,payd_price, payd_qty,user_id from payd where payd_no=#{payd_no}
+    </select>
+
+    <insert id="insertRefund" parameterType="java.util.Map">
+        insert into refn(payd_no, user_id, pro_no, refn_qty, refn_pay, refn_method,refn_point)
+        values (#{payd_no},#{user_id},#{pro_no},#{pay_qty},#{refund_price},#{pay_method},#{refn_point})
+    </insert>
+
+    <select id="getRefundPoint" parameterType="String" resultType="Integer">
+        select pay_point from pay where pay_no=#{pay_no}
+    </select>
+
+    <insert id="insertEnergy" parameterType="java.util.Map">
+        insert into energy(user_id, energy_saveuse, energy_sources)
+        values (#{user_id},#{energy_saveuse},#{energy_sources})
+    </insert>
+
+    <select id="getProductNames" parameterType="String" resultType="java.util.Map">
+        select c.cont_no as cont_no, cont_name, cont_endate
+        from cont c join prod p on c.cont_no = p.cont_no
+        where host_id=#{host_id}
+        group by c.cont_no
+        order by c.cont_no;
+    </select>
+
+    <select id="getProductOptions" parameterType="Long" resultType="java.util.Map">
+        select pro_no,prod_name from prod where cont_no=#{cont_no}
+    </select>
+
+    <select id="showUserInfo" parameterType="String" resultType="java.util.Map">
+        select user_name, user_phone from user where user_id=#{user_id}
+    </select>
+
+    <!--정산서-->
+    <select id="getAdjustList" parameterType="com.habit.host2.entity.SearchAdjustDTO" resultType="com.habit.host2.entity.AdjustInfoDTO">
+        select * from calc where host_id=#{host_id}
+
+            <if test="cont_date !=null">
+                <if test='cont_date.equals("cont_stdate")'>
+                    and (substring(calc_date,1,10) between #{start_date} and #{end_date})
+                </if>
+                <if test='cont_date.equals("cont_endate")'>
+                    and (substring(calc_date,14) between #{start_date} and #{end_date})
+                </if>
+
+            </if>
+        order by calc_addate desc
+        limit #{startPaging},#{showLength}
+    </select>
+
+    <select id="getAdjustListLength" parameterType="com.habit.host2.entity.SearchAdjustDTO" resultType="Integer">
+        select count(*) from calc where host_id=#{host_id}
+
+        <if test="cont_date !=null">
+            <if test='cont_date.equals("cont_stdate")'>
+                and (substring(calc_date,1,10) between #{start_date} and #{end_date})
+            </if>
+            <if test='cont_date.equals("cont_endate")'>
+                and (substring(calc_date,14) between #{start_date} and #{end_date})
+            </if>
+
+        </if>
+    </select>
+
+    <select id="getAdjustDetail" parameterType="String" resultType="java.util.Map">
+        select pro_no,calcd_qty,calcd_price,calcd_status,calcd_date  from calcd where calc_no=#{calc_no}
+    </select>
+
+    <select id="getCalcAccount" parameterType="String" resultType="java.util.Map">
+        select host_account,host_acholder,host_bank from calc where calc_no=#{calc_no};
+    </select>
+
+    <select id="getOptionName" parameterType="java.util.Map" resultType="String">
+        <if test='table=="prod"'>
+            select prod_name as name from prod where pro_no=#{pro_no}
+        </if>
+        <if test='table=="one"'>
+            select one_date as name from one where pro_no=#{pro_no}
+        </if>
+    </select>
+
+    <select id="getHostAccount" parameterType="String" resultType="java.util.Map">
+        select host_bank,host_account,host_acholder from host where host_id=#{host_id}
+    </select>
+
+    <!--정산 insert-->
+    <select id="getConNoForAdjust" parameterType="String" resultType="Integer">
+        select cont_no from cont
+        where host_id=#{host_id}
+              and cont_endate &lt; (now())
+              and cont_no not in(select cont_no from calc where host_id=#{host_id})
+    </select>
+
+    <update id="updateContStatus" parameterType="Integer">
+        update cont set cont_status="N" where cont_no=#{cont_no}
+    </update>
+
+    <select id="getOneProNo" parameterType="Integer" resultType="String">
+        select pro_no from one where cont_no=#{cont_no} and one_status !='OS'
+    </select>
+
+    <update id="updateOneStatus" parameterType="String">
+        update one set one_status="OC" where pro_no=#{pro_no}
+    </update>
+
+    <select id="getProdProNo" parameterType="Integer" resultType="String">
+        select pro_no from prod where cont_no=#{cont_no} and prod_status='PS'
+    </select>
+    
+    <update id="updateProdStatus" parameterType="String">
+        update prod set prod_status="PC" where pro_no=#{pro_no}
+    </update>
+
+    <select id="getPaydNo" resultType="String">
+        select payd_no from payd where pro_no in
+        <foreach item="item" index="index" collection="list"
+                 open="(" separator="," close=")" nullable="true">
+            #{item}
+        </foreach>
+    </select>
+
+    <update id="updatePaydStatusForAdjust" >
+        update payd set refn_status="NRO" where payd_no in
+        <foreach item="item" index="index" collection="list"
+                 open="(" separator="," close=")" nullable="true">
+            #{item}
+        </foreach>
+        and refn_status ="RO"
+    </update>
+
+    <!--정산 인저트 시작-->
+    <select id="getAdjustProNo" parameterType="Integer" resultType="String">
+        select pro_no from prod where cont_no=#{cont_no}
+        union
+        select pro_no from one where cont_no=#{cont_no}
+    </select>
+
+    <select id="getAdjustPaydDTO" resultType="com.habit.host2.entity.AdjustPaydDTO">
+        select payd_no,pro_no,payd_price,payd_qty,refn_status,payd_date
+        from payd
+        where pro_no in
+        <foreach item="item" index="index" collection="list"
+                 open="(" separator="," close=")" nullable="true">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="findCalcNo" parameterType="String" resultType="String">
+        SELECT IFNULL(Max(calc_no), '1')
+        FROM calc
+        where calc_no like CONCAT(#{date},'%')
+    </select>
+
+    <select id="getAdjustContDTO" parameterType="Integer" resultType="com.habit.host2.entity.AdjustContDTO">
+        select DATE_FORMAT(cont_stdate,'%Y.%m.%d') as cont_stdate,DATE_FORMAT(cont_endate,'%Y.%m.%d') as cont_endate,cont_name
+        from cont where cont_no=#{cont_no};
+    </select>
+
+    <insert id="insertCalc" parameterType="com.habit.host2.entity.CalcDTO">
+        insert into calc(calc_no, host_id, calc_date, calc_title, calc_ttlprice, calc_fee, cont_no)
+        values (#{calc_no},#{host_id},#{calc_date},#{calc_title},#{calc_ttlprice},#{calc_fee},#{cont_no})
+    </insert>
+
+    <insert id="insertCalcD" parameterType="com.habit.host2.entity.CalcdDTO">
+        insert into calcd(calc_no, payd_no, pro_no, calcd_price, calcd_qty, calcd_status, calcd_date)
+        values (#{calc_no},#{payd_no},#{pro_no},#{calcd_price},#{calcd_qty},#{calcd_status},#{calcd_date})
+    </insert>
+
+    <select id="checkAccount" parameterType="String" resultType="Integer">
+        select count(*) from host where host_id=#{host_id} and host_account is not null;
+    </select>
+
+    <update id="updateCalcStatus" parameterType="String">
+        update calc set calc_status="Y" where calc_no=#{calc_no}
+    </update>
 </mapper>

@@ -1,9 +1,16 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../header.jsp"%>
-<link rel="stylesheet" href="css/order.css?after" />
-<script src="js/jquery.cookie.js"></script>
-<script src="js/order.js?after"></script>
-<script src="js/common.js?after"></script>
+<link rel="stylesheet" href="/css/order.css?after" />
+<script src="/js/jquery.cookie.js"></script>
+<script src="/js/order.js?after"></script>
+<script src="/js/common.js?after"></script>
+
+  <link rel="stylesheet" href="/css/reset.css?after">
+  <link rel="stylesheet" href="/css/order.css?after">
+  <script src="/js/order.js?after"></script>
+  <link rel="stylesheet" href="/css/modal.css?after">
+
     <!-- 본문 시작 -->
 
     <div class="Home">
@@ -25,7 +32,7 @@
                     <div class="Home_show_container show_list">
                         <div class="Home_show_date">2022년 5월 24일 23:30 결제</div> | 
                         <div class="Home_show_num"> 구매수량 : <span>1</span></div>
-                        <div class="Home_show_detail"><a href="orderdetail.jsp">주문상세 보기 ></a></div>
+                        <div class="Home_show_detail"><a href="/mypage/orderdetail">주문상세 보기 ></a></div>
                         <div class="Home_show_con">
                             <div class="Home_show_wrapper">
                                 <img src="/img/image.jpeg" alt="" class="Home_show_order_img">
@@ -38,10 +45,10 @@
                                 </a>
                                 <div class="Home_change_con">
                                     <div>
-                                        <button class="Home_change_btn" onclick="location.href='refund.html';">환불하기</button>
+                                        <button class="Home_change_btn" onclick="location.href='/mypage/refund';">환불하기</button>
                                     </div>
                                     <div>
-                                        <button class="Home_change_btn"  onclick="location.href='reviewwrite.html';">리뷰쓰기</button>
+                                        <button class="Home_change_btn"  onclick="location.href='/mypage/review';">리뷰쓰기</button>
                                     </div>
                                 </div>
                             </div>
@@ -70,7 +77,7 @@
                     <div class="Home_show_container_cancel show_list">
                         <div class="Home_show_date">2022년 5월 24일 23:30 결제</div> | 
                         <div class="Home_show_num"> 구매수량 : <span>1</span></div>
-                        <div class="Home_show_detail"><a href="orderdetail.jsp">주문상세 보기 ></a></div>
+                        <div class="Home_show_detail"><a href="/mypage/orderdetail">주문상세 보기 ></a></div>
                         <div class="Home_show_wrapper">
                             <img src="/img/image.jpeg" alt="" class="Home_show_order_img">
                             <span class="Home_refund"><span>환불완료</span></span>
@@ -97,7 +104,7 @@
                     <div class="Home_show_container_cancel show_list">
                         <div class="Home_show_date">2022년 5월 24일 23:30 결제</div> | 
                         <div class="Home_show_num"> 구매수량 : <span>1</span></div>
-                        <div class="Home_show_detail"><a href="orderdetail.jsp">주문상세 보기 ></a></div>
+                        <div class="Home_show_detail"><a href="/mypage/orderdetail">주문상세 보기 ></a></div>
                         <div class="Home_show_wrapper">
                             <img src="/img/image.jpeg" alt="" class="Home_show_order_img">
                             <span class="Home_refund"><span>환불완료</span></span>
@@ -124,7 +131,7 @@
                     <div class="Home_show_container show_list">
                         <div class="Home_show_date">2022년 5월 24일 23:30 결제</div> | 
                         <div class="Home_show_num"> 구매수량 : <span>1</span></div>
-                        <div class="Home_show_detail"><a href="orderdetail.jsp">주문상세 보기 ></a></div>
+                        <div class="Home_show_detail"><a href="/mypage/orderdetail">주문상세 보기 ></a></div>
                         <div class="Home_show_con">
                             <div class="Home_show_wrapper">
                                 <img src="/img/image.jpeg" alt="" class="Home_show_order_img">
@@ -169,7 +176,7 @@
                     <div class="Home_show_container_cancel show_list">
                         <div class="Home_show_date">2022년 5월 24일 23:30 결제</div> | 
                         <div class="Home_show_num"> 구매수량 : <span>1</span></div>
-                        <div class="Home_show_detail"><a href="orderdetail.jsp">주문상세 보기 ></a></div>
+                        <div class="Home_show_detail"><a href="/mypage/orderdetail">주문상세 보기 ></a></div>
                         <div class="Home_show_wrapper">
                             <img src="/img/image.jpeg" alt="" class="Home_show_order_img">
                             <span class="Home_refund"><span>환불완료</span></span>

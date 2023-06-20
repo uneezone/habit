@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../header.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="css/resultFindId.css?after">
 <script src="js/resultFindId.js"></script>
 
@@ -20,10 +21,17 @@
                 </div>
                 
                 <div class="Home_select">
-                    **dd*12**
+                    <c:choose>
+                        <c:when test="${member != null}">
+                            <p>아이디는 ${member}입니다.</p>
+                        </c:when>
+                        <c:otherwise>
+                            <p>회원 정보를 찾을 수 없습니다.</p>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                
-                <button class="Home_btn" onclick="location.href='login.html'">로그인 페이지로 돌아가기</button>
+                <button class="Home_btn" onclick="location.href='login'">로그인 페이지로 돌아가기</button>
                 
             </div>
         

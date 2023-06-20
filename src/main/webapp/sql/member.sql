@@ -9,7 +9,7 @@ CREATE TABLE user (
     user_email   varchar(40)   NOT NULL,               #이메일
     user_phone   varchar(15)   NOT NULL,               #전화번호
     user_birth   varchar(10)   NOT NULL,               #생년월일(8자리)
-    user_gender  char(1)       NOT NULL,                 #성별
+    user_gender  varchar(10)   NOT NULL,               #성별
     user_img     varchar(100)  NOT NULL  DEFAULT 'defaultPro.png',   #프로필 이미지
     user_size    int           NULL      DEFAULT 0,    #이미지 사이즈
     user_status  char(1)       NOT NULL  DEFAULT 'O',  #회원 상태
@@ -47,7 +47,7 @@ CREATE TABLE host (
     host_email     varchar(40)   NOT NULL,                               #호스트 이메일
     host_img       varchar(100)  NOT NULL  DEFAULT 'defaulthostPro.png', #프로필 이미지
     host_size      int	         NULL	   DEFAULT 0,                    #이미지 사이즈
-    host_account   varchar(50)   NULL,                               #계좌번호
+    host_account   int   NULL,                               #계좌번호
     host_bank      varchar(15)   NULL,                               #은행
     host_acholder  varchar(15)   NULL,                               #예금주
     host_date      datetime      NOT NULL  DEFAULT now()                 #호스트 등록일

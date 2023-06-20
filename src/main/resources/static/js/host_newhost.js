@@ -4,8 +4,12 @@ function setProfile(event) {
     $('.hostImgError').css("display", "none");
     //파일사이즈 체크
     let filesize = event.files[0].size;
+    let fileExtenstion=event.files[0].name;
+    let find=fileExtenstion.lastIndexOf(".");
+    fileExtenstion=fileExtenstion.substring(find+1,fileExtenstion.length);
+    fileExtenstion=fileExtenstion.toLowerCase();
     console.log(filesize);
-    if (filesize > 1024 * 1024 * 2) {
+    if (filesize > 1024 * 1024 * 2|| fileExtenstion!='jpg' && fileExtenstion !='png') {
         $('.hostImgError').css("display", "block");
         $('.hostImgError').html("파일 용량 2MB 이하 jpg, png 로 첨부해주세요");
 

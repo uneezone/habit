@@ -201,7 +201,7 @@ a:hover{
 .Home{
     height: 100%;
     width: 840px;
-    margin: 0 auto;
+    margin: 0 auto 30px auto;
     padding:0 100px;
 
 }
@@ -274,9 +274,72 @@ a:hover{
     padding-left: 10px;
 }
 
+.Home_pro_btn_name{
+    margin-bottom: 20px;
+}
+
+.Home_pro_btn_name>input{
+    margin: 5px auto;
+    --width: 40px;
+    width:50%;
+    height:34px;
+    font-size:15px;
+    border: 1px solid rgb(205, 205, 205);
+    border-radius: 2px;
+    background-color: #f1f1f1;
+    padding-left: 10px;
+}
+
+
+.Home_pro_btn1{
+    margin-bottom: 20px;
+
+    width: 200px;
+}
+
+.Home_pro_btn1>input{
+    margin: 5px auto;
+    --width: 40px;
+    width:25%;
+    height:34px;
+    font-size:15px;
+    border: 1px solid rgb(205, 205, 205);
+    border-radius: 2px;
+    background-color: #f1f1f1;
+    padding-left: 10px;
+}
+
 .Home_pro_btn>input:focus{
     outline: 1px solid #bbc6ff;
     background-color: white; 
+}
+
+.Home_pro_btn_email{
+    margin-bottom: 20px;
+}
+
+.Home_pro_btn_email>input{
+    margin: 5px auto;
+    --width: 40px;
+    width:48%;
+    height:34px;
+    font-size:15px;
+    border: 1px solid rgb(205, 205, 205);
+    border-radius: 2px;
+    background-color: #f1f1f1;
+    padding-left: 10px;
+}
+
+.Home_pro_btn_email>select{
+    margin: 5px auto;
+    --width: 40px;
+    width:48%;
+    height:34px;
+    font-size:15px;
+    border: 1px solid rgb(205, 205, 205);
+    border-radius: 2px;
+    background-color: #f1f1f1;
+    padding-left: 10px;
 }
 
 .Home_pro_btn_pw{
@@ -358,4 +421,87 @@ a:hover{
 
 .footer_copy{
     margin-top: 10px;
+}
+
+/*========모달창=============*/
+
+.intro_modal{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 1017px;
+
+    display: none;
+    z-index: 15;
+
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.intro_modal_body{
+    position: sticky;
+    top: 45%;
+    left: 50%;
+
+    width: 400px;
+    height: 300px;
+
+    --padding: 40px;
+
+    text-align: center;
+
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.intro_modal_container{
+    height: 280px;
+}
+
+.change_pw{
+    padding-top: 30px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.change_pw_com{
+    font-size: 16px;
+    margin-top: 40px;
+}
+
+#nowpw{
+    height: 30px;
+    margin-top: 40px;
+    width: 250px;
+}
+
+.pw_check{
+    width: 60px;
+    height: 30px;
+    background-color: #a0d7ff;
+    border: none;
+    border-radius: 3px;
+}
+
+.intro_modal_btn{
+    position:relative;
+    --top:530px;
+    background-color: #ffdfed;
+    height:50px;
+    font-size: 14px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+
+.intro_modal_btn>div, .intro_modal_btn>a>div{
+    display: block;
+    height: 100%;
+    color: black;
+    padding-top: 12px;
+    box-sizing: border-box;
 }

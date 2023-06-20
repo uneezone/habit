@@ -1,6 +1,6 @@
 package com.habit.member;
 
-public class memberDTO {
+public class MemberDTO {
 
     private String user_id;
     private String user_pw;
@@ -15,7 +15,7 @@ public class memberDTO {
     private String user_level;
     private String user_date;
 
-    public memberDTO(){
+    public MemberDTO(){
     }
 
     public String getUser_id() {
@@ -113,4 +113,6 @@ public class memberDTO {
     public void setUser_date(String user_date) {
         this.user_date = user_date;
     }
+
+
 }

@@ -7,7 +7,11 @@ CREATE TABLE calc (
     calc_ttlprice  int	          NOT NULL  DEFAULT 0,    #총 지급액(수수료 전)
     calc_fee       int	          NOT NULL  DEFAULT 0,    #총 수수료 액
     calc_status    char(1)	      NOT NULL  DEFAULT 'N',  #지급 상태
-    calc_addate    datetime	      NOT NULL  DEFAULT now() #정산 등록일
+    calc_addate    datetime	      NOT NULL  DEFAULT now(), #정산 등록일
+    cont_no        int            NOT NULL,
+    host_account  int     NOT NULL,
+    host_bank     varchar(15)     NOT NULL,
+    host_acholder varchar(15)     NOT NULL
 );
 
 insert into calc (calc_no, host_id, calc_date, calc_title, calc_ttlprice, calc_fee, calc_addate,calc_status)

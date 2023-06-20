@@ -6,12 +6,12 @@
     <!-- 본문 시작 -->
 
     <div class="Home">
-        <a href="mypageEdit.jsp"><div class="Home_myinfo">
+        <a href="/mypage/myedit"><div class="Home_myinfo">
             <div class="Home_myinfo_img">
-                <img src="../img/defaultPro.png" alt="">
+                <img src="/storage/defaultPro.png" alt="">
             </div>
             <div class="Home_myinfo_name">
-                박해빈
+                ${nameImg.user_name}
             </div>
         </div></a>
         <!--마이 정보 끝-->
@@ -19,7 +19,7 @@
         <div class="Home_myrecord">
             <a href="">
                 <div class="Home_myrecord_name">에너지</div>
-                <div class="Home_myrecord_num">0</div>
+                <div class="Home_myrecord_num">${myInfo.energy}</div>
             </a>
             <a href="">
                 <div class="Home_myrecord_name">쿠폰</div>
@@ -27,7 +27,7 @@
             </a>
             <a href="">
                 <div class="Home_myrecord_name">후기</div>
-                <div class="Home_myrecord_num">0</div>
+                <div class="Home_myrecord_num">${myInfo.review}</div>
             </a>
             <a href="">
                 <div class="Home_myrecord_name">피드</div>
@@ -38,7 +38,7 @@
         <hr>
         <div class="Home_myact">
             <div class="Home_myact_name">내 활동</div>
-            <a href="order.html">
+            <a href="/mypage/order">
                 <div class="Home_myact_order">
                     결제내역
                 </div>
@@ -71,9 +71,9 @@
         <!--호스트지원-->
         <div class="Home_myact">
             <div class="Home_myact_name">호스트</div>
-            <a href="../host_newhost.html">
+            <a href="/host">
                 <div class="Home_myact_order">
-                    호스트 지원
+                    호스트 센터
                 </div>
             </a>
         </div>        

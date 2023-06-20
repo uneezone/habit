@@ -1,4 +1,4 @@
-package com.habit.host1.entity;
+package com.habit.host1.DTO;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,8 +6,8 @@ import lombok.ToString;
 
 @Getter @Setter
 @ToString
-public class ProdDTO {
-        public ProdDTO() {}
+public class ProdEntity {
+        public ProdEntity() {}
 
         private String pro_no;
         private int cont_no;
