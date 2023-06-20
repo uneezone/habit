@@ -36,7 +36,7 @@ public class HostController2 {
     @GetMapping("")
     public String showHostPage(@SessionAttribute(name = "userId",required = false)String userIds, Model model){
 
-        String userId="user-5";
+        String userId="user-2";
         //host인지 확인
         String userGrade = hostService.checkHost(userId);
         if(userGrade.equals("H")){
