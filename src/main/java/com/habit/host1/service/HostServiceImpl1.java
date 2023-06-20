@@ -43,30 +43,6 @@ public class HostServiceImpl1 implements HostService1 {
         String cate_no = memoryHostRepository1.selectCateNo(rciDTO.getCate_middle());
         rciDTO.setCate_no(cate_no);
 
-//        // 해시태그2 리스트 저장
-//        String cont_hashtag2 = "";
-//        List contHashtag2List = (List) map.get("cont_hashtag2");
-//        for (int i=0; i<contHashtag2List.size(); i++) {
-//            if(i == contHashtag2List.size()-1) {
-//                cont_hashtag2 += contHashtag2List.get(i);
-//            } else {
-//                cont_hashtag2 += contHashtag2List.get(i) + "|";
-//            }
-//        }
-//        map.put("cont_hashtag2", cont_hashtag2);
-
-//        // 해시태그3 리스트 저장
-//        String cont_hashtag4 = "";
-//        List contHashtag4List = (List) map.get("cont_hashtag4");
-//        for (int i=0; i<contHashtag4List.size(); i++) {
-//            if(i == contHashtag4List.size()-1) {
-//                cont_hashtag4 += contHashtag4List.get(i);
-//            } else {
-//                cont_hashtag4 += contHashtag4List.get(i) + "|";
-//            }
-//        }
-//        map.put("cont_hashtag4", cont_hashtag4);
-
         // 판매 종료일 저장
         if(rciDTO.getCont_endate_type().equals("default")) {
             LocalDate now = LocalDate.now();
@@ -87,11 +63,6 @@ public class HostServiceImpl1 implements HostService1 {
             InputStream filesStream = imgs.get(i).getInputStream();
             FileUtils.copyInputStreamToFile(filesStream, targetFile);
             imgNames.add(newFileName);
-//            if (i == imgs.size() - 1) {
-//                cont_img += newFileName;
-//            } else {
-//                cont_img += newFileName + "|";
-//            }
         }
         rciDTO.setCont_img(imgNames);
 
@@ -159,5 +130,17 @@ public class HostServiceImpl1 implements HostService1 {
             reviewList.get(0).setTotalCount(totalCount);
         }
         return reviewList;
+    }
+
+    // 문의사항 리스트 가져오기
+
+    @Override
+    public List<ResponseInquiryDTO> inquiryList(RequestInquiryDTO reqInqDTO) {
+        List<ResponseInquiryDTO> resInqDTO = memoryHostRepository1.inquiryList(reqInqDTO);
+        if (resInqDTO.size() > 0) {
+            int totalCount = memoryHostRepository1.inquiryCount(reqInqDTO);
+            resInqDTO.get(0).setTotalCount(totalCount);
+        }
+        return resInqDTO;
     }
 }

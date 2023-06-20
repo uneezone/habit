@@ -5,7 +5,6 @@
 
 <!-- product.xml -->
 <mapper namespace="product1">
-
     <!-- 대분류 전체 select -->
     <select id="cateListLage" resultType="java.util.Map">
         SELECT cate_large
@@ -65,7 +64,7 @@
         select user_id, cont_name, review_star, review_cont, review_date
         from habit.review a join habit.cont b
         on a.cont_no = b.cont_no
-        where host_id = #{host_id}
+        where host_id = #{host_id} and review_status = 'Y'
         <if test="starScore != null">
         and <foreach collection="starScore" item="score" separator="or" open="(" close=")">review_star = ${score}</foreach>
         </if>
@@ -75,16 +74,43 @@
         limit ${recordSize} offset ${(page-1)*recordSize}
     </select>
 
-    <!-- 검색 페이지 count(*) -->
+    <!-- 검색 페이지 count(*)-->
     <select id="reviewCount" parameterType="com.habit.host1.DTO.RequestReviewDTO" resultType="int">
         select count(*)
         from habit.review a join habit.cont b
         on a.cont_no = b.cont_no
-        where host_id = #{host_id}
+        where host_id = #{host_id} and review_status = 'Y'
         <if test="starScore != null">
         and <foreach collection="starScore" item="score" separator="or" open="(" close=")">review_star = ${score}</foreach>
         </if>
         <if test='!reviewContKeyword.equals("")'>and review_cont like concat('%',#{reviewContKeyword},'%')</if>
         <if test='!searchUserId.equals("")'>and user_id = #{searchUserId}</if>
+    </select>
+
+    <!--  문의 조회  -->
+    <select id="inquiryList" parameterType="com.habit.host1.DTO.RequestInquiryDTO" resultType="com.habit.host1.DTO.ResponseInquiryDTO">
+        select id, cont_name, q_question, q_bedate, q_div, q_group, a.cont_no, q_status
+        from question a join cont b on a.cont_no = b.cont_no
+        where host_id = #{host_id} and q_div = 'U'
+        <if test='!searchStartDate.equals("")'>
+        and q_bedate between #{searchStartDate} and #{searchEndDate}
+        </if>
+        <if test='!searchKeyword.equals("")'>
+        and ${searchKeywordType} like concat('%',#{searchKeyword},'%')
+        </if>
+        order by q_bedate desc
+    </select>
+
+    <!--  검색한 문의 count  -->
+    <select id="inquiryCount" parameterType="com.habit.host1.DTO.RequestInquiryDTO" resultType="int">
+        select count(*)
+        from question a join cont b on a.cont_no = b.cont_no
+        where host_id = #{host_id} and q_div = 'U'
+        <if test='!searchStartDate.equals("")'>
+        and q_bedate between #{searchStartDate} and #{searchEndDate}
+        </if>
+        <if test='!searchKeyword.equals("")'>
+        and ${searchKeywordType} like concat('%',#{searchKeyword},'%')
+        </if>
     </select>
 </mapper>

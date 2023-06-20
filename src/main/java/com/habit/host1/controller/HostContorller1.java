@@ -1,8 +1,9 @@
 package com.habit.host1.controller;
 
-import com.habit.host1.DTO.RequestContentInsertDTO;
-import com.habit.host1.DTO.RequestReviewDTO;
-import com.habit.host1.DTO.ResponseReviewDTO;
+//import com.habit.host1.DTO.RequestContentInsertDTO;
+//import com.habit.host1.DTO.RequestReviewDTO;
+//import com.habit.host1.DTO.ResponseReviewDTO;
+import com.habit.host1.DTO.*;
 import com.habit.host1.service.HostService1;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -43,10 +44,10 @@ public class HostContorller1 {
         String userId = "user-1"; //임시 세션 아이디
         rciDTO.setHost_id(userId);
         int result = hostService1.contentInsert(rciDTO);
-        return "host/habit_list";
+        return "redirect:/content";
     }
 
-    //[habit_review_control.jsp]
+    // [habit_review_control.jsp]
     @GetMapping("/review")
     public String reviewControl(@SessionAttribute(name = "userId", required = false) String userIdd) {
         return "host/habit_review_control";
@@ -56,17 +57,40 @@ public class HostContorller1 {
     @ResponseBody
     public List<ResponseReviewDTO> reviewSearch(@SessionAttribute(name = "userId", required = false) String userIdd, RequestReviewDTO reqReviewDTO) {
         //임시 세션 아이디
-        String user_id = "user-2";
+        String user_id = "user-1";
         reqReviewDTO.setHost_id(user_id);
         System.out.println("reqReviewDTO = " + reqReviewDTO);
         System.out.println(hostService1.reviewList(reqReviewDTO));
         return hostService1.reviewList(reqReviewDTO);
     }
 
-//    @GetMapping("/reviewPaging/{page}")
-//    @ResponseBody
-//    public List<ResponseReviewDTO> reviewPaging(@SessionAttribute(name = "userId", required = false) String userIdd, @PathVariable int page) {
-//        String user_id = "user-2";
-//
-//    }
+    // 리뷰 페이징 번호에 따른 list 불러오기
+    @GetMapping("/review/{page}")
+    @ResponseBody
+    public List<ResponseReviewDTO> reviewPaging(@SessionAttribute(name = "userId", required = false) String userIdd, @PathVariable int page) {
+        String user_id = "user-1";
+        return null;
+    }
+
+    // [habit_inquiry_control.jsp]
+    @GetMapping("/inquiry")
+    public String inquiryControl() {
+        return "host/habit_inquiry_control";
+    }
+
+    @PostMapping("/inquiry.do")
+    @ResponseBody
+    public List<ResponseInquiryDTO> inquiryList(@SessionAttribute(name = "userId", required = false) String userIdd, RequestInquiryDTO reqInqDTO) {
+        //임시 세션 아이디
+        String user_id = "user-1";
+        reqInqDTO.setHost_id(user_id);
+        System.out.println("reqInqDTO = " + reqInqDTO);
+        System.out.println(hostService1.inquiryList(reqInqDTO));
+        return hostService1.inquiryList(reqInqDTO);
+    }
+
+    @GetMapping("/content")
+    public String ContentList () {
+        return "host/habit_list";
+    }
 }

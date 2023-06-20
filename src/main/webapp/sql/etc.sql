@@ -6,17 +6,20 @@ CREATE TABLE question (
     q_question  TEXT(500)    NOT NULL,                              #내용
     q_bedate    datetime     NOT NULL  DEFAULT now(),               #등록일
     q_group     int          NOT NULL,                              #글 그룹번호
-    q_div       char(1)      NOT NULL                               #구분코드(U:회원, H:호스트)
+    q_div       char(1)      NOT NULL,                               #구분코드(U:회원, H:호스트)
+    q_status    char(1)      NOT NULL   DEFAULT 'N'                  #host 답변 유무 (N:미답변, Y:답변)
 );
 
-insert into question (cont_no, id, q_question, q_bedate, q_group, q_div)
-values (1, 'user-2', '최대 참석인원이 5명인가요?', '2022-04-11 00:00:00',(SELECT ifnull(max(q_no),0)+1 FROM question as qs), 'U' );
+drop table question;
+
+insert into question (cont_no, id, q_question, q_bedate, q_group, q_div, q_status)
+values (1, 'user-2', '최대 참석인원이 5명인가요?', '2022-04-11 00:00:00',(SELECT ifnull(max(q_no),0)+1 FROM question as qs), 'U', 'Y' );
 
 insert into question (cont_no, id, q_question, q_bedate, q_group, q_div)
 values (1, 'user-1', '네 맞습니다', '2022-04-11 02:02:02',1, 'H' );
 
-insert into question (cont_no, id, q_question, q_bedate, q_group, q_div)
-values (2, 'user-1', '회차권을 헷갈려서 2회권으로 잘못 구매했습니다.차액금 계좌이체 하고 3회권으로 바꿀 수 있을까요?', '2022-07-22 01:30:00',(SELECT ifnull(max(q_no),0)+1 FROM question as qs), 'U' );
+insert into question (cont_no, id, q_question, q_bedate, q_group, q_div, q_status)
+values (2, 'user-1', '회차권을 헷갈려서 2회권으로 잘못 구매했습니다.차액금 계좌이체 하고 3회권으로 바꿀 수 있을까요?', '2022-07-22 01:30:00',(SELECT ifnull(max(q_no),0)+1 FROM question as qs), 'U', 'Y' );
 
 insert into question (cont_no, id, q_question, q_bedate, q_group, q_div)
 values (2, 'user-2', '안녕하세요 고객님.문의 하신 내용은 전산상의 이유로 불가합니다.취소 후 3회권으로 재 구매 부탁드립니다.', '2022-07-23 14:30:00',3, 'H' );
