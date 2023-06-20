@@ -39,7 +39,7 @@
               <a class="dropdown-item" href="/host/contentlist">해빗 목록</a>
               <a class="dropdown-item" href="/host/contentform">해빗 등록</a>
               <a class="dropdown-item" href="/host/product">판매 관리</a>
-              <a class="dropdown-item" href="#">예약 관리</a> <!--링크-->
+              <a class="dropdown-item" href="/host/reservation">예약 관리</a>
               <a class="dropdown-item" href="/host/inquiry">문의 관리</a>
               <a class="dropdown-item" href="/host/review">리뷰 관리</a>
             </div>

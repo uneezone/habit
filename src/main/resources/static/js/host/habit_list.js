@@ -8,7 +8,6 @@ $(document).ready(()=> {
 
     // 조회기간 제한
     let nowDate = new Date().toISOString().split('T')[0]
-    $('#date-calendar-end').attr('max', nowDate)
     $('#date-calendar-end').val(nowDate)
     $('input:radio[name=btnradio]').on('change', () => {
         let value = $('input:radio[name=btnradio]:checked').val()
@@ -39,7 +38,7 @@ $(document).ready(()=> {
         } else if (value === 'all') {
             let nowDate = new Date().toISOString().split('T')[0]
             $('#date-calendar-start').val('')
-            $('#date-calendar-end').val(nowDate)
+            $('#date-calendar-end').val(endDate)
         }
     })
 
@@ -48,7 +47,12 @@ $(document).ready(()=> {
         let cont_name = $('#cont_name').val()
         let searchDateType = $('#searchDateType').val()
         let searchStartDate =  $('#date-calendar-start').val()
-        let searchEndDate =  $('#date-calendar-end').val()
+
+        let endDate =  $('#date-calendar-end').val()
+        let getEndDate = new Date(endDate).getDate()+1
+        let setEndDate = new Date().setDate(getEndDate)
+        let searchEndDate = new Date(setEndDate).toISOString().split('T')[0]
+
         let cont_status = []
         let list = $('input[name=cont_status]:checked')
         for (let status of list) {
@@ -88,10 +92,13 @@ $(document).ready(()=> {
                             "            <div style='margin: 10px 0'>\n" +
                             "              <a href='#' style='font-size: large'><span><strong>" + row.cont_name + "</strong></span></a>\n" +
                             "            </div>\n" +
-                            "            <div>\n" +
+                            "            <div style='color: #494846'>\n" +
+                            "              <strong>[판매시작] </strong>" + row.cont_stdate.substring(0, 16) + "\n" +
+                            "            </div>\n" +
+                            "            <div style='color: #494846'>\n" +
                             "              <strong>[판매종료] </strong>" + row.cont_endate.substring(0, 16) + "\n" +
                             "            </div>\n" +
-                            "            <div>\n" +
+                            "            <div style='color: #494846'>\n" +
                             "              <strong>[카테고리] </strong>" + row.cate_large + " &gt; " + row.cate_middle + "\n" +
                             "            </div>\n" +
                             "          </div>"
