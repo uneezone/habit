@@ -1,8 +1,8 @@
 # [장바구니 테이블]
 CREATE TABLE cartlist (
-                          cl_no    int          NOT NULL  auto_increment  primary key, #장바구니 코드
+    cl_no    int          NOT NULL  auto_increment  primary key, #장바구니 코드
     user_id  varchar(25)  NOT NULL,                              #구매 회원 아이디
-  pro_no   varchar(35)  NOT NULL,                              #상품 코드
+    pro_no   varchar(35)  NOT NULL,                              #상품 코드
     cl_qty   int          NOT NULL  DEFAULT 0,                   #수량
     cl_date  datetime     NOT NULL  DEFAULT now()                #장바구니 등록일
 );
@@ -11,7 +11,7 @@ insert into cartlist(user_id, pro_no, cl_qty, cl_date)
 values('user-2', 'o_no1', 5, '2022-04-13 00:00:00');
 
 insert into cartlist(user_id, pro_no, cl_qty, cl_date)
-values('user-1', 'p_no2', 1, '2022-07-22 00:00:00');
+values('user-1', 'p_no2', 1, '2022-07-22 00:00:00')
 
 insert into cartlist(user_id, pro_no, cl_qty, cl_date)
 values('user-1', 'p_no3', 1, '2022-07-23 18:30:00');
