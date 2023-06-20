@@ -10,7 +10,7 @@
 
     <div class="Home">
         <div class="Home_wrapper">
-          <a href="zzim.html" class="Home_wrapper_a" class="href">
+          <a href="/zzim/list" class="Home_wrapper_a" class="href">
             <button class="Home_wrapper_btn ">
                 <div>해빗</div>
                 <div class="btn_circle1"></div>

@@ -14,11 +14,9 @@
   <script src="/js/jquery.cookie.js"></script>
   <link rel="stylesheet" href="/css/modal.css">
   <script src="/js/common.js"></script>
-  
-
 </head>
 <body> 
-   <!--헤더시작--> 
+   <!--헤더시작-->
    <header>
     <div class="global1">
       <div class="global_topbar">
@@ -70,7 +68,7 @@
                       <span>피드</span>
                   </div>
               </a>
-              <a href="member/zzim.html">
+              <a href="/zzim/list">
                   <div class="global_topbar2_menu2_menu">
                       <div>
                           <img src="/img/heartforpage.png" alt="로고" width="25px" >
@@ -86,7 +84,7 @@
                     <span>장바구니</span>
                 </div>
             </a>
-              <a href="member/mypage.html">
+              <a href="/mypage">
                   <div class="global_topbar2_menu2_menu">
                       <div>
                           <img src="/img/ME.png" alt="로고" width="25px">

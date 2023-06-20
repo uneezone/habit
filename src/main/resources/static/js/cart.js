@@ -20,7 +20,7 @@
     let plus=$('.btn_plus');
 
     plus.click(function(){
-        
+
         this.previousSibling.previousSibling.previousSibling.previousSibling.innerText
         =parseInt(this.previousSibling.previousSibling.previousSibling.previousSibling.innerText)+1;
     })
@@ -34,18 +34,17 @@
 
 
 
-    
 }
 
 
   //장바구니 물건 선택되었는지 확인
   function checkCart(){
-    
+
     let proSelect=$('input:checkbox[class=Home_cart_check]:checked').length;
     if(proSelect==0){
       alert("구매하실 상품을 선택해주세요");
       return false;
     }
-   
-    
+
+
   }

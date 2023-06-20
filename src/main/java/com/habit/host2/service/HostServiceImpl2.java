@@ -64,6 +64,18 @@ public class HostServiceImpl2 implements HostService2 {
             Map<String, Object> reviewAndStar = repository.getReviewAndStar(contNoForHome);
             log.info("리뷰랑 평균별점={}",reviewAndStar);
 
+            //문의률
+            Long questionUserCount = repository.getQuestionUserCount(contNoForHome);
+            log.info("유저문의={}",questionUserCount);
+            Long questionHostCount = repository.getQuestionHostCount(id);
+            log.info("호스트문의={}",questionHostCount);
+
+            if(questionHostCount==0 || questionUserCount==0){
+                hostHomeDTO.setResponse(0.0);
+            }else{
+                hostHomeDTO.setResponse((double) questionHostCount/questionUserCount);
+            }
+
             //dto로 넘기기
             hostHomeDTO.setAllSalePrice(allPrice);
             hostHomeDTO.setMonthSalePrice(monthPrice);

@@ -37,12 +37,12 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">해빗 관리</a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="habit_list.jsp">해빗 목록</a> <%--링크--%>
-              <a class="dropdown-item" href="habit_create.jsp">해빗 등록</a> <%--링크--%>
+              <a class="dropdown-item" href="/host/content">해빗 목록</a> <%--링크--%>
+              <a class="dropdown-item" href="/host/contentform">해빗 등록</a> <%--링크--%>
               <a class="dropdown-item" href="/host/product">판매 관리</a> <%--링크--%>
               <a class="dropdown-item" href="habit_reservation_control.jsp">예약 관리</a> <%--링크--%>
-              <a class="dropdown-item" href="habit_inquiry_control.jsp">문의 관리</a> <%--링크--%>
-              <a class="dropdown-item" href="habit_review_control.jsp">리뷰 관리</a> <%--링크--%>
+              <a class="dropdown-item" href="/host/inquiry">문의 관리</a> <%--링크--%>
+              <a class="dropdown-item" href="/host/review">리뷰 관리</a> <%--링크--%>
             </div>
           </li>
           <li class="nav-item dropdown">

@@ -16,12 +16,12 @@
 
                 원하시는 방법을 선택해 임시 비밀번호를 확인하실 수 있습니다
             </div>
-            <form action="">
+            <form action="findPassword.do" method="post">
                 <div class="Home_select">
-                    <input type="radio" name="pw" id="" disabled> 회원정보에 등록된 이메일로 받기 <span>********@naver.com</span>
+                    <input type="radio" name="pw" id="" disabled> 회원정보에 등록된 이메일로 받기 <span>${user_email}</span>
                 </div>
                 <div class="Home_select">
-                    <input type="radio" name="pw" id="" disabled> 회원정보에 등록된 휴대전화번호로 받기 <span>010-**05-05**</span>
+                    <input type="radio" name="pw" id="" disabled> 회원정보에 등록된 휴대전화번호로 받기 <span>${user_phone}</span>
                 </div>
                 <button class="Home_btn">임시비밀번호 전송</button>
             </form>

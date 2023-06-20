@@ -76,6 +76,16 @@ public class MemoryHostRepository2 implements HostRepository2 {
     }
 
     @Override
+    public Long getQuestionUserCount(List<Integer> cont_nos) {
+        return sqlSession.selectOne("host2.getQuestionUserCount",cont_nos);
+    }
+
+    @Override
+    public Long getQuestionHostCount(String host_id) {
+        return sqlSession.selectOne("host2.getQuestionHostCount",host_id);
+    }
+
+    @Override
     public String getPhoneNumber(String userId) {
         return sqlSession.selectOne("host2.getPhoneNumber",userId);
     }

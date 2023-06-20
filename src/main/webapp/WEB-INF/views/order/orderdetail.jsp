@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../header.jsp"%>
-<link rel="stylesheet" href="css/orderdetail.css?after" />
-<script src="js/jquery.cookie.js"></script>
-<script src="js/orderdetail.js?after"></script>
-<script src="js/common.js?after"></script>
+<link rel="stylesheet" href="/css/orderdetail.css?after" />
+<script src="/js/jquery.cookie.js"></script>
+<script src="/js/orderdetail.js?after"></script>
+<script src="/js/common.js?after"></script>
 
     <!-- 본문 시작 -->
 

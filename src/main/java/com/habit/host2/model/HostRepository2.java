@@ -24,6 +24,15 @@ public interface HostRepository2 {
     //전체리뷰수, 이번달 평균별점
     Map<String,Object> getReviewAndStar(List<Integer> cont_nos);
 
+    //문의률
+    //유저 문읜건수
+    Long getQuestionUserCount(List<Integer> cont_nos);
+
+    //호스트응답률
+    Long getQuestionHostCount(String host_id);
+
+
+
 
     //호스트가 가입시 전화번호 미입력하면 유저단에서 가져옴
     String getPhoneNumber(String userId);
