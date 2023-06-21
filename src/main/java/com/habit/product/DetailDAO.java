@@ -17,4 +17,7 @@ public class DetailDAO {
         return sqlSession.selectOne("detail.hostprofile", cont_no);
     }
 
+    public Map<String, Object> detailproduct(int cont_no) {
+        return sqlSession.selectOne("detail.detailproduct", cont_no);
+    }
 }

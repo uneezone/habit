@@ -49,6 +49,13 @@ $(document).ready(function() {
             // 클릭 시 OptionItem_Wrapper 창을 접습니다.
             let optionItemsWrapper = document.querySelector('.OptionItem_Wrapper');
             optionItemsWrapper.style.display = 'none';
+
+            // 클릭한 상품명과 가격을 PurchaseCell_Wrapper 내에 적용합니다.
+            let selectedItemName = this.querySelector('.OptionItem_Title').innerText;
+            let selectedItemPrice = this.querySelector('.OptionItem_Price').innerText;
+            document.querySelector('.PurchaseCell_Title').innerText = selectedItemName;
+            document.querySelector('.PurchaseCell_Price').innerText = selectedItemPrice;
+
         });
     });
 
@@ -64,7 +71,66 @@ $(document).ready(function() {
     let optionSelectTitle = document.querySelector('.OptionSelect_Title');
     optionSelectTitle.addEventListener('click', toggleOptionItems);
 
-});
+
+    // 이미지 -, + 버튼 구현
+    const minusButton = document.querySelector('.Counter_ControlButton:nth-child(1)');
+    const plusButton = document.querySelector('.Counter_ControlButton:nth-child(3)');
+    const counterValue = document.querySelector('.Counter_Value');
+
+
+    // 이미지 버튼 클릭 시 수량 감소와가를 처리하는 함수를 만듭니다.
+    function quantityChange(direction) {
+        const counterValue = document.querySelector('.Counter_Value');
+        const currentValue = parseInt(counterValue.value);
+
+        if (direction === 'minus') {
+            if (currentValue > 1) {
+                counterValue.value = currentValue - 1;
+            }
+        } else if (direction === 'plus') {
+            counterValue.value = currentValue + 1;
+        }
+
+        // 변경된 값에 따라 calculateTotal 함수를 호출하여 총 수량 및 가격을 업데이트합니다.
+        calculateTotal();
+    }
+
+    // 마이너스 이미지 버튼 클릭 시 수량 감소 함수(기존 코드 적용)를 호출합니다.
+    minusButton.addEventListener('click', () => {
+        const currentValue = parseInt(counterValue.value);
+        if (currentValue > 1) {
+            counterValue.value = currentValue - 1;
+        }
+        // calculateTotal 함수 추가
+        calculateTotal();
+    });
+
+    // 플러스 이미지 버튼 클릭 시 수량 증가 함수(기존 코드 적용)를 호출합니다.
+    plusButton.addEventListener('click', () => {
+        const currentValue = parseInt(counterValue.value);
+        counterValue.value = currentValue + 1;
+        // calculateTotal 함수 추가
+        calculateTotal();
+    });
+
+
+    // 사용자가 수량을 변경할 때마다 총 가격 및 수량을 업데이트하기 위한 함수
+    function calculateTotal() {
+        const itemCount = parseInt(document.querySelector('.Counter_Value').value);
+        const itemPrice = parseInt(document.querySelector('.PurchaseCell_Price').getAttribute('data-price'));
+        const totalPrice = itemCount * itemPrice;
+
+        document.querySelector('.OptionBottomSheet_Count').innerText = `총  ${itemCount}개`;
+        document.querySelector('.OptionBottomSheet_Price').innerText = `${totalPrice.toLocaleString()}원`;
+    }
+
+    // 수량이 변경될 때마다 calculateTotal 함수를 호출하도록 이벤트 리스너를 추가
+    document.querySelector('.Counter_Value').addEventListener('input', calculateTotal);
+
+    // 페이지가 로드되면 총 가격 및 수량을 처음 계산
+    window.addEventListener('load', calculateTotal);
+
+    });
 
 
 <!-- 슬라이드 -->
@@ -83,45 +149,5 @@ function plusSlides(n) {
     } slides[slideIndex - 1].style.display = "block";
 }
 
-function movePage(page) {
-    var currentPage = $("#currentPage").val();
-    var pageSize = 10;
 
-    // 현재 페이지 번호가 없으면 1페이지로 설정
-    if (currentPage == null) {
-        currentPage = 1;
-    }
-
-    // 이동할 페이지 번호를 구합니다.
-    var targetPage = currentPage + page - 1;
-
-    // 이동할 페이지 번호가 범위를 벗어나면 1페이지로 설정
-    if (targetPage < 1) {
-        targetPage = 1;
-    } else if (targetPage > pageCount) {
-        targetPage = pageCount;
-    }
-
-    // 페이지 번호를 설정
-    $("#currentPage").val(targetPage);
-
-    // 게시판의 글을 조회
-    getBoards(targetPage, pageSize);
-}
-
-// 게시판의 글을 조회
-function getBoards(currentPage, pageSize) {
-    $.ajax({
-        url: "/board/list",
-        type: "GET",
-        data: {
-            currentPage: currentPage,
-            pageSize: pageSize
-        },
-        success: function (response) {
-            var boards = response.data;
-            $(".board-list").html(boards);
-        }
-    });
-}
 

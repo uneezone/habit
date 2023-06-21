@@ -84,7 +84,7 @@
                         <span>찜</span>
                     </div>
                 </a>
-                <a href="cart.html">
+                <a href="/cart/list">
                     <div class="global_topbar2_menu2_menu">
                         <div>
                             <img src="img/cart2.png" alt="로고" width="25px" >
