@@ -32,6 +32,79 @@ function checkLength(){
     }
 
 }
+
+function showModal(){
+    $(".intro_modal").css("display","block");
+}
+
+function closeEvent(){
+    $(".change_pw_com").html("현재 비밀번호를 입력해주세요.");
+    $(".change_pw").html("비밀번호 확인");
+    $(".pw_check").css("display","inline-block");
+    $(".change_pw_btn").css("display","none");
+    $(".intro_modal").css("display","none");
+    $("#nowpw").attr("disabled",false);
+    $("#nowpw").val("");
+}
+
+//비밀번호 확인
+function checkPw(){
+
+    let pw=$("#nowpw").val();
+    let params={"pw":pw};
+    $.ajax({
+        type:"GET"
+        ,url :"/mypage/checkpw"
+        ,data:params
+        ,async:false
+        ,success:function(data) {
+            console.log(data);
+
+            if(data=="NOK"){
+                $(".error_pw").html("현재 비밀번호와 다릅니다. 다시 입력해주세요.");
+            }else if(data=="OK"){
+                $(".error_pw").html("");
+                $("#nowpw").val("");
+                $(".pw_check").css("display","none");
+                $(".change_pw_btn").css("display","inline-block");
+                $(".change_pw").html("비밀번호 변경");
+                $(".change_pw_com").html("변경하실 비밀번호를 입력해주세요.");
+            }
+
+        }
+    });
+}
+
+//비밀번호 변경
+function changePw(){
+    let pw=$("#nowpw").val();
+    if(pw.length<5){
+        alert("비밀번호 5자리 이상 입력해주세요");
+    }else {
+        let params = {"pw": pw};
+
+        $.ajax({
+            type: "POST"
+            , url: "/mypage/changepw"
+            , data: params
+            , async: false
+            , success: function (data) {
+                //console.log(data);
+                if (data.status == "OK") {
+                    $("#user_pw").val(data.pw);
+                    $(".change_pw_com").html("변경 성공");
+                    $(".change_pw").html("비밀번호 변경 완료");
+                    $("#nowpw").attr("disabled", "disabled");
+                } else {
+                    alert("변경실패 다시 시도해주세요.");
+                }
+
+            }
+        });
+    }
+}
+
+//submit 유효성 체크
 function myProfile(){
     if($('#user_name').val()==""){
         alert("닉네임을 입력해주세요");

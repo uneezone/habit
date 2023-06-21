@@ -422,3 +422,102 @@ a:hover{
 .footer_copy{
     margin-top: 10px;
 }
+
+/*========모달창=============*/
+
+.intro_modal{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 1017px;
+
+    display: none;
+    z-index: 15;
+
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.intro_modal_body{
+    position: sticky;
+    top: 45%;
+    left: 50%;
+
+    width: 400px;
+    height: 300px;
+
+    --padding: 40px;
+
+    text-align: center;
+
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.intro_modal_container{
+    height: 280px;
+}
+
+.change_pw{
+    padding-top: 30px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.change_pw_com{
+    font-size: 16px;
+    margin-top: 40px;
+}
+
+#nowpw{
+    height: 30px;
+    margin-top: 40px;
+    width: 250px;
+    border-radius: 5px;
+    border: 0.5px solid gray;
+}
+
+.pw_check{
+    width: 60px;
+    height: 30px;
+    background-color: #a0d7ff;
+    border: none;
+    border-radius: 3px;
+}
+.Home_pro_btn1>input[type="number"]::-webkit-outer-spin-button,
+.Home_pro_btn1>input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.change_pw_btn{
+    width: 60px;
+    height: 30px;
+    background-color: #a0d7ff;
+    border: none;
+    border-radius: 3px;
+
+}
+
+.intro_modal_btn{
+    position:relative;
+    --top:530px;
+    background-color: #ffdfed;
+    height:50px;
+    font-size: 14px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+
+.intro_modal_btn>div, .intro_modal_btn>a>div{
+    display: block;
+    height: 100%;
+    color: black;
+    padding-top: 12px;
+    box-sizing: border-box;
+}

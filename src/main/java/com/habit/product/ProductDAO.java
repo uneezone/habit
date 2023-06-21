@@ -52,5 +52,40 @@ public class ProductDAO {
          return sqlSession.selectOne("product.detail", cont_no);
     }
 
+// 조회수 증가
+    public void updateViewCount(int cont_no) {
+        sqlSession.update("product.updateViewCount", cont_no);
+    }
+
+    //인기 리스트
+    public List<Map<String, Object>> hotList(String cate_large) {
+        return sqlSession.selectList("product.hotList", cate_large);
+    }
+
+    //요약페이지 인기 상위 4개
+    public List<Map<String, Object>> hotTop(String cate_large) {
+        return sqlSession.selectList("product.hotTop", cate_large);
+    }
+
+    //인기&전체 페이지 수량
+    public Integer hotListCount(String cate_large){
+        return sqlSession.selectOne("product.hotListCount", cate_large);
+    }
+
+    //신규 리스트
+    public List<Map<String, Object>> newList(String cate_large) {
+        return sqlSession.selectList("product.newList", cate_large);
+    }
+
+    //요약페이지 인기 상위 4개
+    public List<Map<String, Object>> newtop(String cate_large) {
+        return sqlSession.selectList("product.newTop", cate_large);
+    }
+
+    //신규 페이지 수량
+    public Integer newListCount(String cate_large){
+        return sqlSession.selectOne("product.newListCount", cate_large);
+    }
+
 
 }

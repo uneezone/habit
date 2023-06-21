@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -25,7 +24,8 @@ public class HostContorller1 {
     // [habit_create.jsp]
     // 컨텐츠 생성 폼으로 이동 & 대분류 list 불러오기
     @GetMapping("/contentform")
-    public String contentForm(Model model) {
+    public String contentForm(@SessionAttribute(name = "userId", required = false) String userIdd, Model model) {
+        String userId = "user-1"; //임시 세션 아이디
         model.addAttribute("List", hostService1.cateList());
         return "host/habit_create";
     }
@@ -41,7 +41,8 @@ public class HostContorller1 {
     // 생성된 컨텐츠 값 insert
     @PostMapping("/contentinsert")
     public String contentInsert(@SessionAttribute(name = "userId", required = false) String userIdd, RequestContentInsertDTO rciDTO) throws IOException {
-        String userId = "user-1"; //임시 세션 아이디
+        //임시 세션 아이디
+        String userId = "user-1";
         rciDTO.setHost_id(userId);
         int result = hostService1.contentInsert(rciDTO);
         return "redirect:/contentlist";
@@ -50,6 +51,8 @@ public class HostContorller1 {
     // [habit_review_control.jsp]
     @GetMapping("/review")
     public String reviewControl(@SessionAttribute(name = "userId", required = false) String userIdd) {
+        //임시 세션 아이디
+        String userId = "user-1";
         return "host/habit_review_control";
     }
 
@@ -68,9 +71,11 @@ public class HostContorller1 {
     @GetMapping("/review/{page}")
     @ResponseBody
     public List<ResponseReviewDTO> reviewPaging(@SessionAttribute(name = "userId", required = false) String userIdd, @PathVariable int page) {
+        //임시 세션 아이디
         String user_id = "user-1";
         return null;
     }
+
 
     // [habit_inquiry_control.jsp]
     @GetMapping("/inquiry")
@@ -87,6 +92,7 @@ public class HostContorller1 {
         return hostService1.inquiryList(reqInqDTO);
     }
 
+    // [habit_list.jsp]
     @GetMapping("/contentlist")
     public String Content () {
         return "host/habit_list";
@@ -102,4 +108,15 @@ public class HostContorller1 {
         System.out.println(hostService1.contentList(reqContListDTO));
         return hostService1.contentList(reqContListDTO);
     }
+
+    // [habit_reservation_control.jsp]
+    @GetMapping("/reservation")
+    public String Reservation (@SessionAttribute(name = "userId", required = false) String userIdd, Model model) {
+        //임시 세션 아이디
+        String user_id = "user-1";
+        List<ResponseReservationDTO> list = hostService1.reservationList(user_id);
+        model.addAttribute("list", list);
+        return "host/habit_reservation_control";
+    }
+
 }

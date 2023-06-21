@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- product.xml -->
+
+<mapper namespace="detail">
+
+    <!-- 상세 페이지 호스트 이름, 사진 출력   -->
+    <select id="hostprofile" resultType="java.util.Map" parameterType="int">
+        SELECT a.host_name, a.host_img
+        FROM host a
+                 JOIN cont b ON a.host_id = b.host_id
+        WHERE b.cont_no = #{cont_no}
+    </select>
+
+    <!-- 상세페이지 상품 옵션 출력   -->
+    <select id="detailproduct" resultType="java.util.Map" parameterType="int">
+        SELECT *
+        FROM (SELECT * FROM one
+              UNION
+              SELECT * FROM prod) a
+                 JOIN cont c
+                      ON a.cont_no = c.cont_no
+                 JOIN cate ct
+                      ON c.cate_no = ct.cate_no
+        WHERE  a.cont_no = #{cont_no}
+    </select>
+
+
+
+
+
+
+</mapper>

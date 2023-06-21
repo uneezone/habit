@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../header.jsp"%>
-<link rel="stylesheet" href="css/itemlist.css?after" />
-<script src="js/jquery.cookie.js"></script>
-<script src="js/allitemlist.js?after"></script>
-<script src="js/common.js?after"></script>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<link rel="stylesheet" href="/css/itemlist.css?after" />
+<script src="/js/jquery.cookie.js"></script>
+<script src="/js/allitemlist.js?after"></script>
+<script src="/js/common.js?after"></script>
 
       <!--* 대분류 클릭시 모달창-->
 
@@ -184,11 +188,11 @@
         <div>
             <div class="ItemList_Wrapper jEQWdY">
                 <a class="active" href="" style="font-weight: bold; color: rgb(51, 151, 255);">전체</a>
-                <a href="">중분류1</a>
-                <a href="">중분류2</a>
-                <a href="">중분류3</a>
-                <a href="">중분류4</a>
-                <a href="">중분류5</a>
+                <c:forEach items="${middle}" var="item">
+                    <a href="/category/${item.cate_large}/${item.cate_middle}" class="midbtn">${item.cate_middle}</a>
+                </c:forEach>
+
+                <div id="otherParagraph"></div>
             </div>
         </div>
 
@@ -212,424 +216,62 @@
 
         <div font-size="18" class="ProductSectionHeader_Header">
                     <h2 class="ProductSectionHeader_Title_all">####</h2>
-                    <span>100</span>
+                    <span>${hotListCount}</span>
                 </div>
 
                <!-- * 전체 아이템 리스트 시작 -->
             <div class="Home_product_recommend_list">
-                <div class="Home_product_recommend_p">
-                    <a href="detailpage.jsp" class="href">
-                        <div class="Home_product_recommend_p_div">
-                            <div>
-                                <img src="img/image.jpeg" alt="" width="150px">
-                            </div>
-                            <div>
-                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                    <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                </button>
-                            </div>
-                            <div class="Home_product_recommend_p_font">
+                <c:forEach items="${list}" var="row" varStatus="vs">
+                    <div class="Home_product_recommend_p">
+                        <a href="/category/products/${row.cont_no}" class="href">
+                            <div class="Home_product_recommend_p_div">
                                 <div>
-                                    <span class="Miniarea">강남/서초</span>
+                                    <img src="/img/image.jpeg" alt="" width="150px">
+                                </div>
+                                <div>
+                                    <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
+                                        <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                    </button>
+                                </div>
+                                <div class="Home_product_recommend_p_font">
                                     <div>
-                                        [전체 리스트 아이템 1]
-                                    </div>
-                                    <section class="Home_recommend_img">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
-                                    </section>
-                                    <hr class="Home_recommend_hr">
-                                    <div>
-                                         100,000원
+                                        <span class="Miniarea">${fn:substring(row.cont_addr1, 0, 7)}</span>
+                                        <div>
+                                                ${row.cont_name}
+                                        </div>
+                                        <section class="Home_recommend_img">
+                                            <c:set var="starItem" value="${starMap[row.cont_no]}" />
+                                            <c:set var="avgStarRating" value="${starItem['avg_star']}" />
+                                            <c:choose>
+                                                <c:when test="${avgStarRating != null}">
+                                                    <c:set var="roundedStarRating" value="${Math.round(avgStarRating.doubleValue())}" />
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:set var="roundedStarRating" value="0" />
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <c:forEach begin="1" end="${roundedStarRating > 5 ? 5 : roundedStarRating}" varStatus="starStatus">
+                                                <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                            </c:forEach>
+                                            <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 ${starItem['cnt']}</span>
+                                        </section>
+                                        <hr class="Home_recommend_hr">
+                                        <div>
+                                            <c:set var="priceItem" value="${priceMap[row.cont_no]}" />
+                                            <c:set var="money" value="${priceItem['money']}" />
+                                            <fmt:formatNumber type="number" value="${money}" pattern="###,###" var="formattedMoney" />
+                                                ${formattedMoney}원
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="Home_product_recommend_p">
-                    <a href="" class="href">
-                        <div class="Home_product_recommend_p_div">
-                            <div>
-                                <img src="img/image.jpeg" alt="" width="150px">
-                            </div>
-                            <div>
-                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                    <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                </button>
-                            </div>
-                            <div class="Home_product_recommend_p_font">
-                                <div>
-                                    <span class="Miniarea">강남/서초</span>
-                                    <div>
-                                        [전체 리스트 아이템 2]
-                                    </div>
-                                    <section class="Home_recommend_img">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
-                                    </section>
-                                    <hr class="Home_recommend_hr">
-                                    <div>
-                                        100,000원
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="Home_product_recommend_p">
-                    <a href="" class="href">
-                        <div class="Home_product_recommend_p_div">
-                            <div>
-                                <img src="img/image.jpeg" alt="" width="150px">
-                            </div>
-                            <div>
-                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                    <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                </button>
-                            </div>
-                            <div class="Home_product_recommend_p_font">
-                                <div>
-                                    <span class="Miniarea">강남/서초</span>
-                                    <div>
-                                        [전체 리스트 아이템 3]
-                                    </div>
-                                    <section class="Home_recommend_img">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
-                                    </section>
-                                    <hr class="Home_recommend_hr">
-                                    <div>
-                                        100,000원
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="Home_product_recommend_p">
-                    <a href="" class="href">
-                        <div class="Home_product_recommend_p_div">
-                            <div>
-                                <img src="img/image.jpeg" alt="" width="150px">
-                            </div>
-                            <div>
-                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                    <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                </button>
-                            </div>
-                            <div class="Home_product_recommend_p_font">
-                                <div>
-                                    <span class="Miniarea">강남/서초</span>
-                                    <div>
-                                        [전체 리스트 아이템 4]
-                                    </div>
-                                    <section class="Home_recommend_img">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
-                                    </section>
-                                    <hr class="Home_recommend_hr">
-                                    <div>
-                                        100,000원
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                
-                <div class="Home_product_recommend_p">
-                    <a href="" class="href">
-                        <div class="Home_product_recommend_p_div">
-                            <div>
-                                <img src="img/image.jpeg" alt="" width="150px">
-                            </div>
-                            <div>
-                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                    <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                </button>
-                            </div>
-                            <div class="Home_product_recommend_p_font">
-                                <div>
-                                    <span class="Miniarea">강남/서초</span>
-                                    <div>
-                                        [전체 리스트 아이템 5]
-                                    </div>
-                                    <section class="Home_recommend_img">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
-                                    </section>
-                                    <hr class="Home_recommend_hr">
-                                    <div>
-                                         100,000원
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="Home_product_recommend_p">
-                    <a href="" class="href">
-                        <div class="Home_product_recommend_p_div">
-                            <div>
-                                <img src="img/image.jpeg" alt="" width="150px">
-                            </div>
-                            <div>
-                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                    <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                </button>
-                            </div>
-                            <div class="Home_product_recommend_p_font">
-                                <div>
-                                    <span class="Miniarea">강남/서초</span>
-                                    <div>
-                                        [전체 리스트 아이템 6]
-                                    </div>
-                                    <section class="Home_recommend_img">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
-                                    </section>
-                                    <hr class="Home_recommend_hr">
-                                    <div>
-                                        100,000원
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="Home_product_recommend_p">
-                    <a href="" class="href">
-                        <div class="Home_product_recommend_p_div">
-                            <div>
-                                <img src="img/image.jpeg" alt="" width="150px">
-                            </div>
-                            <div>
-                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                    <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                </button>
-                            </div>
-                            <div class="Home_product_recommend_p_font">
-                                <div>
-                                    <span class="Miniarea">강남/서초</span>
-                                    <div>
-                                        [전체 리스트 아이템 7]
-                                    </div>
-                                    <section class="Home_recommend_img">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
-                                    </section>
-                                    <hr class="Home_recommend_hr">
-                                    <div>
-                                        100,000원
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="Home_product_recommend_p">
-                    <a href="" class="href">
-                        <div class="Home_product_recommend_p_div">
-                            <div>
-                                <img src="img/image.jpeg" alt="" width="150px">
-                            </div>
-                            <div>
-                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                    <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                </button>
-                            </div>
-                            <div class="Home_product_recommend_p_font">
-                                <div>
-                                    <span class="Miniarea">강남/서초</span>
-                                    <div>
-                                        [전체 리스트 아이템 8]
-                                    </div>
-                                    <section class="Home_recommend_img">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
-                                    </section>
-                                    <hr class="Home_recommend_hr">
-                                    <div>
-                                        100,000원
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="Home_product_recommend_p">
-                    <a href="" class="href">
-                        <div class="Home_product_recommend_p_div">
-                            <div>
-                                <img src="img/image.jpeg" alt="" width="150px">
-                            </div>
-                            <div>
-                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                    <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                </button>
-                            </div>
-                            <div class="Home_product_recommend_p_font">
-                                <div>
-                                    <span class="Miniarea">강남/서초</span>
-                                    <div>
-                                        [전체 리스트 아이템 9]
-                                    </div>
-                                    <section class="Home_recommend_img">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
-                                    </section>
-                                    <hr class="Home_recommend_hr">
-                                    <div>
-                                         100,000원
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="Home_product_recommend_p">
-                    <a href="" class="href">
-                        <div class="Home_product_recommend_p_div">
-                            <div>
-                                <img src="img/image.jpeg" alt="" width="150px">
-                            </div>
-                            <div>
-                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                    <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                </button>
-                            </div>
-                            <div class="Home_product_recommend_p_font">
-                                <div>
-                                    <span class="Miniarea">강남/서초</span>
-                                    <div>
-                                        [전체 리스트 아이템 10]
-                                    </div>
-                                    <section class="Home_recommend_img">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
-                                    </section>
-                                    <hr class="Home_recommend_hr">
-                                    <div>
-                                        100,000원
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="Home_product_recommend_p">
-                    <a href="" class="href">
-                        <div class="Home_product_recommend_p_div">
-                            <div>
-                                <img src="img/image.jpeg" alt="" width="150px">
-                            </div>
-                            <div>
-                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                    <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                </button>
-                            </div>
-                            <div class="Home_product_recommend_p_font">
-                                <div>
-                                    <span class="Miniarea">강남/서초</span>
-                                    <div>
-                                        [전체 리스트 아이템 11]
-                                    </div>
-                                    <section class="Home_recommend_img">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
-                                    </section>
-                                    <hr class="Home_recommend_hr">
-                                    <div>
-                                        100,000원
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="Home_product_recommend_p">
-                    <a href="" class="href">
-                        <div class="Home_product_recommend_p_div">
-                            <div>
-                                <img src="img/image.jpeg" alt="" width="150px">
-                            </div>
-                            <div>
-                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                    <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                </button>
-                            </div>
-                            <div class="Home_product_recommend_p_font">
-                                <div>
-                                    <span class="Miniarea">강남/서초</span>
-                                    <div>
-                                        [전체 리스트 아이템 12]
-                                    </div>
-                                    <section class="Home_recommend_img">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <img src="img/star.png" alt="" class="Home_recommend_star">
-                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
-                                    </section>
-                                    <hr class="Home_recommend_hr">
-                                    <div>
-                                        100,000원
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                    </div>
+                </c:forEach>
 
             </div>
-                    <!--* 전체 아이템 리스트 끝 -->
+            <!--* 전체 아이템 리스트 끝 -->
+
 
             <!--* 이전/다음 버튼 -->
             <footer class="Wrapper_Paging">
@@ -642,8 +284,6 @@
             <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" onclick="onPageClick(-2)">></button>
             </div>
             </footer>
-            
-            
 
  
         </div>
@@ -655,56 +295,6 @@
 </div>
   </div>
 
-  <script>
-    // 페이징 함수
-    function paginate(page) {
-      var itemsPerPage = 8; // 페이지당 아이템 수
-      var items = document.getElementsByClassName('Home_product_recommend_p');
-      var numPages = Math.ceil(items.length / itemsPerPage); // 전체 페이지 수
-  
-      // 보여줄 아이템 계산
-      var start = (page - 1) * itemsPerPage;
-      var end = start + itemsPerPage;
-  
-      // 아이템 숨기기
-      for (var i = 0; i < items.length; i++) {
-        items[i].style.display = 'none';
-      }
-  
-      // 현재 페이지 아이템 보여주기
-      for (var j = start; j < end; j++) {
-        if (items[j]) {
-          items[j].style.display = 'block';
-        }
-      }
-    }
-
-      // 페이지 로드 후 페이징 초기화
-        window.onload = function() {
-            onPageClick(1);
-        };
-    
-        var currentPage = 1;
-    // 페이지 버튼 클릭 이벤트 처리
-        function onPageClick(page) {
-
-    // 이전 버튼을 클릭한 경우 currentPage에서 1을 빼줍니다.
-    if (page === -1) {
-        currentPage = currentPage > 1 ? currentPage - 1 : 1;
-    }
-    // 다음 버튼을 클릭한 경우 currentPage 1을 더해줍니다.
-    else if (page === -2) {
-        var numPages = Math.ceil(document.getElementsByClassName('Home_product_recommend_p').length / 8);
-        currentPage = currentPage < numPages ? currentPage + 1 : numPages;
-    }
-    else {
-        currentPage = page;
-    }
-
-        paginate(currentPage);
-
-        }
-  </script>
   
 
 

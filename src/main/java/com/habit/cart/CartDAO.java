@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -16,17 +17,20 @@ public class CartDAO {
     @Autowired
     SqlSession sqlSession;
 
-    public int cartInsert(CartDTO cartDTO){
+    public int cartInsert(CartDTO cartDTO) {
         return sqlSession.insert("cart.insert", cartDTO);
     }
 
-    public List<CartDTO> oneday_list(String user_id){
+    public List<CartDTO> oneday_list(String user_id) {
         return sqlSession.selectList("cart.list1", user_id);
     }
 
-    public List<CartDTO> prod_list(String user_id){
+    public List<CartDTO> prod_list(String user_id) {
         return sqlSession.selectList("cart.list2", user_id);
     }
 
+    public int cartDelete(HashMap<String, Object> map) {
+        return sqlSession.delete("cart.delete", map);
+    }
 
 }

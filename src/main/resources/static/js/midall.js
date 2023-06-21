@@ -1,13 +1,14 @@
-window.onload=function(){
 
-    //common.js
+window.addEventListener('load',function() {
+
     common();
 
 
     // 페이지 로드 후 페이징 초기화
     onPageClick(1);
 
-}
+});//================window.onload 끝
+
 
 // 페이징 함수
 function paginate(page) {
@@ -36,11 +37,11 @@ var currentPage = 1;
 // 페이지 버튼 클릭 이벤트 처리
 function onPageClick(page) {
 
-    // 이전 버튼을 클릭한 경우 currentPage에서 1을 빼줍니다.
+// 이전 버튼을 클릭한 경우 currentPage에서 1을 빼줍니다.
     if (page === -1) {
         currentPage = currentPage > 1 ? currentPage - 1 : 1;
     }
-    // 다음 버튼을 클릭한 경우 currentPage 1을 더해줍니다.
+// 다음 버튼을 클릭한 경우 currentPage 1을 더해줍니다.
     else if (page === -2) {
         var numPages = Math.ceil(document.getElementsByClassName('Home_product_recommend_p').length / 8);
         currentPage = currentPage < numPages ? currentPage + 1 : numPages;
@@ -53,13 +54,48 @@ function onPageClick(page) {
 
 }
 
-
-
-
 $(document).ready(function() {
     const largeCategory = localStorage.getItem("selectedCategory");
 
+    let selectedMiddle = localStorage.getItem("selectedMiddle");
+
     $("#selectedCategory").text(largeCategory);
-    const productSectionTitle_new = `신규 ${largeCategory}  `;
-    $(".ProductSectionHeader_Title_new").text(productSectionTitle_new);
+    const productSectionTitle_all = ` ${selectedMiddle} 해빗  `;
+    $(".ProductSectionHeader_Title_all").text(productSectionTitle_all);
+
+    function closeModal() {
+        $('.modal_root').css('display', 'none');
+        $('body').css('overflow', 'auto');
+    }
+
+    $('.CategoryNav_Wrapper').on('click', function () {
+        $('.modal_root').css('display', 'block');
+        $('body').css('overflow', 'hidden');
+    });
+
+    $('button[name="CloseBtn"]').on('click', closeModal);
+
+    $(".CategoryItem-A").on("click", function (event) {
+        event.preventDefault();
+        const selectedCategory = $(event.currentTarget).data("category");
+        localStorage.setItem("newCategory", selectedCategory);
+        const newUrl = `/category/${selectedCategory}`;
+        location.href = newUrl;
+    });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

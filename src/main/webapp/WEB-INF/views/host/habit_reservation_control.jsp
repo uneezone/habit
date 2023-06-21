@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -9,7 +12,8 @@
   <link rel="stylesheet" href="/css/custom.min.css">
   <script src="/js/bootstrap.bundle.min.js"></script>
   <script src="/js/jquery-3.6.4.min.js"></script>
-  <title>content_reservation_control</title>
+  <script src="/js/host/habit_reservation_control.js"></script>
+  <title>habit_reservation_control</title>
 </head>
 
 <body>
@@ -17,44 +21,44 @@
   <!-- 네비 시작 -->
   <nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="host_home.jsp"><img src="/img/logo (2).png" alt="HABIT" width="100px"></a> <%--링크--%>
+      <a class="navbar-brand" href="/host"><img src="/img/logo (2).png" alt="HABIT" width="100px"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarColor03">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link active" href="host_home.jsp" style="font-size: larger;">호스트 관리 페이지</a> <%--링크--%>
+            <a class="nav-link active" href="/host" style="font-size: larger;">호스트 관리 페이지</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">내 정보</a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="host_information.jsp">프로필/정산정보 관리</a> <%--링크--%>
+              <a class="dropdown-item" href="/host/info">프로필/정산정보 관리</a>
             </div>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">해빗 관리</a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="habit_list.jsp">해빗 목록</a> <%--링크--%>
-              <a class="dropdown-item" href="habit_create.jsp">해빗 등록</a> <%--링크--%>
-              <a class="dropdown-item" href="/host/product">판매 관리</a> <%--링크--%>
-              <a class="dropdown-item" href="habit_reservation_control.jsp">예약 관리</a> <%--링크--%>
-              <a class="dropdown-item" href="habit_inquiry_control.jsp">문의 관리</a> <%--링크--%>
-              <a class="dropdown-item" href="habit_review_control.jsp">리뷰 관리</a> <%--링크--%>
+              <a class="dropdown-item" href="/host/contentlist">해빗 목록</a>
+              <a class="dropdown-item" href="/host/contentform">해빗 등록</a>
+              <a class="dropdown-item" href="/host/product">판매 관리</a>
+              <a class="dropdown-item" href="/host/reservation">예약 관리</a>
+              <a class="dropdown-item" href="/host/inquiry">문의 관리</a>
+              <a class="dropdown-item" href="/host/review">리뷰 관리</a>
             </div>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">정산 관리</a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="adjustment_control.jsp">정산서 관리</a> <%--링크--%>
+              <a class="dropdown-item" href="/host/adjust">정산서 관리</a>
             </div>
           </li>
         </ul>
         <div>
-          <a href="host_information.jsp"><img src="/img/profile-3_07724ab7a395fea9343ed7a13e59c1212e2e3d39c141edd99f83442f98340dfc.webp" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a> <%--링크--%>
-          <a href="host_information.jsp" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">HOST ID</span></a> <%--링크--%>
-          <button type="button" class="btn btn-outline-primary btn-sm">해빗 홈으로 이동</button>
-          <button type="button" class="btn btn-secondary btn-sm">로그아웃</button>
+          <a href="info"><img src="/img/profile-3_07724ab7a395fea9343ed7a13e59c1212e2e3d39c141edd99f83442f98340dfc.webp" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a>
+          <a href="info" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">HOST ID</span></a>
+          <a href="/"><input type="button" class="btn btn-outline-primary btn-sm" value="해빗 홈으로 이동"></a>
+          <a href="#"><input type="button" href="#" class="btn btn-secondary btn-sm" value="로그아웃"></a>
         </div>
       </div>
     </div>
@@ -74,22 +78,11 @@
           <!-- 검색어 -->
           <div class="content-flex">
             <div class="item-name">
-              <p>검색어</p>
+              <p>해빗명 검색</p>
             </div>
             <div class="item">
               <div>
-                <select name="" id="" style="width: 150px;" class="form-select">
-                  <option value="">상품명</option>
-                  <option value="">상품ID</option>
-                  <option value="">옵션명</option>
-                </select>
-              </div>
-              <div>
-                <input type="text" class="form-control" placeholder="검색어를 입력해주세요">
-              </div>
-              <div>
-                <input type="submit" class="btn btn-primary" value="검색">
-                <input type="reset" class="btn btn-outline-primary" value="초기화">
+                <input type="text" id="cont_name" name="cont_name" class="form-control" placeholder="해빗명을 입력해주세요" style="width: 400px;">
               </div>
             </div>
           </div>
@@ -100,21 +93,21 @@
             </div>
             <div class="item">
               <div style="display: flex;">
-                <input type="date" class="form-control"> &nbsp;~&nbsp; <input type="date" class="form-control">
+                <input type="date" class="form-control" id="date-calendar-start" name="searchStartDate"> &nbsp;~&nbsp; <input type="date" id="date-calendar-end" name="searchEndDate" class="form-control">
               </div>
               <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
-                <label class="btn btn-sm btn-outline-primary" for="btnradio1">오늘</label>
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                <label class="btn btn-sm btn-outline-primary" for="btnradio2">1개월</label>
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                <label class="btn btn-sm btn-outline-primary" for="btnradio3">6개월</label>
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
-                <label class="btn btn-sm btn-outline-primary" for="btnradio4">&nbsp;1년&nbsp;</label>
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off">
-                <label class="btn btn-sm btn-outline-primary" for="btnradio5">&nbsp;5년&nbsp;</label>
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off" checked>
-                <label class="btn btn-sm btn-outline-primary" for="btnradio6">전체</label>
+                <input type="radio" class="btn-check" name="btnradio" id="today" value="today" autocomplete="off">
+                <label class="btn btn-sm btn-outline-primary" for="today">오늘</label>
+                <input type="radio" class="btn-check" name="btnradio" id="1Month" value="1Month" autocomplete="off">
+                <label class="btn btn-sm btn-outline-primary" for="1Month">1개월</label>
+                <input type="radio" class="btn-check" name="btnradio" id="6Month" value="6Month" autocomplete="off">
+                <label class="btn btn-sm btn-outline-primary" for="6Month">6개월</label>
+                <input type="radio" class="btn-check" name="btnradio" id="1year" value="1year" autocomplete="off">
+                <label class="btn btn-sm btn-outline-primary" for="1year">&nbsp;1년&nbsp;</label>
+                <input type="radio" class="btn-check" name="btnradio" id="5year" value="5year" autocomplete="off">
+                <label class="btn btn-sm btn-outline-primary" for="5year">&nbsp;5년&nbsp;</label>
+                <input type="radio" class="btn-check" name="btnradio" id="all" value="all" autocomplete="off" checked>
+                <label class="btn btn-sm btn-outline-primary" for="all">전체</label>
               </div>
             </div>
           </div>
@@ -125,7 +118,13 @@
             </div>
             <div class="item">
               <div>
-                <input class="form-control" id="" name="" type="text" placeholder="예약자ID 또는 연락처를 입력하세요" style="width: 400px;">
+                <select name="searchType" id="searchType" style="width: 150px;" class="form-select">
+                  <option value="user_id">예약자ID</option>
+                  <option value="user_phone">전화번호</option>
+                </select>
+              </div>
+              <div>
+                <input class="form-control" id="searchKeyword" name="searchKeyword" type="text" placeholder="검색어를 입력하세요">
               </div>
             </div>
           </div>
@@ -136,29 +135,29 @@
             </div>
             <div class="item2">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked1" checked>
-                <label class="form-check-label" for="flexCheckChecked1">
-                  예약 대기
+                <input class="form-check-input" type="checkbox" name="payd_status" value="R" id="payd_status1" checked>
+                <label class="form-check-label" for="payd_status1">
+                  미사용
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked2" checked>
-                <label class="form-check-label" for="flexCheckChecked2">
-                  예약 확정
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked3" checked>
-                <label class="form-check-label" for="flexCheckChecked3">
+                <input class="form-check-input" type="checkbox" name="payd_status" value="Y" id="payd_status2" checked>
+                <label class="form-check-label" for="payd_status2">
                   사용 완료
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked4" checked>
-                <label class="form-check-label" for="flexCheckChecked4">
+                <input class="form-check-input" type="checkbox" name="payd_status" value="C" id="payd_status3" checked>
+                <label class="form-check-label" for="payd_status3">
                   취소 완료
                 </label>
               </div>
+            </div>
+          </div>
+          <div>
+            <div style="float: right;">
+              <input type="submit" class="btn btn-primary" value="검색">
+              <input type="reset" class="btn btn-outline-primary" value="초기화">
             </div>
           </div>
         </form>
@@ -167,7 +166,12 @@
 
       <!-- 검색 결과 -->
       <div class="content">
-        <p class="content-name">검색 결과 : 0 건</p>
+        <div id="searchResult">
+        <c:choose>
+        <c:when test=""></c:when>
+          <p class="content-name">검색 결과 : 0 건</p>
+        </c:choose>
+        </div>
         <div style="text-align: center;">
           <table class="table">
             <thead>
@@ -182,107 +186,110 @@
                 <th>예약관리</th>
               </tr>
             </thead>
-            <tbody>
-              <!-- 기본상태 -->
-              <tr>
-                <td>user-2</td>
-                <td>여자</td>
-                <td>010-1234-5678</td>
-                <td>[서핑] 원데이 클래스</td>
-                <td>2023-04-07 14:00</td>
-                <td>5</td>
-                <td>
-                  <span>예약대기</span>
-                  <select class="form-select" name="" id="" hidden>
-                    <option value="">예약확정</option>
-                    <option value="">사용완료</option>
-                    <option value="">취소완료</option>
-                    <option value="">예약대기</option>
-                  </select>
-                </td>
-                <td>
-                  <span hidden>-</span>
-                  <input type="button" class="btn btn-sm btn-primary" value="예약상태변경">
-                </td>
-              </tr>
+            <tbody id="table-body">
+            <c:choose>
+              
+            </c:choose>
+<%--              <!-- 기본상태 -->--%>
+<%--              <tr>--%>
+<%--                <td>user-2</td>--%>
+<%--                <td>여자</td>--%>
+<%--                <td>010-1234-5678</td>--%>
+<%--                <td>[서핑] 원데이 클래스</td>--%>
+<%--                <td>2023-04-07 14:00</td>--%>
+<%--                <td>5</td>--%>
+<%--                <td>--%>
+<%--                  <span>예약대기</span>--%>
+<%--                  <select class="form-select" name="" id="" hidden>--%>
+<%--                    <option value="">예약확정</option>--%>
+<%--                    <option value="">사용완료</option>--%>
+<%--                    <option value="">취소완료</option>--%>
+<%--                    <option value="">예약대기</option>--%>
+<%--                  </select>--%>
+<%--                </td>--%>
+<%--                <td>--%>
+<%--                  <span hidden>-</span>--%>
+<%--                  <input type="button" class="btn btn-sm btn-primary" value="예약상태변경">--%>
+<%--                </td>--%>
+<%--              </tr>--%>
 
-              <!-- 예약 상태 수정 -->
-              <tr>
-                <td>user-2</td>
-                <td>여자</td>
-                <td>010-1234-5678</td>
-                <td>[서핑] 원데이 클래스</td>
-                <td>2023-04-07 14:00</td>
-                <td>5</td>
-                <td>
-                  <span hidden>예약확정</span>
-                  <select class="form-select" name="" id="">
-                    <option value="">예약확정</option>
-                    <option value="">사용완료</option>
-                    <option value="">취소완료</option>
-                    <option value="">예약대기</option>
-                  </select>
-                </td>
-                <td>
-                  <span hidden>-</span>
-                  <input type="button" class="btn btn-sm btn-primary" value="상태저장">
-                </td>
-              </tr>
+<%--              <!-- 예약 상태 수정 -->--%>
+<%--              <tr>--%>
+<%--                <td>user-2</td>--%>
+<%--                <td>여자</td>--%>
+<%--                <td>010-1234-5678</td>--%>
+<%--                <td>[서핑] 원데이 클래스</td>--%>
+<%--                <td>2023-04-07 14:00</td>--%>
+<%--                <td>5</td>--%>
+<%--                <td>--%>
+<%--                  <span hidden>예약확정</span>--%>
+<%--                  <select class="form-select" name="" id="">--%>
+<%--                    <option value="">예약확정</option>--%>
+<%--                    <option value="">사용완료</option>--%>
+<%--                    <option value="">취소완료</option>--%>
+<%--                    <option value="">예약대기</option>--%>
+<%--                  </select>--%>
+<%--                </td>--%>
+<%--                <td>--%>
+<%--                  <span hidden>-</span>--%>
+<%--                  <input type="button" class="btn btn-sm btn-primary" value="상태저장">--%>
+<%--                </td>--%>
+<%--              </tr>--%>
 
-              <!-- 사용 완료 상태 -->
-              <tr>
-                <td>user-2</td>
-                <td>여자</td>
-                <td>010-1234-5678</td>
-                <td>[서핑] 원데이 클래스</td>
-                <td>2023-04-07 14:00</td>
-                <td>5</td>
-                <td>
-                  <span>사용완료</span>
-                  <select class="form-select" name="" id="" hidden>
-                    <option value="">예약확정</option>
-                    <option value="">사용완료</option>
-                    <option value="">취소완료</option>
-                    <option value="">예약대기</option>
-                  </select>
-                </td>
-                <td>
-                  <span>-</span>
-                  <input type="button" class="btn btn-sm btn-primary" value="상태저장" hidden>
-                </td>
-              </tr>
+<%--              <!-- 사용 완료 상태 -->--%>
+<%--              <tr>--%>
+<%--                <td>user-2</td>--%>
+<%--                <td>여자</td>--%>
+<%--                <td>010-1234-5678</td>--%>
+<%--                <td>[서핑] 원데이 클래스</td>--%>
+<%--                <td>2023-04-07 14:00</td>--%>
+<%--                <td>5</td>--%>
+<%--                <td>--%>
+<%--                  <span>사용완료</span>--%>
+<%--                  <select class="form-select" name="" id="" hidden>--%>
+<%--                    <option value="">예약확정</option>--%>
+<%--                    <option value="">사용완료</option>--%>
+<%--                    <option value="">취소완료</option>--%>
+<%--                    <option value="">예약대기</option>--%>
+<%--                  </select>--%>
+<%--                </td>--%>
+<%--                <td>--%>
+<%--                  <span>-</span>--%>
+<%--                  <input type="button" class="btn btn-sm btn-primary" value="상태저장" hidden>--%>
+<%--                </td>--%>
+<%--              </tr>--%>
 
-              <!-- 검색 결과 없을 때 -->
-              <tr>
-                <td colspan="8">검색 결과가 없습니다</td>
-              </tr>
+<%--              <!-- 검색 결과 없을 때 -->--%>
+<%--              <tr>--%>
+<%--                <td colspan="8">검색 결과가 없습니다</td>--%>
+<%--              </tr>--%>
             </tbody>
           </table>
         </div>
         <!-- 페이징 -->
         <div style="display: flex; align-items: center; justify-content: center;">
-          <ul class="pagination">
-            <li class="page-item disabled">
-              <a class="page-link" href="#">&laquo;</a>
-            </li>
-            <li class="page-item active">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">4</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">5</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">&raquo;</a>
-            </li>
+          <ul class="pagination" id="pagination">
+<%--            <li class="page-item disabled">--%>
+<%--              <a class="page-link" href="#">&laquo;</a>--%>
+<%--            </li>--%>
+<%--            <li class="page-item active">--%>
+<%--              <a class="page-link" href="#">1</a>--%>
+<%--            </li>--%>
+<%--            <li class="page-item">--%>
+<%--              <a class="page-link" href="#">2</a>--%>
+<%--            </li>--%>
+<%--            <li class="page-item">--%>
+<%--              <a class="page-link" href="#">3</a>--%>
+<%--            </li>--%>
+<%--            <li class="page-item">--%>
+<%--              <a class="page-link" href="#">4</a>--%>
+<%--            </li>--%>
+<%--            <li class="page-item">--%>
+<%--              <a class="page-link" href="#">5</a>--%>
+<%--            </li>--%>
+<%--            <li class="page-item">--%>
+<%--              <a class="page-link" href="#">&raquo;</a>--%>
+<%--            </li>--%>
           </ul>
         </div>
       </div>

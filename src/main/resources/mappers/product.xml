@@ -7,7 +7,7 @@
 
 <mapper namespace="product">
 
-    <!-- 선택한 카테고리 가져와서 출력   -->
+    <!-- 선택한 카테고리 전체 리스트 출력   -->
     <select id="list" resultType="java.util.Map" parameterType="String">
         SELECT *
         FROM cate a
@@ -51,12 +51,6 @@
         GROUP BY cate_large
     </select>
 
-    <!--   중분류 카테고리 조회-->
-    <select id="middle" resultType="java.util.Map" parameterType="String">
-        SELECT cate_large, cate_middle
-        FROM cate
-        WHERE  cate_large = #{cate_large}
-    </select>
 
     <!-- 선택한 상품 상세페이지 이동    -->
     <select id="detail" resultType="java.util.Map" parameterType="int">
@@ -64,6 +58,147 @@
         FROM cont
         WHERE cont_no = #{cont_no}
     </select>
+
+<!--    아이템 클릭시 조회수 증가-->
+    <update id="updateViewCount" parameterType="int">
+        UPDATE cont
+        SET cont_view = cont_view + 1
+        WHERE cont_no = #{cont_no}
+    </update>
+
+    <!-- 요약 페이지 -> 인기 (상위 4개) -->
+    <select id="hotTop" resultType="java.util.Map" parameterType="String">
+        SELECT *
+        FROM cont a
+                 JOIN cate b ON a.cate_no = b.cate_no
+        WHERE b.cate_large = #{cate_large}
+        ORDER BY a.cont_view DESC
+            LIMIT 4
+    </select>
+
+    <!-- 인기 페이지 전체 -->
+    <select id="hotList" resultType="java.util.Map" parameterType="String">
+        SELECT *
+        FROM cont a
+                 JOIN cate b ON a.cate_no = b.cate_no
+        WHERE b.cate_large = #{cate_large}
+        ORDER BY a.cont_view DESC
+    </select>
+
+    <!-- 인기&전체 페이지 개수 -->
+    <select id="hotListCount" resultType="int" parameterType="String">
+        SELECT count(*) as cnt
+        FROM cont a
+                 JOIN cate b ON a.cate_no = b.cate_no
+        WHERE b.cate_large = #{cate_large}
+    </select>
+
+    <!-- 신규 페이지 전체 (모두 출력 안함) -->
+    <select id="newList" resultType="java.util.Map" parameterType="String">
+        SELECT *
+        FROM cont a
+                 JOIN cate b ON a.cate_no = b.cate_no
+        WHERE b.cate_large = #{cate_large}
+        ORDER BY cont_stdate DESC
+            LIMIT 10
+    </select>
+
+    <!-- 요약 페이지 -> 신규 (상위 4개) -->
+    <select id="newTop" resultType="java.util.Map" parameterType="String">
+        SELECT *
+        FROM cont a
+                 JOIN cate b ON a.cate_no = b.cate_no
+        WHERE b.cate_large = #{cate_large}
+        ORDER BY cont_stdate DESC
+            LIMIT 4
+    </select>
+
+    <!-- 신규 페이지 개수 -->
+    <select id="newListCount" resultType="int" parameterType="String">
+        SELECT count(*) as cnt
+        FROM cont a
+                 JOIN cate b ON a.cate_no = b.cate_no
+        WHERE b.cate_large = #{cate_large}
+        ORDER BY cont_stdate DESC
+            LIMIT 10
+    </select>
+
+
+<!--    =========== 중분류 ===========-->
+
+    <!--   중분류 필터 출력-->
+    <select id="middle" resultType="java.util.Map" parameterType="String">
+        SELECT cate_large, cate_middle
+        FROM cate
+        WHERE  cate_large = #{cate_large}
+    </select>
+
+    <!-- 중분류 전체보기  필터   -->
+    <select id="midFilter" resultType="java.util.Map" parameterType="String">
+        SELECT *
+        FROM cate a
+                 JOIN cont b ON a.cate_no = b.cate_no
+        WHERE  a.cate_large = #{cate_large} AND a.cate_middle = #{cate_middle}
+    </select>
+
+    <!-- 요약 페이지 -> 인기 (상위 4개) -->
+    <select id="midHotTop" resultType="java.util.Map" parameterType="String">
+        SELECT *
+        FROM cont a
+                 JOIN cate b ON a.cate_no = b.cate_no
+        WHERE b.cate_large = #{cate_large} AND b.cate_middle = #{cate_middle}
+        ORDER BY a.cont_view DESC
+            LIMIT 4
+    </select>
+
+    <!-- 인기 페이지 전체 -->
+    <select id="midHotList" resultType="java.util.Map" parameterType="String">
+        SELECT *
+        FROM cont a
+                 JOIN cate b ON a.cate_no = b.cate_no
+        WHERE b.cate_large = #{cate_large} AND b.cate_middle = #{cate_middle}
+        ORDER BY a.cont_view DESC
+    </select>
+
+    <!-- 인기&전체 페이지 개수 -->
+    <select id="midHotListCount" resultType="int" parameterType="String">
+        SELECT count(*) as cnt
+        FROM cont a
+                 JOIN cate b ON a.cate_no = b.cate_no
+        WHERE b.cate_large = #{cate_large} AND b.cate_middle = #{cate_middle}
+    </select>
+
+    <!-- 신규 페이지 전체 (모두 출력 안함) -->
+    <select id="midNewList" resultType="java.util.Map" parameterType="String">
+        SELECT *
+        FROM cont a
+                 JOIN cate b ON a.cate_no = b.cate_no
+        WHERE b.cate_large = #{cate_large} AND b.cate_middle = #{cate_middle}
+        ORDER BY cont_stdate DESC
+            LIMIT 10
+    </select>
+
+    <!-- 요약 페이지 -> 신규 (상위 4개) -->
+    <select id="midNewTop" resultType="java.util.Map" parameterType="String">
+        SELECT *
+        FROM cont a
+                 JOIN cate b ON a.cate_no = b.cate_no
+        WHERE b.cate_large = #{cate_large} AND b.cate_middle = #{cate_middle}
+        ORDER BY cont_stdate DESC
+            LIMIT 4
+    </select>
+
+    <!-- 신규 페이지 개수 -->
+    <select id="midNewListCount" resultType="int" parameterType="String">
+        SELECT count(*) as cnt
+        FROM cont a
+                 JOIN cate b ON a.cate_no = b.cate_no
+        WHERE b.cate_large = #{cate_large} AND b.cate_middle = #{cate_middle}
+        ORDER BY cont_stdate DESC
+            LIMIT 10
+    </select>
+
+
 
 
 </mapper>

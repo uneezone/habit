@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 
 
 @Controller
@@ -39,11 +40,19 @@ public class CartCont {
         mav.setViewName("order/cart");
         mav.addObject("list1", cartDAO.oneday_list(user_id));
         mav.addObject("list2", cartDAO.prod_list(user_id));
-
         return mav;
 
     }
 
+    @RequestMapping(value="/delete")
+    public String delete(HttpSession session, int cl_no){
+        HashMap<String, Object> map=new HashMap<>();
+        map.put("cl_no", cl_no);
+        map.put("user_id", "user-3");
+        cartDAO.cartDelete(map);
+
+        return "redirect:/cart/list";
+    }
 
 
 }

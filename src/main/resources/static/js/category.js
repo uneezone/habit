@@ -20,3 +20,4 @@ $(document).ready(function() {
         window.location.href = contextPath + '/category/' + categoryText;
     });
 });
+
