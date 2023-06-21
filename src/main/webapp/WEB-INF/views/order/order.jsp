@@ -31,10 +31,10 @@
                 <!--버튼 끝-->
 
                 <div>
-
+                    <c:if test="${payList.size()!=0}">
                     <c:forEach items="${payList}" var="pay" varStatus="status">
                     <div class="Home_show_container_cancel show_list">
-                        <div class="Home_show_date">${pay.pay_date}</div> |
+                        <div class="Home_show_date">${pay.pay_date} 결젠</div> |
                         <div class="Home_show_num"> 구매콘텐츠 : <span>${pay.count}</span></div>
                         <div class="Home_show_detail"><a href="/mypage/orderdetail?payno=${pay.pay_no}">주문상세 보기 ></a></div>
                         <div class="Home_show_con con${status.index}">
@@ -118,7 +118,10 @@
                         <hr class="Home_divhr">
                     </div>
                     </c:forEach>
-
+                    </c:if>
+                    <c:if test="${payList.size()!=0}">
+                        결제내역 없음
+                    </c:if>
                 <div class="Home_show_con_btn">
                     <button class="Home_show_more show_btn">더보기</button>
                 </div>

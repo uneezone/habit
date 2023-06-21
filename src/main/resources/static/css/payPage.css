@@ -1,19 +1,11 @@
 section{
-<<<<<<< Updated upstream
-    --display:flex;
+
+
     --margin:20px;
     --padding:20px;
 }
 
 
-
-=======
-    display:flex;
-    margin:20px;
-    padding:20px;
-}
-
->>>>>>> Stashed changes
 .Home_form{
     margin-bottom: 50px;
 }
@@ -29,10 +21,10 @@ section{
     font-size: 17px;
     font-weight: bold;
     margin:20px 20px;
-<<<<<<< Updated upstream
+
     display: inline-block;
-=======
->>>>>>> Stashed changes
+
+
 }
 
 #frip_img > img {
@@ -46,22 +38,20 @@ section{
     display:flex;
 }
 
-<<<<<<< Updated upstream
-.title_div>p {
-=======
-div>p {
->>>>>>> Stashed changes
+
+.title_div>p
+
+ {
+
 
     margin:20px 30px;
     font-size: larger;
     font-weight: bold;
 }
 
-<<<<<<< Updated upstream
+
 .title_div > p + span {
-=======
-div > p + span {
->>>>>>> Stashed changes
+
     
     margin-bottom: 10px;
     margin-left:30px;
@@ -176,7 +166,7 @@ section>span+input[type='text']{
 
   .tos_a{
     font-size: 14px;
-<<<<<<< Updated upstream
+
     padding-left: 20px;
   }
 
@@ -191,6 +181,5 @@ section>span+input[type='text']{
 
   #with_somebody{
       padding-left: 20px;
-=======
->>>>>>> Stashed changes
+
   }

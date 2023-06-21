@@ -1,19 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../header.jsp"%>
 
-<link rel="stylesheet" href="css/payPage.css?after" />'
-<script src="js/payPage.js"></script>
-    <!--헤더끝-->
 
-<link rel="stylesheet" href="css/payPage.css" />
-<script src="js/payPage.js"></script>
+
+<link rel="stylesheet" href="/css/payPage.css" />
+<script src="/js/payPage.js"></script>
 
 
 
     <!-- 본문 시작 -->
     <div class="Home">
       <section class="Home_form">
-      <form action="payDone.html">
+      <form action="/order/payDone">
         <div id="pagetitle_pay">결제하기</div>
 
         <p class="paypage_title">프립정보</p>
@@ -29,7 +27,7 @@
             <p>[망원] 카페 인기메뉴! 마카오식 에그타르트 만들기</p>
             <span>별점 : 4.9 (후기 106개)</span>
           </div>
-        </section>
+          </div></section>
         <hr />
         <section>
           <ul style="font-size: large; font-weight: bold; padding: 20px">
@@ -61,7 +59,6 @@
 
           <p style="padding-left: 20px;">참고 : 에너지는 100E부터 사용가능합니다.</p>
 
-          <p>참고 : 에너지는 100E부터 사용가능합니다.</p>
 
         </section>
 
@@ -150,6 +147,7 @@
           위 내용을 모두 확인하였으며, 결제에 동의합니다.
         </p>
         <input type="submit" value="결제하기" />
+        </section>
       </form>
     </section>
     </div>
