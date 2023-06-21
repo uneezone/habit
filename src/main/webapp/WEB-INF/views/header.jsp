@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,8 +25,18 @@
           <a href="/host"><div class="global_topbar_menu1_menu">호스트센터</div></a>
           </div>
           <div class="global_topbar_menu2" >
-          <a href="member/newMember.html" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">회원가입</div></a>
-          <a href="member/login.html" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">로그인</div></a>
+              <c:choose>
+                  <c:when test="${sessionScope.s_id==null}">
+                      <a href="newMember" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">회원가입</div></a>
+                      <a href="login" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">로그인</div></a>
+                  </c:when>
+                  <c:otherwise>
+                      <a href="mygage" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu"><span>${sessionScope.s_id}</span>님</div></a>
+                      <a href="/logout.do" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu"><button style="display: inline-block; border:0.5px solid rgb(165, 165, 165); background-color: white; border-radius: 2px;">로그아웃</button></div></a>
+                  </c:otherwise>
+              </c:choose>
+<%--          <a href="member/newMember.html" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">회원가입</div></a>--%>
+<%--          <a href="member/login.html" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">로그인</div></a>--%>
           <a href="" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">자주 묻는 질문</div></a>
           <a href="" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">공지사항</div></a>
           </div>
