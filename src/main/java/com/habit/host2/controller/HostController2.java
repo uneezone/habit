@@ -30,10 +30,10 @@ public class HostController2 {
     private final HostServiceImpl2 hostService;
 
 
-    private String userId="user-2";
+    private String userId="test1";
 
     //호스트 홈으로
-    @GetMapping("")
+    @GetMapping("")                                             //true
     public String showHostPage(@SessionAttribute(name = "userId",required = false)String userIds, Model model){
 
 
