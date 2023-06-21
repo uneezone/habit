@@ -362,4 +362,8 @@
     <update id="updateCalcStatus" parameterType="String">
         update calc set calc_status="Y" where calc_no=#{calc_no}
     </update>
+
+    <select id="getRefnForOrderDetail" parameterType="Long" resultType="java.util.Map">
+        select refn_qty,refn_pay,refn_point,refn_date from refn where payd_no=#{payd_no}
+    </select>
 </mapper>

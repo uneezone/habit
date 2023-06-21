@@ -1,6 +1,8 @@
 package com.habit.myPage.model;
 
 import com.habit.myPage.DTO.OrderAllDTO;
+import com.habit.myPage.DTO.OrderDetailDTO;
+import com.habit.myPage.DTO.OrderRefnDTO;
 import com.habit.myPage.DTO.UserInfoDTO;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
@@ -73,5 +75,20 @@ public class MemoryMyPageRepository implements MyPageRepository{
     @Override
     public Map<String, Object> getProForOrder(String pro_no) {
         return sqlSession.selectOne("mypage.getProForOrder",pro_no);
+    }
+
+    @Override
+    public Map<String, Object> getFromPayForOrderDetail(String pay_no) {
+        return sqlSession.selectOne("mypage.getFromPayForOrderDetail",pay_no);
+    }
+
+    @Override
+    public List<OrderDetailDTO> getPayDForOrderDetail(String pay_no) {
+        return sqlSession.selectList("mypage.getPayDForOrderDetail",pay_no);
+    }
+
+    @Override
+    public OrderRefnDTO getRefnForOrderDetail(int payd_no) {
+        return sqlSession.selectOne("mypage.getRefnForOrderDetail",payd_no);
     }
 }

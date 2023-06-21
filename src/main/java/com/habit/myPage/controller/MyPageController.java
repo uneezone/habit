@@ -1,8 +1,6 @@
 package com.habit.myPage.controller;
 
-import com.habit.myPage.DTO.OrderAllDTO;
-import com.habit.myPage.DTO.UserEditDTO;
-import com.habit.myPage.DTO.UserInfoDTO;
+import com.habit.myPage.DTO.*;
 import com.habit.myPage.service.MyPageServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -156,8 +154,18 @@ public class MyPageController {
     public String showOrderDetail(@RequestParam(value = "payno") String payno,Model model){
 
         log.info("payno={}",payno);
+        //주문내역에서 구매수량,결제 날짜
+        Map<String, Object> payForOrderDetail = myPageService.getPayForOrderDetail(payno);
+
+        //주문상세내역과 상품테이블에서 필요한거 GET
+        List<OrderDetailDTO> payDForOrderDetail = myPageService.getPayDForOrderDetail(payno);
+
+        //환불확인
+        List<OrderRefnDTO> refnForOrderDetail = myPageService.getRefnForOrderDetail(payDForOrderDetail);
 
 
+        model.addAttribute("bigOrder",payForOrderDetail);
+        model.addAttribute("smallOrder",payDForOrderDetail);
         return "order/orderdetail";
     }
 

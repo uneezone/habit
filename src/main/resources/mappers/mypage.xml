@@ -62,4 +62,24 @@
         from(select cont_no,prod_name from prod where pro_no=#{pro_no})
             AA join cont c on AA.cont_no=c.cont_no;
     </select>
+
+    <select id="getPayDForOrderDetail" parameterType="String" resultType="com.habit.myPage.DTO.OrderDetailDTO">
+        select payd_no, pro_no, payd_qty,refn_status,payd_price
+        from payd
+        where pay_no=#{pay_no};
+    </select>
+
+    <select id="getFromPayForOrderDetail" parameterType="String" resultType="java.util.Map">
+        select DATE_FORMAT(pay_date,'%Y년 %m월 %d일 %H시 %i분') as pay_date,count(*) as count,pay_method
+        from pay p join payd d on p.pay_no=d.pay_no
+        where p.pay_no=#{pay_no}
+        order by pay_date desc
+    </select>
+
+    <select id="getRefnForOrderDetail" parameterType="Integer" resultType="com.habit.myPage.DTO.OrderRefnDTO">
+        select refn_qty,refn_pay,refn_point,DATE_FORMAT(refn_date,'%Y년 %m월 %d일 %H시 %i분') as refn_date,refn_method
+        from refn where payd_no=#{payd_no}
+    </select>
+
+
 </mapper>

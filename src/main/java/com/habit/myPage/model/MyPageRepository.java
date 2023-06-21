@@ -1,6 +1,8 @@
 package com.habit.myPage.model;
 
 import com.habit.myPage.DTO.OrderAllDTO;
+import com.habit.myPage.DTO.OrderDetailDTO;
+import com.habit.myPage.DTO.OrderRefnDTO;
 import com.habit.myPage.DTO.UserInfoDTO;
 
 import java.util.List;
@@ -29,7 +31,7 @@ public interface MyPageRepository {
     //유저정보 수정
     int updateUserInfo(UserInfoDTO infoDTO);
 
-    //결제내역
+    //=============결제내역
     List<Map<String,Object>> getFromPayForOrder(String user_id);
 
     //결제내역에 대한 상세를 위한 PAYD 탐색
@@ -38,4 +40,14 @@ public interface MyPageRepository {
     //결제내역에 보여줄 상품상세내용
     Map<String,Object> getOneForOrder(String pro_no);
     Map<String,Object> getProForOrder(String pro_no);
+
+    //==========결제내역 상세
+    //주문테이블에서 필요한거(결제날짜, 수량)
+    Map<String ,Object> getFromPayForOrderDetail(String pay_no);
+
+    //상품설명
+    List<OrderDetailDTO> getPayDForOrderDetail(String pay_no);
+
+    //환불상태확인
+    OrderRefnDTO getRefnForOrderDetail(int payd_no);
 }
