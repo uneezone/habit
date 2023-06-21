@@ -37,6 +37,7 @@ public class DetailCont {
         mav.addObject("hostprofile", detailDao.hostprofile(cont_no));
         mav.addObject("price", productDao.price(cont_no));
         mav.addObject("star", productDao.star(cont_no));
+        mav.addObject("detailproduct", detailDao.detailproduct(cont_no));
 
 
         return mav;

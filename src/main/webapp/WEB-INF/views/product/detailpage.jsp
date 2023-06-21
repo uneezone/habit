@@ -169,15 +169,6 @@
             </button>
         </div>
     </div>
-    <div class="Wrapper_Paging">
-        <div class="paging">
-            <button onclick="movePage(1)">1</button>
-            <button onclick="movePage(2)">2</button>
-            <button onclick="movePage(3)">3</button>
-            <button onclick="movePage(4)">4</button>
-            <button onclick="movePage(5)">5</button>
-        </div>
-    </div>
 </div>
 
 <div  id="productOptionsModal" class="Main_Wrapper">
@@ -194,11 +185,11 @@
                 <div class="OptionItem_Container">
                     <div class="OptionItem_ContentContainer">
                         <div class="OptionItem_TitleContainer">
-                            <span class="OptionItem_Title" color="#333333">상품명</span>
+                            <span class="OptionItem_Title" color="#333333">${detailproduct.one_date}</span>
                         </div>
                         <div class="OptionItem_PriceContainer">
-                            <span color="#333333" class="OptionItem_Price">가격</span>
-                            <span color="#999999" class="OptionItem_Remains">재고</span>
+                            <span color="#333333" class="OptionItem_Price"><fmt:formatNumber value="${detailproduct.one_price}" pattern="#,##0" />원</span>
+                            <span color="#999999" class="OptionItem_Remains">${detailproduct.one_maxqty}개</span>
                         </div>
                     </div>
                 </div>
@@ -206,16 +197,16 @@
         </div>
         <div class="PurchaseCell_Wrapper">
             <div class="purchaseCell_TitleWrapper">
-                <div class="PurchaseCell_Title">셀렉 한 상품명</div>
+                <div class="PurchaseCell_Title">선택 한 상품명</div>
                 <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' viewBox='0 0 24 24'%3E %3Cpath fill='%23333' fill-rule='evenodd' d='M18.104 6.707c.39-.39.39-1.024 0-1.414-.39-.39-1.023-.39-1.414 0L11.7 10.284 6.707 5.293c-.39-.39-1.024-.39-1.414 0-.39.39-.39 1.023 0 1.414l4.991 4.992-4.991 4.991c-.39.39-.39 1.024 0 1.414.39.39 1.023.39 1.414 0l4.992-4.991 4.991 4.991c.39.39 1.024.39 1.414 0 .39-.39.39-1.023 0-1.414L13.113 11.7l4.991-4.992z' clip-rule='evenodd'/%3E %3C/svg%3E" class="PurchaseCell_DeleteIcon">
             </div>
             <div class="PurchaseCell_PriceWrapper">
                 <div class="Counter_Wrapper">
-                    <img src="data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M0.5 5C0.5 2.51472 2.51472 0.5 5 0.5H31.5V31.5H5C2.51472 31.5 0.5 29.4853 0.5 27V5Z' fill='%23EEEEEE' stroke='%23EEEEEE'/%3E %3Cpath d='M10 16L22 16' stroke='%23AAAAAA' stroke-width='2' stroke-linecap='round'/%3E %3C/svg%3E" class="Counter_ControlButton">
+                    <img src="data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M0.5 5C0.5 2.51472 2.51472 0.5 5 0.5H31.5V31.5H5C2.51472 31.5 0.5 29.4853 0.5 27V5Z' fill='%23EEEEEE' stroke='%23EEEEEE'/%3E %3Cpath d='M10 16L22 16' stroke='%23AAAAAA' stroke-width='2' stroke-linecap='round'/%3E %3C/svg%3E" class="Counter_ControlButton" draggable="false" style="cursor:pointer;" id="minus-btn">
                     <input type="number" min="1" class="Counter_Value" value="1">
-                    <img src="data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M0.5 0.5H27C29.4853 0.5 31.5 2.51472 31.5 5V27C31.5 29.4853 29.4853 31.5 27 31.5H0.5V0.5Z' fill='%23EEEEEE' stroke='%23EEEEEE'/%3E %3Cpath d='M11 16L21 16' stroke='%23AAAAAA' stroke-width='2' stroke-linecap='round'/%3E %3Cpath d='M16 11V21' stroke='%23AAAAAA' stroke-width='2' stroke-linecap='round'/%3E %3C/svg%3E" class="Counter_ControlButton">
+                    <img src="data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M0.5 0.5H27C29.4853 0.5 31.5 2.51472 31.5 5V27C31.5 29.4853 29.4853 31.5 27 31.5H0.5V0.5Z' fill='%23EEEEEE' stroke='%23EEEEEE'/%3E %3Cpath d='M11 16L21 16' stroke='%23AAAAAA' stroke-width='2' stroke-linecap='round'/%3E %3Cpath d='M16 11V21' stroke='%23AAAAAA' stroke-width='2' stroke-linecap='round'/%3E %3C/svg%3E" class="Counter_ControlButton" draggable="false" style="cursor:pointer;" id="plus-btn">
                 </div>
-                <span class="PurchaseCell_Price">셀렉 한 가격</span>
+                <span class="PurchaseCell_Price" data-price="${detailproduct.one_price}"><fmt:formatNumber value="${detailproduct.one_price}" pattern="#,##0" />원</span>
             </div>
         </div>
     </div>
