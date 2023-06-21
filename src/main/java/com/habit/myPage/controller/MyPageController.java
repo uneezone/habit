@@ -168,7 +168,7 @@ public class MyPageController {
         return "order/refundfinish";
     }
 
-    @GetMapping("review")
+    @GetMapping("/review")
     public String showReview(){
         return "etc/reviewwrite";
     }
