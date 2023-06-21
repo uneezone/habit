@@ -15,4 +15,5 @@ public class OrderAllDTO {
     private String cont_name;
     private String cont_img;
     private String op_name;
+    private Integer cont_no;
 }

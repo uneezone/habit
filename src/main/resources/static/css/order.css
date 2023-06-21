@@ -354,6 +354,7 @@ a:hover{
 
 .Home_show_wrapper>a{
     color: black;
+
 }
 
 
@@ -362,12 +363,17 @@ a:hover{
     margin-left: 20px;
     display: inline-block;
     position: relative;
-    top: -24px;
+    top: -34px;
     margin-bottom: 20px;
     font-weight: 600;
 }
 .Home_show_order_info>div{
     margin-bottom: 5px;
+    font-size: 15px;
+}
+
+.order_info_name{
+    display: inline-block;
 }
 
 .Home_change_con{

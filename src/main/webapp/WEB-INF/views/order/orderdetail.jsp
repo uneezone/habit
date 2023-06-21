@@ -14,19 +14,19 @@
             <div class="Home_show_num"> 구매수량 : <span>1</span></div>
             <div class="Home_show_wrapper">
                 <img src="/img/image.jpeg" alt="" class="Home_show_order_img">
-                <a href="orderdetail.html">
+
                     <div class="Home_show_order_info">
                         <div>신사 / 가로수길 칵테일 클래스</div>
                         <div>6월 1일 (일) 오후 2시 30분 1명</div>
                         <div>10,000 <span>원</span></div>
                     </div>
                     
-                </a>
+
             </div>
             <div class="Home_show_wrapper">
                 <img src="/img/image.jpeg" alt="" class="Home_show_order_img">
                 <span class="Home_refund"><span>환불완료</span></span>
-                <a href="orderdetail.html">
+
                     
                     <div class="Home_show_order_info">
                         <div>신사 / 가로수길 칵테일 클래스</div>
@@ -34,7 +34,7 @@
                         <div>10,000 <span>원</span></div>
                     </div>
                 
-                </a>
+
             </div>
             <hr>
         </div>
