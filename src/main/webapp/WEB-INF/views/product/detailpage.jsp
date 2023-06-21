@@ -182,17 +182,19 @@
                 <img src="data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M17.5 6.25L10 13.75L2.5 6.25' stroke='%23333333' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E %3C/svg%3E" class="OptionSelect_Icon">
             </div>
             <div class="OptionItem_Wrapper">
-                <div class="OptionItem_Container">
+            <c:forEach var="option" items="${detailproduct}" varStatus="status">
+                <div class="OptionItem_Container" id="${status.index}" data-price="${option.one_price}">
                     <div class="OptionItem_ContentContainer">
                         <div class="OptionItem_TitleContainer">
-                            <span class="OptionItem_Title" color="#333333">${detailproduct.one_date}</span>
+                            <span class="OptionItem_Title" color="#333333">${option.one_date}</span>
                         </div>
                         <div class="OptionItem_PriceContainer">
-                            <span color="#333333" class="OptionItem_Price"><fmt:formatNumber value="${detailproduct.one_price}" pattern="#,##0" />원</span>
-                            <span color="#999999" class="OptionItem_Remains">${detailproduct.one_maxqty}개</span>
+                            <span color="#333333" class="OptionItem_Price"><fmt:formatNumber value="${option.one_price}" pattern="#,##0" />원</span>
+                            <span color="#999999" class="OptionItem_Remains">${option.one_maxqty}개</span>
                         </div>
                     </div>
                 </div>
+            </c:forEach>
             </div>
         </div>
         <div class="PurchaseCell_Wrapper">
@@ -206,7 +208,7 @@
                     <input type="number" min="1" class="Counter_Value" value="1">
                     <img src="data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M0.5 0.5H27C29.4853 0.5 31.5 2.51472 31.5 5V27C31.5 29.4853 29.4853 31.5 27 31.5H0.5V0.5Z' fill='%23EEEEEE' stroke='%23EEEEEE'/%3E %3Cpath d='M11 16L21 16' stroke='%23AAAAAA' stroke-width='2' stroke-linecap='round'/%3E %3Cpath d='M16 11V21' stroke='%23AAAAAA' stroke-width='2' stroke-linecap='round'/%3E %3C/svg%3E" class="Counter_ControlButton" draggable="false" style="cursor:pointer;" id="plus-btn">
                 </div>
-                <span class="PurchaseCell_Price" data-price="${detailproduct.one_price}"><fmt:formatNumber value="${detailproduct.one_price}" pattern="#,##0" />원</span>
+                <span class="PurchaseCell_Price"></span>
             </div>
         </div>
     </div>
@@ -221,10 +223,14 @@
                 <img src="/img/heart.png">
                 <span class="SaveActionButton_Count">찜 총수량</span>
             </button>
-            <button class="OptionBottomSheet_Button">참여하기</button>
+            <button class="OptionBottomSheet_Button" >참여하기</button>
         </div>
     </div>
 </div>
+
+
+
+
 
 
 
