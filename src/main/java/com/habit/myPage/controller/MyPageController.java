@@ -153,7 +153,11 @@ public class MyPageController {
     }
 
     @GetMapping("/orderdetail")
-    public String showOrderDetail(){
+    public String showOrderDetail(@RequestParam(value = "payno") String payno,Model model){
+
+        log.info("payno={}",payno);
+
+
         return "order/orderdetail";
     }
 
@@ -168,8 +172,9 @@ public class MyPageController {
         return "order/refundfinish";
     }
 
-    @GetMapping("review")
-    public String showReview(){
+    @GetMapping("/review")
+    public String showReview(@RequestParam(value = "contNo")int cont_no){
+        log.info("contNo={}",cont_no);
         return "etc/reviewwrite";
     }
 

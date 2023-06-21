@@ -38,7 +38,7 @@
     </update>
 
     <select id="getFromPayForOrder" parameterType="String" resultType="java.util.Map">
-        select pay_date ,p.pay_no as pay_no,count(*) as count
+        select DATE_FORMAT(pay_date,'%Y년 %m월 %d일 %H시 %i분') as pay_date, p.pay_no as pay_no,count(*) as count
         from pay p join payd d on p.pay_no=d.pay_no
         where p.user_id=#{user_id}
         group by p.pay_no
@@ -52,13 +52,13 @@
     </select>
 
     <select id="getOneForOrder" parameterType="String" resultType="java.util.Map">
-        select cont_name,cont_img,AA.one_date as op_name
+        select cont_name,cont_img,DATE_FORMAT(AA.one_date,'%m월 %d일, %H시 %i분') as op_name,c.cont_no as cont_no
         from(select cont_no,one_date from one where pro_no=#{pro_no})
             AA join cont c on AA.cont_no=c.cont_no
     </select>
 
     <select id="getProForOrder" parameterType="String" resultType="java.util.Map">
-        select cont_name,cont_img,AA.prod_name as op_name
+        select cont_name,cont_img,AA.prod_name as op_name,c.cont_no as cont_no
         from(select cont_no,prod_name from prod where pro_no=#{pro_no})
             AA join cont c on AA.cont_no=c.cont_no;
     </select>
