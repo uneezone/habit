@@ -1,6 +1,8 @@
 package com.habit.myPage.service;
 
 import com.habit.myPage.DTO.OrderAllDTO;
+import com.habit.myPage.DTO.OrderDetailDTO;
+import com.habit.myPage.DTO.OrderRefnDTO;
 import com.habit.myPage.DTO.UserInfoDTO;
 
 import java.util.List;
@@ -24,4 +26,11 @@ public interface MyPageService {
     List<Map<String,Object>> getOrderList(String user_id);
 
     List<OrderAllDTO> getPayDForOrder(String pay_no);
+
+    Map<String, Object> getPayForOrderDetail(String pay_no);
+
+    List<OrderDetailDTO> getPayDForOrderDetail(String pay_no);
+
+    //환불정보
+    List<OrderRefnDTO> getRefnForOrderDetail( List<OrderDetailDTO> dto);
 }

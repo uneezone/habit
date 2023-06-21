@@ -257,6 +257,11 @@ public class MemoryHostRepository2 implements HostRepository2 {
     }
 
     @Override
+    public int checkSelled(String pro_no) {
+        return sqlSession.selectOne("host2.checkSelled",pro_no);
+    }
+
+    @Override
     public List<AdjustPaydDTO> getAdjustPaydDTO(List<String> pro_nos) {
         return sqlSession.selectList("host2.getAdjustPaydDTO",pro_nos);
     }

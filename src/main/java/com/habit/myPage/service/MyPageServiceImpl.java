@@ -1,6 +1,8 @@
 package com.habit.myPage.service;
 
 import com.habit.myPage.DTO.OrderAllDTO;
+import com.habit.myPage.DTO.OrderDetailDTO;
+import com.habit.myPage.DTO.OrderRefnDTO;
 import com.habit.myPage.DTO.UserInfoDTO;
 import com.habit.myPage.model.MemoryMyPageRepository;
 import lombok.RequiredArgsConstructor;
@@ -74,11 +76,12 @@ public class MyPageServiceImpl implements MyPageService{
         return "OK";
     }
 
+    //결제내역
     @Override
     public List<Map<String,Object>> getOrderList(String user_id) {
-        //pay_date, payno
+        //pay_date, payno, 구매한 콘텐츠 수량
         List<Map<String, Object>> fromPayForOrder = repository.getFromPayForOrder(user_id);
-        log.info("frompayorder={}",fromPayForOrder);
+        //log.info("frompayorder={}",fromPayForOrder);
 
         return fromPayForOrder;
     }
@@ -93,15 +96,70 @@ public class MyPageServiceImpl implements MyPageService{
                 orderAllDTO.setCont_img((String) oneForOrder.get("cont_img"));
                 orderAllDTO.setCont_name((String) oneForOrder.get("cont_name"));
                 orderAllDTO.setOp_name((String) oneForOrder.get("op_name"));
+                orderAllDTO.setCont_no((Integer)oneForOrder.get("cont_no"));
             }else{
                 Map<String, Object> proForOrder = repository.getProForOrder(orderAllDTO.getPro_no());
                 orderAllDTO.setCont_img((String) proForOrder.get("cont_img"));
                 orderAllDTO.setCont_name((String) proForOrder.get("cont_name"));
                 orderAllDTO.setOp_name((String) proForOrder.get("op_name"));
+                orderAllDTO.setCont_no((Integer) proForOrder.get("cont_no"));
             }
         }
-        log.info("OrderAllDTO={}",payDForOrder);
+        //log.info("OrderAllDTO={}",payDForOrder);
 
         return payDForOrder;
+    }
+
+    //결제상세내역
+    @Override
+    public Map<String, Object> getPayForOrderDetail(String pay_no) {
+        Map<String, Object> fromPayForOrderDetail = repository.getFromPayForOrderDetail(pay_no);
+        log.info("fromPayForOrderDetail={}",fromPayForOrderDetail);
+        return fromPayForOrderDetail;
+
+    }
+
+    @Override
+    public List<OrderDetailDTO> getPayDForOrderDetail(String pay_no) {
+        List<OrderDetailDTO> payDForOrderDetail = repository.getPayDForOrderDetail(pay_no);
+        log.info("orderDetailDTO1={}",payDForOrderDetail);
+        for (OrderDetailDTO orderDetailDTO : payDForOrderDetail) {
+            //상품설명
+            String pro_no = orderDetailDTO.getPro_no();
+            if(pro_no.startsWith("o")){
+                Map<String, Object> oneForOrder = repository.getOneForOrder(pro_no);
+                orderDetailDTO.setCont_img((String) oneForOrder.get("cont_img"));
+                orderDetailDTO.setCont_name((String) oneForOrder.get("cont_name"));
+                orderDetailDTO.setOp_name((String) oneForOrder.get("op_name"));
+                orderDetailDTO.setCont_no((Integer)oneForOrder.get("cont_no"));
+            }else{
+                Map<String, Object> proForOrder = repository.getProForOrder(pro_no);
+                orderDetailDTO.setCont_img((String) proForOrder.get("cont_img"));
+                orderDetailDTO.setCont_name((String) proForOrder.get("cont_name"));
+                orderDetailDTO.setOp_name((String) proForOrder.get("op_name"));
+                orderDetailDTO.setCont_no((Integer)proForOrder.get("cont_no"));
+            }
+
+
+
+        }
+
+        log.info("orderDetailDTO2={}",payDForOrderDetail);
+
+        return payDForOrderDetail;
+    }
+
+    @Override
+    public List<OrderRefnDTO> getRefnForOrderDetail( List<OrderDetailDTO> dto) {
+        List<OrderRefnDTO> list= new ArrayList<>();
+        for (OrderDetailDTO orderDetailDTO : dto) {
+            int paydNo = orderDetailDTO.getPayd_no();
+            OrderRefnDTO refnForOrderDetail = repository.getRefnForOrderDetail(paydNo);
+            list.add(refnForOrderDetail);
+        }
+
+        log.info("refnInfo={}",list);
+
+        return list;
     }
 }

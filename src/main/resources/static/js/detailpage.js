@@ -1,4 +1,6 @@
 
+
+
 //참여하기 클릭시 옵션창 출력
 $(document).ready(function() {
     function openModal() {
@@ -34,8 +36,9 @@ $(document).ready(function() {
     };
 
     // OptionItem_Wrapper를 클릭했을 때 이벤트 핸들러를 추가합니다.
-    let optionItems = document.querySelectorAll('.OptionItem_Wrapper');
+    let optionItems = document.querySelectorAll('.OptionItem_Container');
     optionItems.forEach(function(optionItem) {
+
         optionItem.addEventListener('click', function() {
             let purchaseCells = document.querySelectorAll('.PurchaseCell_Wrapper');
             purchaseCells.forEach(function(purchaseCell) {
@@ -49,6 +52,15 @@ $(document).ready(function() {
             // 클릭 시 OptionItem_Wrapper 창을 접습니다.
             let optionItemsWrapper = document.querySelector('.OptionItem_Wrapper');
             optionItemsWrapper.style.display = 'none';
+
+            // 클릭한 상품명과 가격을 PurchaseCell_Wrapper 내에 적용합니다.
+            let selectedItemName = this.querySelector('.OptionItem_Title').innerText;
+            let selectedItemPrice = parseInt(this.getAttribute('data-price'));
+            document.querySelector('.PurchaseCell_Title').innerText = selectedItemName;
+            document.querySelector('.PurchaseCell_Price').setAttribute('data-price', selectedItemPrice);
+            document.querySelector('.PurchaseCell_Price').innerText = `${selectedItemPrice.toLocaleString()}원`;
+
+            calculateTotal();
         });
     });
 
@@ -64,7 +76,92 @@ $(document).ready(function() {
     let optionSelectTitle = document.querySelector('.OptionSelect_Title');
     optionSelectTitle.addEventListener('click', toggleOptionItems);
 
+
+    // 이미지 -, + 버튼 구현
+    const minusButton = document.querySelector('.Counter_ControlButton:nth-child(1)');
+    const plusButton = document.querySelector('.Counter_ControlButton:nth-child(3)');
+    const counterValue = document.querySelector('.Counter_Value');
+
+
+    // 이미지 버튼 클릭 시 수량 감소와가를 처리하는 함수를 만듭니다.
+    function quantityChange(direction) {
+        const counterValue = document.querySelector('.Counter_Value');
+        const currentValue = parseInt(counterValue.value);
+
+        if (direction === 'minus') {
+            if (currentValue > 1) {
+                counterValue.value = currentValue - 1;
+            }
+        } else if (direction === 'plus') {
+            counterValue.value = currentValue + 1;
+        }
+
+        // 변경된 값에 따라 calculateTotal 함수를 호출하여 총 수량 및 가격을 업데이트합니다.
+        calculateTotal();
+    }
+
+
+    function addCounterEventListeners() {
+        const minusButton = document.querySelector('.Counter_ControlButton:nth-child(1)');
+        const plusButton = document.querySelector('.Counter_ControlButton:nth-child(3)');
+        const counterValue = document.querySelector('.Counter_Value');
+
+        minusButton.addEventListener('click', () => {
+            quantityChange('minus');
+        });
+
+        plusButton.addEventListener('click', () => {
+            quantityChange('plus');
+        });
+
+        counterValue.addEventListener('input', calculateTotal);
+    }
+
+
+    // 사용자가 수량을 변경할 때마다 총 가격 및 수량을 업데이트하기 위한 함수
+    function calculateTotal() {
+        const itemCount = parseInt(document.querySelector('.Counter_Value').value);
+        const itemPriceElement  =  document.querySelector('.PurchaseCell_Price');
+        const itemPrice = itemPriceElement.hasAttribute('data-price') ? parseInt(itemPriceElement.getAttribute('data-price')) : 0;
+        const totalPrice = itemCount * itemPrice;
+
+        document.querySelector('.OptionBottomSheet_Count').innerText = `총  ${itemCount}개`;
+        document.querySelector('.OptionBottomSheet_Price').innerText = `${totalPrice.toLocaleString()}원`;
+    }
+
+    // 수량이 변경될 때마다 calculateTotal 함수를 호출하도록 이벤트 리스너를 추가
+    document.querySelector('.Counter_Value').addEventListener('input', calculateTotal);
+
+    // 최초 로드 시 총 금액 계산
+    calculateTotal();
+
+    // 페이지가 로드되면 총 가격 및 수량을 처음 계산
+    window.addEventListener('load', calculateTotal);
+
+    function updateInitialPrice() {
+        // 기본 옵션 가격 가져오기
+        const defaultOptionPrice = parseInt(document.querySelector('.OptionItem_Container').getAttribute('data-price'));
+
+        // PurchaseCell_Price 클래스에 기본 가격 적용하기
+        const purchaseCellPriceElement = document.querySelector('.PurchaseCell_Price');
+        purchaseCellPriceElement.setAttribute('data-price', defaultOptionPrice);
+        purchaseCellPriceElement.textContent = `${defaultOptionPrice.toLocaleString()}원`;
+
+        // 최초 로드 시 총 금액 계산
+        calculateTotal();
+    }
+
+
+
+    // 페이지가 로드되면 이벤트 리스너를 추가
+    window.addEventListener('load', addCounterEventListeners);
+
+
+
+
 });
+
+
 
 
 <!-- 슬라이드 -->
@@ -83,45 +180,5 @@ function plusSlides(n) {
     } slides[slideIndex - 1].style.display = "block";
 }
 
-function movePage(page) {
-    var currentPage = $("#currentPage").val();
-    var pageSize = 10;
 
-    // 현재 페이지 번호가 없으면 1페이지로 설정
-    if (currentPage == null) {
-        currentPage = 1;
-    }
-
-    // 이동할 페이지 번호를 구합니다.
-    var targetPage = currentPage + page - 1;
-
-    // 이동할 페이지 번호가 범위를 벗어나면 1페이지로 설정
-    if (targetPage < 1) {
-        targetPage = 1;
-    } else if (targetPage > pageCount) {
-        targetPage = pageCount;
-    }
-
-    // 페이지 번호를 설정
-    $("#currentPage").val(targetPage);
-
-    // 게시판의 글을 조회
-    getBoards(targetPage, pageSize);
-}
-
-// 게시판의 글을 조회
-function getBoards(currentPage, pageSize) {
-    $.ajax({
-        url: "/board/list",
-        type: "GET",
-        data: {
-            currentPage: currentPage,
-            pageSize: pageSize
-        },
-        success: function (response) {
-            var boards = response.data;
-            $(".board-list").html(boards);
-        }
-    });
-}
 
