@@ -21,5 +21,11 @@ public interface HostRepository1 {
 
     int contentListCount(RequestContentListDTO requestContentListDTO);
 
-    public List<ResponseReservationDTO> reservationList(String id);
+    List<ResponseReservationDTO> reservationList(RequestReservationDTO requestReservationDTO);
+    int reservationListCount(RequestReservationDTO requestReservationDTO);
+    int reservationStatusChange(RequestReservationStatusChangeDTO requestReservationStatusChangeDTO);
+    SelectPayDetailForInsertRefundDTO selectPayDetailForInsertRefund(int no);
+    List<String> selectPayDetailStatus(int no);
+    int insertRefund(SelectPayDetailForInsertRefundDTO selectPayDetailForInsertRefundDTO);
+
 }
