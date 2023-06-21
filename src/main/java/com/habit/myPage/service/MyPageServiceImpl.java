@@ -76,7 +76,7 @@ public class MyPageServiceImpl implements MyPageService{
 
     @Override
     public List<Map<String,Object>> getOrderList(String user_id) {
-        //pay_date, payno
+        //pay_date, payno, 구매한 콘텐츠 수량
         List<Map<String, Object>> fromPayForOrder = repository.getFromPayForOrder(user_id);
         log.info("frompayorder={}",fromPayForOrder);
 
@@ -93,11 +93,13 @@ public class MyPageServiceImpl implements MyPageService{
                 orderAllDTO.setCont_img((String) oneForOrder.get("cont_img"));
                 orderAllDTO.setCont_name((String) oneForOrder.get("cont_name"));
                 orderAllDTO.setOp_name((String) oneForOrder.get("op_name"));
+                orderAllDTO.setCont_no((Integer)oneForOrder.get("cont_no"));
             }else{
                 Map<String, Object> proForOrder = repository.getProForOrder(orderAllDTO.getPro_no());
                 orderAllDTO.setCont_img((String) proForOrder.get("cont_img"));
                 orderAllDTO.setCont_name((String) proForOrder.get("cont_name"));
                 orderAllDTO.setOp_name((String) proForOrder.get("op_name"));
+                orderAllDTO.setCont_no((Integer) proForOrder.get("cont_no"));
             }
         }
         log.info("OrderAllDTO={}",payDForOrder);

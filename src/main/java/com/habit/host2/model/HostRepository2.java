@@ -135,6 +135,8 @@ public interface HostRepository2 {
     //======정산서 인저트 진짜시작
     List<String> getAdjustProNo(int cont_no);
 
+    //해당 상품이 판매가되었는지 확인
+    int checkSelled(String pro_no);
     //주문상세에서 필요한 정보 다가져와
     List<AdjustPaydDTO> getAdjustPaydDTO(List<String> pro_nos);
 
