@@ -85,4 +85,9 @@ public class MemoryHostRepository1 implements HostRepository1{
     public int contentListCount(RequestContentListDTO reqContListDTO) {
         return sqlSession.selectOne("host1.contentListCount", reqContListDTO);
     }
+
+    // 원데이 클래스 예약 List 조회
+    public List<ResponseReservationDTO> reservationList(String user_id) {
+        return sqlSession.selectList("host1.reservationList");
+    }
 }

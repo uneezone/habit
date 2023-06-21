@@ -24,4 +24,42 @@
     <select id="getPass" parameterType="String" resultType="String">
         select user_pw from user where user_id=#{user_id}
     </select>
+
+    <update id="updatePass" parameterType="java.util.Map" >
+        update user set user_pw=#{user_pw} where user_id=#{user_id}
+    </update>
+
+    <update id="updateUserInfo" parameterType="com.habit.myPage.DTO.UserInfoDTO">
+        update user set user_name=#{user_name},user_email=#{user_email},user_birth=#{user_birth}
+        <if test="user_img!=null">
+            ,user_img=#{user_img}
+        </if>
+        where user_id=#{user_id}
+    </update>
+
+    <select id="getFromPayForOrder" parameterType="String" resultType="java.util.Map">
+        select pay_date ,p.pay_no as pay_no,count(*) as count
+        from pay p join payd d on p.pay_no=d.pay_no
+        where p.user_id=#{user_id}
+        group by p.pay_no
+        order by pay_date desc
+    </select>
+
+    <select id="getPayDForOrder" parameterType="String" resultType="com.habit.myPage.DTO.OrderAllDTO">
+        select payd_no, pro_no, payd_qty,refn_status
+        from payd
+        where pay_no=#{pay_no};
+    </select>
+
+    <select id="getOneForOrder" parameterType="String" resultType="java.util.Map">
+        select cont_name,cont_img,AA.one_date as op_name
+        from(select cont_no,one_date from one where pro_no=#{pro_no})
+            AA join cont c on AA.cont_no=c.cont_no
+    </select>
+
+    <select id="getProForOrder" parameterType="String" resultType="java.util.Map">
+        select cont_name,cont_img,AA.prod_name as op_name
+        from(select cont_no,prod_name from prod where pro_no=#{pro_no})
+            AA join cont c on AA.cont_no=c.cont_no;
+    </select>
 </mapper>

@@ -111,7 +111,11 @@ public class HostContorller1 {
 
     // [habit_reservation_control.jsp]
     @GetMapping("/reservation")
-    public String Reservation () {
+    public String Reservation (@SessionAttribute(name = "userId", required = false) String userIdd, Model model) {
+        //임시 세션 아이디
+        String user_id = "user-1";
+        List<ResponseReservationDTO> list = hostService1.reservationList(user_id);
+        model.addAttribute("list", list);
         return "host/habit_reservation_control";
     }
 

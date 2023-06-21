@@ -155,4 +155,9 @@ public class HostServiceImpl1 implements HostService1 {
         }
         return list;
     }
+
+    @Override
+    public List<ResponseReservationDTO> reservationList(String user_id) {
+        return memoryHostRepository1.reservationList(user_id);
+    }
 }
