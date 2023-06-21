@@ -1,12 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../header.jsp"%>
 
-<link rel="stylesheet" href="css/payPage.css?after" />'
-<script src="js/payPage.js"></script>
-    <!--헤더끝-->
 
-<link rel="stylesheet" href="css/payPage.css" />
-<script src="js/payPage.js"></script>
+
+<link rel="stylesheet" href="/css/payPage.css" />
+<script src="/js/payPage.js"></script>
 
 
 
@@ -61,7 +59,6 @@
 
           <p style="padding-left: 20px;">참고 : 에너지는 100E부터 사용가능합니다.</p>
 
-          <p>참고 : 에너지는 100E부터 사용가능합니다.</p>
 
         </section>
 
