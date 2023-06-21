@@ -11,6 +11,14 @@ public class HomeController {
         return "intro";
     }
 
+    @GetMapping("/order/pay")
+    public String show1(){
+        return "/order/payPage";
+    }
 
+    @GetMapping("/order/payDone")
+    public String show2(){
+        return "/order/payDone";
+    }
 
 }
