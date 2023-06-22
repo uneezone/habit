@@ -44,7 +44,7 @@ public class MemberCont {
         System.out.println(map.get("user_phone3"));
         System.out.println(map.get("user_birth"));
         System.out.println(map.get("user_gender"));
-        System.out.println(map.get("user_img"));
+
 
         String user_email = map.get("user_email") + "@" + map.get("user_email2");
         map.put("user_email", user_email);
@@ -70,7 +70,7 @@ public class MemberCont {
     public String login() {
         return "member/login";
     }
-    @PostMapping("/login.do")
+    @PostMapping("/login")
     public String login(MemberDTO dto, HttpSession session, HttpServletRequest req) {
         // 회원 정보 조회
         MemberDTO member = memberdao.login(dto);
@@ -119,6 +119,7 @@ public class MemberCont {
     public String resultFindId() {
         return "member/resultFindId";
     }
+
 
     //아이디 찾기
     @PostMapping("/findId.do")

@@ -20,12 +20,12 @@ window.onload=function(){
     btn.click(function(){
        //찜아닐떄
         if( this.children[0].src.indexOf("black2.png")!=-1){
-          // alert("ddd");
+          //찜에 insert
             this.children[0].src="img/redheart2.png";
             
             
         }else {   //찜일떄
-            //alert("ddssd");
+            //찜에서 제거
             this.children[0].src="img/black2.png";
         }
 

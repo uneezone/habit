@@ -30,7 +30,7 @@ public class HostController2 {
     private final HostServiceImpl2 hostService;
 
 
-    private String userId="test1";
+    private String userId="user-2";
 
     //호스트 홈으로
     @GetMapping("")                                             //true
