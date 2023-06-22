@@ -33,7 +33,7 @@ public class HostController2 {
     private String userId="user-2";
 
     //호스트 홈으로
-    @GetMapping("")
+    @GetMapping("")                                             //true
     public String showHostPage(@SessionAttribute(name = "userId",required = false)String userIds, Model model){
 
 

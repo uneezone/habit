@@ -22,16 +22,15 @@
                 
                 <div class="Home_select">
                     <c:choose>
-                        <c:when test="${member != null}">
-                            <p>아이디는 ${member}입니다.</p>
+                        <c:when test="${user_id != null}">
+                            <p>아이디는 ${user_id}입니다.</p>
                         </c:when>
                         <c:otherwise>
                             <p>회원 정보를 찾을 수 없습니다.</p>
                         </c:otherwise>
                     </c:choose>
                 </div>
-               
-                <button class="Home_btn" onclick="location.href='login'">로그인 페이지로 돌아가기</button>
+                <button type="submit" class="Home_btn" onclick="location.href='/login'">로그인 페이지로 돌아가기</button>
                 
             </div>
         

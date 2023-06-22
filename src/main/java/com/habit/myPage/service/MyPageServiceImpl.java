@@ -9,10 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -156,6 +153,15 @@ public class MyPageServiceImpl implements MyPageService{
             int paydNo = orderDetailDTO.getPayd_no();
             OrderRefnDTO refnForOrderDetail = repository.getRefnForOrderDetail(paydNo);
             list.add(refnForOrderDetail);
+        }
+
+        Iterator iterator= list.iterator();
+
+        while (iterator.hasNext()){
+            Object next = iterator.next();
+            if(next==null){
+                iterator.remove();
+            }
         }
 
         log.info("refnInfo={}",list);

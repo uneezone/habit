@@ -1,39 +1,32 @@
-package com.habit.zzim;
+package com.habit.zzim.controller;
 
-import lombok.val;
+import com.habit.zzim.model.ZzimDAO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
-
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+/*@Controller
 @RequestMapping("/zzim")
+@Slf4j*/
 public class ZzimCont {
 
-    public ZzimCont(){
-        System.out.println("----ZzimCont() 객체생성됨");
-    }
 
-    @Autowired
+/*    //@Autowired
     ZzimDAO zzimDAO;
 
+    private String user_id="user-3";
 
     @RequestMapping("/list")
     public ModelAndView list(HttpSession session, HttpServletRequest req) {
 
-        String user_id = "user-3";
         List<Map<String, Object>> zzimlist = new ArrayList<>(); // List<>는 인터페이스, ArrayList는 클래스.
         List<Map<String, Object>> zzimlist1 = zzimDAO.zzimlist_one(user_id);//찜한 원데이클래스 상품의 정보들
         List<Map<String, Object>> zzimlist2 = zzimDAO.zzimlist_two(user_id);//찜한 회차권인원권 상품의 정보들(가격 제외)
@@ -61,49 +54,6 @@ public class ZzimCont {
             }
             System.out.println("확인 stringObjectMap = " + stringObjectMap);
         }
-/*
-       int i=-1, j;
-
-        // 회차권인원권 상품정보
-        for (Map<String, Object> stringObjectMap2 : zzimlist2) {
-            ++i;
-            j=-1;
-            //System.out.println(stringObjectMap2);
-            for (Map<String, Integer> stringIntegerMap : zzimlist2_price) {
-                ++j;
-                //System.out.println(stringIntegerMap);
-                if(i==j){
-                    String price=zzimlist2_price.get(j).toString().substring(10);
-                    stringObjectMap2.put("prod_price",Integer.parseInt(price.toString().substring(1, price.length()-1)));
-                }
-            }
-            //System.out.println(stringObjectMap2);
-
-        }
-
-        //회차권인원권 가격정보
-//        for (Map<String, Integer> stringIntegerMap : zzimlist2_price) {
-//            System.out.println(stringIntegerMap);
-//        }
-
-//*/
-//        for (Map<String, Object> map1: zzimlist1) {
-//            //System.out.println(map1);
-//            zzimlist.add(map1);
-//        }
-//
-//        for (Map<String, Object> map2 : zzimlist2) {
-//            //System.out.println(map2);
-//            zzimlist.add(map2);
-//        }
-
-//        for (Map<String, Object> map : zzimlist) {
-//            System.out.println(map);
-//
-//        }
-
-        //System.out.println(zzimDAO.zzimlist_two("user-3"));
-
 
 
         ModelAndView mav=new ModelAndView();
@@ -116,6 +66,21 @@ public class ZzimCont {
         return mav;
 
     }
+
+    @PostMapping("/insert")
+    @ResponseBody
+    public String zzimInsert(@RequestParam(value = "cont_no") int cont_no){
+        String user_id="user-3";
+        Map<String,Object > zzimInsertInfo= new HashMap<>();
+        zzimInsertInfo.put("user_id",user_id);
+        zzimInsertInfo.put("cont_no",cont_no);
+
+        zzimDAO.zzimInsert(zzimInsertInfo);
+        //log.info("cont_no={}",cont_no);
+
+        return "OK";
+
+    }*/
 
 
 

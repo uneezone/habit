@@ -163,7 +163,7 @@ public class MyPageController {
         //환불확인
         List<OrderRefnDTO> refnForOrderDetail = myPageService.getRefnForOrderDetail(payDForOrderDetail);
 
-
+        model.addAttribute("refn",refnForOrderDetail);
         model.addAttribute("bigOrder",payForOrderDetail);
         model.addAttribute("smallOrder",payDForOrderDetail);
         return "order/orderdetail";

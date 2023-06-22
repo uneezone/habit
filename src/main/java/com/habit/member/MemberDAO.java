@@ -22,6 +22,11 @@ public class MemberDAO {
 
         return sqlSession.insert("member.insert", map);
     }
+
+    //아이디 중복확인
+    public int idCheck(String user_id) {
+        return sqlSession.selectOne("member.idCheck" , user_id);
+    }
     //로그인
     public MemberDTO login(MemberDTO dto) {
 
@@ -29,10 +34,15 @@ public class MemberDAO {
     }
 
     //아이디 찾기
-    public MemberDTO findId(MemberDTO dto) {
-        return sqlSession.selectOne("member.findId", dto);
+    public String findId(Map<String,Object> map) {
+
+        return sqlSession.selectOne("member.findId", map);
     }
 
+    //비밀번호 찾기
+    public String findPw(MemberDTO dto){
+        return  sqlSession.selectOne("member.findPw", dto);
+    }
 
 }
 
