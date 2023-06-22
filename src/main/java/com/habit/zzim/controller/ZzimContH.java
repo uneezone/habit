@@ -57,4 +57,12 @@ public class ZzimContH {
         return status;
     }
 
+    @GetMapping("/getZzim")
+    @ResponseBody
+    public List<Integer> zzimGet(@RequestParam(value = "userId")String user_id){
+        List<Integer> cont_nos = zzimService.zzimGet(user_id);
+
+        return cont_nos;
+    }
+
 }

@@ -45,8 +45,8 @@
                                             <input type="image" src="/storage/${item.cont_img}" alt="cont_img" width="140px" height="140px" style="border-radius:8px;">
                                          </div>
                                         <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn"  onclick="hello()" onsubmit="return false">
-                                                <img src="/img/redheart2.png" id="cont_no${item.cont_no}" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                            <button class="Home_product_recommend_p_div_btn zzim_btn"  onclick="hello(this)" onsubmit="return false">
+                                                <img src="/img/redheart2.png" id="cont_no${item.cont_no}" alt="" width="40px" class="Home_product_recommend_p_div_img" onchange="delZzim()">
                                             </button>
                                         </div>
                                         <div class="Home_product_recommend_p_font">
@@ -137,18 +137,29 @@
                 </div>
 
             </div>
-        </div> 
+        </div>
 
+        <c:set value="${zzimList.size()/2}" var="pages"></c:set>
         <footer class="Wrapper_Paging">
             <div class="paging">
-            <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold"  onclick="onPageClick(-1)">&lt;</button>
-            <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold"  onclick="onPageClick(1)">1</button>
-            <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold"  onclick="onPageClick(2)">2</button>
-            <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" onclick="onPageClick(3)">3</button>
-            <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" onclick="onPageClick(4)">4</button>
-            <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" onclick="onPageClick(-2)">></button>
+                <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold"  onclick="onPageClick(-1)">&lt;</button>
+                        <button width="40px" height="40px" color="#3397ff"  class="pactive index_page_btn" font-size="18px" font-weight="bold"  onclick="onPageClick(this)">1</button>
+                    <c:forEach begin="2" end="${pages+(1-(pages%1))%1}" var="paging">
+                        <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" class="index_page_btn"  onclick="onPageClick(this)">${paging}</button>
+                    </c:forEach>
+                <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" onclick="onPageClick(0)">></button>
             </div>
         </footer>
+
+        <script>
+            $(".index_page_btn").css("display","none");
+            //console.log($(".index_page").index());
+            if($(".index_page_btn").length>3){
+                $(".index_page_btn").slice(0,3).show();
+            }else{
+                $(".index_page_btn").show();
+            }
+        </script>
 
     </div>
 

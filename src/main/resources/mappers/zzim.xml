@@ -40,6 +40,10 @@
         delete from zzim where user_id=#{user_id} and cont_no=#{cont_no}
     </delete>
 
+    <select id="zzimGet" parameterType="String" resultType="Integer">
+        select cont_no from zzim where user_id=#{user_id}
+    </select>
+
 
 </mapper>
 

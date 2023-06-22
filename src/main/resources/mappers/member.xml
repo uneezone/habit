@@ -18,7 +18,7 @@
 
     <!-- 로그인 -->
     <select id="Login" parameterType="com.habit.member.MemberDTO" resultType="com.habit.member.MemberDTO">
-        Select user_id, user_pw
+        Select user_id, user_pw, user_name
         from user
         where user_id=#{user_id} and user_pw=#{user_pw}
     </select>

@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +36,9 @@ public class ZzimDAO {
         return sqlSession.delete("zzim.zzimDel",params);
     }
 
-
+    public List<Integer> zzimGet(String user_id){
+        return sqlSession.selectList("zzim.zzimGet",user_id);
+    }
 
 
 }
