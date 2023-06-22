@@ -11,7 +11,7 @@
         </div> 
 
         <div class="Home_loginForm">
-            <form action="login.do" method="post">
+            <form action="login" method="post">
 
                 <div class="Home_loginForm_input"><input type="text" name="user_id" placeholder="아이디(이메일)"></div>
                 <div class="Home_loginForm_input"><input type="password" name="user_pw" placeholder="비밀번호"></div>

@@ -57,6 +57,14 @@ public class MemberCont {
         return "redirect:/";
     }
 
+    //아이디 중복확인
+    @PostMapping("/idCheck")
+    @ResponseBody
+    public int idCheck(@RequestParam String id) {
+        int cnt = memberdao.idCheck(id);
+        return cnt;
+    }
+
     //로그인
     @GetMapping("/login")
     public String login() {
@@ -79,7 +87,7 @@ public class MemberCont {
         if(member != null) {
             // 세션에 정보를 저장
             session.setAttribute("s_id", user_id);
-            session.setAttribute("s_pw", user_pw);
+            //session.setAttribute("s_pw", user_pw);
 
 
             return "redirect:/";
@@ -134,8 +142,12 @@ public class MemberCont {
     //비밀번호찾기
     @GetMapping("/resultFind")
     public String resultFindPw() {
+
         return "member/resultFind";
     }
+
+
+
 
 
 

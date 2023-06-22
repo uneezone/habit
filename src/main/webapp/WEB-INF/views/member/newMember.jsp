@@ -13,8 +13,9 @@
                         <div>아이디</div>
                         <div style="display: flex">
                             <input type="text" class="Home_form_input" name="user_id" id="user_id" placeholder="대.소문자, 숫자, 특수문자 포함해서 7글자이상 ">
+                            <button id="idCheck" type="button" onclick="checkId()">중복확인</button><br>
                         </div>
-                        <div class="error"></div>
+                        <div id="error1"></div>
                     </div>
                     <div class="Home_form_div">
                         <div>비밀번호</div>
@@ -75,8 +76,22 @@
         </div>
     </div>
     <!-- 본문 끝-->
-    <script>
-
-    </script>
+<script>
+    function checkId() {
+        const id = $("#user_id").val();
+        $.ajax({
+            type: "post",
+            url: "/idCheck",
+            data: {'id': id},
+            success: function (data) {
+                if (data == 1) {
+                    $("#error1").text("입력한 ID가 이미 사용 중입니다.");
+                } else {
+                    $("#error1").text("ID가 사용 가능합니다.");
+                }
+            }
+        });
+    }
+</script>
 
 <%@include file="../footer.jsp"%>
