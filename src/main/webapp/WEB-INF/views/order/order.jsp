@@ -34,7 +34,7 @@
                     <c:if test="${payList.size()!=0}">
                     <c:forEach items="${payList}" var="pay" varStatus="status">
                     <div class="Home_show_container_cancel show_list">
-                        <div class="Home_show_date">${pay.pay_date} 결젠</div> |
+                        <div class="Home_show_date">${pay.pay_date} 결제</div> |
                         <div class="Home_show_num"> 구매콘텐츠 : <span>${pay.count}</span></div>
                         <div class="Home_show_detail"><a href="/mypage/orderdetail?payno=${pay.pay_no}">주문상세 보기 ></a></div>
                         <div class="Home_show_con con${status.index}">
@@ -72,7 +72,7 @@
 
                                         }else if(this.refn_status=="NRO"){
                                             htmlAppend${status.index}+="<div class='Home_show_wrapper'>";
-                                            htmlAppend${status.index}+="  <img src='/img/image.jpeg' alt='' class='Home_show_order_img'>";
+                                            htmlAppend${status.index}+="  <img src=/storage/"+this.cont_img+" alt='' class='Home_show_order_img'>";
                                             htmlAppend${status.index}+="     <div class='Home_show_order_info'>";
                                             htmlAppend${status.index}+="          <div>"+this.cont_name+"</div>";
                                             htmlAppend${status.index}+="          <div class='order_info_name'>"+this.op_name+"</div>";
@@ -91,7 +91,7 @@
                                             $(".con${status.index}").append(htmlAppend${status.index});
                                         }else{
                                             htmlAppend${status.index}+="<div class='Home_show_wrapper'>";
-                                            htmlAppend${status.index}+="  <img src='/img/image.jpeg' alt='' class='Home_show_order_img'>";
+                                            htmlAppend${status.index}+="  <img src=/storage/"+this.cont_img+" alt='' class='Home_show_order_img'>";
                                             htmlAppend${status.index}+="  <span class='Home_refund'><span>환불완료</span></span>";
                                             htmlAppend${status.index}+="     <div class='Home_show_order_info'>";
                                             htmlAppend${status.index}+="          <div>"+this.cont_name+"</div>";
@@ -119,7 +119,7 @@
                     </div>
                     </c:forEach>
                     </c:if>
-                    <c:if test="${payList.size()!=0}">
+                    <c:if test="${payList.size()==0}">
                         결제내역 없음
                     </c:if>
                 <div class="Home_show_con_btn">

@@ -86,8 +86,36 @@ public class MemoryHostRepository1 implements HostRepository1{
         return sqlSession.selectOne("host1.contentListCount", reqContListDTO);
     }
 
-    // 원데이 클래스 예약 List 조회
-    public List<ResponseReservationDTO> reservationList(String user_id) {
-        return sqlSession.selectList("host1.reservationList");
+    // 원데이 클래스 예약건 List 조회
+    public List<ResponseReservationDTO> reservationList(RequestReservationDTO reqReservDTO) {
+        return sqlSession.selectList("host1.reservationList", reqReservDTO);
+    }
+
+    // 원데이클래스 예약건 List count
+    @Override
+    public int reservationListCount(RequestReservationDTO reqReservDTO) {
+        return sqlSession.selectOne("host1.reservationListCount", reqReservDTO);
+    }
+
+    // 원데이클래스 예약 상태 변경
+    @Override
+    public int reservationStatusChange(RequestReservationStatusChangeDTO reqReservStatChg) {
+        return sqlSession.update("host1.reservationStatusChange", reqReservStatChg);
+    }
+
+    // 환불 insert를 위한 주문서, 주문상세 select
+    @Override
+    public SelectPayDetailForInsertRefundDTO selectPayDetailForInsertRefund(int payd_no) {
+        return sqlSession.selectOne("host1.selectPayDetailForInsertRefund", payd_no);
+    }
+
+    @Override
+    public List<String> selectPayDetailStatus(int payd_no) {
+        return sqlSession.selectList("host1.selectPayDetailStatus", payd_no);
+    }
+
+    @Override
+    public int insertRefund(SelectPayDetailForInsertRefundDTO spdfirDTO) {
+        return sqlSession.insert("host1.InsertRefund", spdfirDTO);
     }
 }

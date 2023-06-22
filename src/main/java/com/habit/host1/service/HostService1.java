@@ -6,7 +6,6 @@ package com.habit.host1.service;
 import com.habit.host1.DTO.*;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +18,8 @@ public interface HostService1 {
     List<ResponseInquiryDTO> inquiryList(RequestInquiryDTO requestInquiryDTO);
     List<ResponseContentListDTO> contentList (RequestContentListDTO requestContentListDTO);
 
-    List<ResponseReservationDTO> reservationList(String id);
+    List<ResponseReservationDTO> reservationList(RequestReservationDTO requestReservationDTO);
+
+    int reservationStatusChangeAndRefundInsert(RequestReservationStatusChangeDTO requestReservationStatusChangeDTO);
 
 }

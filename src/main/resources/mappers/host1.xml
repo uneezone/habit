@@ -157,10 +157,10 @@
     </select>
 
     <!-- 원데이 클래스 리스트 조회 -->
-    <select id="ReservationList" parameterType="com.habit.host1.DTO.RequestReservationDTO" resultType="com.habit.host1.DTO.ResponseReservationDTO">
+    <select id="reservationList" parameterType="com.habit.host1.DTO.RequestReservationDTO" resultType="com.habit.host1.DTO.ResponseReservationDTO">
         select e.*, cont_name
         from (select c.*, one_date, cont_no
-              from (select a.user_id, user_gender, user_phone, payd_qty, payd_status, pro_no
+              from (select a.user_id, user_gender, user_phone, payd_no, payd_qty, payd_status, pro_no
                     from payd a
                     join user b
                     on a.user_id = b.user_id) c
@@ -169,34 +169,7 @@
         join cont f
         on e.cont_no = f.cont_no
         where host_id = #{host_id}
-        <if test='!cont_name.equals("")'>
-            and cont_name = #{cont_name}
-        </if>
-        <if test='!searchStartDate.equals("")'>
-            and one_date #{searchStartDate} and #{searchEndDate}
-        </if>
-        <if test='!searchKeyword.equals("")'>
-            and ${searchType} like concat('%',#{searchKeyword},'%')
-        </if>
-        <if test='!payd_status != null'>
-            and <foreach collection="payd_status" item="status" separator="or" open="(" close=")">payd_status = #{status}</foreach>
-        </if>
         order by one_date desc
-    </select>
-
-<!--    &lt;!&ndash; 원데이 클래스 리스트 count &ndash;&gt;-->
-<!--    <select id="ReservationList" parameterType="com.habit.host1.DTO.RequestReservationDTO" resultType="com.habit.host1.DTO.ResponseReservationDTO">-->
-<!--        select e.*, cont_name-->
-<!--        from (select c.*, one_date, cont_no-->
-<!--              from (select a.user_id, user_gender, user_phone, payd_qty, payd_status, pro_no-->
-<!--                    from payd a-->
-<!--                    join user b-->
-<!--                    on a.user_id = b.user_id) c-->
-<!--              join one d-->
-<!--              on c.pro_no = d.pro_no) e-->
-<!--        join cont f-->
-<!--        on e.cont_no = f.cont_no-->
-<!--        where host_id = #{host_id}-->
 <!--        <if test='!cont_name.equals("")'>-->
 <!--            and cont_name = #{cont_name}-->
 <!--        </if>-->
@@ -209,5 +182,61 @@
 <!--        <if test='!payd_status != null'>-->
 <!--            and <foreach collection="payd_status" item="status" separator="or" open="(" close=")">payd_status = #{status}</foreach>-->
 <!--        </if>-->
-<!--    </select>-->
+<!--        order by one_date desc-->
+    </select>
+
+    <!-- 원데이 클래스 리스트 count -->
+    <select id="reservationListCount" parameterType="com.habit.host1.DTO.RequestReservationDTO" resultType="int">
+        select count(*)
+        from (select c.*, one_date, cont_no
+              from (select a.user_id, user_gender, user_phone, payd_qty, payd_no, payd_status, pro_no
+                    from payd a
+                    join user b
+                    on a.user_id = b.user_id) c
+              join one d
+              on c.pro_no = d.pro_no) e
+        join cont f
+        on e.cont_no = f.cont_no
+        where host_id = #{host_id}
+<!--        <if test='!cont_name.equals("")'>-->
+<!--            and cont_name = #{cont_name}-->
+<!--        </if>-->
+<!--        <if test='!searchStartDate.equals("")'>-->
+<!--            and one_date #{searchStartDate} and #{searchEndDate}-->
+<!--        </if>-->
+<!--        <if test='!searchKeyword.equals("")'>-->
+<!--            and ${searchType} like concat('%',#{searchKeyword},'%')-->
+<!--        </if>-->
+<!--        <if test='!payd_status != null'>-->
+<!--            and <foreach collection="payd_status" item="status" separator="or" open="(" close=")">payd_status = #{status}</foreach>-->
+<!--        </if>-->
+    </select>
+
+    <!--  원데이 클래스 예약 상태변경(주문상세 상태변경)  -->
+    <update id="reservationStatusChange" parameterType="com.habit.host1.DTO.RequestReservationStatusChangeDTO">
+        update payd
+        set payd_status = #{payd_status}, refn_status = #{refn_status}
+        where payd_no = ${payd_no}
+    </update>
+
+    <!--  환불 처리를 위해 주문서, 주문상세에서 값 가져오기  -->
+    <select id="selectPayDetailForInsertRefund" parameterType="String" resultType="com.habit.host1.DTO.SelectPayDetailForInsertRefundDTO">
+        select payd_no, a.user_id, pro_no, payd_price, payd_qty, pay_point, pay_method
+        from payd a join pay b
+                         on a.pay_no = b.pay_no
+        where payd_no = ${payd_no}
+    </select>
+
+    <!--  주문상세 상태 가져오기  -->
+    <select id="selectPayDetailStatus" parameterType="int" resultType="String">
+        select payd_status
+        from payd
+        where pay_no = (select pay_no from payd where payd_no = ${payd_no})
+    </select>
+
+    <!--  환불테이블 insert  -->
+    <insert id="InsertRefund" parameterType="com.habit.host1.DTO.SelectPayDetailForInsertRefundDTO">
+        insert into refn (payd_no, user_id, pro_no, refn_qty, refn_point, refn_pay, refn_method)
+        values (${payd_no}, #{user_id}, #{pro_no}, ${payd_qty}, ${refn_point}, ${refn_pay}, #{pay_method})
+    </insert>
 </mapper>
