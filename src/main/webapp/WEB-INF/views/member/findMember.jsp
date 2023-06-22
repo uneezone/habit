@@ -8,7 +8,7 @@
         <div class="Home_wrapper">
             <div>
                 <div class="Home_sub">아이디 찾기</div>
-                <form action="member/findid.do" method="post">
+                <form action="/findId.do" method="post">
                     <div class="Home_ment">가입하실 때 기재하신 이메일을 입력해주세요</div>
                     <input type="text" placeholder="이메일 입력" class="Home_input" name="user_email" id="user_email"> @
                     <select name="user_email2" id="user_email2" class="Home_select">
@@ -17,7 +17,7 @@
                         <option value="naver.com">naver.com</option>
                         <option value="daum.net">daum.com</option>
                     </select>
-                    <button type="button" class="Home_submit" onclick="location.href='resultFindId';">다음</button>
+                    <button type="submit" class="Home_submit">다음</button>
                 </form>
             </div>
         </div>

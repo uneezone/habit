@@ -29,8 +29,9 @@ public class MemberDAO {
     }
 
     //아이디 찾기
-    public MemberDTO findId(MemberDTO dto) {
-        return sqlSession.selectOne("member.findId", dto);
+    public String findId(Map<String,Object> map) {
+
+        return sqlSession.selectOne("member.findId", map);
     }
 
 
