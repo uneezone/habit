@@ -15,8 +15,8 @@
 
                 <div class="Home_loginForm_input"><input type="text" name="user_id" placeholder="아이디(이메일)"></div>
                 <div class="Home_loginForm_input"><input type="password" name="user_pw" placeholder="비밀번호"></div>
-                <a href="newMember.jsp" class="Home_find_a1">회원가입</a> |
-                <a href="findMember.jsp" class="Home_find_a2">아이디/비밀번호 찾기</a><br>
+                <a href="/newMember" class="Home_find_a1">회원가입</a> |
+                <a href="/findMember" class="Home_find_a2">아이디/비밀번호 찾기</a><br>
                 <button class="Home_login_btn">로그인</button>
             </form>
         </div>

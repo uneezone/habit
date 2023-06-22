@@ -16,7 +16,7 @@
 
                 원하시는 방법을 선택해 임시 비밀번호를 확인하실 수 있습니다
             </div>
-            <form action="findPassword.do" method="post">
+            <form action="" method="">
                 <div class="Home_select">
                     <input type="radio" name="pw" id="" disabled> 회원정보에 등록된 이메일로 받기 <span>********@naver.com</span>
                 </div>

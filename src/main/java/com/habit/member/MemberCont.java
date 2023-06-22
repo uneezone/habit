@@ -44,6 +44,7 @@ public class MemberCont {
         System.out.println(map.get("user_phone3"));
         System.out.println(map.get("user_birth"));
         System.out.println(map.get("user_gender"));
+        System.out.println(map.get("user_img"));
 
         String user_email = map.get("user_email") + "@" + map.get("user_email2");
         map.put("user_email", user_email);
@@ -135,6 +136,12 @@ public class MemberCont {
     public String resultFindPw() {
         return "member/resultFind";
     }
+
+
+
+
+
+
 
 
 

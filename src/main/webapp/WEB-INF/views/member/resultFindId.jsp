@@ -30,8 +30,7 @@
                         </c:otherwise>
                     </c:choose>
                 </div>
-               
-                <button type="submit" class="Home_btn">로그인 페이지로 돌아가기</button>
+                <button type="submit" class="Home_btn" >로그인 페이지로 돌아가기</button>
                 
             </div>
         

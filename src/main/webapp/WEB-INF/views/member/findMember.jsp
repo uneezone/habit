@@ -27,7 +27,7 @@
         <div class="Home_wrapper">
             <div>
                 <div class="Home_sub">비밀번호 찾기</div>
-                <form action="" method="">
+                <form action="findPassword.do" method="post">
                     <div class="Home_ment">비밀번호를 찾고자하는 아이디를 입력해주세요</div>
                     <input type="text" name="user_id" id="user_id" placeholder="아이디 입력" class="Home_input">
                     <button type="button" class="Home_submit" onclick="location.href='resultFind';">다음</button>
