@@ -1,25 +1,25 @@
 package com.habit.zzim;
 
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
 @RequestMapping("/zzim")
+@Slf4j
 public class ZzimCont {
 
     public ZzimCont(){
@@ -114,6 +114,21 @@ public class ZzimCont {
         //mav.addObject("zzimlist2_price", zzimDAO.min_prod_price("user-3"));
 
         return mav;
+
+    }
+
+    @PostMapping("/insert")
+    @ResponseBody
+    public String zzimInsert(@RequestParam(value = "cont_no") int cont_no){
+        String user_id="user-3";
+        Map<String,Object > zzimInsertInfo= new HashMap<>();
+        zzimInsertInfo.put("user_id",user_id);
+        zzimInsertInfo.put("cont_no",cont_no);
+
+        zzimDAO.zzimInsert(zzimInsertInfo);
+        log.info("cont_no={}",cont_no);
+
+        return "OK";
 
     }
 

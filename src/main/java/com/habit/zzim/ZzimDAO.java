@@ -33,6 +33,10 @@ public class ZzimDAO {
         return sqlSession.selectList("zzim.min_price", user_id);
     }
 
+    public void zzimInsert(Map<String,Object> params){
+        sqlSession.insert("zzim.zziminsert",params);
+    }
+
 
 
 

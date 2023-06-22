@@ -8,23 +8,15 @@
 
 
     <select id="zzimlist_one" parameterType="String" resultType="java.util.Map">
-        select * from (
-            select AA.*, BB.avg as avg, BB.cnt as cnt from
-                (
-
-                    select one.pro_no, cont.cont_no as cont_no2, one_price, cont.host_id, cont.cont_name, cont.cont_addr1, cont.cont_img
-                    from one inner join cont
-                    on one.cont_no = cont.cont_no
-
-                ) AA
-            inner join
-                (
-                    select cont_no, count(*) as cnt, avg(review_star) as avg from review group by cont_no
-
-                ) BB
-        on AA.cont_no2=BB.cont_no) AAA
-        inner join zzim on AAA.cont_no2=zzim.cont_no
-        where zzim.user_id=#{user_id} group by AAA.cont_no2
+        select * from (select avg(review_star),cont_no, count(*) as cnt from review group by cont_no) AA
+                          inner join (select zzim.zzim_no as zzim_no, zzim.user_id as user_id, zzim.cont_no as cont_no, A.cont_name as cont_name, A.cont_addr1 as cont_addr1, A.cont_img as cont_img, A.one_date as one_date, A.one_price as price from zzim
+                                                                                                                                                                                                                                                            inner join (
+            select cont.cont_no as cont_no, cont_name, cont_addr1, cont_img, one_date, one_price from cont
+                                                                                                          inner join one
+                                                                                                                     on cont.cont_no=one.cont_no
+        ) A
+                                                                                                                                                                                                                                                                       on zzim.cont_no=A.cont_no where user_id=#{user_id}) BB
+                                     on AA.cont_no=BB.cont_no where user_id=#{user_id}
 
     </select>
 
@@ -44,6 +36,10 @@
         on AA.cont_no=zzim.cont_no
         where user_id=#{user_id}
     </select>
+
+    <insert id="zziminsert" parameterType="java.util.Map">
+        insert into zzim (user_id, cont_no) values (#{user_id},#{cont_no});
+    </insert>
 
 
 </mapper>

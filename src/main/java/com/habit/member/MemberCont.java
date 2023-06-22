@@ -61,15 +61,15 @@ public class MemberCont {
     public String login() {
         return "member/login";
     }
-    @PostMapping("/login.do")
-    public String login(MemberDTO dto, HttpSession session, HttpServletRequest req) {
+    @PostMapping("/login")
+    public String login(MemberDTO dto, HttpSession session, HttpServletRequest req,@RequestParam(defaultValue = "/")String redirectURL) {
         // 회원 정보 조회
         MemberDTO member = memberdao.login(dto);
         //로그인 성공 여부 확인
         if (member != null) {
             //세션에 정보를 저장
             session.setAttribute("member", member);
-            return "redirect:/";
+            return "redirect:"+redirectURL;
         } else {
             req.setAttribute("error", "로그인 실패");
             return "member/login";
