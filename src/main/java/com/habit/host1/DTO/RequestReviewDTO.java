@@ -9,6 +9,7 @@ import java.util.List;
 @ToString
 @Getter @Setter
 public class RequestReviewDTO {
+    private String filter;
     private String host_id;
     private List<Integer> starScore;
     private String reviewContKeyword;

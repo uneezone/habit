@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -79,11 +80,7 @@
             </div>
             <div class="item">
               <div>
-                <input type="text" class="form-control" name="cont_name" id="cont_name" placeholder="검색어를 입력해주세요">
-              </div>
-              <div>
-                <input type="button" id="search-content" class="btn btn-primary" value="검색">
-                <input type="reset" class="btn btn-outline-primary" value="초기화">
+                <input type="text" class="form-control" name="cont_name" id="cont_name" placeholder="검색어를 입력해주세요" style="width: 400px">
               </div>
             </div>
           </div>
@@ -92,29 +89,36 @@
             <div class="item-name">
               <p>조회기간</p>
             </div>
-            <div class="item">
+            <div>
+              <div class="item">
+                <div>
+                  <select name="searchDateType" id="searchDateType" style="width: 150px;" class="form-select">
+                    <option value="cont_stdate">판매시작일</option>
+                    <option value="cont_endate">판매종료일</option>
+                  </select>
+                </div>
+                <div style="display: flex;">
+                  <input type="date" id="date-calendar-start" class="form-control"> &nbsp;~&nbsp; <input type="date" id="date-calendar-end" class="form-control">
+                </div>
+              </div>
               <div>
-                <select name="searchDateType" id="searchDateType" style="width: 150px;" class="form-select">
-                  <option value="cont_stdate">판매시작일</option>
-                  <option value="cont_endate">판매종료일</option>
-                </select>
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                  <input type="radio" class="btn-check" name="btnradio" id="today" value="today" autocomplete="off">
+                  <label class="btn btn-sm btn-outline-primary" for="today">오늘</label>
+                  <input type="radio" class="btn-check" name="btnradio" id="1Month" value="1Month" autocomplete="off">
+                  <label class="btn btn-sm btn-outline-primary" for="1Month">1개월</label>
+                  <input type="radio" class="btn-check" name="btnradio" id="6Month" value="6Month" autocomplete="off">
+                  <label class="btn btn-sm btn-outline-primary" for="6Month">6개월</label>
+                  <input type="radio" class="btn-check" name="btnradio" id="1year" value="1year" autocomplete="off">
+                  <label class="btn btn-sm btn-outline-primary" for="1year">&nbsp;1년&nbsp;</label>
+                  <input type="radio" class="btn-check" name="btnradio" id="5year" value="5year" autocomplete="off">
+                  <label class="btn btn-sm btn-outline-primary" for="5year">&nbsp;5년&nbsp;</label>
+                  <input type="radio" class="btn-check" name="btnradio" id="all" value="all" autocomplete="off" checked>
+                  <label class="btn btn-sm btn-outline-primary" for="all">전체</label>
+                </div>
               </div>
-              <div style="display: flex;">
-                <input type="date" id="date-calendar-start" class="form-control"> &nbsp;~&nbsp; <input type="date" id="date-calendar-end" class="form-control">
-              </div>
-              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <input type="radio" class="btn-check" name="btnradio" id="today" value="today" autocomplete="off">
-                <label class="btn btn-sm btn-outline-primary" for="today">오늘</label>
-                <input type="radio" class="btn-check" name="btnradio" id="1Month" value="1Month" autocomplete="off">
-                <label class="btn btn-sm btn-outline-primary" for="1Month">1개월</label>
-                <input type="radio" class="btn-check" name="btnradio" id="6Month" value="6Month" autocomplete="off">
-                <label class="btn btn-sm btn-outline-primary" for="6Month">6개월</label>
-                <input type="radio" class="btn-check" name="btnradio" id="1year" value="1year" autocomplete="off">
-                <label class="btn btn-sm btn-outline-primary" for="1year">&nbsp;1년&nbsp;</label>
-                <input type="radio" class="btn-check" name="btnradio" id="5year" value="5year" autocomplete="off">
-                <label class="btn btn-sm btn-outline-primary" for="5year">&nbsp;5년&nbsp;</label>
-                <input type="radio" class="btn-check" name="btnradio" id="all" value="all" autocomplete="off" checked>
-                <label class="btn btn-sm btn-outline-primary" for="all">전체</label>
+              <div>
+                <p class="item2-info" style="color: gray;">조회기간을 비워두면 전체기간으로 조회됩니다.</p>
               </div>
             </div>
           </div>
@@ -138,6 +142,10 @@
               </div>
             </div>
           </div>
+          <div style="float: right;">
+            <input type="button" id="search-content" class="btn btn-primary" value="검색">
+            <input type="reset" class="btn btn-outline-primary" value="초기화">
+          </div>
         </form>
       </div>
       <!-- 해빗 조회 form 종료 -->
@@ -145,9 +153,38 @@
       <!-- 조회 결과 -->
       <div class="content">
         <div id="searchResult">
+          <p class='content-name'>검색 결과 : ${list.size()} 건</p>
         </div>
+
         <div class="class-flex" id="tableBody" style="align-items: center; justify-content: center">
+          <c:choose>
+            <c:when test="${list.size()>0}">
+              <c:forEach var="item" items="${list}">
+                  <div class='class-box'>
+                    <div style='display: flex; align-items: center; justify-content: center'>
+                      <a href='#'><img src='/storage/${item.cont_img}' alt=''></a>
+                    </div>
+                    <div style='margin: 10px 0'>
+                      <a href='#' style='font-size: large'><span><strong>${item.cont_name}</strong></span></a>
+                    </div>
+                    <div style='color: #494846'>
+                      <strong>[판매시작] </strong>${item.cont_stdate.substring(0, 16)}<br>
+                      <strong>[판매종료] </strong>${item.cont_endate.substring(0, 16)}<br>
+                      <strong>[카테고리] </strong>${item.cate_large} &gt; ${item.cate_middle}
+                    </div>
+                    <div>
+                      <input type="button" class="btn btn-sm btn-outline-primary content-update" onclick="location.href = '/host/contentlist/update/${item.cont_no}'" id="update${item.cont_no}" value="해빗수정">
+                      <input type="button" class="btn btn-sm btn-primary content-delete" id="delete${item.cont_no}" value="해빗삭제">
+                    </div>
+                  </div>
+              </c:forEach>
+            </c:when>
+            <c:otherwise>
+              <p>검색 결과가 없습니다</p>
+            </c:otherwise>
+          </c:choose>
         </div>
+
         <div class="d-grid gap-2" id="pagination">
 <%--          <button class="btn btn-lg btn-outline-primary" type="button">더보기</button>--%>
         </div>

@@ -9,6 +9,7 @@ import java.util.List;
 @ToString
 @Getter @Setter
 public class RequestReservationDTO {
+    private String filter;
     private String host_id;
     private String cont_name;
     private String searchStartDate;
