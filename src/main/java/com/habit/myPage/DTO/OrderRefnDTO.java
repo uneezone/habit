@@ -14,4 +14,6 @@ public class OrderRefnDTO {
     private String refn_date;
     private int refn_point;
     private String refn_method;
+    private String refnop_name;
+    private int payd_no;
 }
