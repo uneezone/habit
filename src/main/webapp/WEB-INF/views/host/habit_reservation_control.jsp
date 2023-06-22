@@ -91,23 +91,30 @@
             <div class="item-name">
               <p>클래스 실행일</p>
             </div>
-            <div class="item">
-              <div style="display: flex;">
-                <input type="date" class="form-control" id="searchStartDate" name="searchStartDate"> &nbsp;~&nbsp; <input type="date" id="searchEndDate" name="searchEndDate" class="form-control">
+            <div>
+              <div class="item">
+                <div style="display: flex;">
+                  <input type="date" class="form-control" id="searchStartDate" name="searchStartDate"> &nbsp;~&nbsp; <input type="date" id="searchEndDate" name="searchEndDate" class="form-control">
+                </div>
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                  <input type="radio" class="btn-check" name="btnradio" id="today" value="today" autocomplete="off">
+                  <label class="btn btn-sm btn-outline-primary" for="today">오늘</label>
+                  <input type="radio" class="btn-check" name="btnradio" id="1Month" value="1Month" autocomplete="off">
+                  <label class="btn btn-sm btn-outline-primary" for="1Month">1개월</label>
+                  <input type="radio" class="btn-check" name="btnradio" id="6Month" value="6Month" autocomplete="off">
+                  <label class="btn btn-sm btn-outline-primary" for="6Month">6개월</label>
+                  <input type="radio" class="btn-check" name="btnradio" id="1year" value="1year" autocomplete="off">
+                  <label class="btn btn-sm btn-outline-primary" for="1year">&nbsp;1년&nbsp;</label>
+                  <input type="radio" class="btn-check" name="btnradio" id="5year" value="5year" autocomplete="off">
+                  <label class="btn btn-sm btn-outline-primary" for="5year">&nbsp;5년&nbsp;</label>
+                  <input type="radio" class="btn-check" name="btnradio" id="all" value="all" autocomplete="off" checked>
+                  <label class="btn btn-sm btn-outline-primary" for="all">전체</label>
+                </div>
               </div>
-              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <input type="radio" class="btn-check" name="btnradio" id="today" value="today" autocomplete="off">
-                <label class="btn btn-sm btn-outline-primary" for="today">오늘</label>
-                <input type="radio" class="btn-check" name="btnradio" id="1Month" value="1Month" autocomplete="off">
-                <label class="btn btn-sm btn-outline-primary" for="1Month">1개월</label>
-                <input type="radio" class="btn-check" name="btnradio" id="6Month" value="6Month" autocomplete="off">
-                <label class="btn btn-sm btn-outline-primary" for="6Month">6개월</label>
-                <input type="radio" class="btn-check" name="btnradio" id="1year" value="1year" autocomplete="off">
-                <label class="btn btn-sm btn-outline-primary" for="1year">&nbsp;1년&nbsp;</label>
-                <input type="radio" class="btn-check" name="btnradio" id="5year" value="5year" autocomplete="off">
-                <label class="btn btn-sm btn-outline-primary" for="5year">&nbsp;5년&nbsp;</label>
-                <input type="radio" class="btn-check" name="btnradio" id="all" value="all" autocomplete="off" checked>
-                <label class="btn btn-sm btn-outline-primary" for="all">전체</label>
+              <div>
+                <div>
+                  <p class="item2-info" style="color: gray;">조회기간을 비워두면 전체기간으로 조회됩니다.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -167,14 +174,7 @@
       <!-- 검색 결과 -->
       <div class="content">
         <div id="searchResult">
-        <c:choose>
-        <c:when test="${list.size()<1}">
-          <p class="content-name">검색 결과 : 0 건</p>
-        </c:when>
-        <c:otherwise>
-          <p class="content-name">검색 결과 : ${list.get(0).totalCount} 건</p>
-        </c:otherwise>
-        </c:choose>
+          <p class="content-name">검색 결과 : ${list.size()} 건</p>
         </div>
         <div style="text-align: center;">
           <table class="table">
@@ -183,7 +183,7 @@
                 <th>예약ID</th>
                 <th>성별</th>
                 <th>연락처</th>
-                <th>상품명</th>
+                <th>해빗명</th>
                 <th>클래스실행일</th>
                 <th>예약수량</th>
                 <th>예약상태</th>
@@ -225,7 +225,9 @@
             </c:forEach>
             </c:when>
             <c:otherwise>
-              <td colspan="8">검색 결과가 없습니다</td>
+              <tr>
+                <td colspan="8">검색 결과가 없습니다</td>
+              </tr>
             </c:otherwise>
             </c:choose>
             </tbody>

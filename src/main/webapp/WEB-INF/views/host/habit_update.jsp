@@ -20,7 +20,7 @@
   <script src="/js/summernote/lang/summernote-ko-KR.js"></script>
   <link rel="stylesheet" href="/css/summernote/summernote-lite.min.css">
   <!-- 썸머 노트 js, css 추가 종료 -->
-  <title>content_create</title>
+  <title>habit_update</title>
 </head>
 
 <body>
