@@ -45,6 +45,7 @@ public class MemberCont {
         System.out.println(map.get("user_birth"));
         System.out.println(map.get("user_gender"));
 
+
         String user_email = map.get("user_email") + "@" + map.get("user_email2");
         map.put("user_email", user_email);
 
@@ -62,7 +63,7 @@ public class MemberCont {
         return "member/login";
     }
     @PostMapping("/login")
-    public String login(MemberDTO dto, HttpSession session, HttpServletRequest req,@RequestParam(defaultValue = "/")String redirectURL) {
+    public String login(MemberDTO dto, HttpSession session, HttpServletRequest req) {
         // 회원 정보 조회
         MemberDTO member = memberdao.login(dto);
 
@@ -78,7 +79,7 @@ public class MemberCont {
         if(member != null) {
             // 세션에 정보를 저장
             session.setAttribute("s_id", user_id);
-            session.setAttribute("s_pw", user_pw);
+            //session.setAttribute("s_pw", user_pw);
 
 
             return "redirect:/";
