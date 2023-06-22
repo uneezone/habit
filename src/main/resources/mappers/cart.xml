@@ -11,25 +11,78 @@
         VALUES(#{user_id}, #{pro_no}, #{cl_qty})
     </insert>
 
+    <!--카트에 담긴 원데이클래스 상품 정보들-->
     <select id="list1" resultType="com.habit.cart.CartDTO" parameterType="String">
         select *
-        from (select cont.cont_no as cont_no, pro_no, cont_name, cont_img, one_price, one_date from cont inner join one on cont.cont_no=one.cont_no) A
+        from (select cont.cont_no as cont_no, pro_no, cont_name, cont_img, one_price as price, one_date as option from cont inner join one on cont.cont_no=one.cont_no) A
         inner join cartlist
         on A.pro_no=cartlist.pro_no
         where user_id=#{user_id}
     </select>
 
+    <!--카트에 담긴 회차권인원권 상품 정보들-->
     <select id="list2" resultType="com.habit.cart.CartDTO" parameterType="String">
         select *
-        from (select cont.cont_no as cont_no, pro_no, cont_name, cont_img, prod_name, prod_price from prod inner join cont on prod.cont_no=cont.cont_no) B
+        from (select cont.cont_no as cont_no, pro_no, cont_name, cont_img, prod_name as option, prod_price as price from prod inner join cont on prod.cont_no=cont.cont_no) B
         inner join cartlist
         on B.pro_no=cartlist.pro_no
         where user_id=#{user_id}
     </select>
 
+
     <delete id="delete" parameterType="java.util.HashMap">
         DELETE FROM cart WHERE cl_no=#{cl_no} and user_id=#{user_id}
     </delete>
 
-   
+
+
+    <!--장바구니에 담은 모든 상품의 금액 총 합-->
+    <select id="total_price" resultType="Integer" parameterType="String">
+        select SUM(cl_qty*price)
+        from
+            (
+                select cl_qty, price
+                    from (
+                          select cl_qty, one_price as price from cartlist
+                          inner join one
+                          on cartlist.pro_no=one.pro_no
+                          where user_id=#{user_id}
+                         ) AAA
+                    union all
+
+                    select cl_qty, price
+                        from (select cl_qty, prod_price as price from cartlist
+                              inner join prod
+                              on cartlist.pro_no=prod.pro_no
+                               where user_id=#{user_id}
+                        ) BBB
+            ) CCCC
+    </select>
+
+    <select id="selectedItemsInfo" parameterType="java.util.HashMap" resultType="com.habit.cart.CartDTO">
+        select * from
+        (
+            select A.pro_no as pro_no, A.cont_no as cont_no, A.one_date as option, one_maxqty as maxqty, one_price as price, one_status as status, cartlist.user_id as user_id, cartlist.cl_no as cl_no
+            from (
+                        select *
+                        from one
+                        union all
+                        select * from prod
+                    ) A
+            inner join cartlist
+            on cartlist.pro_no=A.pro_no
+        ) AA
+        inner join cont
+        on cont.cont_no=AA.cont_no
+        where user_id=#{user_id} and cl_no in
+        <foreach item="item" index="index" collection="carts"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+
+
+
+
 </mapper>

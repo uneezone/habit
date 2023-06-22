@@ -1,43 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../header.jsp"%>
-
-<link rel="stylesheet" href="css/payPage.css?after" />'
-<script src="js/payPage.js"></script>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<link rel="stylesheet" href="/css/payPage.css?after" />'
+<script src="/js/payPage.js"></script>
     <!--헤더끝-->
 
-<link rel="stylesheet" href="css/payPage.css" />
-<script src="js/payPage.js"></script>
+<link rel="stylesheet" href="/css/payPage.css" />
+<script src="/js/payPage.js"></script>
 
 
 
     <!-- 본문 시작 -->
     <div class="Home">
+
       <section class="Home_form">
-      <form action="payDone.html">
+      <form action="/order/payDone">
         <div id="pagetitle_pay">결제하기</div>
 
-        <p class="paypage_title">프립정보</p>
-        <section id="fripinfo">
-          <div id="frip_img">
-            <img src="img/eggtart.jpg" />
-          </div>
+        <p class="paypage_title">해빗정보</p>
+         <c:forEach var="item" items="${cartDTOS}" varStatus='status'>
+            <section id="fripinfo">
+                <div id="frip_img">
+                    <img src="/storage/${item.cont_img}" />
+                </div>
 
-          <div class="title_div">
+                <div class="title_div">
 
-          <div>
-
-            <p>[망원] 카페 인기메뉴! 마카오식 에그타르트 만들기</p>
-            <span>별점 : 4.9 (후기 106개)</span>
-          </div>
-        </section>
-        <hr />
-        <section>
-          <ul style="font-size: large; font-weight: bold; padding: 20px">
-            옵션정보
-          </ul>
-          <li>호스트와 연락을 통해 날짜를 지정</li>
-          <li>이용권/1개</li>
-        </section>
+                  <div>
+                    <p>${item.cont_name}</p>
+                    <span>별점 : 4.9 (후기 106개)</span>
+                  </div>
+                </div>
+            </section>
+            <hr />
+            <section>
+              <ul style="font-size: large; font-weight: bold; padding: 20px">
+                옵션정보
+              </ul>
+              <li>${item.option}</li>
+              <li>이용권/${item.cl_qty}개</li>
+            </section>
+           </c:forEach>
         <hr style="border-width: 4px" />
 
         <section>
