@@ -47,14 +47,16 @@ function common(){
     var btn=$('.zzim_btn');
 
     btn.click(function(){
+
        //찜아닐떄
         if( this.children[0].src.indexOf("black2.png")!=-1){
           // alert("ddd");
             this.children[0].src="/img/redheart2.png";
             let id = this.children[0].id;
-            console.log("id="+id);
+            id=id.substring(7,id.length);
+
             //$.ajax 써야 함. async:true 잊지 않고 추가하기
-            $.ajax({
+           $.ajax({
                 type:"POST"
                 ,url:"/zzim/insert"
                 ,data:{"cont_no":id}
@@ -67,6 +69,20 @@ function common(){
         }else {   //찜일떄
             //alert("ddssd");
             this.children[0].src="/img/black2.png";
+            let id = this.children[0].id;
+            id=id.substring(7,id.length);
+
+            //$.ajax 써야 함. async:true 잊지 않고 추가하기
+            $.ajax({
+                type:"POST"
+                ,url:"/zzim/del"
+                ,data:{"cont_no":id}
+                ,async:false
+                ,success:function(data){
+                    console.log(data);
+                    window.location.reload();
+                }
+            });
         }
 
     });
