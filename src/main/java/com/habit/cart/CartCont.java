@@ -3,7 +3,9 @@ package com.habit.cart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,8 +24,8 @@ public class CartCont {
     @Autowired
     CartDAO cartDAO;
 
-    @RequestMapping(value="/insert")
-    public String cartInsert(@ModelAttribute CartDTO cartDTO, HttpSession session, HttpServletRequest req){
+    @RequestMapping(value="/insert", method = RequestMethod.POST, consumes = "application/json")
+    public String cartInsert(@RequestBody CartDTO cartDTO, HttpSession session){
         cartDTO.setUser_id("user-3");
         cartDAO.cartInsert(cartDTO);
 

@@ -1,15 +1,22 @@
+window.onload=function(){
+
+    //common.js
+    common();
 
 
 
-//참여하기 클릭시 옵션창 출력
+}
+
+
+//참여하기 클릭시 옵션창 출력과 기능
 $(document).ready(function() {
     function openModal() {
-        document.getElementById('openModalButton').style.display = 'none';
+        document.getElementById('FloatingActionBar').style.display = 'none';
         document.getElementById('productOptionsModal').style.display = 'block';
     }
 
     function closeModal() {
-        document.getElementById('openModalButton').style.display = 'block';
+        document.getElementById('FloatingActionBar').style.display = 'block';
         document.getElementById('productOptionsModal').style.display = 'none';
     }
 
@@ -21,6 +28,8 @@ $(document).ready(function() {
     }
 
     document.getElementById('openModalButton').addEventListener('click', openModal);
+
+
 
     // 페이지 로드 시 productOptionsModal 창을 감춥니다.
     closeModal();
@@ -35,11 +44,15 @@ $(document).ready(function() {
         closeModal();
     };
 
+
+
     // OptionItem_Wrapper를 클릭했을 때 이벤트 핸들러를 추가합니다.
     let optionItems = document.querySelectorAll('.OptionItem_Container');
     optionItems.forEach(function(optionItem) {
 
         optionItem.addEventListener('click', function() {
+
+            // 클릭 시 PurchaseCell_Wrapper 창을 표시합니다.
             let purchaseCells = document.querySelectorAll('.PurchaseCell_Wrapper');
             purchaseCells.forEach(function(purchaseCell) {
                 purchaseCell.style.display = 'flex'; // 또는 'flex', 'inline-block' 등의 원하는 디스플레이 값을 설정하세요.
@@ -60,7 +73,9 @@ $(document).ready(function() {
             document.querySelector('.PurchaseCell_Price').setAttribute('data-price', selectedItemPrice);
             document.querySelector('.PurchaseCell_Price').innerText = `${selectedItemPrice.toLocaleString()}원`;
 
+
             calculateTotal();
+
         });
     });
 
@@ -152,14 +167,119 @@ $(document).ready(function() {
     }
 
 
-
-    // 페이지가 로드되면 이벤트 리스너를 추가
+    // .PurchaseCell 삭제 버튼 기능
     window.addEventListener('load', addCounterEventListeners);
 
+    const deleteIcon = document.querySelector('.PurchaseCell_DeleteIcon');
+    const purchaseCellWrapper = document.querySelector('.PurchaseCell_Wrapper');
+    const BottomContent = document.querySelector('.BottomContent_Wrapper');
 
+    deleteIcon.addEventListener('click', () => {
+        purchaseCellWrapper.style.display = 'none';
+         BottomContent.style.display = 'none';
+    });
+
+
+
+
+    //추가부분
+//     function createPurchaseCellWrapper(title, price) {
+//         const purchaseCellWrapperTemplate = document.querySelector('.PurchaseCell_Wrapper');
+//         const purchaseCellWrapper = purchaseCellWrapperTemplate.cloneNode(true);
+//
+//         purchaseCellWrapper.querySelector('.PurchaseCell_Title').innerText = title;
+//         let purchaseCellPrice = purchaseCellWrapper.querySelector('.PurchaseCell_Price');
+//         purchaseCellPrice.setAttribute('data-price', price);
+//         purchaseCellPrice.innerText = `${price.toLocaleString()}원`;
+//
+//         return purchaseCellWrapper;
+//     }
+//
+//     let newOptionItems = document.querySelectorAll('.OptionItem_Container');
+//     newOptionItems.forEach(function (optionItem) {
+//         optionItem.addEventListener('click', function () {
+//             let selectedItemName = this.querySelector('.OptionItem_Title').innerText;
+//             let selectedItemPrice = parseInt(this.getAttribute('data-price'));
+//
+//             let existingPurchaseCellWrapper = document.querySelector(`.PurchaseCell_Wrapper[data-id="${selectedItemName}"]`);
+//
+//             if (existingPurchaseCellWrapper) {
+//                 return;
+//             }
+//
+//             let newPurchaseCellWrapper = createPurchaseCellWrapper(selectedItemName, selectedItemPrice);
+//             newPurchaseCellWrapper.setAttribute('data-id', selectedItemName);
+//             newPurchaseCellWrapper.style.display = "block";
+//
+//             let bottomContentWrapper = document.querySelector('.OptionBottomSheet');
+//             let purchaseWrapper = bottomContentWrapper.querySelector('.PurchaseCell_Wrapper');
+//
+//             bottomContentWrapper.insertBefore(newPurchaseCellWrapper, purchaseWrapper);
+//
+//             addCounterEventListeners(newPurchaseCellWrapper);
+//
+//             newPurchaseCellWrapper.querySelector('.PurchaseCell_DeleteIcon').addEventListener('click', function () {
+//                 newPurchaseCellWrapper.remove();
+//                 calculateTotal();
+//             });
+//         });
+//     });
+//
+// // 사용자가 수량을 변경할 때마다 총 가격 및 수량을 업데이트하기 위한 함수
+//     function calculateTotal() {
+//         const itemPriceElements = document.querySelectorAll('.PurchaseCell_Wrapper:not(.hidden) .PurchaseCell_Price');
+//         const counterValues = document.querySelectorAll('.PurchaseCell_Wrapper:not(.hidden) .Counter_Value');
+//
+//         let itemCount = 0, totalPrice = 0;
+//
+//         for (let i = 0; i < itemPriceElements.length; i++) {
+//             let quantity = parseInt(counterValues[i].value);
+//             itemCount += quantity;
+//             totalPrice += parseInt(itemPriceElements[i].getAttribute('data-price')) * quantity;
+//         }
+//
+//         document.querySelector('.OptionBottomSheet_Count').innerText = `총  ${itemCount}개`;
+//         document.querySelector('.OptionBottomSheet_Price').innerText = `${totalPrice.toLocaleString()}원`;
+//     }
+//
+//     function addCounterEventListeners(wrapper) {
+//         const minusButton = wrapper.querySelector('.Counter_ControlButton:nth-child(1)');
+//         const plusButton = wrapper.querySelector('.Counter_ControlButton:nth-child(3)');
+//         const counterValue = wrapper.querySelector('.Counter_Value');
+//
+//         minusButton.addEventListener('click', () => {
+//             quantityChange('minus', counterValue);
+//         });
+//
+//         plusButton.addEventListener('click', () => {
+//             quantityChange('plus', counterValue);
+//         });
+//
+//         counterValue.addEventListener('input', calculateTotal);
+//     }
+//
+// // 이미지 버튼 클릭 시 수량 감소 및증가를 처리하는 함수를 만듭니다.
+//     function quantityChange(direction, counterValue) {
+//         const currentValue = parseInt(counterValue.value);
+//
+//         if (direction === 'minus') {
+//             if (currentValue > 1) {
+//                 counterValue.value = currentValue - 1;
+//             }
+//         } else if (direction === 'plus') {
+//             counterValue.value = currentValue + 1;
+//         }
+//
+//         // 변경된 값에 따라 calculateTotal 함수를 호출하여 총 수량 및 가격을 업데이트합니다.
+//         calculateTotal();
+//     }
+//
+// // 최초 로드 시 총 금액 계산
+//     calculateTotal();
 
 
 });
+
 
 
 
