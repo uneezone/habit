@@ -56,7 +56,7 @@
           </ul>
           <div>
             <a href="/host/info"><img src="/img/profile-3_07724ab7a395fea9343ed7a13e59c1212e2e3d39c141edd99f83442f98340dfc.webp" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a> <%--링크--%>
-            <a href="/host/info" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">${searchAdjust.host_id}</span></a> <%--링크--%>
+            <a href="/host/info" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">${sessionScope.s_name}</span></a> <%--링크--%>
             <button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='/'">해빗 홈으로 이동</button>
             <button type="button" class="btn btn-secondary btn-sm" onclick="location.href='/host/logout'">로그아웃</button>
           </div>

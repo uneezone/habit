@@ -46,8 +46,8 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">해빗 관리</a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="/host/contentlist">해빗 목록</a>
-              <a class="dropdown-item" href="/host/contentform">해빗 등록</a>
+              <a class="dropdown-item" href="/host/content/list">해빗 목록</a>
+              <a class="dropdown-item" href="/host/content/form">해빗 등록</a>
               <a class="dropdown-item" href="/host/product">판매 관리</a>
               <a class="dropdown-item" href="/host/reservation">예약 관리</a> <!--링크-->
               <a class="dropdown-item" href="/host/inquiry">문의 관리</a>
@@ -77,7 +77,7 @@
     <p class="page-name">해빗 등록</p>
 
     <!-- main 시작 -->
-    <form method="post" action="/host/contentinsert" onsubmit="return habitCreateCheck()" enctype="multipart/form-data">
+    <form method="post" action="/host/content/insert" onsubmit="return habitCreateCheck()" enctype="multipart/form-data">
       <!-- 기본 정보 -->
       <div class="content-wrap">
         <div class="content">
@@ -114,7 +114,7 @@
                 <small hidden id="cont_name_small">해빗명은 필수입니다. 40자 이내로 입력해주세요.</small>
               </div>
               <div>
-                <p style="color: gray;">해빗의 특징이 잘 드러나도록 해빗명을 입력해주세요.</p>
+                <p class="item2-info" style="color: gray;">해빗의 특징이 잘 드러나도록 해빗명을 입력해주세요.</p>
               </div>
             </div>
           </div><hr>
@@ -154,7 +154,7 @@
               <p>해시태그</p>
             </div>
             <div>
-              <p style="color: gray;">해빗 이용자들에게 해시태그로 보여질 정보입니다.<br> 해당되는 정보를 선택해 주세요.</p>
+              <p class="item2-info" style="color: gray;">해빗 이용자들에게 해시태그로 보여질 정보입니다.<br> 해당되는 정보를 선택해 주세요.</p>
             </div>
             <div>
               <div class="item">
@@ -263,25 +263,25 @@
                 </div>
                 <div class="checkbox">
                   <div>
-                    <input class="form-check-input" type="radio" name="cont_hashtag5" id="hashtag5-1" value="p3" checked>
+                    <input class="form-check-input" type="radio" name="cont_hashtag5" id="hashtag5-1" value="P3" checked>
                     <label class="form-check-label" for="hashtag5-1">
-                      3만원 이하
+                      3만원 미만
                     </label>
                   </div>
                   <div>
-                    <input class="form-check-input" type="radio" name="cont_hashtag5" id="hashtag5-2" value="p5">
+                    <input class="form-check-input" type="radio" name="cont_hashtag5" id="hashtag5-2" value="P5">
                     <label class="form-check-label" for="hashtag5-2">
-                      3만원 ~ 5만원
+                      3만원 ~ 5만원 미만
                     </label>
                   </div>
                   <div>
-                    <input class="form-check-input" type="radio" name="cont_hashtag5" id="hashtag5-3" value="p7">
+                    <input class="form-check-input" type="radio" name="cont_hashtag5" id="hashtag5-3" value="P7">
                     <label class="form-check-label" for="hashtag5-3">
-                      5만원 ~ 7만원
+                      5만원 ~ 7만원 미만
                     </label>
                   </div>
                   <div>
-                    <input class="form-check-input" type="radio" name="cont_hashtag5" id="hashtag5-4" value="pp">
+                    <input class="form-check-input" type="radio" name="cont_hashtag5" id="hashtag5-4" value="PP">
                     <label class="form-check-label" for="hashtag5-4">
                       7만원 이상
                     </label>
@@ -317,6 +317,9 @@
                 <div>
                   <input class="form-control" type="date" name="cont_endate" id="endate_option2" disabled>
                 </div>
+              </div>
+              <div>
+                <p class="item2-info" style="color: gray;">해빗 최소 판매 기간은 일주일 입니다.</p>
               </div>
             </div>
           </div><hr>
@@ -587,7 +590,7 @@ function DaumPostcode() {
                 }
                 // 조합된 참고항목을 해당 필드에 넣는다.
                 document.getElementById("sample3_extraAddress").value = extraAddr;
-            
+
             } else {
                 document.getElementById("sample3_extraAddress").value = '';
             }
@@ -616,22 +619,6 @@ function DaumPostcode() {
     // iframe을 넣은 element를 보이게 한다.
     element_wrap.style.display = 'block';
 }
-
-$('#cate_large').on('change', (e)=>{
-  let cate_large = e.currentTarget.value
-  $.ajax({
-    url: '/host/cate_middle.do',
-    type: 'get',
-    data: {'cate_large': cate_large}, // json형태로 넘김
-    success: (List) => {
-      document.getElementById('cate_middle').replaceChildren()
-      $('#cate_middle').append("<option value='0'>2차 카테고리</option>")
-      for (let map of List) {
-        $('#cate_middle').append("<option value='" + map.cate_middle + "'>" + map.cate_middle + "</option>")
-      }
-    }
-  })
-})
 </script>
 </body>
 </html>

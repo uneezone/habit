@@ -38,7 +38,12 @@ section{
     display:flex;
 }
 
-
+.title_div{
+    display: inline-block;
+    height: 100%;
+    padding-top: 35px;
+    padding-left: 30px;
+}
 .title_div>p
 
  {
@@ -52,10 +57,10 @@ section{
 
 .title_div > p + span {
 
-    
+
     margin-bottom: 10px;
     margin-left:30px;
-    
+
 }
 
 section > li {
@@ -87,7 +92,7 @@ input[type='radio']:checked+label{
     background-color: hotpink;
     color:white;
     border-color: white;
-    
+
 }
 
 .paypage_title>input[type='text']{
@@ -125,11 +130,11 @@ section>span+input[type='text']{
 .box-radio-input input[type="radio"]{
     display:none;
   }
-  
+
   .box-radio-input input[type="radio"] + span{
     display:inline-block;
     background:none;
-    border:1px solid #dfdfdf;  
+    border:1px solid #dfdfdf;
     padding:0px 10px;
     text-align:center;
     height:35px;
@@ -138,7 +143,7 @@ section>span+input[type='text']{
     cursor:pointer;
     border-radius: 20px;
   }
-  
+
   .box-radio-input input[type="radio"]:checked + span{
     border:1px solid hotpink;
     background:hotpink;

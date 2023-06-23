@@ -7,11 +7,7 @@
 <link rel="stylesheet" href="/css/cart.css" />
 <script src="/js/cart.js"></script>
 <script>
-    function order(){
-        if(confirm("주문할까요?")){
-        location.href='/order/payPage';
-        }
-    }
+
 </script>
     <!--헤더끝-->
     <!-- 본문 시작 -->
@@ -31,42 +27,39 @@
                     console.log(value);
                 }
 
-
-
-
-
-
-
         </script>
 
       <form class="Home_form" action="payPage.html" onsubmit="return checkCart()">
         <div>
           <button type="button" id="allCk" class="Home_choice_btn all_select">전체선택</button>
-          <button type="button" id="selectedDel" class="Home_choice_btn all-delete" onclick="">선택상품 삭제</button>
+          <button type="button" id="selectedDel" class="Home_choice_btn all-delete" onclick="deleteCheck()">선택상품 삭제</button>
         </div>
 
-          <c:forEach var="item" items="${list1}" varStatus="one_status">
-          <table class="cartlist">
+          <c:forEach var="item" items="${list}" varStatus="one_status">
+          <table class="cartlist1" id="cartlist${one_status.index}">
           <tr>
-            <td class="img_td">
+            <td class="img_td" >
               <img src="/img/${item.cont_img}" class="item_img" />
             </td>
-            <td>
+            <td class="pro_info">
               <div class="show_pro_info">
                 <p >
                   ${item.cont_name}
                 </p>
-                <p >가격 : ${item.one_price}</p>
+                <p >
+                  <fmt:formatNumber var="price_one" value="${item.price}" pattern="#,###"></fmt:formatNumber>
+                  가격 : <span class="oneprice${one_status.index}">${price_one}</span>
+                </p>
               </div>
             </td>
             <td>
               <div class="Home_show_qty">
-                <div id="result">${item.cl_qty}</div>
+                <input type="text" class="one${one_status.index} input_result" value="${item.cl_qty}"  readonly>
                 <input type="button"   value="-" class="Home_qty_btn_min btn_min" />
                 <input type="button"  value="+" class="Home_qty_btn_plus btn_plus"/>
               </div>
               <div class="Home_show_checkBox">
-                <input type="checkbox" id="oneck${one_status.index}" class="Home_cart_check">
+                <input type="checkbox" id="oneck${one_status.index}" value="${item.cl_no}" class="Home_cart_check">
               </div>
             </td>
            </tr>
@@ -76,41 +69,16 @@
 
 
 
-          <c:forEach var="item" items="${list2}" varStatus="prod_status">
-          <table class="cartlist">
-          <tr>
-            <td class="img_td">
-              <img src="/img/${item.cont_img}" class="item_img" />
-            </td>
-            <td>
-              <div class="show_pro_info">
-                <p >
-                    ${item.cont_name}
-                </p>
-                <p >가격 : ${item.prod_price}</p>
-              </div>
-            </td>
-            <td>
-              <div class="Home_show_qty">
-                <div id="result">${item.cl_qty}</div>
-                <input type="button"   value="-" class="Home_qty_btn_min btn_min"/>
-                <input type="button"  value="+" class="Home_qty_btn_plus btn_plus"/>
-              </div>
-              <div class="Home_show_checkBox">
-                <input type="checkbox" id="prodck${prod_status.index}" class="Home_cart_check">
-              </div>
-            </td>
-          </tr>
-           </table>
-          </c:forEach>
-
-
 
         <div class="Home_show_result">
           <hr />
-          <p style="font-size: larger; font-weight: bold; display:inline-block">합계금액 :  </p>
+          <p style="font-size: larger; font-weight: bold; display:inline-block;padding-left: 20px;">합계금액 :
+            <span class="totalPrice" style="padding-left: 20px;"></span> 원</p>
           <hr />
-          <input type="button" value="결제하러가기" onclick="location.href='/order/pay'"/>
+
+
+          <input type="button" value="결제하러가기" onclick="order()" class="go_order"/>
+
         </div>
 
       </form>

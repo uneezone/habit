@@ -13,7 +13,7 @@ public interface HostService1 {
 
     List<Map<String, Object>> cateList ();
     List<Map<String, Object>> selectCate (String keyword);
-    int contentInsert (ContentAndOptionDTO rciDTO) throws IOException;
+    int contentInsert (RequestContentInsertDTO rciDTO) throws IOException;
     List<ResponseReviewDTO> reviewList (RequestReviewDTO reqReviewDTO);
     List<ResponseInquiryDTO> inquiryList(RequestInquiryDTO requestInquiryDTO);
     List<ResponseContentListDTO> contentList (RequestContentListDTO requestContentListDTO);
@@ -22,6 +22,5 @@ public interface HostService1 {
 
     int reservationStatusChangeAndRefundInsert(RequestReservationStatusChangeDTO requestReservationStatusChangeDTO);
     int deleteContent(int no);
-
-
+    RequestContentInsertDTO contentSelectOne(int no);
 }

@@ -5,3 +5,10 @@ window.onload=function(){
     common();
 
 }
+
+
+
+
+
+
+

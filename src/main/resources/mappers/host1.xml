@@ -27,7 +27,7 @@
     </select>
 
     <!-- 콘텐츠 테이블 insert -->
-    <insert id="insertCont" useGeneratedKeys="true" keyProperty="cont_no" parameterType="com.habit.host1.DTO.ContentAndOptionDTO" >
+    <insert id="insertCont" useGeneratedKeys="true" keyProperty="cont_no" parameterType="com.habit.host1.DTO.RequestContentInsertDTO" >
         INSERT INTO cont (cate_no, host_id, cont_name, cont_zip, cont_addr1, cont_addr2, cont_extaddr, cont_endate, cont_img, cont_content, cont_hashtag1, cont_hashtag2, cont_hashtag3, cont_hashtag4, cont_hashtag5)
         values (#{cate_no}, #{host_id}, #{cont_name}, #{cont_zip}, #{cont_addr1}, #{cont_addr2}, #{cont_extaddr}, #{cont_endate},
         <foreach collection="cont_img" item="img" open="'" close="'" separator="|">${img}</foreach>
@@ -42,7 +42,7 @@
     </insert>
 
     <!-- 원데이 클래스 테이블 insert -->
-    <insert id="insertOne" parameterType="com.habit.host1.DTO.ContentAndOptionDTO">
+    <insert id="insertOne" parameterType="com.habit.host1.DTO.RequestContentInsertDTO">
         insert into one(pro_no, cont_no, one_date, one_maxqty, one_price)
         values
         <foreach collection="list" item="oneEntity" separator=",">
@@ -51,7 +51,7 @@
     </insert>
 
     <!-- 회차권/인원권 테이블 insert -->
-    <insert id="insertProd" parameterType="com.habit.host1.DTO.ContentAndOptionDTO">
+    <insert id="insertProd" parameterType="com.habit.host1.DTO.RequestContentInsertDTO">
         insert into prod(pro_no, cont_no, prod_name, prod_qty, prod_price)
         values
         <foreach collection="list" item="prodEntity" separator=",">
@@ -167,9 +167,31 @@
         </if>
     </select>
 
+    <!--  해빗 삭제  -->
     <delete id="deleteContent" parameterType="int">
         delete from cont where cont_no = ${cont_no}
     </delete>
+    
+    <!--  해빗 수정 전 값 불러오기  -->
+    <select id="contentSelectOne" parameterType="int" resultType="com.habit.host1.DTO.CategoryAndContentDTO">
+        select cate_large, cate_middle, cont_name, cont_zip, cont_addr1, cont_addr2, cont_extaddr, cont_hashtag1, cont_hashtag2,
+               cont_hashtag3, cont_hashtag4, cont_hashtag5, cont_stdate, cont_endate, cont_img, cont_content
+        from cont a join cate b
+        on a.cate_no = b.cate_no
+        where cont_no = ${cont_no}
+    </select>
+
+    <select id="oneList" parameterType="int" resultType="com.habit.host1.DTO.OneEntity">
+        select one_date, one_maxqty, one_price
+        from one
+        where cont_no = ${cont_no}
+    </select>
+
+    <select id="prodList" parameterType="int" resultType="com.habit.host1.DTO.ProdEntity">
+        select prod_name, prod_qty, prod_price
+        from prod
+        where cont_no = ${cont_no}
+    </select>
 
     <!-- 원데이 클래스 리스트 조회 -->
     <select id="reservationList" parameterType="com.habit.host1.DTO.RequestReservationDTO" resultType="com.habit.host1.DTO.ResponseReservationDTO">

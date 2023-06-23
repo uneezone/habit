@@ -25,6 +25,24 @@ const contEndateOptionCheck2 = (e) => {
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    // 대분류에 맞는 중분류 가져오기
+    $('#cate_large').on('change', (e)=>{
+        let cate_large = e.currentTarget.value
+        $.ajax({
+            url: '/host/cate_middle.do',
+            type: 'get',
+            data: {'cate_large': cate_large}, // json형태로 넘김
+            success: (List) => {
+                document.getElementById('cate_middle').replaceChildren()
+                $('#cate_middle').append("<option value='0'>2차 카테고리</option>")
+                for (let map of List) {
+                    $('#cate_middle').append("<option value='" + map.cate_middle + "'>" + map.cate_middle + "</option>")
+                }
+            }
+        })
+    })
+
+
     // 대표이미지 default
     let preview_img_container = $('#preview_img_container')
     for (let i = 1; i <= 3; i++) {
@@ -68,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 판매종료일 : 지정한 날짜까지 판매일 최대 날짜 현재일로 부터 한달 지정
     let now = new Date()
     let maxDate = new Date(now.setMonth(now.getMonth() + 1)).toISOString().split("T")[0]
-    let minDate = new Date(new Date().setDate(new Date().getDate()+7)).toISOString().split("T")[0]
+    let minDate = new Date(new Date().setDate(new Date().getDate()+6)).toISOString().split("T")[0]
     document.getElementById('endate_option2').setAttribute('max', maxDate)
     document.getElementById('endate_option2').setAttribute('min', minDate)
 
@@ -198,40 +216,6 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 })
 
-
-// // 대표 이미지 체크 (onChange)
-// function contImgCheck(imgs) {
-//     let preview_img_container = $('#preview_img_container')
-//     let cont_img_small = $('#cont_img_small')
-//     if(imgs.files.length>3) { // 파일을 4개 이상 첨부한 경우
-//         for (let i = 0; i < 3; i++) {
-//             preview_img_container.children('#preview_cont_img' + i).attr('src', '/img/No_image_available.png')
-//         }
-//         cont_img_small.removeAttr('hidden')
-//         return
-//     } else {
-//         cont_img_small.attr('hidden', true)
-//         preview_img_container.children().remove()
-//         for (let i = 1; i <= 3; i++) {
-//             if (imgs.files[i-1] !== undefined) {
-//                 let tmpPath = URL.createObjectURL(imgs.files[i-1])
-//                 str1 =
-//     "                <div>\n" +
-//     "                  <img src=' "+ tmpPath +" ' class='preview_img' id='preview_cont_img" + i + "' alt='이미지 없음' width='200px' height='200px' style='border-radius: 15px'>\n" +
-//     "                </div>"
-//                 preview_img_container.append(str1)
-//             } else if (imgs.files[i-1] === undefined) {
-//                 str2 =
-//     "                <div>\n" +
-//     "                  <img src='/img/No_image_available.png' class='preview_img' id='preview_cont_img" + i + "' alt='이미지 없음' width='200px' height='200px'>\n" +
-//     "                </div>"
-//                 preview_img_container.append(str2)
-//             }
-//         }
-//     }
-// }
-
-
 /* 썸머 노트 config */
 $(document).ready(()=>{
     $('#summernote').summernote({
@@ -301,9 +285,6 @@ $(document).ready(()=>{
             }
         });
         formData.append('tempFolder', $('#tempFolder').val());
-
-
-
     }
 
     //에디터 내용 텍스트 제거

@@ -33,7 +33,7 @@ public class HostServiceImpl1 implements HostService1 {
 
     // 해빗 등록 (insert)
     @Override
-    public int contentInsert (ContentAndOptionDTO rciDTO) throws IOException {
+    public int contentInsert (RequestContentInsertDTO rciDTO) throws IOException {
         int result = 0;
 
         ContentEntity contentEntity = new ContentEntity();
@@ -50,7 +50,7 @@ public class HostServiceImpl1 implements HostService1 {
             rciDTO.setCont_endate(now.plusMonths(1) + " 00:00:00");
         }
 
-        // 이미지 파일명 변경하여 저장 (중복 제거를 위해 UUID 사용)
+        // 이미지 파일명 변경하여 저장 (중복 제거를 위해 날짜 사용)
 //        String cont_img = "";
         String path = "src/main/webapp/storage/";
         List<MultipartFile> imgs = rciDTO.getCont_imgs();
@@ -161,11 +161,83 @@ public class HostServiceImpl1 implements HostService1 {
     }
 
     // 해빗 삭제
-
-
     @Override
     public int deleteContent(int cont_no) {
         return memoryHostRepository1.deleteContent(cont_no);
+    }
+
+    // 수정전 해빗 값 가져오기
+    @Override
+    public RequestContentInsertDTO contentSelectOne(int cont_no) {
+
+        CategoryAndContentDTO cateAndContDTO = memoryHostRepository1.contentSelectOne(cont_no);
+        RequestContentInsertDTO reqContInsDTO = new RequestContentInsertDTO();
+        if (cateAndContDTO != null) {
+
+            // 카테고리 불러오기
+            reqContInsDTO.setCate_list(memoryHostRepository1.cateList());
+            reqContInsDTO.setCont_no(cont_no);
+            reqContInsDTO.setCate_large(cateAndContDTO.getCate_large());
+            reqContInsDTO.setCate_middle(cateAndContDTO.getCate_middle());
+            reqContInsDTO.setCont_name(cateAndContDTO.getCont_name());
+            reqContInsDTO.setCont_zip(cateAndContDTO.getCont_zip());
+            reqContInsDTO.setCont_addr1(cateAndContDTO.getCont_addr1());
+            reqContInsDTO.setCont_addr2(cateAndContDTO.getCont_addr2());
+            reqContInsDTO.setCont_extaddr(cateAndContDTO.getCont_extaddr());
+            reqContInsDTO.setCont_hashtag1(cateAndContDTO.getCont_hashtag1());
+            reqContInsDTO.setCont_hashtag3(cateAndContDTO.getCont_hashtag3());
+            reqContInsDTO.setCont_hashtag5(cateAndContDTO.getCont_hashtag5());
+            reqContInsDTO.setCont_endate(cateAndContDTO.getCont_endate());
+            reqContInsDTO.setCont_stdate(cateAndContDTO.getCont_stdate());
+            reqContInsDTO.setCont_content(cateAndContDTO.getCont_content());
+
+            // 해시태그2
+            List<String> cont_hashtag2 = List.of(cateAndContDTO.getCont_hashtag2().trim().split("\\|"));
+            reqContInsDTO.setCont_hashtag2(cont_hashtag2);
+
+            // 해시태그4
+            List<String> cont_hashtag4 = List.of(cateAndContDTO.getCont_hashtag4().trim().split("\\|"));
+            reqContInsDTO.setCont_hashtag4(cont_hashtag4);
+
+            // 이미지
+            List<String> cont_imgs = List.of(cateAndContDTO.getCont_img().trim().split("\\|"));
+            reqContInsDTO.setCont_img(cont_imgs);
+
+            // 옵션값 가져오기
+            List<OneEntity> oneEntities = memoryHostRepository1.oneList(cont_no);
+            List<ProdEntity> prodEntities = memoryHostRepository1.prodList(cont_no);
+            if (oneEntities.size() > 0) {
+                List<String> one_date = new ArrayList<>();
+                List<Integer> one_maxqty = new ArrayList<>();
+                List<Integer> one_price = new ArrayList<>();
+                reqContInsDTO.setCont_type("one");
+                for (OneEntity oneEntity : oneEntities) {
+                    one_date.add(oneEntity.getOne_date());
+                    one_maxqty.add(oneEntity.getOne_maxqty());
+                    one_price.add(oneEntity.getOne_price());
+                }
+                reqContInsDTO.setOne_date(one_date);
+                reqContInsDTO.setOne_maxqty(one_maxqty);
+                reqContInsDTO.setOne_price(one_price);
+
+            } else if (prodEntities.size() > 0){
+                List<String> prod_name = new ArrayList<>();
+                List<Integer> prod_qty = new ArrayList<>();
+                List<Integer> prod_price = new ArrayList<>();
+                reqContInsDTO.setCont_type("prod");
+                for (ProdEntity prodEntity : prodEntities) {
+                    prod_name.add(prodEntity.getProd_name());
+                    prod_qty.add(prodEntity.getProd_qty());
+                    prod_price.add(prodEntity.getProd_price());
+                }
+                reqContInsDTO.setProd_name(prod_name);
+                reqContInsDTO.setProd_qty(prod_qty);
+                reqContInsDTO.setProd_price(prod_price);
+            }
+
+        }
+        System.out.println("reqContInsDTO = " + reqContInsDTO);
+        return reqContInsDTO;
     }
 
     // 원데이클래스 예약건 List 가져오기
