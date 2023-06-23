@@ -20,10 +20,10 @@ public class ZzimContH {
 
     private final ZzimService zzimService;
 
-    private String user_id="user-3";
+    //private String user_id="user-3";
 
     @GetMapping("/list")
-    public String showZzimList(@SessionAttribute(name = "userId",required = false)String userIds, Model model){
+    public String showZzimList(@SessionAttribute(name = "s_id",required = false)String user_id, Model model){
         List<ZzimDTO> zzimList = zzimService.getZzimList(user_id);
 
         model.addAttribute("zzimList",zzimList);
@@ -32,7 +32,7 @@ public class ZzimContH {
 
     @PostMapping("/insert")
     @ResponseBody
-    public String zzimInsert(@SessionAttribute(name = "userId",required = false)String userIds,@RequestParam(value = "cont_no") int cont_no){
+    public String zzimInsert(@SessionAttribute(name = "s_id",required = false)String user_id,@RequestParam(value = "cont_no") int cont_no){
 
         Map<String,Object > zzimInsertInfo= new HashMap<>();
         zzimInsertInfo.put("user_id",user_id);
@@ -47,7 +47,7 @@ public class ZzimContH {
 
     @PostMapping("/del")
     @ResponseBody
-    public String zzimDel(@SessionAttribute(name = "userId",required = false)String userIds,@RequestParam(value = "cont_no") int cont_no){
+    public String zzimDel(@SessionAttribute(name = "s_id",required = false)String user_id,@RequestParam(value = "cont_no") int cont_no){
         Map<String,Object > zzimInsertInfo= new HashMap<>();
         zzimInsertInfo.put("user_id",user_id);
         zzimInsertInfo.put("cont_no",cont_no);
@@ -59,7 +59,8 @@ public class ZzimContH {
 
     @GetMapping("/getZzim")
     @ResponseBody
-    public List<Integer> zzimGet(@RequestParam(value = "userId")String user_id){
+    public List<Integer> zzimGet(@RequestParam(name = "userId")String user_id){
+        log.info("user-id={}",user_id);
         List<Integer> cont_nos = zzimService.zzimGet(user_id);
 
         return cont_nos;
