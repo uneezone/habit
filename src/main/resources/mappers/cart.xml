@@ -62,7 +62,7 @@
     <select id="selectedItemsInfo" parameterType="java.util.HashMap" resultType="com.habit.cart.CartDTO">
         select * from
         (
-            select A.pro_no as pro_no, A.cont_no as cont_no, A.one_date as option, one_maxqty as maxqty, one_price as price, one_status as status, cartlist.user_id as user_id, cartlist.cl_no as cl_no
+            select A.pro_no as pro_no, A.cont_no as cont_no, A.one_date as option, one_maxqty as maxqty, one_price as price, one_status as status, cartlist.user_id as user_id, cartlist.cl_no as cl_no, cartlist.cl_qty as cl_qty
             from (
                         select *
                         from one

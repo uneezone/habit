@@ -94,8 +94,9 @@ public class CartCont {
 
 
 
-    @RequestMapping(value="/cart/delete")
-    public String delete(HttpSession session, int cl_no){
+    @RequestMapping(value="/cart/delete/{cl_no}")
+    public String delete(HttpSession session, @PathVariable int cl_no, HttpServletRequest req){
+
         HashMap<String, Object> map=new HashMap<>();
         map.put("cl_no", cl_no);
         map.put("user_id", "user-3");

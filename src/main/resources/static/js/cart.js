@@ -75,3 +75,19 @@
               }
 
   }
+
+
+  function deleteCheck(){
+        let checkboxSize=$(".Home_cart_check").length;
+
+        let params=[];
+        for(let i=0;i<checkboxSize;i++){
+            if($("#ck"+i).is(":checked")==true){
+                console.log($("#ck"+i).val());
+                params.push($("#ck"+i).val());
+            }
+
+        }
+
+        console.log(params);
+  }

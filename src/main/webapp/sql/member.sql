@@ -74,58 +74,58 @@ CREATE TABLE energy (
 );
 
 insert into energy (user_id, energy_saveuse, energy_date, energy_sources)
-values ('uesr-1', 1000, '2022-01-01 00:00:00', '[회원가입]적립');
+values ('user-1', 1000, '2022-01-01 00:00:00', '[회원가입]적립');
 
 insert into energy (user_id, energy_saveuse, energy_date, energy_sources)
-values ('uesr-2', 1000, '2022-04-01 00:00:00', '[회원가입]적립');
+values ('user-2', 1000, '2022-04-01 00:00:00', '[회원가입]적립');
 
 insert into energy (user_id, energy_saveuse, energy_date, energy_sources)
-values ('uesr-2', -1000, '2022-04-13 02:02:03', '[결제]사용');
+values ('user-2', -1000, '2022-04-13 02:02:03', '[결제]사용');
 
 insert into energy (user_id, energy_saveuse, energy_date, energy_sources)
-values ('uesr-2', 1490, '2022-04-13 02:02:04', '[결제]적립');
+values ('user-2', 1490, '2022-04-13 02:02:04', '[결제]적립');
 
 insert into energy (user_id, energy_saveuse, energy_date, energy_sources)
-values ('uesr-2', 100, '2022-04-20 00:00:00', '[리뷰]적립');
+values ('user-2', 100, '2022-04-20 00:00:00', '[리뷰]적립');
 
 insert into energy (user_id, energy_saveuse, energy_date, energy_sources)
-values ('uesr-3', 1000, '2022-07-01 00:00:00', '[회원가입]적립');
+values ('user-3', 1000, '2022-07-01 00:00:00', '[회원가입]적립');
 
 insert into energy (user_id, energy_saveuse, energy_date, energy_sources)
-values ('uesr-1', 180, '2022-07-22 01:01:01', '[결제]적립');
+values ('user-1', 180, '2022-07-22 01:01:01', '[결제]적립');
 
 insert into energy (user_id, energy_saveuse, energy_date, energy_sources)
-values ('uesr-1', -180, '2022-07-23 17:30:00', '[결제]취소');
+values ('user-1', -180, '2022-07-23 17:30:00', '[결제]취소');
 
 insert into energy (user_id, energy_saveuse, energy_date, energy_sources)
-values ('uesr-1', -1000, '2022-07-23 18:33:00', '[결제]사용');
+values ('user-1', -1000, '2022-07-23 18:33:00', '[결제]사용');
 
 insert into energy (user_id, energy_saveuse, energy_date, energy_sources)
-values ('uesr-1', 230, '2022-07-23 18:34:00', '[결제]적립');
+values ('user-1', 230, '2022-07-23 18:34:00', '[결제]적립');
 
 insert into energy (user_id, energy_saveuse, energy_date, energy_sources)
-values ('uesr-1', 100, '2022-08-01 00:00:00', '[리뷰]적립');
+values ('user-1', 100, '2022-08-01 00:00:00', '[리뷰]적립');
 
 insert into energy (user_id, energy_saveuse, energy_date, energy_sources)
-values ('uesr-3', 840, '2022-08-01 18:36:00', '[결제]적립');
+values ('user-3', 840, '2022-08-01 18:36:00', '[결제]적립');
 
 insert into energy (user_id, energy_saveuse, energy_date, energy_sources)
-values ('uesr-3', 100, '2022-08-08 00:00:00', '[리뷰]적립');
+values ('user-3', 100, '2022-08-08 00:00:00', '[리뷰]적립');
 
 insert into energy (user_id, energy_saveuse, energy_date, energy_sources)
-values ('uesr-3', 100, '2022-08-11 00:00:00', '[리뷰]적립');
+values ('user-3', 100, '2022-08-11 00:00:00', '[리뷰]적립');
 
 insert into energy (user_id, energy_saveuse, energy_date, energy_sources)
-values ('uesr-4', 1000, '2022-07-14 00:00:00', '[회원가입]적립');
+values ('user-4', 1000, '2022-07-14 00:00:00', '[회원가입]적립');
 
 insert into energy (user_id, energy_saveuse, energy_date, energy_sources)
-values ('uesr-4', 3000, '2022-08-02 12:03:00', '[결제]적립');
+values ('user-4', 3000, '2022-08-02 12:03:00', '[결제]적립');
 
 insert into energy (user_id, energy_saveuse, energy_date, energy_sources)
-values ('uesr-5', 1000, '2022-10-01 00:00:00', '[회원가입]적립');
+values ('user-5', 1000, '2022-10-01 00:00:00', '[회원가입]적립');
 
 insert into energy (user_id, energy_saveuse, energy_date, energy_sources)
-values ('uesr-6', 1000, '2023-04-01 00:00:00', '[회원가입]적립');
+values ('user-6', 1000, '2023-04-01 00:00:00', '[회원가입]적립');
 
 insert into energy (user_id, energy_saveuse, energy_date, energy_sources)
-values ('uesr-3', 500, '2023-06-07 12:11:00', '[설문조사]적립');
+values ('user-3', 500, '2023-06-07 12:11:00', '[설문조사]적립');
