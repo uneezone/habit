@@ -93,7 +93,7 @@ values ('user-4', 'P202208021203001', 'o_no3', 30000, 10, 'Y', 'NRO', '2022-08-0
 
 # [환불 테이블]
 CREATE TABLE refn (
-    refn_no      int          NOT NULL	auto_increment  primary key, #환불코드
+    refn_no                NOT NULL	auto_increment  primary key, #환불코드
     payd_no      int          NOT NULL,                              #주문상세번호
     user_id      varchar(25)  NOT NULL,                              #회원아이디
     pro_no       varchar(35)  NOT NULL,                              #상품코드

@@ -13,7 +13,9 @@ public class ResponseReservationDTO {
     private String user_id;
     private String user_gender;
     private String user_phone;
+    private int payd_no;
     private int payd_qty;
     private String payd_status;
     private String pro_no;
+    private int totalCount;
 }

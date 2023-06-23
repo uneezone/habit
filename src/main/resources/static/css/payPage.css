@@ -38,7 +38,12 @@ section{
     display:flex;
 }
 
-
+.title_div{
+    display: inline-block;
+    height: 100%;
+    padding-top: 35px;
+    padding-left: 30px;
+}
 .title_div>p
 
  {

@@ -5,15 +5,19 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter @ToString
-public class OrderAllDTO {
+public class OrderDetailDTO {
 
-    private Long payd_no;
     private String pro_no;
-    private Long payd_qty;
     private String refn_status;
+    private int payd_qty;
+    private int payd_price;
+    private int payd_no;
+
 
     private String cont_name;
     private String cont_img;
     private String op_name;
     private Integer cont_no;
+
+
 }

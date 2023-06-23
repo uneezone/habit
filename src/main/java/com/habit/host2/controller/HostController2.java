@@ -30,13 +30,13 @@ public class HostController2 {
     private final HostServiceImpl2 hostService;
 
 
-
+    private String userId="user-2";
 
     //호스트 홈으로
-    @GetMapping("")
+    @GetMapping("")                                             //true
     public String showHostPage(@SessionAttribute(name = "userId",required = false)String userIds, Model model){
 
-        String userId="test1";
+
         //host인지 확인
         String userGrade = hostService.checkHost(userId);
         if(userGrade.equals("H")){
@@ -63,8 +63,7 @@ public class HostController2 {
             return "member/login";
         }*/
 
-        //임시
-        String userId="test1";
+        ;
 
         //임시 host인지 확인
         String userGrade = hostService.checkHost(userId);
@@ -120,8 +119,7 @@ public class HostController2 {
     @GetMapping("/logout")
     public String hostLogout(@SessionAttribute(name = "userId",required = false)String userIds, HttpSession session){
 
-        //임시
-        String host_id="user-2";
+
 
         session.removeAttribute("userId");
         return "redirect:/";
@@ -131,8 +129,7 @@ public class HostController2 {
     @GetMapping("/info")                             //나중에 true로 바꿔야함
     public String info(@SessionAttribute(name = "userId",required = false)String userIds, Model model){
 
-        //임시
-        String userId="test1";
+
 
         //호스트 정보 가져오기
         HostInfoDTO hostInfoDTO = hostService.getHostInfo(userId);
@@ -170,8 +167,6 @@ public class HostController2 {
         dto.setHost_phone1(phone);
 
 
-        //임시 Id
-        String userId="test1";
         dto.setHost_id(userId);
 
         //db에 수정사항 저장
@@ -189,8 +184,7 @@ public class HostController2 {
                             , Model model
                             , @ModelAttribute SearchProDTO searchdto
                             , @RequestParam(value = "paging", defaultValue = "1") Long paging){
-        //임시 Id
-        String userId="test1";
+
         searchdto.setHost_id(userId);
 
         //아이디 공백체크
@@ -233,13 +227,7 @@ public class HostController2 {
         return "host/habit_product_control";
     }
 
-    //예약
-    @GetMapping("/reserve")
-    public String showReserve(@SessionAttribute(name = "userId",required = false)String userIds){
-        //임시 Id
-        String userId="user-3";
-        return "host/habit_reservation_control";
-    }
+
 
     //판매관리에서 상태 변경 ajax
     @PostMapping("/status")
@@ -386,11 +374,11 @@ public class HostController2 {
                                 ,@ModelAttribute SearchAdjustDTO dto
                                 ,@RequestParam(value = "paging", defaultValue = "1") int paging){
         //임시
-        String userid="test1";
-        dto.setHost_id(userid);
+
+        dto.setHost_id(userId);
 
         //정산계좌 입력했는지 확인
-        int check = hostService.checkWriteAccount(userid);
+        int check = hostService.checkWriteAccount(userId);
         
 
         if(check==0){
@@ -398,7 +386,7 @@ public class HostController2 {
         }
 
         //정산해라
-        calcMethod(userid);
+        calcMethod(userId);
 
         //=====날짜 포맷 변경
         if(dto.getStart_date()!=null) {
@@ -443,8 +431,7 @@ public class HostController2 {
     @ResponseBody
     public List<Map<String,Object>> showAdjustDetail(@SessionAttribute(name = "userId",required = false)String userIds
                                     ,@RequestParam(value = "calc_no") String calc_no){
-        //임시
-        String user_id="user-3";
+
         List<Map<String, Object>> adjustDetail = hostService.getAdjustDetail(calc_no);
 
         //호스트계좌
@@ -490,10 +477,10 @@ public class HostController2 {
     @PostMapping("/adjustGive")
     @ResponseBody
     public String adjustGive(@SessionAttribute(name = "userId",required = false)String userIds,@RequestParam(value = "calc_no")String calc_no){
-        //임시
-        String host_id="user-3";
 
-        String status = hostService.checkAccount(host_id, calc_no);
+
+
+        String status = hostService.checkAccount(userId, calc_no);
 
         return status;
     }

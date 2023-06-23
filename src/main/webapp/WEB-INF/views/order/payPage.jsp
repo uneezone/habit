@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../header.jsp"%>
+
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -27,22 +28,22 @@
                 </div>
 
                 <div class="title_div">
-
                   <div>
-                    <p>${item.cont_name}</p>
-                    <span>별점 : 4.9 (후기 106개)</span>
+                    <p style="margin-bottom:4px;">${item.cont_name}</p>
+                    <span style="margin-bottom:4px; display:inline-block">별점 : 4.9 (후기 106개)</span>
+                  </div>
+                  <div>
+                     <div style="margin-bottom:4px;">옵션정보</div>
+                     <span style="margin-bottom:4px;">${item.option}</span>
+                     <span style="margin-bottom:4px;">이용권/${item.cl_qty}개</span>
                   </div>
                 </div>
             </section>
             <hr />
-            <section>
-              <ul style="font-size: large; font-weight: bold; padding: 20px">
-                옵션정보
-              </ul>
-              <li>${item.option}</li>
-              <li>이용권/${item.cl_qty}개</li>
-            </section>
-           </c:forEach>
+
+         </c:forEach>
+    <div>
+
         <hr style="border-width: 4px" />
 
         <section>
@@ -61,12 +62,17 @@
         <hr style="border-width: 4px" />
         <section>
           <p class="paypage_title">에너지</p>
-          <input type="text" placeholder="  사용할 에너지를 입력하세요" class="pay_energy" />
-          <input type="button" value="전액사용" id="E_btn" />
+          <div style="padding-left: 20px; margin-bottom:3px">
+            <span>남은 에너지 : </span>
+            <span></span>
+          </div>
+          <div style="padding-left: 20px;">
+              <input type="text" placeholder="  사용할 에너지를 입력하세요" class="pay_energy" />
+              <input type="button" value="전액사용" id="E_btn" />
+          </div>
 
           <p style="padding-left: 20px;">참고 : 에너지는 100E부터 사용가능합니다.</p>
 
-          <p>참고 : 에너지는 100E부터 사용가능합니다.</p>
 
         </section>
 
@@ -90,7 +96,7 @@
           </div>
         </section>
         <hr style="border-width: 4px" />
-        <section>
+       <section>
           <p class="paypage_title">이번 프립은 누구와 하시나요?</p>
 
           <p class="recommend_ment">
@@ -155,6 +161,7 @@
           위 내용을 모두 확인하였으며, 결제에 동의합니다.
         </p>
         <input type="submit" value="결제하기" />
+        </section>
       </form>
     </section>
     </div>

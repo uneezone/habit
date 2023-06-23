@@ -1,3 +1,4 @@
+<%@ page import="javax.websocket.Session" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../header.jsp"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -5,7 +6,9 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script src="/js/zzim.js?after"></script>
 <link rel="stylesheet" href="/css/zzim.css?after">
+<script>
 
+</script>
     <!-------------- 본문 시작------------------- -->
 
     <div class="Home">
@@ -44,7 +47,7 @@
                                          </div>
                                         <div>
                                             <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="/img/redheart2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                                <img src="/img/redheart2.png" id="${item.cont_no}" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                             </button>
                                         </div>
                                         <div class="Home_product_recommend_p_font">
@@ -93,7 +96,7 @@
                                          </div>
                                         <div>
                                             <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="/img/redheart2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                                <img src="/img/redheart2.png" id="${item.cont_no}" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                             </button>
                                         </div>
                                         <div class="Home_product_recommend_p_font">
@@ -140,64 +143,6 @@
 
 
 
-                        <div class="Home_product_recommend_p">
-                            <a href="" class="href">
-                                <div class="Home_product_recommend_p_div">
-                                    <div>
-                                        <img src="/img/image.jpeg" alt="" width="140px">
-                                    </div>
-                                    <div>
-                                        <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                            <img src="/img/redheart2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                        </button>
-                                    </div>
-                                    <div class="Home_product_recommend_p_font">
-                                        <div>
-                                            <div>
-                                                청춘유랑단 20 유럽편 With 리슬 모집
-                                            </div>
-                                            <div>
-                                                신규프립 에너지x2
-                                            </div>
-                                            <hr>
-                                            <div>
-                                                300,000원
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        
-                        <div class="Home_product_recommend_p">
-                            <a href="" class="href">
-                                <div class="Home_product_recommend_p_div">
-                                    <div>
-                                        <img src="/img/image.jpeg" alt="" width="140px">
-                                    </div>
-                                    <div>
-                                        <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                            <img src="/img/redheart2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                        </button>
-                                    </div>
-                                    <div class="Home_product_recommend_p_font">
-                                        <div>
-                                            <div>
-                                                청춘유랑단 20 유럽편 With 리슬 모집
-                                            </div>
-                                            <div>
-                                                신규프립 에너지x2
-                                            </div>
-                                            <hr>
-                                            <div>
-                                                300,000원
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
 
 
                     </div>

@@ -30,7 +30,7 @@ public class CartCont {
         cartDTO.setUser_id("user-3");
         cartDAO.cartInsert(cartDTO);
 
-        return "redirect:/order/cart";
+        return "redirect:/cart/list";
     }
 
     @RequestMapping(value="/cart/list",method = RequestMethod.GET)

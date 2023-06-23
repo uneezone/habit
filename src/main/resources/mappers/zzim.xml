@@ -7,23 +7,35 @@
 <mapper namespace="zzim">
 
 
-    <select id="zzimlist_one" parameterType="String" resultType="java.util.Map">
-        select * from (
+<!--    <select id="zzimlist_one" parameterType="String" resultType="java.util.Map">-->
 
-        select zzim.zzim_no as zzim_no, zzim.user_id as user_id, zzim.cont_no as cont_no, A.cont_name as cont_name, A.cont_addr1 as cont_addr1, A.cont_img as cont_img, A.one_date as one_date, A.one_price as price from zzim
-        inner join (
-        select cont.cont_no as cont_no, cont_name, cont_addr1, cont_img, one_date, one_price from cont inner join one
-        on cont.cont_no=one.cont_no
-        ) A
-        on zzim.cont_no=A.cont_no where user_id=#{user_id}
+<!--        select * from (-->
+
+<!--        select zzim.zzim_no as zzim_no, zzim.user_id as user_id, zzim.cont_no as cont_no, A.cont_name as cont_name, A.cont_addr1 as cont_addr1, A.cont_img as cont_img, A.one_date as one_date, A.one_price as price from zzim-->
+<!--        inner join (-->
+<!--        select cont.cont_no as cont_no, cont_name, cont_addr1, cont_img, one_date, one_price from cont inner join one-->
+<!--        on cont.cont_no=one.cont_no-->
+<!--        ) A-->
+<!--        on zzim.cont_no=A.cont_no where user_id=#{user_id}-->
 
 
 
-        ) AA
-        inner join review
-        on AA.cont_no=review.cont_no where AA.user_id=#{user_id} group by AA.cont_no;
+<!--        ) AA-->
+<!--        inner join review-->
+<!--        on AA.cont_no=review.cont_no where AA.user_id=#{user_id} group by AA.cont_no;-->
 
-    </select>
+<!--        select * from (select avg(review_star),cont_no, count(*) as cnt from review group by cont_no) AA-->
+<!--                          inner join (select zzim.zzim_no as zzim_no, zzim.user_id as user_id, zzim.cont_no as cont_no, A.cont_name as cont_name, A.cont_addr1 as cont_addr1, A.cont_img as cont_img, A.one_date as one_date, A.one_price as price from zzim-->
+<!--                                                                                                                                                                                                                                                            inner join (-->
+<!--            select cont.cont_no as cont_no, cont_name, cont_addr1, cont_img, one_date, one_price from cont-->
+<!--                                                                                                          inner join one-->
+<!--                                                                                                                     on cont.cont_no=one.cont_no-->
+<!--        ) A-->
+<!--                                                                                                                                                                                                                                                                       on zzim.cont_no=A.cont_no where user_id=#{user_id}) BB-->
+<!--                                     on AA.cont_no=BB.cont_no where user_id=#{user_id}-->
+
+
+<!--    </select>-->
 
     <select id="zzimlist_two" parameterType="String" resultType="java.util.Map">
         select * from (select zzim.user_id, zzim.cont_no, cont.cont_name, cont_addr1, cont_img
@@ -41,6 +53,10 @@
         on AA.cont_no=zzim.cont_no
         where user_id=#{user_id}
     </select>
+
+    <insert id="zziminsert" parameterType="java.util.Map">
+        insert into zzim (user_id, cont_no) values (#{user_id},#{cont_no});
+    </insert>
 
 
 </mapper>

@@ -17,7 +17,7 @@
       <form class="Home_form">
         <div>
           <button type="button" id="allCk" class="Home_choice_btn all_select">전체선택</button>
-          <button type="button" id="selectedDel" class="Home_choice_btn all-delete" onclick="">선택상품 삭제</button>
+          <button type="button" id="selectedDel" class="Home_choice_btn all-delete" onclick="deleteCheck()">선택상품 삭제</button>
         </div>
 
           <c:forEach var="item" items="${list}" varStatus="status">
@@ -46,7 +46,7 @@
                 <input type="button"  value="+" class="Home_qty_btn_plus btn_plus"/>
               </div>
               <div class="Home_show_checkBox">
-                <input type="checkbox" id="ck${status.index}" value="${item.cl_no}" class="Home_cart_check" name="test${status.index}">
+                <input type="checkbox" id="ck${status.index}" value="${item.cl_no}" class="Home_cart_check checkbox" name="test${status.index}">
              </div>
             </td>
            </tr>
@@ -59,7 +59,9 @@
           <p style="font-size: larger; font-weight: bold; display:inline-block">합계금액 : </p>
           <hr />
 
+
           <input type="button" value="결제하러가기" onclick="order()"/>
+
         </div>
 
       </form>

@@ -256,6 +256,12 @@ public class MemoryHostRepository2 implements HostRepository2 {
         return sqlSession.selectList("host2.getAdjustProNo",cont_no);
     }
 
+    //판매된거 있는지 조회인데 필요없어짐 따로 구현함
+    @Override
+    public int checkSelled(String pro_no) {
+        return sqlSession.selectOne("host2.checkSelled",pro_no);
+    }
+
     @Override
     public List<AdjustPaydDTO> getAdjustPaydDTO(List<String> pro_nos) {
         return sqlSession.selectList("host2.getAdjustPaydDTO",pro_nos);

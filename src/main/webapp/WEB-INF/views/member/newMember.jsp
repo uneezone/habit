@@ -11,7 +11,9 @@
                 <div class="Home_form">
                     <div class="Home_form_div">
                         <div>아이디</div>
-                        <div><input type="text" class="Home_form_input" name="user_id" id="user_id" placeholder="대.소문자, 숫자, 특수문자 포함해서 7글자이상 "></div>
+                        <div style="display: flex">
+                            <input type="text" class="Home_form_input" name="user_id" id="user_id" placeholder="대.소문자, 숫자, 특수문자 포함해서 7글자이상 ">
+                        </div>
                         <div class="error"></div>
                     </div>
                     <div class="Home_form_div">
@@ -26,8 +28,9 @@
                     </div>
                     <div class="Home_form_div">
                         <div>성별</div>
-                        <div><input type="radio" class="Home_form_input1" name="user_gender" value="M">남
-                       <input type="radio" class="Home_form_input1" name="user_gender" value="W">여</div>
+                        <input type="radio" class="Home_form_input1" name="user_gender" value="M">남
+                        <input type="radio" class="Home_form_input1" name="user_gender" value="W">여
+                    </div>
                     <div class="Home_form_div">
                         <div>이메일</div>
                         <input type="text" class="Home_form_input_email" name="user_email"> @
@@ -62,7 +65,6 @@
                         </div>
                         <div class="error"></div>
                     </div>
-
                     <div>
                         <div>
                             <button class="Home_new_btn" onclick="join_check()">회원가입</button>
@@ -72,7 +74,9 @@
             </form>
         </div>
     </div>
-
     <!-- 본문 끝-->
+    <script>
+
+    </script>
 
 <%@include file="../footer.jsp"%>
