@@ -48,7 +48,7 @@ function calc(){
       let sumprice=0;
 
       let length1=$(".cartlist1").length;
-      let length2=$(".cartlist2").length;
+
       for(let i=0;i<length1;i++){
           let price=$(".oneprice"+i).text();
           price=price.replace(",","");
@@ -56,12 +56,6 @@ function calc(){
           sumprice+=price*qty;
       }
 
-      for(let i=0;i<length2;i++){
-          let price=$(".prodprice"+i).text();
-          price=price.replace(",","");
-          let qty=$(".prod"+i).val();
-          sumprice+=price*qty;
-      }
        sumprice = sumprice.toLocaleString();
       $(".totalPrice").text(sumprice);
   }
@@ -72,8 +66,8 @@ function calc(){
     let checkboxSize=$(".Home_cart_check").length;
     let checkCart="";
     for(let i=0;i<checkboxSize;i++){
-        if($("#ck"+i).is(":checked")==true){
-            checkCart+=$("#ck"+i).val()+"#";
+        if($("#oneck"+i).is(":checked")==true){
+            checkCart+=$("#oneck"+i).val()+"#";
             arr.push();
         }
 
@@ -112,13 +106,35 @@ function calc(){
 
         let params=[];
         for(let i=0;i<checkboxSize;i++){
-            if($("#ck"+i).is(":checked")==true){
-                console.log($("#ck"+i).val());
-                params.push($("#ck"+i).val());
+            if($("#oneck"+i).is(":checked")==true){
+                console.log($("#oneck"+i).val());
+                params.push($("#oneck"+i).val());
             }
 
         }
 
         console.log(params);
 
+        if(params.length==0){
+            alert("장바구니에서 삭제하실 상품을 선택해주세요.");
+        }else {
+
+            $.ajax({
+                type: "POST"
+                , url: "/cart/delete"
+                , traditional: true
+                , data: {"cl_nos": params}
+                , async: false
+                , success: function (data) {
+                    console.log(data);
+
+                    if(data=="OK"){
+                        window.location.reload();
+                    }
+                }
+            })
+
+
+
+        }
   }

@@ -19,7 +19,6 @@ import java.util.*;
 
 
 @Controller
-@RequestMapping("")
 @Slf4j
 public class CartCont {
 
@@ -107,15 +106,22 @@ public class CartCont {
 
     }
 
-    @RequestMapping(value="/cart/delete/{cl_no}")
-    public String delete(HttpSession session, @PathVariable int cl_no, HttpServletRequest req){
+    @PostMapping(value="/cart/delete")
+    @ResponseBody
+    public String delete(@SessionAttribute(name = "s_id",required = false) String userId
+                        ,@RequestParam( "cl_nos") String[] params, HttpServletRequest req){
 
+        List<String> list = Arrays.stream(params).toList();
+        log.info("list={}",list);
         HashMap<String, Object> map=new HashMap<>();
-        map.put("cl_no", cl_no);
+        map.put("cl_nos", list);
         map.put("user_id", "user-3");
-        cartDAO.cartDelete(map);
+        int i = cartDAO.cartDelete(map);
+        if(i==0){
+            return "NOK";
+        }
 
-        return "redirect:/cart/list";
+        return "OK";
     }
 
 
