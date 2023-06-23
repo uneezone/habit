@@ -88,8 +88,8 @@ function calc(){
       let checkboxSize=$(".Home_cart_check").length;
       let checkCart="";
       for(let i=0;i<checkboxSize;i++){
-              if($("#ck"+i).is(":checked")==true){
-                  checkCart+=$("#ck"+i).val()+"-";
+              if($("#oneck"+i).is(":checked")==true){
+                  checkCart+=$("#oneck"+i).val()+"-";
               }
 
               console.log(checkCart);
@@ -98,6 +98,7 @@ function calc(){
               }
 
               if(checkCart!=""){
+
                    if(confirm("주문할까요?")){
                           location.href='/cart/order/payPage?cartno='+checkCart;
                     }

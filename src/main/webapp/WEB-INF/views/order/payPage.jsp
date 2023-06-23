@@ -14,13 +14,15 @@
 
 
     <!-- 본문 시작 -->
-    <div class="Home">
 
+    <div class="Home">
+    <form action="/order/payDone">
       <section class="Home_form">
-      <form action="/order/payDone">
+
         <div id="pagetitle_pay">결제하기</div>
 
         <p class="paypage_title">해빗정보</p>
+
          <c:forEach var="item" items="${cartDTOS}" varStatus='status'>
             <section id="fripinfo">
                 <div id="frip_img">
@@ -30,7 +32,7 @@
                 <div class="title_div">
                   <div>
                     <p style="margin-bottom:4px;">${item.cont_name}</p>
-                    <span style="margin-bottom:4px; display:inline-block">별점 : 4.9 (후기 106개)</span>
+                    <span style="margin-bottom:4px; display:inline-block"></span>
                   </div>
                   <div>
                      <div style="margin-bottom:4px;">옵션정보</div>
@@ -40,8 +42,8 @@
                 </div>
             </section>
             <hr />
+        </c:forEach>
 
-         </c:forEach>
     <div>
 
         <hr style="border-width: 4px" />
@@ -49,7 +51,7 @@
         <section>
           <p class="paypage_title">결제수단</p>
           <div class="select_payment">
-            <input type="radio" id="by_card" name="payby" checked /><label
+            <input type="radio" id="by_card" name="payby" value="c" checked /><label
               for="by_card"
               style="font-size: 15px;" >신용/체크카드</label
             >
@@ -71,7 +73,7 @@
               <input type="button" value="전액사용" id="E_btn" onclick="useAll()"/>
           </div>
 
-          <p style="padding-left: 20px;">참고 : 에너지는 최대 5000E까지만 사용가능합니다.</p>
+          <p style="padding-left: 20px;">참고 : 에너지는 한 번에 최대 5000E까지만 사용가능합니다.</p>
 
 
         </section>
@@ -164,6 +166,7 @@
         </section>
       </form>
     </section>
+    </form>
     </div>
 
     <!-- 본문 끝-->

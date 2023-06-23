@@ -48,7 +48,8 @@ public class CartCont {
         //System.out.println(cartDAO.oneday_list("user-3"));
         List<CartDTO> list1 = cartDAO.oneday_list(user_id);
         List<CartDTO> list2 = cartDAO.prod_list(user_id);
-
+        System.out.println("list2 = " + list2);
+        System.out.println("list1 = " + list1);
         List<CartDTO> list = new ArrayList<>();
         list.addAll(list1);
         list.addAll(list2);
@@ -105,11 +106,6 @@ public class CartCont {
         return mav;
 
     }
-
-
-
-
-
 
     @RequestMapping(value="/cart/delete/{cl_no}")
     public String delete(HttpSession session, @PathVariable int cl_no, HttpServletRequest req){

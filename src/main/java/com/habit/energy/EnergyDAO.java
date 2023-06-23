@@ -15,9 +15,20 @@ public class EnergyDAO {
     SqlSession sqlSession;
 
 
+    // 현재 가지고 있는 에너지 포인트 값 가져오기
     public int getSavedEnergy(String user_id) {
         int energy=sqlSession.selectOne("energy.getSavedEnergyPoint", user_id);
         return energy;
     }
+
+
+    // 누적 금액 구하기
+    public int getAccumulatedPurchasePrice(String user_id){
+        int accumulatedPurchasePrice=sqlSession.selectOne("energy.getAccumulatedPurchasePrice", user_id);
+        return accumulatedPurchasePrice;
+    }
+
+
+
 
 }
