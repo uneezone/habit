@@ -1,5 +1,6 @@
 package com.habit.cart;
 
+import com.habit.energy.EnergyDAO;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class CartCont {
     @Autowired
     CartDAO cartDAO;
 
+    @Autowired
+    EnergyDAO energyDAO;
+
     @RequestMapping(value="/cart/insert", method = RequestMethod.POST, consumes = "application/json")
     public String cartInsert(@RequestBody CartDTO cartDTO, HttpSession session){
         cartDTO.setUser_id("user-3");
@@ -52,13 +56,12 @@ public class CartCont {
         //log.info("CartDTOList={}",list);
 
 
-
         ModelAndView mav=new ModelAndView();
         mav.setViewName("order/cart");
         //mav.addObject("list1", cartDAO.oneday_list(user_id));
         //mav.addObject("list2", cartDAO.prod_list(user_id));
         mav.addObject("list", list);
-
+        //mav.addObject("totPrice", totPrice);
         return mav;
 
     }
@@ -73,7 +76,7 @@ public class CartCont {
             //System.out.println("cartno = " + cartno);
             carts.add(Integer.valueOf(cartno));
         }
-        //req.setAttribute("carts", carts);
+        req.setAttribute("carts", carts);
         //System.out.println(carts);
 
         String user_id="user-3";
@@ -84,11 +87,21 @@ public class CartCont {
         List<CartDTO> cartDTOS=cartDAO.selectedItemsInfo(map);
         System.out.println(cartDTOS);
         //log.info("carts={}",carts);
+        int sum=0;
+        for (CartDTO cartDTO : cartDTOS) {
+            sum+=cartDTO.getPrice()*cartDTO.getCl_qty();
+        }
+
+
+        int energy=energyDAO.getSavedEnergy(user_id);
+
 
         ModelAndView mav=new ModelAndView();
 
         mav.setViewName("order/payPage");
         mav.addObject("cartDTOS", cartDTOS);
+        mav.addObject("totPrice", sum);
+        mav.addObject("energy", energy);
         return mav;
 
     }

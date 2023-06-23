@@ -36,9 +36,6 @@ public class CartDAO {
     }
 
 
-
-
-
     public int cartDelete(HashMap<String, Object> map) {
         return sqlSession.delete("cart.delete", map);
     }

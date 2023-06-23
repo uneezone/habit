@@ -63,15 +63,15 @@
         <section>
           <p class="paypage_title">에너지</p>
           <div style="padding-left: 20px; margin-bottom:3px">
-            <span>남은 에너지 : </span>
+            <span>내 에너지 : ${requestScope.energy}</span>
             <span></span>
           </div>
           <div style="padding-left: 20px;">
-              <input type="text" placeholder="  사용할 에너지를 입력하세요" class="pay_energy" />
-              <input type="button" value="전액사용" id="E_btn" />
+              <input type="number" placeholder="  사용할 에너지를 입력하세요" class="pay_energy" min="0" max="5000" id="useEnergy"/>
+              <input type="button" value="전액사용" id="E_btn" onclick="useAll()"/>
           </div>
 
-          <p style="padding-left: 20px;">참고 : 에너지는 100E부터 사용가능합니다.</p>
+          <p style="padding-left: 20px;">참고 : 에너지는 최대 5000E까지만 사용가능합니다.</p>
 
 
         </section>
@@ -84,7 +84,7 @@
         <section style="display: inline-block">
 
           <span class="paypage_title">총 결제금액</span>
-          <input type="text" name="tot_price" id="tot_price" value="30,000"  readonly/>
+          <input type="text" name="tot_price" id="tot_price" value="${totPrice}"  readonly/>
           <hr />
           <br />
           <div style="display: inline-block">
@@ -97,13 +97,13 @@
         </section>
         <hr style="border-width: 4px" />
        <section>
-          <p class="paypage_title">이번 프립은 누구와 하시나요?</p>
+          <p class="paypage_title">이번 해빗은 누구와 하시나요?</p>
 
           <p class="recommend_ment">
 
           <p style="padding: 10px">
 
-            다음번 크루님이 좋아할만한 프립을 추천해드릴게요.
+            다음번 크루님이 좋아할만한 해빗을 추천해드릴게요.
           </p>
           <div id="with_somebody">
             <label class="box-radio-input">

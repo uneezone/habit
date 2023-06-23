@@ -13,4 +13,11 @@ public class EnergyDAO {
 
     @Autowired
     SqlSession sqlSession;
+
+
+    public int getSavedEnergy(String user_id) {
+        int energy=sqlSession.selectOne("energy.getSavedEnergyPoint", user_id);
+        return energy;
+    }
+
 }

@@ -27,7 +27,7 @@
             <td class="img_td">
                 <div>
                     <img src="/img/${item.cont_img}" class="item_img" /><br>
-                    <span id="totPrice_val">상품 합계 금액 : ${item.price}*value</span>
+
                </div>
             </td>
             <td>
@@ -57,7 +57,7 @@
 
         <div class="Home_show_result">
           <hr />
-          <p style="font-size: larger; font-weight: bold; display:inline-block">합계금액 : </p>
+          <p style="font-size: larger; font-weight: bold; display:inline-block">합계금액 : ${requestScope.totPrice}</p>
           <hr />
 
 
