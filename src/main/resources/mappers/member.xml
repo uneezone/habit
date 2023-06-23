@@ -10,15 +10,15 @@
     </insert>
 
     <!--아이디 중복확인-->
-    <select id="idCheck">
-        SELECT count(user_id)
-        from user
-        where user_id=#{user_id}
+    <select id="idCheck" parameterType="String" resultType="int">
+        SELECT COUNT(user_id)
+        FROM user
+        WHERE user_id= #{user_id}
     </select>
 
     <!-- 로그인 -->
     <select id="Login" parameterType="com.habit.member.MemberDTO" resultType="com.habit.member.MemberDTO">
-        Select user_id, user_pw
+        Select user_id, user_pw, user_name
         from user
         where user_id=#{user_id} and user_pw=#{user_pw}
     </select>
@@ -30,4 +30,10 @@
         where user_email=#{user_email}
     </select>
 
+    <!-- 비밀번호 찾기 -->
+    <select id="findPw">
+        select user_id, user_email
+        from user
+        where user_id=#{user_id}
+    </select>
 </mapper>

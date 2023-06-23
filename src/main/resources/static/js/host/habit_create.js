@@ -25,11 +25,50 @@ const contEndateOptionCheck2 = (e) => {
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    // 대표이미지 default
+    let preview_img_container = $('#preview_img_container')
+    for (let i = 1; i <= 3; i++) {
+        str = "                <div>\n" +
+            "                  <img src='/img/No_image_available.png' class='preview_img' id='preview_cont_img" + i + "' alt='이미지 없음' width='200px' height='200px'>\n" +
+            "                </div>"
+        preview_img_container.append(str)
+    }
+
+    // 대표 이미지 체크 (onChange)
+    contImgCheck = (imgs) => {
+        let cont_img_small = $('#cont_img_small')
+        if(imgs.files.length>3) { // 파일을 4개 이상 첨부한 경우
+            for (let i = 0; i < 3; i++) {
+                preview_img_container.children('#preview_cont_img' + i).attr('src', '/img/No_image_available.png')
+            }
+            cont_img_small.removeAttr('hidden')
+            return
+        } else {
+            cont_img_small.attr('hidden', true)
+            preview_img_container.children().remove()
+            for (let i = 1; i <= 3; i++) {
+                if (imgs.files[i-1] !== undefined) {
+                    let tmpPath = URL.createObjectURL(imgs.files[i-1])
+                    str1 =
+                        "                <div>\n" +
+                        "                  <img src=' "+ tmpPath +" ' class='preview_img' id='preview_cont_img" + i + "' alt='이미지 없음' width='200px' height='200px' style='border-radius: 15px'>\n" +
+                        "                </div>"
+                    preview_img_container.append(str1)
+                } else if (imgs.files[i-1] === undefined) {
+                    str2 =
+                        "                <div>\n" +
+                        "                  <img src='/img/No_image_available.png' class='preview_img' id='preview_cont_img" + i + "' alt='이미지 없음' width='200px' height='200px'>\n" +
+                        "                </div>"
+                    preview_img_container.append(str2)
+                }
+            }
+        }
+    }
+
     // 판매종료일 : 지정한 날짜까지 판매일 최대 날짜 현재일로 부터 한달 지정
     let now = new Date()
     let maxDate = new Date(now.setMonth(now.getMonth() + 1)).toISOString().split("T")[0]
     let minDate = new Date(new Date().setDate(new Date().getDate()+7)).toISOString().split("T")[0]
-    console.log(minDate)
     document.getElementById('endate_option2').setAttribute('max', maxDate)
     document.getElementById('endate_option2').setAttribute('min', minDate)
 
@@ -119,22 +158,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 옵션 목록 이벤트 : 원데이 클래스
     let row_one = "<tr>\n" +
-        "                      <td><input class=\"form-check-input\" type=\"checkbox\" name=\"cont_option_one\" id=\"\"></td>\n" +
+        "                      <td><input class='form-check-input' type='checkbox' name='cont_option_one' id=''></td>\n" +
         "                      <td>\n" +
         "                        <div>\n" +
-        "                          <input class=\"form-control\" name=\"one_date\" type=\"datetime-local\">\n" +
+        "                          <input class='form-control' name='one_date' max=" + maxDate + " min=" + minDate + " type='datetime-local'>\n" +
         "                        </div>\n" +
         "                      </td>\n" +
         "                      <td>\n" +
         "                        <div>\n" +
-        "                          <input type=\"number\" name='one_maxqty' min='0' class=\"form-control\">\n" +
+        "                          <input type='number' name='one_maxqty' min='0' class='form-control'>\n" +
         "                        </div>\n" +
         "                      </td>\n" +
         "                      <td>\n" +
-        "                        <div class=\"input-group mb-2\">\n" +
-        "                          <span class=\"input-group-text\">판매가</span>\n" +
-        "                          <input type=\"number\" class=\"form-control\" name='one_price' min='0' aria-label=\"Amount (to the nearest dollar)\">\n" +
-        "                          <span class=\"input-group-text\">원</span>\n" +
+        "                        <div class='input-group mb-2'>\n" +
+        "                          <span class='input-group-text'>판매가</span>\n" +
+        "                          <input type='number' class='form-control' name='one_price' min='0' aria-label='Amount (to the nearest dollar)'>\n" +
+        "                          <span class='input-group-text'>원</span>\n" +
         "                        </div>\n" +
         "                      </td>\n" +
         "                    </tr>"
@@ -160,31 +199,37 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 
-// 대표 이미지 체크 (onChange)
-function contImgCheck(imgs) {
-    let cont_img_small = document.getElementById('cont_img_small')
-    if(imgs.files.length>3) { // 파일을 4개 이상 첨부한 경우
-        for (let i = 0; i < 3; i++) {
-            $('#preview_cont_img' + i).attr('src', '/img/no-image01.gif')
-        }
-        cont_img_small.removeAttribute('hidden')
-        imgs.outerHTML = imgs.outerHTML; // 선택된 input:type=file 초기화
-        return
-    } else {
-        cont_img_small.setAttribute('hidden', true)
-        for(let i=0; i<imgs.files.length; i++) {
-            if(imgs.files && imgs.files[i]) {
-                const reader = new FileReader()
-                reader.onload = function (e) {
-                    document.getElementById('preview_cont_img' + (i+1)).src = e.target.result
-                }
-                reader.readAsDataURL(imgs.files[i])
-            } else {
-                document.getElementById('preview_cont_img' + (i+1)).src = ""
-            }
-        }
-    }
-}
+// // 대표 이미지 체크 (onChange)
+// function contImgCheck(imgs) {
+//     let preview_img_container = $('#preview_img_container')
+//     let cont_img_small = $('#cont_img_small')
+//     if(imgs.files.length>3) { // 파일을 4개 이상 첨부한 경우
+//         for (let i = 0; i < 3; i++) {
+//             preview_img_container.children('#preview_cont_img' + i).attr('src', '/img/No_image_available.png')
+//         }
+//         cont_img_small.removeAttr('hidden')
+//         return
+//     } else {
+//         cont_img_small.attr('hidden', true)
+//         preview_img_container.children().remove()
+//         for (let i = 1; i <= 3; i++) {
+//             if (imgs.files[i-1] !== undefined) {
+//                 let tmpPath = URL.createObjectURL(imgs.files[i-1])
+//                 str1 =
+//     "                <div>\n" +
+//     "                  <img src=' "+ tmpPath +" ' class='preview_img' id='preview_cont_img" + i + "' alt='이미지 없음' width='200px' height='200px' style='border-radius: 15px'>\n" +
+//     "                </div>"
+//                 preview_img_container.append(str1)
+//             } else if (imgs.files[i-1] === undefined) {
+//                 str2 =
+//     "                <div>\n" +
+//     "                  <img src='/img/No_image_available.png' class='preview_img' id='preview_cont_img" + i + "' alt='이미지 없음' width='200px' height='200px'>\n" +
+//     "                </div>"
+//                 preview_img_container.append(str2)
+//             }
+//         }
+//     }
+// }
 
 
 /* 썸머 노트 config */
@@ -218,6 +263,7 @@ $(document).ready(()=>{
             }
         }
     })
+
     //글자수 체크
     //태그와 줄바꿈, 공백을 제거하고 텍스트 글자수만 가져옵니다.
     function setContentsLength(str, index) {
@@ -310,8 +356,19 @@ const habitCreateCheck = () => {
         return false
     }
 
+    // 판매 종료일 확인
+    let cont_endate_type = $('input:radio[name="cont_endate_type"]:checked')
+    if (cont_endate_type.attr('id') === 'cont_endate_option2') {
+        let endate_option2 = $('#endate_option2')
+        if (endate_option2.val().length < 1) {
+            alert("판매종료일을 설정해주세요.")
+            endate_option2.focus()
+            return false
+        }
+    }
+
     // 옵션 목록 입력
-    let pro = $('input[name="cont_type"]:checked')
+    let pro = $('input[name="cont_type"]:checked');
     if(pro.attr('id') === 'prod') { // 선택된 옵션이 날짜 조율형 일때
         let prod_names = $('input[name="prod_name"]')
         let count_prod_name = 0
@@ -341,13 +398,21 @@ const habitCreateCheck = () => {
         // 옵션 가격
         let prod_prices = $('input[name="prod_price"]')
         let count_prod_price = 0
+        let value_prod_price = 0
         for (let prod_price of prod_prices) {
             if(prod_price.value.length <1 ) {
                 count_prod_price++
             }
+            if (prod_price.value < 5000) {
+                value_prod_price++
+            }
         }
-        if(count_prod_price>0) {
+        if(count_prod_price > 0) {
             alert('옵션의 금액을 입력해주세요')
+            return false
+        }
+        if (value_prod_price > 0) {
+            alert('옵션의 최소가격은 5000원 입니다')
             return false
         }
 
@@ -360,7 +425,7 @@ const habitCreateCheck = () => {
             }
         }
         if(count_one_date>0) {
-            alert('옵션명을 입력해주세요')
+            alert('옵션의 실행일자를 설정해주세요')
             return false
         }
 
@@ -373,20 +438,30 @@ const habitCreateCheck = () => {
             }
         }
         if(count_one_maxqty>0) {
-            alert('옵션명을 입력해주세요')
+            alert('옵션의 최대 모집인원을 설정해주세요')
             return false
         }
 
         // 옵션 가격
         let one_prices = $('input[name="one_price"]')
         let count_one_price = 0
+        let value_one_price = 0
         for (let one_price of one_prices) {
+
             if(one_price.value.length <1 ) {
                 count_one_price++
             }
+            if (one_price.value < 5000) {
+                value_one_price++
+            }
         }
         if(count_one_price>0) {
-            alert('옵션명을 입력해주세요')
+            alert('옵션의 금액을 입력해주세요')
+            return false
+        }
+        if (value_one_price > 0) {
+            alert('옵션의 최소가격은 5000원 입니다')
+            alert('옵션의 최소가격은 5000원 입니다')
             return false
         }
     }
@@ -402,10 +477,11 @@ const habitCreateCheck = () => {
     let hashtag2 = $('input:checkbox[name="cont_hashtag2"]:checked')
     let hashtag4 = $('input:checkbox[name="cont_hashtag4"]:checked')
 
-    // let summernote = $('#summernote')
-    // if(summernote.value.length<10) {
-    //     alert('해빗 상세 설명을 10자 이상 입력해주세요.')
-    // }
+    let summernote = $('#summernote')
+    if(summernote.val().length<10) {
+        alert('해빗 상세 설명을 10자 이상 입력해주세요.')
+        return false
+    }
 
     if (hashtag2.length === 0 || hashtag4.length === 0) {
         alert("해시태그를 문항당 한개 이상 체크해주세요.")
@@ -414,5 +490,8 @@ const habitCreateCheck = () => {
 
     if (confirm('해빗을 등록하시겠습니까?')) {
         return true
+    } else {
+        return false
     }
 }
+

@@ -230,9 +230,12 @@ a:hover{
 .Home_form input::placeholder {
     color: #a8a8a8;
     font-size: 14px;
-    
   }
 
+#error1{
+    color: red;
+    font-style: Italic;
+}
 .Home_form_input{
     margin: 5px auto;
     display: inline-block;

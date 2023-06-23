@@ -6,57 +6,43 @@
 
 <mapper namespace="zzim">
 
-
-<!--    <select id="zzimlist_one" parameterType="String" resultType="java.util.Map">-->
-
-<!--        select * from (-->
-
-<!--        select zzim.zzim_no as zzim_no, zzim.user_id as user_id, zzim.cont_no as cont_no, A.cont_name as cont_name, A.cont_addr1 as cont_addr1, A.cont_img as cont_img, A.one_date as one_date, A.one_price as price from zzim-->
-<!--        inner join (-->
-<!--        select cont.cont_no as cont_no, cont_name, cont_addr1, cont_img, one_date, one_price from cont inner join one-->
-<!--        on cont.cont_no=one.cont_no-->
-<!--        ) A-->
-<!--        on zzim.cont_no=A.cont_no where user_id=#{user_id}-->
-
-
-
-<!--        ) AA-->
-<!--        inner join review-->
-<!--        on AA.cont_no=review.cont_no where AA.user_id=#{user_id} group by AA.cont_no;-->
-
-<!--        select * from (select avg(review_star),cont_no, count(*) as cnt from review group by cont_no) AA-->
-<!--                          inner join (select zzim.zzim_no as zzim_no, zzim.user_id as user_id, zzim.cont_no as cont_no, A.cont_name as cont_name, A.cont_addr1 as cont_addr1, A.cont_img as cont_img, A.one_date as one_date, A.one_price as price from zzim-->
-<!--                                                                                                                                                                                                                                                            inner join (-->
-<!--            select cont.cont_no as cont_no, cont_name, cont_addr1, cont_img, one_date, one_price from cont-->
-<!--                                                                                                          inner join one-->
-<!--                                                                                                                     on cont.cont_no=one.cont_no-->
-<!--        ) A-->
-<!--                                                                                                                                                                                                                                                                       on zzim.cont_no=A.cont_no where user_id=#{user_id}) BB-->
-<!--                                     on AA.cont_no=BB.cont_no where user_id=#{user_id}-->
-
-
-<!--    </select>-->
-
-    <select id="zzimlist_two" parameterType="String" resultType="java.util.Map">
-        select * from (select zzim.user_id, zzim.cont_no, cont.cont_name, cont_addr1, cont_img
-        from zzim
-        inner join cont
-        on zzim.cont_no=cont.cont_no where zzim.cont_no in (select prod.cont_no from prod)) AAAA
-        left outer join (select review.cont_no, avg(review_star) as avg, count(*) as cnt from review where cont_no in (select cont_no from prod)) BBBB on AAAA.cont_no=BBBB.cont_no where user_id=#{user_id}
+    <select id="getContNoForZzim" parameterType="String" resultType="Integer">
+        select cont_no from zzim where user_id=#{user_id}
     </select>
 
+    <select id="getZzimList" resultType="com.habit.zzim.DTO.ZzimDTO">
+        select c.cont_name,c.cont_no,cont_img,cont_addr1,AA.price as price
+             ,IFNULL(avg(r.review_star),0) as review_avg,count(r.review_no) as review_count
+        from cont c inner join
 
-    <select id="min_price" parameterType="String" resultType="java.util.Map">
-        select min_price,zzim.cont_no
-        from (select min(prod_price) as min_price, cont_no from prod group by cont_no) AA
-        inner join zzim
-        on AA.cont_no=zzim.cont_no
-        where user_id=#{user_id}
+             (select cont_no, min(prod_price) as price
+              from prod group by cont_no
+              union
+              select cont_no, min(one_price) as price
+              from one group by cont_no )
+
+        AA on c.cont_no=AA.cont_no left outer join review r on c.cont_no = r.cont_no and review_status!="N"
+        where c.cont_no in
+        <foreach item="item" index="index" collection="list"
+                 open="(" separator="," close=")" nullable="true">
+            #{item}
+        </foreach>
+
+        group by c.cont_no;
     </select>
+
 
     <insert id="zziminsert" parameterType="java.util.Map">
         insert into zzim (user_id, cont_no) values (#{user_id},#{cont_no});
     </insert>
+
+    <delete id="zzimDel" parameterType="java.util.Map">
+        delete from zzim where user_id=#{user_id} and cont_no=#{cont_no}
+    </delete>
+
+    <select id="zzimGet" parameterType="String" resultType="Integer">
+        select cont_no from zzim where user_id=#{user_id}
+    </select>
 
 
 </mapper>

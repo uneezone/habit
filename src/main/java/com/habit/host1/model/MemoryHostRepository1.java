@@ -34,7 +34,7 @@ public class MemoryHostRepository1 implements HostRepository1{
 
     // 콘텐츠 테이블 insert
     @Override
-    public int insertCont(RequestContentInsertDTO rciDTO) {
+    public int insertCont(ContentAndOptionDTO rciDTO) {
         return sqlSession.insert("host1.insertCont", rciDTO);
     }
 
@@ -84,6 +84,12 @@ public class MemoryHostRepository1 implements HostRepository1{
     @Override
     public int contentListCount(RequestContentListDTO reqContListDTO) {
         return sqlSession.selectOne("host1.contentListCount", reqContListDTO);
+    }
+
+    //habit 삭제
+    @Override
+    public int deleteContent(int cont_no) {
+        return sqlSession.delete("host1.deleteContent", cont_no);
     }
 
     // 원데이 클래스 예약건 List 조회
