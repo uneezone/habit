@@ -48,4 +48,10 @@ public class ZzimService {
 
         return "OK";
     }
+
+    public List<Integer> zzimGet(String user_id){
+        List<Integer> cont_nos = zzimDAO.zzimGet(user_id);
+
+        return cont_nos;
+    }
 }

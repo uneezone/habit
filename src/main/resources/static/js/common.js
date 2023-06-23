@@ -53,6 +53,7 @@ function common(){
           // alert("ddd");
             this.children[0].src="/img/redheart2.png";
             let id = this.children[0].id;
+            console.log(id);
             id=id.substring(7,id.length);
 
             //$.ajax 써야 함. async:true 잊지 않고 추가하기
@@ -70,6 +71,7 @@ function common(){
             //alert("ddssd");
             this.children[0].src="/img/black2.png";
             let id = this.children[0].id;
+
             id=id.substring(7,id.length);
 
             //$.ajax 써야 함. async:true 잊지 않고 추가하기
@@ -79,8 +81,8 @@ function common(){
                 ,data:{"cont_no":id}
                 ,async:false
                 ,success:function(data){
-                    console.log(data);
-                    window.location.reload();
+                    //console.log(data);
+                    //window.location.reload();
                 }
             });
         }

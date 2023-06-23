@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../header.jsp"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -30,12 +31,6 @@
                     console.log(value);
                 }
 
-
-
-
-
-
-
         </script>
 
       <form class="Home_form" action="payPage.html" onsubmit="return checkCart()">
@@ -45,22 +40,25 @@
         </div>
 
           <c:forEach var="item" items="${list1}" varStatus="one_status">
-          <table class="cartlist">
+          <table class="cartlist1">
           <tr>
-            <td class="img_td">
+            <td class="img_td" >
               <img src="/img/${item.cont_img}" class="item_img" />
             </td>
-            <td>
+            <td class="pro_info">
               <div class="show_pro_info">
                 <p >
                   ${item.cont_name}
                 </p>
-                <p >가격 : ${item.one_price}</p>
+                <p >
+                  <fmt:formatNumber var="price_one" value="${item.one_price}" pattern="#,###"></fmt:formatNumber>
+                  가격 : <span class="oneprice${one_status.index}">${price_one}</span>
+                </p>
               </div>
             </td>
             <td>
               <div class="Home_show_qty">
-                <div id="result">${item.cl_qty}</div>
+                <input type="text" class="one${one_status.index} input_result" value="${item.cl_qty}"  readonly>
                 <input type="button"   value="-" class="Home_qty_btn_min btn_min" />
                 <input type="button"  value="+" class="Home_qty_btn_plus btn_plus"/>
               </div>
@@ -76,24 +74,27 @@
 
 
           <c:forEach var="item" items="${list2}" varStatus="prod_status">
-          <table class="cartlist">
-          <tr>
-            <td class="img_td">
+          <table class="cartlist2">
+          <tr >
+            <td class="img_td" >
               <img src="/img/${item.cont_img}" class="item_img" />
             </td>
-            <td>
+            <td class="pro_info" >
               <div class="show_pro_info">
                 <p >
                     ${item.cont_name}
                 </p>
-                <p >가격 : ${item.prod_price}</p>
+                <p >
+                  <fmt:formatNumber var="price_prod" value="${item.prod_price}" pattern="#,###"></fmt:formatNumber>
+                  가격 : <span class="prodprice${prod_status.index}">${price_prod}</span>
+                </p>
               </div>
             </td>
             <td>
               <div class="Home_show_qty">
-                <div id="result">${item.cl_qty}</div>
-                <input type="button"   value="-" class="Home_qty_btn_min btn_min"/>
-                <input type="button"  value="+" class="Home_qty_btn_plus btn_plus"/>
+                <input type="text" id="result"  class="prod${prod_status.index} input_result" value="${item.cl_qty}" readonly>
+                <input type="button"   value="-" class="Home_qty_btn_min btn_min"   />
+                <input type="button"  value="+" class="Home_qty_btn_plus btn_plus" />
               </div>
               <div class="Home_show_checkBox">
                 <input type="checkbox" id="prodck${prod_status.index}" class="Home_cart_check">
@@ -107,10 +108,12 @@
 
         <div class="Home_show_result">
           <hr />
-          <p style="font-size: larger; font-weight: bold; display:inline-block">합계금액 :  </p>
+          <p style="font-size: larger; font-weight: bold; display:inline-block;padding-left: 20px;">합계금액 :
+            <span class="totalPrice" style="padding-left: 20px;"></span> 원</p>
           <hr />
-          <input type="button" value="결제하러가기" onclick="location.href='/order/pay'"/>
+          <input type="button" value="결제하러가기" onclick="location.href='/order/pay'" class="order_btn"/>
         </div>
+
 
       </form>
     </div>

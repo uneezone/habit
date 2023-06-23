@@ -4,16 +4,17 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<link rel="stylesheet" href="/css/detailpage.css?after" />
+<link rel="stylesheet" href="/css/feed.css" />
+<link rel="stylesheet" href="/css/detailpage.css" />
 <script src="/js/jquery.cookie.js"></script>
 <script src="/js/detailpage.js"></script>
-<script src="/js/common.js"></script>
+
 
 <!-- 본문 시작 -->
 
 <div class="PageWrapper">
-    <div style="margin-top: 30px; display: flex;">
-        <img style="width: 300px; border-radius: 3px;" src="/img/thumnail.png">
+    <div style="margin-top: 30px; margin-bottom: 18px; display: flex;">
+        <img style="width: 300px; border-radius: 3px;" src="/storage/${detail.cont_img}" onerror="this.src='/storage/ang.png'">
         <div style="margin-left: 20px; width: 280px;">
             <div style="height: 255px;">
                 <div class="BasicInfoSection">
@@ -27,7 +28,7 @@
                     </div>
                 </div>
                 <div style="display: flex; align-items: flex-end; margin-top: 20px;">
-                    <div style="font-weight: bold; font-size: 20px; margin-right: 4px">
+                    <div style="font-weight: bold; font-size: 30px; margin-right: auto; margin-left: 5px">
                         <fmt:formatNumber value="${price.money}" pattern="#,##0" />원
                     </div>
                 </div>
@@ -35,23 +36,25 @@
             <hr>
             <div style="display: flex; align-items: center;">
                 <div style="display: flex; align-items: center;">
-                    <img src="/img/ME.png"
-                         style="border-radius: 40px; width: 40px; height: 40px; background-color: rgb(0, 0, 0);"></img>
+                    <img src="/storage/${hostprofile.host_img}" alt="" onerror="this.src='/storage/ME.png'"
+                         style="border-radius: 40px; width: 40px; height: 40px; background-color: rgb(0, 0, 0);"/>
                     <div>
                         <div style="margin-left: 20px; display: flex; flex-direction: column">
-                            <div>${hostprofile.host_name} </div>
-                            <div>프립1 | 후기233 | 찜302 </div>
+                            <div style="font-weight: bold; font-size: 20px;" >${hostprofile.host_name} </div>
+                            <div class="hostcls">해빗 ${hostcontcnt.cont_cnt} | 후기 ${hostreviewcnt.review_cnt} | 찜 ${hostzzimcnt.zzim_cnt} </div>
                         </div>
                     </div>
                 </div>
                 <div style="margin-left: 35px;">
-                    <img style="width: 20px;" src="/img/heart.png">
+                    <img style="width: 20px;" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 16 16'%3E %3Cpath stroke='%23333' stroke-linecap='round' stroke-width='1.5' d='M6 3l5 5-5 5'/%3E %3C/svg%3E">
                 </div>
             </div>
         </div>
     </div>
-    <hr>
+
     <div class="ReviewSummary">
+        <div class="ReviewSummary_info">
+            <div class="Readonly_star">
         <c:set var="starItem" value="${star}" />
         <c:set var="avgStarRating" value="${starItem['avg_star']}" />
         <c:choose>
@@ -65,48 +68,46 @@
         <c:forEach begin="1" end="${roundedStarRating > 5 ? 5 : roundedStarRating}" varStatus="starStatus">
             <img src="/img/star.png" alt="" style="" class="detailstar">
         </c:forEach>
-        <span style="font-weight: bold; padding:5px;">
-            <fmt:formatNumber value="${avgStarRating != null ? avgStarRating : 0}" pattern="#,##0.0" minFractionDigits="2" />
-        </span>
-        <span style="font-weight: bold;">${starItem['cnt']}개 후기</span>
-        <div class="ReviewContent">
-            <span>경험한 크루의 100%가 5점을 줬어요!</span>
         </div>
+        <strong class="ReviewSummary_Aver">
+            <fmt:formatNumber value="${avgStarRating != null ? avgStarRating : 0}" pattern="#,##0.0" minFractionDigits="2" />
+        </strong>
+        <span class="ReviewSummary_Count">${starItem['cnt']}개 후기</span>
+        </div>
+            <span class="ReviewSummary_Comment">경험한 크루들은 이렇게 평가했어요!</span>
+    </div>
+
         <div class="Reviewblack">
             <div class="Reviewflex">
                 <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                <div class="Reviewgreen">
-                    <img src="/img/ang.png" alt="">
-                    <p>user</p>
-                    <span>내용</span>
-                </div>
-                <div class="Reviewgreen1">
-                    <img src="/img/ang.png" alt="">
-                    <p>user</p>
-                    <span>내용</span>
-                </div>
-                <div class="Reviewgreen2">
-                    <img src="/img/ang.png" alt="">
-                    <p>user</p>
-                    <span>내용</span>
-                </div>
-                <div class="Reviewgreen3">
-                    <img src="/img/ang.png" alt="">
-                    <p>user</p>
-                    <span>내용</span>
-                </div>
+                <c:forEach items="${contreview}" var="review" varStatus="status">
+                    <div class="Reviewgreen">
+                        <img src="/storage/${review.review_img}" alt="" onerror="this.src='/storage/defaultPro.png';"/>
+                        <div class="CoverReviewCard_User">
+                            <div class="CoverReviewCard_ProfileImg">
+                                <img src="/storage/${review.user_img}}" alt="" onerror="this.src='/storage/ME.png';"/>
+                            </div>
+                            <div class="CoverReviewCard_UserInfo">
+                                 <p>${review.user_id}</p>
+                            </div>
+                            <p class="CorverReivewCard_p"></p>
+                        </div>
+                        <span class="SpanLineClamp">${review.review_cont}</span>
+                    </div>
+                </c:forEach>
                 <a class="next" onclick="plusSlides(1)">&#10095;</a>
             </div>
             <div class="reviewplus">
-                <a href="review.html">706개 후기 더보기</a>
+                <strong><a href="/category/${cont_no}/reviews" class="review_stylelink">${contreviewcnt.Reviewcnt}개 후기 더보기</a></strong>
             </div>
-            <hr>
         </div>
 
 
         <div class="Classintroduction">
+            <section class="ProductDetailPage">
+            <article>
             <header class="Article_Header">
-            <h2>해빗 소개</h2>
+            <h2 class="Article_Header_title">해빗 소개</h2>
             </header>
             <div class="DescriptionSection_Container">
                 <div class="product-description">
@@ -116,21 +117,36 @@
             <div class="DescriptionSection">
                     <button type="button" class="Buttoninfo">
                         <span>상세정보 더보기</span>
+                        <div class="ButtonMore">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 16 16'%3E %3Cpath fill='%23333' fill-rule='evenodd' d='M3.21 5.203c.28-.27.735-.27 1.015 0L8.5 9.329l4.275-4.126c.28-.27.735-.27 1.015 0 .28.27.28.708 0 .979l-4.783 4.615c-.28.27-.734.27-1.014 0L3.21 6.182c-.28-.27-.28-.709 0-.98z' clip-rule='evenodd'/%3E %3C/svg%3E">
+                        </div>
                     </button>
             </div>
+            </article>
+            </section>
         </div>
-        <hr>
-        <div class="Classplace">
-            <h2>진행하는 장소</h2>
-            ${detail.cont_addr1} ${detail.cont_addr2}/${detail.cont_extaddr}
-        </div>
-        <hr>
-        <div class="Classsupplies">
-            <h2 style="margin-bottom: 15px;">해시 태그</h2>
+
+        <section class="ProductDetailPage">
+            <article>
+                <header class="Article_Header">
+            <h2 class="Article_Header_title">진행하는 장소</h2>
+                </header>
+                <div class="Classplace">
+                    ${detail.cont_addr1} ${detail.cont_addr2} / ${detail.cont_extaddr}
+                </div>
+            </article>
+        </section>
+
+        <section class="ProductDetailPage">
+            <article>
+                <header class="Article_Header">
+            <h2  class="Article_Header_title">해시 태그</h2>
+                </header>
+                <div class="Classsupplies">
             <span class="RoundTag">${detail.cont_hashtag1 == 'M' ? '남자' : (detail.cont_hashtag1 == 'W' ? '여자' : (detail.cont_hashtag1 == 'N' ? '성별 무관' : detail.cont_hashtag1))}</span>
             <c:set var="ages" value="${fn:split(detail.cont_hashtag2, '|')}" />
             <c:forEach items="${ages}" var="age" varStatus="status">
-                <c:if test="${status.index > 0}">-</c:if>
+                <c:if test="${status.index > 0}"></c:if>
                 <c:set var="trimmedAge" value="${fn:trim(age)}" />
                 <span class="RoundTag">${trimmedAge}대</span>
             </c:forEach>
@@ -143,34 +159,55 @@
             </c:forEach>
             <span class="RoundTag">${detail.cont_hashtag5 == 'P3' ? '3만원 미만' : (detail.cont_hashtag5 == 'P5' ? '5만원 미만' : (detail.cont_hashtag5 == 'P7' ? '7만원 미만' : (detail.cont_hashtag5 == 'PP' ? '7만원 이상' : detail.cont_hashtag5)))}</span>
         </div>
-        <hr>
+            </article>
+        </section>
 
-        <div>
-            <a href="">1:1 문의</a>
-            <hr>
-            <span>유의 사항</span>
-            <hr>
-            <span>환불 정책</span>
+    <section class="ProductDetailPage">
+        <article>
+        <div class="LinkAccordion">
+            <div class="Accordion_Container">
+                <div>유의 사항</div>
+                <div class="Accordion_Icon"><img class ="Accordion_IconArrow" src="data:image/svg+xml,%3Csvg width='7' height='12' viewBox='0 0 7 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M1 11L6 6L1 1' stroke='%23CCCCCC' stroke-linecap='round' stroke-linejoin='round'/%3E %3C/svg%3E"></div>
+            </div>
+            <div class="Accordion_Content"></div>
         </div>
-        <hr>
-        <hr>
-        <div style="display: flex;">
-            <h2>이런 프립 어때요?</h2>
-        </div>
-    </div>
-    <div class="FloatingActionBar" id="openModalButton">
+        </article>
+        <article>
+            <div class="LinkAccordion">
+                <div class="Accordion_Container">
+                    <div>환불 정책</div>
+                    <div class="Accordion_Icon"><img class ="Accordion_IconArrow" src="data:image/svg+xml,%3Csvg width='7' height='12' viewBox='0 0 7 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M1 11L6 6L1 1' stroke='%23CCCCCC' stroke-linecap='round' stroke-linejoin='round'/%3E %3C/svg%3E"></div>
+                </div>
+                <div class="Accordion_Content"></div>
+            </div>
+        </article>
+    </section>
+
+    <section class="ProductDetailPage">
+        <article>
+            <header class="Article_Header">
+                <h2 class="Article_Header_title">이런 해빗 어때요?</h2>
+            </header>
+            <div>
+
+            </div>
+        </article>
+    </section>
+</div>
+    <div class="FloatingActionBar" id="FloatingActionBar" >
         <div class="FloatingButton">
-            <button class="SaveActionButton" type="button">
-                <img src="/img/heart.png" alt="상품 찜">
-                <span class="SaveActionButton">1.4만</span>
+            <button class="SaveActionButton zzim_btn" type="button" onclick="preventA()" onsubmit="return false">
+                <img src="/img/black2.png" alt="상품 찜" >
+                <span class="SaveActionButton">${contzzim.zzim_cont_cnt}</span>
             </button>
-            <button class="ActionButton">
+            <button class="ActionButton" id="openModalButton">
                 <div class="DefaultButton">참여하기</div>
             </button>
         </div>
     </div>
 </div>
 
+<%--아이템 옵션 모달창--%>
 <div  id="productOptionsModal" class="Main_Wrapper">
     <div role="button" class="Toggle_Purch">
         <img src="data:image/svg+xml,%3Csvg width='17' height='10' viewBox='0 0 17 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M1.75 1.75L8.5 8.5L15.25 1.75' stroke='%23777777' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E %3C/svg%3E" class="Toggle_PurchIcon">
@@ -184,6 +221,7 @@
             <div class="OptionItem_Wrapper">
             <c:forEach var="option" items="${detailproduct}" varStatus="status">
                 <div class="OptionItem_Container" id="${status.index}" data-price="${option.one_price}">
+                    <input type="hidden" value="${option.pro_no}" class="Option_Head">
                     <div class="OptionItem_ContentContainer">
                         <div class="OptionItem_TitleContainer">
                             <span class="OptionItem_Title" color="#333333">${option.one_date}</span>
@@ -220,15 +258,79 @@
         </div>
         <div class="OptionBottomSheet_ProductInfo">
             <button class="SaveActionButton" type="button">
-                <img src="/img/heart.png">
-                <span class="SaveActionButton_Count">찜 총수량</span>
+                <img src="/img/black2.png">
+                <span class="SaveActionButton_Count">${contzzim.zzim_cont_cnt}</span>
             </button>
-            <button class="OptionBottomSheet_Button" >참여하기</button>
+            <button class="OptionBottomSheet_Button">참여하기</button>
         </div>
     </div>
 </div>
 
+<script>
 
+    // 여기에 세션 처리가 완성되면, 해당 로그인 상태를 확인하는 코드로 변경
+    // 예를 들면, `const isLoggedIn = sessionStorage.getItem('isLoggedIn');`
+    const user_id = "user-3";
+
+    const isLoggedIn = true;
+
+    let selectedOption = "";
+
+
+    // 상품 옵션 선택 이벤트 핸들러 추가
+    const optionItems = document.querySelectorAll('.OptionItem_Container');
+    const quantityInput = document.querySelector('.Counter_Value');
+
+    optionItems.forEach((item) => {
+        item.addEventListener('click', (e) => {
+            // 선택된 상품 옵션 및 수량 정보 저장
+            selectedOption = item.querySelector('.Option_Head').value;
+        });
+    });
+
+
+    // 참여하기 버튼 클릭시 동작
+    const confirmButton = document.querySelector('.OptionBottomSheet_Button');
+    confirmButton.addEventListener('click', checkLoginStatus);
+
+
+    //const isLoggedIn = (user_id !== null && user_id !== '');
+
+    function checkLoginStatus() {
+        if (isLoggedIn) {
+            if (selectedOption) {
+                let quantity = parseInt(quantityInput.value);
+
+                fetch('/cart/insert', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        pro_no: selectedOption,
+                        cl_qty: quantity,
+                    }),
+                })
+
+                    .then((response) => {
+                        if (response.ok) {
+                            window.location.href = '/cart/list';
+                        } else {
+                            console.error('Error:', response);
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+            }
+        } else {
+            alert('로그인 후 이용 가능합니다.');
+            window.location.href = '/login';
+        }
+    }
+
+
+</script>
 
 
 

@@ -2,6 +2,7 @@ package com.habit.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -67,32 +68,34 @@ public class MemberCont {
 
     //로그인
     @GetMapping("/login")
-    public String login() {
+    public String login(@RequestParam(value = "redirectURL",required = false) String redirectURL, Model model) {
+        model.addAttribute("redirectURL",redirectURL);
         return "member/login";
     }
     @PostMapping("/login")
-    public String login(MemberDTO dto, HttpSession session, HttpServletRequest req) {
+    public String login(MemberDTO dto, HttpSession session, HttpServletRequest req,@RequestParam(value = "redirectURL",defaultValue = "/") String redirectURL) {
         // 회원 정보 조회
         MemberDTO member = memberdao.login(dto);
 
         String user_id=req.getParameter("user_id");
         String user_pw=req.getParameter("user_pw");
 
-        dto.setUser_id(user_id);
-        dto.setUser_pw(user_pw);
+
 
 //        System.out.println(dto.getUser_id());
         //로그인 성공 여부 확인
         // 로그인 성공 여부 확인
         if(member != null) {
+            String user_name=member.getUser_name();
             // 세션에 정보를 저장
             session.setAttribute("s_id", user_id);
-            //session.setAttribute("s_pw", user_pw);
+            session.setAttribute("s_name", user_name);
 
-
-            return "redirect:/";
+            System.out.println("redirectURL="+redirectURL);
+            return "redirect:"+redirectURL;
         } else {
-            req.setAttribute("error", "로그인 실패");
+            req.setAttribute("redirectURL",redirectURL);
+            req.setAttribute("error", "아이디 또는 비밀번호를 다시 입력해주세요.");
             return "member/login";
         }
     }
