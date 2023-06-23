@@ -7,11 +7,7 @@
 <link rel="stylesheet" href="/css/cart.css" />
 <script src="/js/cart.js"></script>
 <script>
-    function order(){
-        if(confirm("주문할까요?")){
-        location.href='/order/payPage';
-        }
-    }
+
 </script>
     <!--헤더끝-->
     <!-- 본문 시작 -->
@@ -39,7 +35,7 @@
           <button type="button" id="selectedDel" class="Home_choice_btn all-delete" onclick="">선택상품 삭제</button>
         </div>
 
-          <c:forEach var="item" items="${list1}" varStatus="one_status">
+          <c:forEach var="item" items="${list}" varStatus="one_status">
           <table class="cartlist1">
           <tr>
             <td class="img_td" >
@@ -51,7 +47,7 @@
                   ${item.cont_name}
                 </p>
                 <p >
-                  <fmt:formatNumber var="price_one" value="${item.one_price}" pattern="#,###"></fmt:formatNumber>
+                  <fmt:formatNumber var="price_one" value="${item.price}" pattern="#,###"></fmt:formatNumber>
                   가격 : <span class="oneprice${one_status.index}">${price_one}</span>
                 </p>
               </div>
@@ -63,7 +59,7 @@
                 <input type="button"  value="+" class="Home_qty_btn_plus btn_plus"/>
               </div>
               <div class="Home_show_checkBox">
-                <input type="checkbox" id="oneck${one_status.index}" class="Home_cart_check">
+                <input type="checkbox" id="oneck${one_status.index}" value="${item.cl_no}" class="Home_cart_check">
               </div>
             </td>
            </tr>
@@ -111,9 +107,11 @@
           <p style="font-size: larger; font-weight: bold; display:inline-block;padding-left: 20px;">합계금액 :
             <span class="totalPrice" style="padding-left: 20px;"></span> 원</p>
           <hr />
-          <input type="button" value="결제하러가기" onclick="location.href='/order/pay'" class="order_btn"/>
-        </div>
 
+
+          <input type="button" value="결제하러가기" onclick="order()"/>
+
+        </div>
 
       </form>
     </div>

@@ -10,7 +10,7 @@ public interface HostRepository1 {
     List<Map<String, Object>> cateList();
     List<Map<String, Object>> selectCate(String keyword);
     String selectCateNo(String keyword);
-    int insertCont(ContentAndOptionDTO contentAndOptionDTO);
+    int insertCont(RequestContentInsertDTO requestContentInsertDTO);
     int insertOne(List<OneEntity> list);
     int insertProd(List<ProdEntity> list);
     List<ResponseReviewDTO> reviewList(RequestReviewDTO requestReviewDTO);
@@ -28,5 +28,10 @@ public interface HostRepository1 {
     List<String> selectPayDetailStatus(int no);
     int insertRefund(SelectPayDetailForInsertRefundDTO selectPayDetailForInsertRefundDTO);
     int deleteContent(int no);
+
+    CategoryAndContentDTO contentSelectOne(int no);
+
+    List<OneEntity> oneList(int no);
+    List<ProdEntity> prodList(int no);
 
 }

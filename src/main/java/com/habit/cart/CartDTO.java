@@ -10,10 +10,13 @@ public class CartDTO {
     private String cl_date; // 장바구니 등록일
     private String cont_name; // 컨텐츠명
     private String cont_img; //컨텐츠 이미지
-    private int one_price; // 상품 한개당 가격
-    private int prod_price; //회차권인원권 가격
+    private int price; // 상품 가격
 
-    private String prod_name; // 회차권인원권 세부이름(1회차, 10회차 등등의 옵션느낌)
+
+    private String option; // 상품 옵션 정보
+                           //원데이클래스 : 상품 실행일
+                           //회차권인원권 : N회권
+
 
     public CartDTO(){}
 
@@ -74,29 +77,20 @@ public class CartDTO {
         this.cont_img = cont_img;
     }
 
-    public int getOne_price() {
-        return one_price;
+    public int getPrice() {
+        return price;
     }
 
-    public void setOne_price(int one_price) {
-        this.one_price = one_price;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
-
-    public int getProd_price() {
-        return prod_price;
+    public String getOption() {
+        return option;
     }
 
-    public void setProd_price(int prod_price) {
-        this.prod_price = prod_price;
-    }
-
-    public String getProd_name() {
-        return prod_name;
-    }
-
-    public void setProd_name(String prod_name) {
-        this.prod_name = prod_name;
+    public void setOption(String option) {
+        this.option = option;
     }
 
     @Override
@@ -109,9 +103,8 @@ public class CartDTO {
                 ", cl_date='" + cl_date + '\'' +
                 ", cont_name='" + cont_name + '\'' +
                 ", cont_img='" + cont_img + '\'' +
-                ", one_price=" + one_price +
-                ", prod_price=" + prod_price +
-                ", prod_name='" + prod_name + '\'' +
+                ", price=" + price +
+                ", option='" + option + '\'' +
                 '}';
     }
 }

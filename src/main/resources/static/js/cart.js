@@ -66,18 +66,59 @@ function calc(){
       $(".totalPrice").text(sumprice);
   }
 
-  //장바구니 물건 선택되었는지 확인
-  function checkCart(){
+ // 선택한 체크박스에 해당하는 cl_no 가져오기
+  function selectedCartno(){
+    var arr=[];
+    let checkboxSize=$(".Home_cart_check").length;
+    let checkCart="";
+    for(let i=0;i<checkboxSize;i++){
+        if($("#ck"+i).is(":checked")==true){
+            checkCart+=$("#ck"+i).val()+"#";
+            arr.push();
+        }
 
-    let proSelect=$('input:checkbox[class=Home_cart_check]:checked').length;
-    if(proSelect==0){
-      alert("구매하실 상품을 선택해주세요");
-      return false;
     }
+    return arr;
+    console.log(checkCart);
 
 
   }
 
+  function order(){
+      let checkboxSize=$(".Home_cart_check").length;
+      let checkCart="";
+      for(let i=0;i<checkboxSize;i++){
+              if($("#oneck"+i).is(":checked")==true){
+                  checkCart+=$("#oneck"+i).val()+"-";
+              }
+
+              console.log(checkCart);
 
 
+              }
 
+              if(checkCart!=""){
+
+                   if(confirm("주문할까요?")){
+                          location.href='/cart/order/payPage?cartno='+checkCart;
+                    }
+              }
+
+  }
+
+
+  function deleteCheck(){
+        let checkboxSize=$(".Home_cart_check").length;
+
+        let params=[];
+        for(let i=0;i<checkboxSize;i++){
+            if($("#ck"+i).is(":checked")==true){
+                console.log($("#ck"+i).val());
+                params.push($("#ck"+i).val());
+            }
+
+        }
+
+        console.log(params);
+
+  }

@@ -2,12 +2,15 @@ package com.habit.host1.DTO;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
+@ToString
 @Getter @Setter
-public class ContentAndOptionDTO {
+public class RequestContentInsertDTO {
     private String host_id;
     private String cate_no;
     private int cont_no;
@@ -25,8 +28,10 @@ public class ContentAndOptionDTO {
     private String cont_hashtag5;
     private String cont_endate_type;
     private String cont_endate;
+    private String cont_stdate;
     private String cont_type;
 
+    private List<Map<String, Object>> cate_list;
     private List<String> prod_name;
     private List<Integer> prod_qty;
     private List<Integer> prod_price;

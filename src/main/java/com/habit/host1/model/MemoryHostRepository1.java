@@ -34,7 +34,7 @@ public class MemoryHostRepository1 implements HostRepository1{
 
     // 콘텐츠 테이블 insert
     @Override
-    public int insertCont(ContentAndOptionDTO rciDTO) {
+    public int insertCont(RequestContentInsertDTO rciDTO) {
         return sqlSession.insert("host1.insertCont", rciDTO);
     }
 
@@ -86,13 +86,30 @@ public class MemoryHostRepository1 implements HostRepository1{
         return sqlSession.selectOne("host1.contentListCount", reqContListDTO);
     }
 
-    //habit 삭제
+    // habit 삭제
     @Override
     public int deleteContent(int cont_no) {
         return sqlSession.delete("host1.deleteContent", cont_no);
     }
 
+    // habit update를 위한 값 가져오기
+    @Override
+    public CategoryAndContentDTO contentSelectOne(int cont_no) {
+        return sqlSession.selectOne("host1.contentSelectOne", cont_no);
+    }
+
+    @Override
+    public List<OneEntity> oneList(int cont_no) {
+        return sqlSession.selectList("host1.oneList", cont_no);
+    }
+
+    @Override
+    public List<ProdEntity> prodList(int cont_no) {
+        return sqlSession.selectList("host1.prodList", cont_no);
+    }
+
     // 원데이 클래스 예약건 List 조회
+    @Override
     public List<ResponseReservationDTO> reservationList(RequestReservationDTO reqReservDTO) {
         return sqlSession.selectList("host1.reservationList", reqReservDTO);
     }

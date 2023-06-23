@@ -1,6 +1,6 @@
 package com.habit.host1.controller;
 
-import com.habit.host1.DTO.ContentAndOptionDTO;
+import com.habit.host1.DTO.RequestContentInsertDTO;
 import com.habit.host1.DTO.RequestReviewDTO;
 import com.habit.host1.DTO.ResponseReviewDTO;
 import com.habit.host1.DTO.*;
@@ -23,7 +23,7 @@ public class HostContorller1 {
 
     // [habit_create.jsp]
     // 컨텐츠 생성 폼으로 이동 & 대분류 list 불러오기
-    @GetMapping("/contentform")
+    @GetMapping("/content/form")
     public String contentForm(@SessionAttribute(name = "userId", required = false) String userIdd, Model model) {
         String userId = "user-1"; //임시 세션 아이디
         model.addAttribute("List", hostService1.cateList());
@@ -39,16 +39,16 @@ public class HostContorller1 {
     }
 
     // 생성된 컨텐츠 값 insert
-    @PostMapping("/contentinsert")
-    public String contentInsert(@SessionAttribute(name = "userId", required = false) String userIdd, ContentAndOptionDTO rciDTO) throws IOException {
+    @PostMapping("/content/insert")
+    public String contentInsert(@SessionAttribute(name = "userId", required = false) String userIdd, RequestContentInsertDTO rciDTO) throws IOException {
         //임시 세션 아이디
         String userId = "user-1";
         rciDTO.setHost_id(userId);
         int result = hostService1.contentInsert(rciDTO);
-        return "redirect:/host/contentlist";
+        return "redirect:/host/content/list";
     }
 
-    @GetMapping("/contentlist")
+    @GetMapping("/content/list")
     public String contentList (@SessionAttribute(name = "userId", required = false) String userIdd, Model model) {
         //임시 세션 아이디
         String userId = "user-1";
@@ -61,7 +61,7 @@ public class HostContorller1 {
         return "host/habit_list";
     }
 
-    @PostMapping("/contentlist.do")
+    @PostMapping("/content/list.do")
     @ResponseBody
     public List<ResponseContentListDTO> contentList (@SessionAttribute(name = "userId", required = false) String userIdd, RequestContentListDTO reqContListDTO) {
         //임시 세션 아이디
@@ -70,25 +70,20 @@ public class HostContorller1 {
         return hostService1.contentList(reqContListDTO);
     }
 
-    @GetMapping("/contentlist/delete/{cont_no}")
+    @GetMapping("/content/delete/{cont_no}")
     public String contentDelete(@PathVariable int cont_no) {
         hostService1.deleteContent(cont_no);
-        return "redirect:/host/contentlist";
+        return "redirect:/host/content/list";
     }
 
-    @GetMapping("/contentlist/update/{cont_no}")
-    public String contentUpdateBefore(@PathVariable int cont_no, Model model) {
-//        select cate_large, cate_middle, cont_name, cont_zip, cont_addr1, cont_addr2, cont_extaddr,
-//       cont_hashtag1, cont_hashtag2, cont_hashtag3, cont_hashtag4, cont_hashtag5, cont_stdate, cont_endate, cont_img,
-//       cont_content
-//from cont a join cate b
-//on a.cate_no = b.cate_no
-//where cont_no = ${cont_no}
-        return "host/habit_update";
+    @GetMapping("/content/update/{cont_no}")
+    @ResponseBody
+    public RequestContentInsertDTO contentUpdateBefore(@PathVariable int cont_no, Model model) {
+        return hostService1.contentSelectOne(cont_no);
     }
+
 
     // [habit_review_control.jsp]
-
     @GetMapping("/review")
     public String reviewSearch(@SessionAttribute(name = "userId", required = false) String userIdd, Model model) {
         //임시 세션 아이디
@@ -122,22 +117,6 @@ public class HostContorller1 {
     }
 
 
-    // [habit_inquiry_control.jsp]
-    @GetMapping("/inquiry")
-    public String inquiryControl() {
-        return "host/habit_inquiry_control";
-    }
-
-    @PostMapping("/inquiry.do")
-    @ResponseBody
-    public List<ResponseInquiryDTO> inquiryList(@SessionAttribute(name = "userId", required = false) String userIdd, RequestInquiryDTO reqInqDTO) {
-        //임시 세션 아이디
-        String userId = "user-1";
-        reqInqDTO.setHost_id(userId);
-        return hostService1.inquiryList(reqInqDTO);
-    }
-
-
 
     // [habit_reservation_control.jsp]
     @GetMapping("/reservation")
@@ -167,6 +146,22 @@ public class HostContorller1 {
         System.out.println(reqReservDTO.getSearchStartDate());
         System.out.println(reqReservDTO.getSearchEndDate());
         return hostService1.reservationList(reqReservDTO);
+    }
+
+
+    // [habit_inquiry_control.jsp]
+    @GetMapping("/inquiry")
+    public String inquiryControl() {
+        return "host/habit_inquiry_control";
+    }
+
+    @PostMapping("/inquiry.do")
+    @ResponseBody
+    public List<ResponseInquiryDTO> inquiryList(@SessionAttribute(name = "userId", required = false) String userIdd, RequestInquiryDTO reqInqDTO) {
+        //임시 세션 아이디
+        String userId = "user-1";
+        reqInqDTO.setHost_id(userId);
+        return hostService1.inquiryList(reqInqDTO);
     }
 
 }

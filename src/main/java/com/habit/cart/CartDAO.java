@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class CartDAO {
@@ -28,6 +29,12 @@ public class CartDAO {
     public List<CartDTO> prod_list(String user_id) {
         return sqlSession.selectList("cart.list2", user_id);
     }
+
+
+    public List<CartDTO> selectedItemsInfo(HashMap<String, Object> map){
+        return sqlSession.selectList("cart.selectedItemsInfo", map);
+    }
+
 
     public int cartDelete(HashMap<String, Object> map) {
         return sqlSession.delete("cart.delete", map);
