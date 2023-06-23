@@ -38,10 +38,10 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">해빗 관리</a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="/host/contentlist">해빗 목록</a>
-              <a class="dropdown-item" href="/host/contentform">해빗 등록</a>
+              <a class="dropdown-item" href="/host/content/list">해빗 목록</a>
+              <a class="dropdown-item" href="/host/content/form">해빗 등록</a>
               <a class="dropdown-item" href="/host/product">판매 관리</a>
-              <a class="dropdown-item" href="/host/reservation">예약 관리</a>
+              <a class="dropdown-item" href="/host/reservation">예약 관리</a> <!--링크-->
               <a class="dropdown-item" href="/host/inquiry">문의 관리</a>
               <a class="dropdown-item" href="/host/review">리뷰 관리</a>
             </div>
