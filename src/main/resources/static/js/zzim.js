@@ -39,8 +39,9 @@ function onPageClick(ele,) {
         //console.log(ele);
         let activeIndex = $(".pactive").index();
         //console.log(activeIndex);
+        let length=$(".index_page_btn").length;
 
-        if(activeIndex!=4){
+        if(activeIndex!=length){
             let way=1;
             paging($('.pactive'),way);
         }
