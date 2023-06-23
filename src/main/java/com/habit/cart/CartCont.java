@@ -14,7 +14,6 @@ import java.util.HashMap;
 
 
 @Controller
-@RequestMapping("/cart")
 public class CartCont {
 
     public CartCont() {
@@ -24,7 +23,7 @@ public class CartCont {
     @Autowired
     CartDAO cartDAO;
 
-    @RequestMapping(value="/insert", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value="cart/insert", method = RequestMethod.POST, consumes = "application/json")
     public String cartInsert(@RequestBody CartDTO cartDTO, HttpSession session){
         cartDTO.setUser_id("user-3");
         cartDAO.cartInsert(cartDTO);

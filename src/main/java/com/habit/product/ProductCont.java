@@ -5,6 +5,7 @@ import jdk.jfr.Category;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.ItemList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -48,6 +49,7 @@ public class ProductCont {
         mav.addObject("hotListCount", productDao.hotListCount(cate_large));
         mav.addObject("newTop", productDao.newtop(cate_large));
         mav.addObject("newListCount", productDao.newListCount(cate_large));
+
 
 
         List<Integer> contNoList = productDao.contNoList(cate_large);
@@ -161,6 +163,9 @@ public ModelAndView allList(@PathVariable String cate_large) {
         mav.addObject("priceMap", priceMap);
         return mav;
     }
+
+
+
 
 
 

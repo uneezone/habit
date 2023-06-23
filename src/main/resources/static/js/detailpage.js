@@ -1,7 +1,16 @@
+let slideIndex = 1;
+let maxSlides = 4; // 한 번에 보여줄 슬라이드 개수
+
 window.onload=function(){
 
     //common.js
     common();
+
+
+
+    <!-- 슬라이드 -->
+    showSlides(slideIndex);
+
 
 
 
@@ -278,27 +287,56 @@ $(document).ready(function() {
 //     calculateTotal();
 
 
+    document.getElementById("detailButton").addEventListener("click", function() {
+        var descriptionContainer = document.querySelector(".DescriptionSection_Container");// expanded 클래스 전환
+        
+        descriptionContainer.classList.toggle("expanded");
+
+        // 버튼 텍스트 변경
+        var buttonText = (this.querySelector("span").innerHTML == "상세정보 더보기")? "간략히" : "상세정보 더보기";
+        this.querySelector("span").innerHTML = buttonText;
+
+        // 화살표 방향 변경
+        var arrowIcon = this.querySelector(".arrow-icon");
+        arrowIcon.classList.toggle('rotated');
+    });
+
 });
 
 
 
-
-
 <!-- 슬라이드 -->
-let slideIndex = 1;
-showSlides(slideIndex);
-
 function plusSlides(n) {
+    let slides = document.getElementsByClassName("Reviewgreen");
+    let maxIndex = Math.ceil(slides.length / maxSlides); // 최대 인덱스 계산
+
     slideIndex += n;
-    if (slideIndex > 4) {
+    if (slideIndex > maxIndex) {
         slideIndex = 1;
-    } else if (slideIndex < 1) { slideIndex = 4; } showSlides(slideIndex);
-} function showSlides(n) {
-    let i;
-    let slides = document.getElementsByClassName("Reviewgreen"); for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-    } slides[slideIndex - 1].style.display = "block";
+    } else if (slideIndex < 1) {
+        slideIndex = maxIndex;
+    }
+    showSlides(slideIndex);
 }
+
+function showSlides(n) {
+    let i;
+    let slides = document.getElementsByClassName("Reviewgreen");
+    let container = document.querySelector('.Reviewflex');
+
+    // 모든 슬라이드 숨기기
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+
+    // 선택한 범위의 슬라이드를 보이게 설정
+    let startIndex = (n - 1) * maxSlides;
+    for (i = startIndex; i < Math.min(startIndex + maxSlides, slides.length); i++) {
+        slides[i].style.display = "block";
+    }
+}
+
+
 
 
 

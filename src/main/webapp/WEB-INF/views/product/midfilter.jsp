@@ -27,7 +27,7 @@
                 <div class="BodyScrollLockContainer">
                     <div class="modal_Content">
                         <div class="CategoryList_Wrapper">
-                            <a href="#" class="CategoryItem-A" data-category="아웃도어">
+                            <a href="" class="CategoryItem-A" data-category="아웃도어" onclick="selectCategory('아웃도어')">
                                 <div class="CategoryItem1">
                                     <div class="CategoryItem__Background"></div>
                                     <div class="CategoryItem__Text"></div>
@@ -35,7 +35,7 @@
                                 </div>
                             </a>
 
-                            <a href="#" class="CategoryItem-A" data-category="피트니스">
+                            <a href="" class="CategoryItem-A" data-category="피트니스" onclick="selectCategory('피트니스')">
                                 <div class="CategoryItem2">
                                     <div class="CategoryItem__Background"></div>
                                     <div class="CategoryItem__Text"></div>
@@ -43,7 +43,7 @@
                                 </div>
                             </a>
 
-                            <a href="#" class="CategoryItem-A" data-category="공예DIY">
+                            <a href="" class="CategoryItem-A" data-category="공예DIY" onclick="selectCategory('공예DIY')">
                                 <div class="CategoryItem3">
                                     <div class="CategoryItem__Background"></div>
                                     <div class="CategoryItem__Text"></div>
@@ -51,7 +51,7 @@
                                 </div>
                             </a>
 
-                            <a href="#" class="CategoryItem-A" data-category="스포츠">
+                            <a href="" class="CategoryItem-A" data-category="스포츠" onclick="selectCategory('스포츠')">
                                 <div class="CategoryItem4">
                                     <div class="CategoryItem__Background"></div>
                                     <div class="CategoryItem__Text"></div>
@@ -59,7 +59,7 @@
                                 </div>
                             </a>
 
-                            <a href="#" class="CategoryItem-A" data-category="베이킹">
+                            <a href="" class="CategoryItem-A" data-category="베이킹" onclick="selectCategory('베이킹')">
                                 <div class="CategoryItem5">
                                     <div class="CategoryItem__Background"></div>
                                     <div class="CategoryItem__Text"></div>
@@ -67,7 +67,7 @@
                                 </div>
                             </a>
 
-                            <a href="#" class="CategoryItem-A" data-category="문화예술">
+                            <a href="" class="CategoryItem-A" data-category="문화예술" onclick="selectCategory('문화예술')">
                                 <div class="CategoryItem6">
                                     <div class="CategoryItem__Background"></div>
                                     <div class="CategoryItem__Text"></div>
@@ -75,7 +75,7 @@
                                 </div>
                             </a>
 
-                            <a href="#" class="CategoryItem-A" data-category="온라인">
+                            <a href="" class="CategoryItem-A" data-category="온라인" onclick="selectCategory('온라인')">
                                 <div class="CategoryItem7">
                                     <div class="CategoryItem__Background"></div>
                                     <div class="CategoryItem__Text"></div>
@@ -83,7 +83,7 @@
                                 </div>
                             </a>
 
-                            <a href="#" class="CategoryItem-A" data-category="자기계발">
+                            <a href="" class="CategoryItem-A" data-category="자기계발" onclick="selectCategory('자기계빨')">
                                 <div class="CategoryItem8">
                                     <div class="CategoryItem__Background"></div>
                                     <div class="CategoryItem__Text"></div>
@@ -91,7 +91,7 @@
                                 </div>
                             </a>
 
-                            <a href="#" class="CategoryItem-A" data-category="뷰티">
+                            <a href="" class="CategoryItem-A" data-category="뷰티" onclick="selectCategory('뷰티')">
                                 <div class="CategoryItem9">
                                     <div class="CategoryItem__Background"></div>
                                     <div class="CategoryItem__Text"></div>
@@ -99,7 +99,7 @@
                                 </div>
                             </a>
 
-                            <a href="#" class="CategoryItem-A" data-category="모임">
+                            <a href="" class="CategoryItem-A" data-category="모임" onclick="selectCategory('모임')">
                                 <div class="CategoryItem10">
                                     <div class="CategoryItem__Background"></div>
                                     <div class="CategoryItem__Text"></div>
@@ -107,7 +107,7 @@
                                 </div>
                             </a>
 
-                            <a href="#" class="CategoryItem-A" data-category="스토어">
+                            <a href="" class="CategoryItem-A" data-category="스토어" onclick="selectCategory('스토어')">
                                 <div class="CategoryItem11">
                                     <div class="CategoryItem__Background"></div>
                                     <div class="CategoryItem__Text"></div>
@@ -115,15 +115,15 @@
                                 </div>
                             </a>
 
-                            <a href="#" class="CategoryItem-A" data-category="심리·상담">
+                            <a href="" class="CategoryItem-A" data-category="상담" onclick="selectCategory('상담')">
                                 <div class="CategoryItem12">
                                     <div class="CategoryItem__Background"></div>
                                     <div class="CategoryItem__Text"></div>
-                                    <span>심리·상담</span>
+                                    <span>상담</span>
                                 </div>
                             </a>
 
-                            <a href="#" class="CategoryItem-A" data-category="수상레포츠">
+                            <a href="" class="CategoryItem-A" data-category="수상레포츠" onclick="selectCategory('수상레포츠')">
                                 <div class="CategoryItem13">
                                     <div class="CategoryItem__Background"></div>
                                     <div class="CategoryItem__Text"></div>
@@ -131,7 +131,7 @@
                                 </div>
                             </a>
 
-                            <a href="#" class="CategoryItem-A" data-category="음료">
+                            <a href="" class="CategoryItem-A" data-category="음료" onclick="selectCategory('음료')">
                                 <div class="CategoryItem14">
                                     <div class="CategoryItem__Background"></div>
                                     <div class="CategoryItem__Text"></div>
@@ -139,7 +139,7 @@
                                 </div>
                             </a>
 
-                            <a href="#" class="CategoryItem-A" data-category="요리">
+                            <a href="" class="CategoryItem-A" data-category="요리" onclick="selectCategory('요리')">
                                 <div class="CategoryItem15">
                                     <div class="CategoryItem__Background"></div>
                                     <div class="CategoryItem__Text"></div>
@@ -147,7 +147,7 @@
                                 </div>
                             </a>
 
-                            <a href="#" class="CategoryItem-A" data-category="국내여행">
+                            <a href="" class="CategoryItem-A" data-category="국내여행" onclick="selectCategory('국내여행')">
                                 <div class="CategoryItem16">
                                     <div class="CategoryItem__Background"></div>
                                     <div class="CategoryItem__Text"></div>
@@ -155,7 +155,7 @@
                                 </div>
                             </a>
 
-                            <a href="#" class="CategoryItem-A" data-category="제주여행">
+                            <a href="" class="CategoryItem-A" data-category="제주여행" onclick="selectCategory('제주여행')">
                                 <div class="CategoryItem17">
                                     <div class="CategoryItem__Background"></div>
                                     <div class="CategoryItem__Text"></div>
@@ -163,7 +163,7 @@
                                 </div>
                             </a>
 
-                            <a href="#" class="CategoryItem-A" data-category="해외여행">
+                            <a href="" class="CategoryItem-A" data-category="해외여행" onclick="selectCategory('해외여행')">
                                 <div class="CategoryItem18">
                                     <div class="CategoryItem__Background"></div>
                                     <div class="CategoryItem__Text"></div>
@@ -199,14 +199,6 @@
                         <a href="/category/${item.cate_large}/${item.cate_middle}" class="midbtn ">${item.cate_middle}</a>
                     </c:forEach>
 
-                    <script>
-
-
-
-
-
-                    </script>
-
                     <div id="otherParagraph"></div>
                 </div>
             </div>
@@ -227,236 +219,85 @@
                     </div>
                 </div>
 
-                <!-- * 인기 리스트 시작 -->
-                <div class="Fade_Wrapper" style="opacity: 1; display: block;">
-                    <div>
-                        <div font-size="14px" class="ProductSectionHeader_Wrapper">
-                            <div font-size="18" class="ProductSectionHeader_Header">
-                                <h2 class="ProductSectionHeader_Title_mid_a">인기 리스트</h2>
-                                <span class="ProductSectionHeader_Count">${midHotListCount}</span>
-                            </div>
-                            <div class="ProductSectionHeader_LinkWrapper">
-                                <a href="/category/${cate_large}/${cate_middle}/hot" class="ProductSectionHeader_Link" style="color: black;">전체 보기</a>
-                            </div>
-                        </div>
+                <!-- 콘텐츠 리스트 -->
 
-                        <!-- ^ 인기 리스트 아이템 -->
-                        <div class="Home_product_recommend_list">
-                            <c:forEach items="${midHotTop}" var="mid" varStatus="vs">
-                                <div class="Home_product_recommend_p">
-                                    <a href="products/${mid.cont_no}" class="href">
-                                        <div class="Home_product_recommend_p_div">
+                <div font-size="18" class="ProductSectionHeader_Header">
+                    <h2 class="ProductSectionHeader_Title_all">####</h2>
+                    <span>${midHotListCount}</span>
+                </div>
+
+                <!-- * 전체 아이템 리스트 시작 -->
+                <div class="Home_product_recommend_list">
+                    <c:forEach items="${midFilter}" var="row" varStatus="vs">
+                        <div class="Home_product_recommend_p">
+                            <a href="/category/products/${row.cont_no}" class="href">
+                                <div class="Home_product_recommend_p_div">
+                                    <div>
+                                        <img src="/storage/${row.cont_img}" alt="" width="150px" onerror="this.src='/storage/ang.png'">
+                                    </div>
+                                    <div>
+                                        <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
+                                            <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                        </button>
+                                    </div>
+                                    <div class="Home_product_recommend_p_font">
+                                        <div>
+                                            <span class="Miniarea">${fn:substring(row.cont_addr1, 0, 7)}</span>
                                             <div>
-                                                <img src="/img/image.jpeg" alt="" width="150px">
+                                                    ${row.cont_name}
                                             </div>
+                                            <section class="Home_recommend_img">
+                                                <c:set var="starItem" value="${starMap[row.cont_no]}" />
+                                                <c:set var="avgStarRating" value="${starItem['avg_star']}" />
+                                                <c:choose>
+                                                    <c:when test="${avgStarRating != null}">
+                                                        <c:set var="roundedStarRating" value="${Math.round(avgStarRating.doubleValue())}" />
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:set var="roundedStarRating" value="0" />
+                                                    </c:otherwise>
+                                                </c:choose>
+                                                <c:forEach begin="1" end="${roundedStarRating > 5 ? 5 : roundedStarRating}" varStatus="starStatus">
+                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                                </c:forEach>
+                                                <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 ${starItem['cnt']}</span>
+                                            </section>
+                                            <hr class="Home_recommend_hr">
                                             <div>
-                                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                                    <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                                </button>
-                                            </div>
-                                            <div class="Home_product_recommend_p_font">
-                                                <div>
-                                                    <span class="Miniarea">${fn:substring(mid.cont_addr1, 0, 7)}</span>
-                                                    <div>
-                                                            ${mid.cont_name}
-                                                    </div>
-                                                    <section class="Home_recommend_img">
-                                                        <c:set var="starItem" value="${starMap[mid.cont_no]}" />
-                                                        <c:set var="avgStarRating" value="${starItem['avg_star']}" />
-                                                        <c:choose>
-                                                            <c:when test="${avgStarRating != null}">
-                                                                <c:set var="roundedStarRating" value="${Math.round(avgStarRating.doubleValue())}" />
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <c:set var="roundedStarRating" value="0" />
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                        <c:forEach begin="1" end="${roundedStarRating > 5 ? 5 : roundedStarRating}" varStatus="starStatus">
-                                                            <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                        </c:forEach>
-                                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 ${starItem['cnt']}</span>
-                                                    </section>
-                                                    <hr class="Home_recommend_hr">
-                                                    <div>
-                                                        <c:set var="priceItem" value="${priceMap[mid.cont_no]}" />
-                                                        <c:set var="money" value="${priceItem['money']}" />
-                                                        <fmt:formatNumber type="number" value="${money}" pattern="###,###" var="formattedMoney" />
-                                                            ${formattedMoney}원
-                                                    </div>
-                                                </div>
+                                                <c:set var="priceItem" value="${priceMap[row.cont_no]}" />
+                                                <c:set var="money" value="${priceItem['money']}" />
+                                                <fmt:formatNumber type="number" value="${money}" pattern="###,###" var="formattedMoney" />
+                                                    ${formattedMoney}원
                                             </div>
                                         </div>
-                                    </a>
+                                    </div>
                                 </div>
-                            </c:forEach>
-
+                            </a>
                         </div>
+                    </c:forEach>
 
-                    <!-- ! 인기 리스트 끝  -->
+                </div>
+                <!--* 전체 아이템 리스트 끝 -->
 
-                    <!--* 금주 리스트 시작 -->
-                    <div>
-                        <div font-size="14px" class="ProductSectionHeader_Wrapper">
-                            <div font-size="18" class="ProductSectionHeader_Header">
-                                <h2 class="ProductSectionHeader_Title_mid_b">금주 리스트</h2>
-                                <span class="ProductSectionHeader_Count"></span>
-                            </div>
-                            <div class="ProductSectionHeader_LinkWrapper">
 
-                            </div>
-                        </div>
-
-                        <!-- ^ 금주 리스트 아이템 -->
-                        <div class="Home_product_recommend_list">
-                            <div class="Home_product_recommend_p">
-                                <a href="" class="href">
-                                    <div class="Home_product_recommend_p_div">
-                                        <div>
-                                            <img src="/img/image.jpeg" alt="" width="150px">
-                                        </div>
-                                        <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                                <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                            </button>
-                                        </div>
-                                        <div class="Home_product_recommend_p_font">
-                                            <div>
-                                                <span class="Miniarea">강남/서초</span>
-                                                <div>
-                                                    [금주 리스트 아이템 1]
-                                                </div>
-                                                <section class="Home_recommend_img">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
-                                                </section>
-                                                <hr class="Home_recommend_hr">
-                                                <div>
-                                                    100,000원
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="Home_product_recommend_p">
-                                <a href="" class="href">
-                                    <div class="Home_product_recommend_p_div">
-                                        <div>
-                                            <img src="/img/image.jpeg" alt="" width="150px">
-                                        </div>
-                                        <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                                <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                            </button>
-                                        </div>
-                                        <div class="Home_product_recommend_p_font">
-                                            <div>
-                                                <span class="Miniarea">강남/서초</span>
-                                                <div>
-                                                    [금주 리스트 아이템 2]
-                                                </div>
-                                                <section class="Home_recommend_img">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
-                                                </section>
-                                                <hr class="Home_recommend_hr">
-                                                <div>
-                                                    100,000원
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
+                <!--* 이전/다음 버튼 -->
+                <footer class="Wrapper_Paging">
+                    <div class="paging">
+                        <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold"  onclick="onPageClick(-1)">&lt;</button>
+                        <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold"  onclick="onPageClick(1)">1</button>
+                        <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold"  onclick="onPageClick(2)">2</button>
+                        <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" onclick="onPageClick(3)">3</button>
+                        <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" onclick="onPageClick(4)">4</button>
+                        <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" onclick="onPageClick(-2)">></button>
                     </div>
-                    <!--! 금주 리스트 끝 -->
-
-
-                    <!--* 신규 리스트 시작 -->
-                    <div>
-                        <div font-size="14px" class="ProductSectionHeader_Wrapper">
-                            <div font-size="18" class="ProductSectionHeader_Header">
-                                <h2 class="ProductSectionHeader_Title_mid_c">신규 리스트</h2>
-                                <span class="ProductSectionHeader_Count">${midNewListCount}</span>
-                            </div>
-                            <div class="ProductSectionHeader_LinkWrapper_new">
-                                <a href="/category/${cate_large}/${cate_middle}/new" class="ProductSectionHeader_Link_new" style="color: black;">전체 보기</a>
-                            </div>
-                        </div>
-
-                        <!-- ^ 신규 리스트 아이템 -->
-                        <div class="Home_product_recommend_list">
-                            <c:forEach items="${midNewTop}" var="mnt" varStatus="vs">
-                                <div class="Home_product_recommend_p">
-                                    <a href="products/${mnt.cont_no}" class="href">
-                                        <div class="Home_product_recommend_p_div">
-                                            <div>
-                                                <img src="/img/image.jpeg" alt="" width="150px">
-                                            </div>
-                                            <div>
-                                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                                    <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                                </button>
-                                            </div>
-                                            <div class="Home_product_recommend_p_font">
-                                                <div>
-                                                    <span class="Miniarea">${fn:substring(mnt.cont_addr1, 0, 7)}</span>
-                                                    <div>
-                                                            ${mnt.cont_name}
-                                                    </div>
-                                                    <section class="Home_recommend_img">
-                                                        <c:set var="starItem" value="${starMap[mnt.cont_no]}" />
-                                                        <c:set var="avgStarRating" value="${starItem['avg_star']}" />
-                                                        <c:choose>
-                                                            <c:when test="${avgStarRating != null}">
-                                                                <c:set var="roundedStarRating" value="${Math.round(avgStarRating.doubleValue())}" />
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <c:set var="roundedStarRating" value="0" />
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                        <c:forEach begin="1" end="${roundedStarRating > 5 ? 5 : roundedStarRating}" varStatus="starStatus">
-                                                            <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                        </c:forEach>
-                                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 ${starItem['cnt']}</span>
-                                                    </section>
-                                                    <hr class="Home_recommend_hr">
-                                                    <div>
-                                                        <c:set var="priceItem" value="${priceMap[mnt.cont_no]}" />
-                                                        <c:set var="money" value="${priceItem['money']}" />
-                                                        <fmt:formatNumber type="number" value="${money}" pattern="###,###" var="formattedMoney" />
-                                                            ${formattedMoney}원
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </c:forEach>
-                        </div>
-
-                        <!--! 신규 리스트 끝 -->
-
-
-
-                        <div font-size="13px" class="ButtonLinkAllProduct_Wrapper">
-                            <a href="/${cate_middle}/all" class="ButtonLinkAllProduct_mid"></a>
-                        </div>
+                </footer>
                     </div>
                 </div>
 
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <script>
@@ -467,6 +308,12 @@
     const cateLarge = '${cate_large}';
     $('.active').removeClass('active');
     $(this).addClass('active');
+
+    function selectCategory(cate_large) {
+        localStorage.setItem("selectedCategory", cate_large);
+
+        location.href = `/category/` + cate_large;
+    }
 
 </script>
 

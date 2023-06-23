@@ -27,7 +27,7 @@
                     <a href="/category/products/${row.cont_no}" class="href">
                         <div class="Home_product_recommend_p_div">
                             <div>
-                                <img src="/img/image.jpeg" alt="" width="150px">
+                                <img src="/storage/${row.cont_img}" alt="" width="150px" onerror="this.src='/storage/ang.png'">
                             </div>
                             <div>
                                 <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">

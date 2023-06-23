@@ -27,6 +27,7 @@ public class FilterCont {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("product/midfilter");
         mav.addObject("middle", productDao.middle(cate_large));
+        mav.addObject("midFilter", filterDao.midFilter(cate_large, cate_middle));
         mav.addObject("midHotTop", filterDao.midHotTop(cate_large, cate_middle));
         mav.addObject("midNewTop", filterDao.midNewTop(cate_large, cate_middle));
         mav.addObject("midHotListCount", filterDao.midHotListCount(cate_large, cate_middle));

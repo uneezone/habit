@@ -1,13 +1,66 @@
-
 window.addEventListener('load',function() {
 
     common();
 
-
     // 페이지 로드 후 페이징 초기화
     onPageClick(1);
 
+
 });//================window.onload 끝
+
+$(document).ready(function() {
+    let selectedCategory =localStorage.getItem("newCategory") || localStorage.getItem("selectedCategory");
+
+    let selectedMiddle = localStorage.getItem("selectedMiddle");
+
+    if (selectedMiddle && selectedCategory) {
+        localStorage.removeItem("newCategory");
+        localStorage.setItem("selectedCategory", selectedCategory);
+
+        $("#selectedCategory").text(selectedCategory);
+        const productSectionTitle_all = ` ${selectedMiddle} 해빗  `;
+        $(".ProductSectionHeader_Title_all").text(productSectionTitle_all);
+    }
+
+    // 중분류 버튼 클릭 이벤트
+    $(".midbtn").on("click", function (event) {
+        event.preventDefault();
+
+        const selectedMiddle = $(this).text();
+        localStorage.setItem("selectedMiddle", selectedMiddle);
+
+        // 전체 클릭 시 기본 url 반환
+        if (selectedMiddle === "전체") {
+            window.location.href = `/category/${selectedCategory}`;
+        } else {
+            // 원하는 페이지로 이동
+            window.location.href = `/category/${selectedCategory}/${selectedMiddle}/all`;
+        }
+    });
+
+    function closeModal() {
+        $('.modal_root').css('display', 'none');
+        $('body').css('overflow', 'auto');
+    }
+
+    $('.CategoryNav_Wrapper').on('click', function () {
+        $('.modal_root').css('display', 'block');
+        $('body').css('overflow', 'hidden');
+    });
+
+    $('button[name="CloseBtn"]').on('click', closeModal);
+
+    $(".CategoryItem-A").on("click", function (event) {
+        event.preventDefault();
+        const selectedCategory = $(event.currentTarget).data("category");
+        localStorage.setItem("newCategory", selectedCategory);
+        const newUrl = `/category/${selectedCategory}`;
+        location.href = newUrl;
+    });
+
+
+
+});
 
 
 // 페이징 함수
@@ -53,49 +106,4 @@ function onPageClick(page) {
     paginate(currentPage);
 
 }
-
-$(document).ready(function() {
-    const largeCategory = localStorage.getItem("selectedCategory");
-
-    let selectedMiddle = localStorage.getItem("selectedMiddle");
-
-    $("#selectedCategory").text(largeCategory);
-    const productSectionTitle_all = ` ${selectedMiddle} 해빗  `;
-    $(".ProductSectionHeader_Title_all").text(productSectionTitle_all);
-
-    function closeModal() {
-        $('.modal_root').css('display', 'none');
-        $('body').css('overflow', 'auto');
-    }
-
-    $('.CategoryNav_Wrapper').on('click', function () {
-        $('.modal_root').css('display', 'block');
-        $('body').css('overflow', 'hidden');
-    });
-
-    $('button[name="CloseBtn"]').on('click', closeModal);
-
-    $(".CategoryItem-A").on("click", function (event) {
-        event.preventDefault();
-        const selectedCategory = $(event.currentTarget).data("category");
-        localStorage.setItem("newCategory", selectedCategory);
-        const newUrl = `/category/${selectedCategory}`;
-        location.href = newUrl;
-    });
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

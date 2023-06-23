@@ -6,7 +6,40 @@ window.addEventListener('load',function() {
 
       // 페이지 로드 후 페이징 초기화
         onPageClick(1);
-    
+
+    $(function(){
+        console.log(window.location.pathname);
+        let pathname=decodeURI(window.location.pathname);
+        let index= pathname.lastIndexOf("/");
+        console.log(index);
+        console.log(pathname.substring(index,pathname.length));
+        pathname= pathname.substring(index+1,pathname.length);
+        console.log("ddd"+pathname);
+        let btn= $(".midbtn");
+        //$('.midbtn').removeClass("active");
+        if(btn.text())
+            for(let i=0;i<btn.length;i++){
+                console.log(btn.eq(i).text());
+                if(btn.eq(i).text()==pathname){
+
+
+                    btn.eq(i).addClass("active");
+                    console.log(btn.eq(i));
+                }
+            }
+    });
+
+// 현재 URL에서 중분류 이름 추출
+    function getSelectedMiddleFromUrl() {
+        const url = window.location.href;
+        const urlParts = url.split('/');
+        if (urlParts.length >= 8) {
+            return decodeURI(urlParts[7]);
+        } else {
+            return null;
+        }
+    }
+
 });//================window.onload 끝
 
 
@@ -83,16 +116,16 @@ else {
     });
 
 
-   
-    
-    
-  
 
 
 
 
 
-    
+
+
+
+
+
 
 
 
