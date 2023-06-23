@@ -3,12 +3,8 @@ $(document).ready(()=> {
     let searchResult = $('#searchResult')
     let tableBody = $('#tableBody')
     let pagination = $('#pagination')
-    searchResult.append("<p class='content-name'>검색 결과 : 0 건</p>")
-    tableBody.append("<p>검색 결과가 없습니다</p>")
 
     // 조회기간 제한
-    let nowDate = new Date().toISOString().split('T')[0]
-    $('#date-calendar-end').val(nowDate)
     $('input:radio[name=btnradio]').on('change', () => {
         let value = $('input:radio[name=btnradio]:checked').val()
         if (value === 'today') {
@@ -38,7 +34,7 @@ $(document).ready(()=> {
         } else if (value === 'all') {
             let nowDate = new Date().toISOString().split('T')[0]
             $('#date-calendar-start').val('')
-            $('#date-calendar-end').val(endDate)
+            $('#date-calendar-end').val('')
         }
     })
 
@@ -47,11 +43,19 @@ $(document).ready(()=> {
         let cont_name = $('#cont_name').val()
         let searchDateType = $('#searchDateType').val()
         let searchStartDate =  $('#date-calendar-start').val()
+        let searchEndDate = $('#date-calendar-end').val()
 
-        let endDate =  $('#date-calendar-end').val()
-        let getEndDate = new Date(endDate).getDate()+1
-        let setEndDate = new Date().setDate(getEndDate)
-        let searchEndDate = new Date(setEndDate).toISOString().split('T')[0]
+        if (!((searchStartDate === '' && searchEndDate === '') || (searchStartDate !== '' && searchEndDate !== ''))) {
+            alert('조회기간을 입력해주세요.')
+            return
+        }
+
+        if (searchEndDate !== '') {
+            let endDate =  new Date($('#date-calendar-end').val());
+            let getEndDate = endDate.getDate();
+            let setEndDate = endDate.setDate(getEndDate+1);
+            searchEndDate = new Date(setEndDate).toISOString().split('T')[0];
+        }
 
         let cont_status = []
         let list = $('input[name=cont_status]:checked')
@@ -60,6 +64,7 @@ $(document).ready(()=> {
         }
 
         let requestData = {
+            'filter': 'filter',
             'cont_name': cont_name,
             'searchDateType': searchDateType,
             'searchStartDate': searchStartDate,
@@ -107,5 +112,13 @@ $(document).ready(()=> {
                 }
             }
         })
+    })
+
+    $('#tableBody').on('click', '.content-delete', (e)=>{
+
+        if (confirm('해빗을 삭제하시겠습니까?')) {
+            let cont_no = e.currentTarget.id.substring(6)
+            location.href='/host/contentlist/delete/' + cont_no
+        }
     })
 })

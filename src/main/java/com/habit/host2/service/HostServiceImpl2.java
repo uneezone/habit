@@ -47,31 +47,31 @@ public class HostServiceImpl2 implements HostService2 {
                 List<String> adjustProNo = repository.getAdjustProNo(cont_no);
                 log.info("pro_no list={}",adjustProNo);
 
-                Iterator<String> iterator=adjustProNo.iterator();
+                //Iterator<String> iterator=adjustProNo.iterator();
 
                 //해당 상품이 한번이라도 판매가 됬는지 확인
-                while (iterator.hasNext()){
+                /*while (iterator.hasNext()){
                     String pro_no = iterator.next();
                     int exist = repository.checkSelled(pro_no);
 
                     if(exist==0){
                         iterator.remove();
                     }
-                }
+                }*/
                 log.info("pro_no={}", adjustProNo);
 
-                if(adjustProNo.size()!=0) {
-                    Map<String, Object> allPriceForHome = repository.getAllPriceForHome(adjustProNo);
-                    allPrice += Long.parseLong(String.valueOf(allPriceForHome.get("sum")));
-                    monthPrice += repository.getMonthPriceForHome(adjustProNo);
-                    allCount += Long.parseLong(String.valueOf(allPriceForHome.get("count")));
-                    monthCancelCount += repository.getMonthCancel(adjustProNo);
 
-                    log.info("누적판매금액={}", allPrice);
-                    log.info("이번달판매금액={}", monthPrice);
-                    log.info("전체건수={}", allCount);
-                    log.info("이번달취소건수={}", monthCancelCount);
-                }
+                Map<String, Object> allPriceForHome = repository.getAllPriceForHome(adjustProNo);
+                allPrice += Long.parseLong(String.valueOf(allPriceForHome.get("sum")));
+                monthPrice += repository.getMonthPriceForHome(adjustProNo);
+                allCount += Long.parseLong(String.valueOf(allPriceForHome.get("count")));
+                monthCancelCount += repository.getMonthCancel(adjustProNo);
+
+                log.info("누적판매금액={}", allPrice);
+                log.info("이번달판매금액={}", monthPrice);
+                log.info("전체건수={}", allCount);
+                log.info("이번달취소건수={}", monthCancelCount);
+
 
             }
 

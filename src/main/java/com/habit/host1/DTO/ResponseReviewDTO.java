@@ -9,6 +9,7 @@ public class ResponseReviewDTO {
     private String host_id;
     private String user_id;
     private String cont_name;
+    private int review_no;
     private int review_star;
     private String review_cont;
     private String review_date;

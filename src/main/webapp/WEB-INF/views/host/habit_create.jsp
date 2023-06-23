@@ -391,6 +391,9 @@
                       </td>
                     </tr>
                 </table>
+                <div>
+                  <p class="item2-info" style="color: gray;">해빗 옵션 가격은 5000원 이상부터 등록 가능합니다.</p>
+                </div>
               </div>
             </div>
             <!-- 콘텐츠 옵션 : 인원권/회차권 종료 -->
@@ -440,14 +443,16 @@
                       </td>
                     </tr>
                 </table>
+                <div>
+                  <p class="item2-info" style="color: gray;">해빗 옵션 가격은 5000원 이상부터 등록 가능합니다.</p>
+                </div>
               </div>
             </div>
             <!-- 콘텐츠 옵션 : 원데이 클래스 종료 -->
-            
           </div>
         </div>
         
-        <!-- 프립 설명 -->
+        <!-- 해빗 설명 -->
         <div class="content">
           <p class="content-name">해빗 설명</p>
           <div class="content-flex">
@@ -455,16 +460,7 @@
               <p>대표 이미지</p>
             </div>
             <div>
-              <div class="item">
-                <div>
-                  <img src="/img/no-image01.gif" id="preview_cont_img1" alt="이미지 없음" width="200px" height="200px">
-                </div>
-                <div>
-                  <img src="/img/no-image01.gif" id="preview_cont_img2" alt="이미지 없음" width="200px" height="200px">
-                </div>
-                <div>
-                  <img src="/img/no-image01.gif" id="preview_cont_img3" alt="이미지 없음" width="200px" height="200px">
-                </div>
+              <div class="item" id="preview_img_container" style="display: flex; align-items: center; justify-content: center;">
               </div>
               <div class="input-img">
                 <small hidden id="cont_img_small">이미지 파일은 3개까지 첨부 가능합니다.</small><br>
@@ -512,7 +508,7 @@
         </div>
       </div>
       <div class="d-grid gap-2" style="margin: 20px 0 40px;">
-        <input type="submit" class="btn btn-lg btn-outline-primary" value="프립 등록">
+        <input type="submit" class="btn btn-lg btn-outline-primary" value="해빗 등록">
       </div>
     </form>
   </div>

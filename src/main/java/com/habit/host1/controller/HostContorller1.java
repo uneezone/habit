@@ -1,6 +1,6 @@
 package com.habit.host1.controller;
 
-import com.habit.host1.DTO.RequestContentInsertDTO;
+import com.habit.host1.DTO.ContentAndOptionDTO;
 import com.habit.host1.DTO.RequestReviewDTO;
 import com.habit.host1.DTO.ResponseReviewDTO;
 import com.habit.host1.DTO.*;
@@ -40,22 +40,67 @@ public class HostContorller1 {
 
     // 생성된 컨텐츠 값 insert
     @PostMapping("/contentinsert")
-    public String contentInsert(@SessionAttribute(name = "userId", required = false) String userIdd, RequestContentInsertDTO rciDTO) throws IOException {
+    public String contentInsert(@SessionAttribute(name = "userId", required = false) String userIdd, ContentAndOptionDTO rciDTO) throws IOException {
         //임시 세션 아이디
         String userId = "user-1";
         rciDTO.setHost_id(userId);
         int result = hostService1.contentInsert(rciDTO);
-        return "redirect:/contentlist";
+        return "redirect:/host/contentlist";
+    }
+
+    @GetMapping("/contentlist")
+    public String contentList (@SessionAttribute(name = "userId", required = false) String userIdd, Model model) {
+        //임시 세션 아이디
+        String userId = "user-1";
+        RequestContentListDTO reqContListDTO = new RequestContentListDTO();
+        reqContListDTO.setHost_id(userId);
+
+        List<ResponseContentListDTO> list = hostService1.contentList(reqContListDTO);
+        model.addAttribute("list", list);
+
+        return "host/habit_list";
+    }
+
+    @PostMapping("/contentlist.do")
+    @ResponseBody
+    public List<ResponseContentListDTO> contentList (@SessionAttribute(name = "userId", required = false) String userIdd, RequestContentListDTO reqContListDTO) {
+        //임시 세션 아이디
+        String userId = "user-1";
+        reqContListDTO.setHost_id(userId);
+        return hostService1.contentList(reqContListDTO);
+    }
+
+    @GetMapping("/contentlist/delete/{cont_no}")
+    public String contentDelete(@PathVariable int cont_no) {
+        hostService1.deleteContent(cont_no);
+        return "redirect:/host/contentlist";
+    }
+
+    @GetMapping("/contentlist/update/{cont_no}")
+    public String contentUpdateBefore(@PathVariable int cont_no, Model model) {
+//        select cate_large, cate_middle, cont_name, cont_zip, cont_addr1, cont_addr2, cont_extaddr,
+//       cont_hashtag1, cont_hashtag2, cont_hashtag3, cont_hashtag4, cont_hashtag5, cont_stdate, cont_endate, cont_img,
+//       cont_content
+//from cont a join cate b
+//on a.cate_no = b.cate_no
+//where cont_no = ${cont_no}
+        return "host/habit_update";
     }
 
     // [habit_review_control.jsp]
+
     @GetMapping("/review")
-    public String reviewControl(@SessionAttribute(name = "userId", required = false) String userIdd) {
+    public String reviewSearch(@SessionAttribute(name = "userId", required = false) String userIdd, Model model) {
         //임시 세션 아이디
         String userId = "user-1";
+        RequestReviewDTO reqReviewDTO = new RequestReviewDTO();
+        reqReviewDTO.setHost_id(userId);
+
+        List<ResponseReviewDTO> list = hostService1.reviewList(reqReviewDTO);
+        model.addAttribute("list", list);
+
         return "host/habit_review_control";
     }
-
     @PostMapping("/review.do")
     @ResponseBody
     public List<ResponseReviewDTO> reviewSearch(@SessionAttribute(name = "userId", required = false) String userIdd, RequestReviewDTO reqReviewDTO) {
@@ -87,36 +132,41 @@ public class HostContorller1 {
     @ResponseBody
     public List<ResponseInquiryDTO> inquiryList(@SessionAttribute(name = "userId", required = false) String userIdd, RequestInquiryDTO reqInqDTO) {
         //임시 세션 아이디
-        String user_id = "user-1";
-        reqInqDTO.setHost_id(user_id);
+        String userId = "user-1";
+        reqInqDTO.setHost_id(userId);
         return hostService1.inquiryList(reqInqDTO);
     }
 
-    // [habit_list.jsp]
-    @GetMapping("/contentlist")
-    public String Content () {
-        return "host/habit_list";
-    }
 
-    @PostMapping("/contentlist.do")
-    @ResponseBody
-    public List<ResponseContentListDTO> ContentList (@SessionAttribute(name = "userId", required = false) String userIdd, RequestContentListDTO reqContListDTO) {
-        //임시 세션 아이디
-        String user_id = "user-1";
-        reqContListDTO.setHost_id(user_id);
-        System.out.println("reqContListDTO = " + reqContListDTO);
-        System.out.println(hostService1.contentList(reqContListDTO));
-        return hostService1.contentList(reqContListDTO);
-    }
 
     // [habit_reservation_control.jsp]
     @GetMapping("/reservation")
-    public String Reservation (@SessionAttribute(name = "userId", required = false) String userIdd, Model model) {
+    public String reservation (@SessionAttribute(name = "userId", required = false) String userIdd, Model model) {
         //임시 세션 아이디
-        String user_id = "user-1";
-        List<ResponseReservationDTO> list = hostService1.reservationList(user_id);
+        String userId = "user-1";
+        RequestReservationDTO reqReservDTO = new RequestReservationDTO();
+        reqReservDTO.setHost_id(userId);
+        List<ResponseReservationDTO> list = hostService1.reservationList(reqReservDTO);
         model.addAttribute("list", list);
         return "host/habit_reservation_control";
+    }
+
+    // 예약 상태 변경
+    @PostMapping("/reservation/statuschange.do")
+    @ResponseBody
+    public int reservationStatusChange (RequestReservationStatusChangeDTO reqReservStatChg) {
+        return hostService1.reservationStatusChangeAndRefundInsert(reqReservStatChg);
+    }
+
+    // 예약 리스트 필터 조회
+    @PostMapping("/reservation/filter.do")
+    @ResponseBody
+    public List<ResponseReservationDTO> reservationFilter (@SessionAttribute(name = "userId", required = false) String userIdd, RequestReservationDTO reqReservDTO) {
+        String userId = "user-1";
+        reqReservDTO.setHost_id(userId);
+        System.out.println(reqReservDTO.getSearchStartDate());
+        System.out.println(reqReservDTO.getSearchEndDate());
+        return hostService1.reservationList(reqReservDTO);
     }
 
 }

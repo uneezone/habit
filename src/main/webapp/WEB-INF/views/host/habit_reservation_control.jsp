@@ -91,23 +91,30 @@
             <div class="item-name">
               <p>클래스 실행일</p>
             </div>
-            <div class="item">
-              <div style="display: flex;">
-                <input type="date" class="form-control" id="date-calendar-start" name="searchStartDate"> &nbsp;~&nbsp; <input type="date" id="date-calendar-end" name="searchEndDate" class="form-control">
+            <div>
+              <div class="item">
+                <div style="display: flex;">
+                  <input type="date" class="form-control" id="searchStartDate" name="searchStartDate"> &nbsp;~&nbsp; <input type="date" id="searchEndDate" name="searchEndDate" class="form-control">
+                </div>
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                  <input type="radio" class="btn-check" name="btnradio" id="today" value="today" autocomplete="off">
+                  <label class="btn btn-sm btn-outline-primary" for="today">오늘</label>
+                  <input type="radio" class="btn-check" name="btnradio" id="1Month" value="1Month" autocomplete="off">
+                  <label class="btn btn-sm btn-outline-primary" for="1Month">1개월</label>
+                  <input type="radio" class="btn-check" name="btnradio" id="6Month" value="6Month" autocomplete="off">
+                  <label class="btn btn-sm btn-outline-primary" for="6Month">6개월</label>
+                  <input type="radio" class="btn-check" name="btnradio" id="1year" value="1year" autocomplete="off">
+                  <label class="btn btn-sm btn-outline-primary" for="1year">&nbsp;1년&nbsp;</label>
+                  <input type="radio" class="btn-check" name="btnradio" id="5year" value="5year" autocomplete="off">
+                  <label class="btn btn-sm btn-outline-primary" for="5year">&nbsp;5년&nbsp;</label>
+                  <input type="radio" class="btn-check" name="btnradio" id="all" value="all" autocomplete="off" checked>
+                  <label class="btn btn-sm btn-outline-primary" for="all">전체</label>
+                </div>
               </div>
-              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <input type="radio" class="btn-check" name="btnradio" id="today" value="today" autocomplete="off">
-                <label class="btn btn-sm btn-outline-primary" for="today">오늘</label>
-                <input type="radio" class="btn-check" name="btnradio" id="1Month" value="1Month" autocomplete="off">
-                <label class="btn btn-sm btn-outline-primary" for="1Month">1개월</label>
-                <input type="radio" class="btn-check" name="btnradio" id="6Month" value="6Month" autocomplete="off">
-                <label class="btn btn-sm btn-outline-primary" for="6Month">6개월</label>
-                <input type="radio" class="btn-check" name="btnradio" id="1year" value="1year" autocomplete="off">
-                <label class="btn btn-sm btn-outline-primary" for="1year">&nbsp;1년&nbsp;</label>
-                <input type="radio" class="btn-check" name="btnradio" id="5year" value="5year" autocomplete="off">
-                <label class="btn btn-sm btn-outline-primary" for="5year">&nbsp;5년&nbsp;</label>
-                <input type="radio" class="btn-check" name="btnradio" id="all" value="all" autocomplete="off" checked>
-                <label class="btn btn-sm btn-outline-primary" for="all">전체</label>
+              <div>
+                <div>
+                  <p class="item2-info" style="color: gray;">조회기간을 비워두면 전체기간으로 조회됩니다.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -156,7 +163,7 @@
           </div>
           <div>
             <div style="float: right;">
-              <input type="submit" class="btn btn-primary" value="검색">
+              <input type="button" class="btn btn-primary" value="검색" id="search-reservation">
               <input type="reset" class="btn btn-outline-primary" value="초기화">
             </div>
           </div>
@@ -167,10 +174,7 @@
       <!-- 검색 결과 -->
       <div class="content">
         <div id="searchResult">
-        <c:choose>
-        <c:when test=""></c:when>
-          <p class="content-name">검색 결과 : 0 건</p>
-        </c:choose>
+          <p class="content-name">검색 결과 : ${list.size()} 건</p>
         </div>
         <div style="text-align: center;">
           <table class="table">
@@ -179,117 +183,59 @@
                 <th>예약ID</th>
                 <th>성별</th>
                 <th>연락처</th>
-                <th>상품명</th>
-                <th>클래스실행일</th><!--옵션명-->
-                <th>수량</th>
+                <th>해빗명</th>
+                <th>클래스실행일</th>
+                <th>예약수량</th>
                 <th>예약상태</th>
                 <th>예약관리</th>
               </tr>
             </thead>
             <tbody id="table-body">
             <c:choose>
-              
+            <c:when test="${list.size()>0}">
+            <c:forEach var="item" items="${list}">
+              <tr>
+                <td>${item.user_id}</td>
+                <td>
+                <c:choose>
+                <c:when test='${item.user_gender.equals("W")}'>여자</c:when>
+                <c:when test='${item.user_gender.equals("M")}'>남자</c:when>
+                </c:choose>
+                </td>
+                <td>${item.user_phone}</td>
+                <td><a href="#">${item.cont_name}</a></td>
+                <td>${item.one_date.substring(0,16)}</td>
+                <td>${item.payd_qty}</td>
+                <td id="status${item.payd_no}">
+                  <c:choose>
+                    <c:when test='${item.payd_status.equals("R")}'><span>미사용</span></c:when>
+                    <c:when test='${item.payd_status.equals("Y")}'><span>사용완료</span></c:when>
+                    <c:when test='${item.payd_status.equals("C")}'><span>취소완료</span></c:when>
+                  </c:choose>
+                </td>
+                <td id="status-button-container${item.payd_no}" class="status-button-container">
+                  <c:choose>
+                    <c:when test='${item.payd_status.equals("R")}'>
+                    <input type="button" class="btn btn-sm btn-primary status-button" value="예약상태변경" id="status-button${item.payd_no}">
+                    </c:when>
+                    <c:otherwise>-</c:otherwise>
+                  </c:choose>
+                </td>
+              </tr>
+            </c:forEach>
+            </c:when>
+            <c:otherwise>
+              <tr>
+                <td colspan="8">검색 결과가 없습니다</td>
+              </tr>
+            </c:otherwise>
             </c:choose>
-<%--              <!-- 기본상태 -->--%>
-<%--              <tr>--%>
-<%--                <td>user-2</td>--%>
-<%--                <td>여자</td>--%>
-<%--                <td>010-1234-5678</td>--%>
-<%--                <td>[서핑] 원데이 클래스</td>--%>
-<%--                <td>2023-04-07 14:00</td>--%>
-<%--                <td>5</td>--%>
-<%--                <td>--%>
-<%--                  <span>예약대기</span>--%>
-<%--                  <select class="form-select" name="" id="" hidden>--%>
-<%--                    <option value="">예약확정</option>--%>
-<%--                    <option value="">사용완료</option>--%>
-<%--                    <option value="">취소완료</option>--%>
-<%--                    <option value="">예약대기</option>--%>
-<%--                  </select>--%>
-<%--                </td>--%>
-<%--                <td>--%>
-<%--                  <span hidden>-</span>--%>
-<%--                  <input type="button" class="btn btn-sm btn-primary" value="예약상태변경">--%>
-<%--                </td>--%>
-<%--              </tr>--%>
-
-<%--              <!-- 예약 상태 수정 -->--%>
-<%--              <tr>--%>
-<%--                <td>user-2</td>--%>
-<%--                <td>여자</td>--%>
-<%--                <td>010-1234-5678</td>--%>
-<%--                <td>[서핑] 원데이 클래스</td>--%>
-<%--                <td>2023-04-07 14:00</td>--%>
-<%--                <td>5</td>--%>
-<%--                <td>--%>
-<%--                  <span hidden>예약확정</span>--%>
-<%--                  <select class="form-select" name="" id="">--%>
-<%--                    <option value="">예약확정</option>--%>
-<%--                    <option value="">사용완료</option>--%>
-<%--                    <option value="">취소완료</option>--%>
-<%--                    <option value="">예약대기</option>--%>
-<%--                  </select>--%>
-<%--                </td>--%>
-<%--                <td>--%>
-<%--                  <span hidden>-</span>--%>
-<%--                  <input type="button" class="btn btn-sm btn-primary" value="상태저장">--%>
-<%--                </td>--%>
-<%--              </tr>--%>
-
-<%--              <!-- 사용 완료 상태 -->--%>
-<%--              <tr>--%>
-<%--                <td>user-2</td>--%>
-<%--                <td>여자</td>--%>
-<%--                <td>010-1234-5678</td>--%>
-<%--                <td>[서핑] 원데이 클래스</td>--%>
-<%--                <td>2023-04-07 14:00</td>--%>
-<%--                <td>5</td>--%>
-<%--                <td>--%>
-<%--                  <span>사용완료</span>--%>
-<%--                  <select class="form-select" name="" id="" hidden>--%>
-<%--                    <option value="">예약확정</option>--%>
-<%--                    <option value="">사용완료</option>--%>
-<%--                    <option value="">취소완료</option>--%>
-<%--                    <option value="">예약대기</option>--%>
-<%--                  </select>--%>
-<%--                </td>--%>
-<%--                <td>--%>
-<%--                  <span>-</span>--%>
-<%--                  <input type="button" class="btn btn-sm btn-primary" value="상태저장" hidden>--%>
-<%--                </td>--%>
-<%--              </tr>--%>
-
-<%--              <!-- 검색 결과 없을 때 -->--%>
-<%--              <tr>--%>
-<%--                <td colspan="8">검색 결과가 없습니다</td>--%>
-<%--              </tr>--%>
             </tbody>
           </table>
         </div>
         <!-- 페이징 -->
         <div style="display: flex; align-items: center; justify-content: center;">
           <ul class="pagination" id="pagination">
-<%--            <li class="page-item disabled">--%>
-<%--              <a class="page-link" href="#">&laquo;</a>--%>
-<%--            </li>--%>
-<%--            <li class="page-item active">--%>
-<%--              <a class="page-link" href="#">1</a>--%>
-<%--            </li>--%>
-<%--            <li class="page-item">--%>
-<%--              <a class="page-link" href="#">2</a>--%>
-<%--            </li>--%>
-<%--            <li class="page-item">--%>
-<%--              <a class="page-link" href="#">3</a>--%>
-<%--            </li>--%>
-<%--            <li class="page-item">--%>
-<%--              <a class="page-link" href="#">4</a>--%>
-<%--            </li>--%>
-<%--            <li class="page-item">--%>
-<%--              <a class="page-link" href="#">5</a>--%>
-<%--            </li>--%>
-<%--            <li class="page-item">--%>
-<%--              <a class="page-link" href="#">&raquo;</a>--%>
-<%--            </li>--%>
           </ul>
         </div>
       </div>
@@ -323,6 +269,5 @@
     </div>
   </footer>
 <!-- footer 종료 -->
-
 </body>
 </html>

@@ -33,7 +33,7 @@ public class HostServiceImpl1 implements HostService1 {
 
     // 해빗 등록 (insert)
     @Override
-    public int contentInsert (RequestContentInsertDTO rciDTO) throws IOException {
+    public int contentInsert (ContentAndOptionDTO rciDTO) throws IOException {
         int result = 0;
 
         ContentEntity contentEntity = new ContentEntity();
@@ -151,13 +151,84 @@ public class HostServiceImpl1 implements HostService1 {
         List<ResponseContentListDTO> list = memoryHostRepository1.contentList(reqContListDTO);
         if (list.size() > 0) {
             int totalCount = memoryHostRepository1.contentListCount(reqContListDTO);
+            for (ResponseContentListDTO dto : list) {
+                String cont_img = dto.getCont_img().trim().split("\\|")[0];
+                dto.setCont_img(cont_img);
+            }
+            list.get(0).setTotalCount(totalCount);
+        }
+        return list;
+    }
+
+    // 해빗 삭제
+
+
+    @Override
+    public int deleteContent(int cont_no) {
+        return memoryHostRepository1.deleteContent(cont_no);
+    }
+
+    // 원데이클래스 예약건 List 가져오기
+    @Override
+    public List<ResponseReservationDTO> reservationList(RequestReservationDTO reqReservDTO) {
+        List<ResponseReservationDTO> list = memoryHostRepository1.reservationList(reqReservDTO);
+        if (list.size() > 0) {
+            int totalCount = memoryHostRepository1.reservationListCount(reqReservDTO);
             list.get(0).setTotalCount(totalCount);
         }
         return list;
     }
 
     @Override
-    public List<ResponseReservationDTO> reservationList(String user_id) {
-        return memoryHostRepository1.reservationList(user_id);
+    public int reservationStatusChangeAndRefundInsert (RequestReservationStatusChangeDTO reqReservStatChg) {
+
+        int result = 0;
+
+        // 주문상세 상태변경
+        String paydStatus = reqReservStatChg.getPayd_status();
+        if (!paydStatus.equals("R")) {
+            if (paydStatus.equals("Y")) { // 사용처리했을경우
+                reqReservStatChg.setRefn_status("NRO");
+            } else if (paydStatus.equals("C")) { // 취소처리했을경우
+                reqReservStatChg.setRefn_status("HFRO");
+            }
+            result += memoryHostRepository1.reservationStatusChange(reqReservStatChg);
+        }
+
+        // 취소처리일 경우 환불 insert를 위한 주문서, 주문상세 select
+        if (result > 1 && paydStatus.equals("C")) {
+            int payd_no = reqReservStatChg.getPayd_no();
+            SelectPayDetailForInsertRefundDTO spdfirDTO = memoryHostRepository1.selectPayDetailForInsertRefund(payd_no);
+            if (spdfirDTO != null) { // select한 값이 존재한다면
+
+                // 환불액 계산, 환불 포인트 계산
+                List<String> paydStatusList = memoryHostRepository1.selectPayDetailStatus(payd_no);
+                int yCount = 0;
+                int rCount = 0;
+                for (String status : paydStatusList) {
+                    if (status.equals("Y")) {
+                        yCount++;
+                    } else if (status.equals("R")) {
+                        rCount++;
+                    }
+                }
+                int payd_price = spdfirDTO.getPayd_price();
+                if (yCount > 0) {
+                    spdfirDTO.setRefn_pay(payd_price);
+                    spdfirDTO.setRefn_point(0);
+                }
+                if (yCount == 0 && rCount == 1) {
+                    int pay_point = spdfirDTO.getPay_point();
+                    int refn_pay = payd_price - pay_point;
+                    spdfirDTO.setRefn_pay(refn_pay);
+                    spdfirDTO.setRefn_point(pay_point);
+                }
+
+                // 환불 테이블 insert
+                result += memoryHostRepository1.insertRefund(spdfirDTO);
+            }
+        }
+
+        return result;
     }
 }

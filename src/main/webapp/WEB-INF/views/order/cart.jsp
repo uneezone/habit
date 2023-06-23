@@ -110,7 +110,7 @@
           <hr />
           <p style="font-size: larger; font-weight: bold; display:inline-block">합계금액 :  </p>
           <hr />
-          <input type="submit" value="결제하러가기" onsubmit="order()"/>
+          <input type="button" value="결제하러가기" onclick="location.href='/order/pay'"/>
         </div>
 
       </form>

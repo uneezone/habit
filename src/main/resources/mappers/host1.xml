@@ -27,7 +27,7 @@
     </select>
 
     <!-- 콘텐츠 테이블 insert -->
-    <insert id="insertCont" useGeneratedKeys="true" keyProperty="cont_no" parameterType="com.habit.host1.DTO.RequestContentInsertDTO" >
+    <insert id="insertCont" useGeneratedKeys="true" keyProperty="cont_no" parameterType="com.habit.host1.DTO.ContentAndOptionDTO" >
         INSERT INTO cont (cate_no, host_id, cont_name, cont_zip, cont_addr1, cont_addr2, cont_extaddr, cont_endate, cont_img, cont_content, cont_hashtag1, cont_hashtag2, cont_hashtag3, cont_hashtag4, cont_hashtag5)
         values (#{cate_no}, #{host_id}, #{cont_name}, #{cont_zip}, #{cont_addr1}, #{cont_addr2}, #{cont_extaddr}, #{cont_endate},
         <foreach collection="cont_img" item="img" open="'" close="'" separator="|">${img}</foreach>
@@ -42,7 +42,7 @@
     </insert>
 
     <!-- 원데이 클래스 테이블 insert -->
-    <insert id="insertOne" parameterType="com.habit.host1.DTO.RequestContentInsertDTO">
+    <insert id="insertOne" parameterType="com.habit.host1.DTO.ContentAndOptionDTO">
         insert into one(pro_no, cont_no, one_date, one_maxqty, one_price)
         values
         <foreach collection="list" item="oneEntity" separator=",">
@@ -51,7 +51,7 @@
     </insert>
 
     <!-- 회차권/인원권 테이블 insert -->
-    <insert id="insertProd" parameterType="com.habit.host1.DTO.RequestContentInsertDTO">
+    <insert id="insertProd" parameterType="com.habit.host1.DTO.ContentAndOptionDTO">
         insert into prod(pro_no, cont_no, prod_name, prod_qty, prod_price)
         values
         <foreach collection="list" item="prodEntity" separator=",">
@@ -61,30 +61,34 @@
 
     <!-- 리뷰 리스트 불러오기 -->
     <select id="reviewList" parameterType="com.habit.host1.DTO.RequestReviewDTO" resultType="com.habit.host1.DTO.ResponseReviewDTO">
-        select user_id, cont_name, review_star, review_cont, review_date
+        select user_id, cont_name, review_star, review_cont, review_date, review_no
         from habit.review a join habit.cont b
         on a.cont_no = b.cont_no
         where host_id = #{host_id} and review_status = 'Y'
-        <if test="starScore != null">
-            and <foreach collection="starScore" item="score" separator="or" open="(" close=")">review_star = ${score}</foreach>
+        <if test="filter != null">
+            <if test="starScore != null">
+                and <foreach collection="starScore" item="score" separator="or" open="(" close=")">review_star = ${score}</foreach>
+            </if>
+            <if test='!reviewContKeyword.equals("")'>and review_cont like concat('%',#{reviewContKeyword},'%')</if>
+            <if test='!searchUserId.equals("")'>and user_id = #{searchUserId}</if>
         </if>
-        <if test='!reviewContKeyword.equals("")'>and review_cont like concat('%',#{reviewContKeyword},'%')</if>
-        <if test='!searchUserId.equals("")'>and user_id = #{searchUserId}</if>
         order by review_date desc
         limit ${recordSize} offset ${(page-1)*recordSize}
     </select>
 
-    <!-- 검색 페이지 count(*)-->
+    <!-- 리뷰 리스트 count(*)-->
     <select id="reviewCount" parameterType="com.habit.host1.DTO.RequestReviewDTO" resultType="int">
         select count(*)
         from habit.review a join habit.cont b
         on a.cont_no = b.cont_no
         where host_id = #{host_id} and review_status = 'Y'
-        <if test="starScore != null">
-            and <foreach collection="starScore" item="score" separator="or" open="(" close=")">review_star = ${score}</foreach>
+        <if test="filter != null">
+            <if test="starScore != null">
+                and <foreach collection="starScore" item="score" separator="or" open="(" close=")">review_star = ${score}</foreach>
+            </if>
+            <if test='!reviewContKeyword.equals("")'>and review_cont like concat('%',#{reviewContKeyword},'%')</if>
+            <if test='!searchUserId.equals("")'>and user_id = #{searchUserId}</if>
         </if>
-        <if test='!reviewContKeyword.equals("")'>and review_cont like concat('%',#{reviewContKeyword},'%')</if>
-        <if test='!searchUserId.equals("")'>and user_id = #{searchUserId}</if>
     </select>
 
     <!--  문의 조회  -->
@@ -120,47 +124,58 @@
         from cont a join cate b
         on a.cate_no = b.cate_no
         where host_id = #{host_id}
-        <if test='!cont_name.equals("")'>
-            and cont_name like concat('%',#{cont_name},'%')
+        <if test="filter != null">
+            <if test='!cont_name.equals("")'>
+                and cont_name like concat('%',#{cont_name},'%')
+            </if>
+            <if test='!(searchStartDate.equals("") and searchStartDate.equals(""))'>
+                and ${searchDateType} between #{searchStartDate} and #{searchEndDate}
+            </if>
+            <if test="cont_status != null">
+                and <foreach collection="cont_status" item="status" separator="or" open="(" close=")">cont_status = #{status}</foreach>
+            </if>
+            <choose>
+                <when test='!(searchStartDate.equals("") and searchStartDate.equals(""))'>
+                    order by ${searchDateType} desc
+                </when>
+                <otherwise>
+                    order by cont_stdate desc
+                </otherwise>
+            </choose>
         </if>
-        <if test='!searchStartDate.equals("")'>
-            and ${searchDateType} between #{searchStartDate} and #{searchEndDate}
-<!--            <![CDATA[and (${searchDateType} >= #{searchStartDate} or ${searchDateType} <= #{searchEndDate})]]>-->
+        <if test="filter == null">
+            order by cont_stdate desc
         </if>
-        <if test="cont_status != null">
-            and <foreach collection="cont_status" item="status" separator="or" open="(" close=")">cont_status = #{status}</foreach>
-        </if>
-        <choose>
-            <when test='!searchStartDate.equals("")'>
-                order by ${searchDateType} desc
-            </when>
-            <otherwise>
-                order by cont_stdate desc
-            </otherwise>
-        </choose>
     </select>
 
     <!-- 해빗 리스트 조회 count -->
     <select id="contentListCount" parameterType="com.habit.host1.DTO.RequestContentListDTO" resultType="int">
         select count(*)
-        from cont
+        from cont a join cate b
+        on a.cate_no = b.cate_no
         where host_id = #{host_id}
-        <if test='!cont_name.equals("")'>
-            and cont_name like concat('%',#{cont_name},'%')
-        </if>
-        <if test='!searchStartDate.equals("")'>
-            and ${searchDateType} between #{searchStartDate} and #{searchEndDate}
-        </if>
-        <if test="cont_status != null">
-            and <foreach collection="cont_status" item="status" separator="or" open="(" close=")">cont_status = #{status}</foreach>
+        <if test="filter != null">
+            <if test='!cont_name.equals("")'>
+                and cont_name like concat('%',#{cont_name},'%')
+            </if>
+            <if test='!(searchStartDate.equals("") and searchStartDate.equals(""))'>
+                and ${searchDateType} between #{searchStartDate} and #{searchEndDate}
+            </if>
+            <if test="cont_status != null">
+                and <foreach collection="cont_status" item="status" separator="or" open="(" close=")">cont_status = #{status}</foreach>
+            </if>
         </if>
     </select>
 
+    <delete id="deleteContent" parameterType="int">
+        delete from cont where cont_no = ${cont_no}
+    </delete>
+
     <!-- 원데이 클래스 리스트 조회 -->
-    <select id="ReservationList" parameterType="com.habit.host1.DTO.RequestReservationDTO" resultType="com.habit.host1.DTO.ResponseReservationDTO">
+    <select id="reservationList" parameterType="com.habit.host1.DTO.RequestReservationDTO" resultType="com.habit.host1.DTO.ResponseReservationDTO">
         select e.*, cont_name
         from (select c.*, one_date, cont_no
-              from (select a.user_id, user_gender, user_phone, payd_qty, payd_status, pro_no
+              from (select a.user_id, user_gender, user_phone, payd_no, payd_qty, payd_status, pro_no
                     from payd a
                     join user b
                     on a.user_id = b.user_id) c
@@ -169,45 +184,77 @@
         join cont f
         on e.cont_no = f.cont_no
         where host_id = #{host_id}
-        <if test='!cont_name.equals("")'>
-            and cont_name = #{cont_name}
-        </if>
-        <if test='!searchStartDate.equals("")'>
-            and one_date #{searchStartDate} and #{searchEndDate}
-        </if>
-        <if test='!searchKeyword.equals("")'>
-            and ${searchType} like concat('%',#{searchKeyword},'%')
-        </if>
-        <if test='!payd_status != null'>
-            and <foreach collection="payd_status" item="status" separator="or" open="(" close=")">payd_status = #{status}</foreach>
+        <if test="filter != null">
+            <if test='!cont_name.equals("")'>
+                and cont_name like concat('%',#{cont_name},'%')
+            </if>
+            <if test='!(searchStartDate.equals("") and searchStartDate.equals(""))'>
+                and one_date between #{searchStartDate} and #{searchEndDate}
+            </if>
+            <if test='!searchKeyword.equals("")'>
+                and ${searchType} like concat('%',#{searchKeyword},'%')
+            </if>
+            <if test='!payd_status != null'>
+                and <foreach collection="payd_status" item="status" separator="or" open="(" close=")">payd_status = #{status}</foreach>
+            </if>
         </if>
         order by one_date desc
     </select>
 
-<!--    &lt;!&ndash; 원데이 클래스 리스트 count &ndash;&gt;-->
-<!--    <select id="ReservationList" parameterType="com.habit.host1.DTO.RequestReservationDTO" resultType="com.habit.host1.DTO.ResponseReservationDTO">-->
-<!--        select e.*, cont_name-->
-<!--        from (select c.*, one_date, cont_no-->
-<!--              from (select a.user_id, user_gender, user_phone, payd_qty, payd_status, pro_no-->
-<!--                    from payd a-->
-<!--                    join user b-->
-<!--                    on a.user_id = b.user_id) c-->
-<!--              join one d-->
-<!--              on c.pro_no = d.pro_no) e-->
-<!--        join cont f-->
-<!--        on e.cont_no = f.cont_no-->
-<!--        where host_id = #{host_id}-->
-<!--        <if test='!cont_name.equals("")'>-->
-<!--            and cont_name = #{cont_name}-->
-<!--        </if>-->
-<!--        <if test='!searchStartDate.equals("")'>-->
-<!--            and one_date #{searchStartDate} and #{searchEndDate}-->
-<!--        </if>-->
-<!--        <if test='!searchKeyword.equals("")'>-->
-<!--            and ${searchType} like concat('%',#{searchKeyword},'%')-->
-<!--        </if>-->
-<!--        <if test='!payd_status != null'>-->
-<!--            and <foreach collection="payd_status" item="status" separator="or" open="(" close=")">payd_status = #{status}</foreach>-->
-<!--        </if>-->
-<!--    </select>-->
+    <!-- 원데이 클래스 리스트 count -->
+    <select id="reservationListCount" parameterType="com.habit.host1.DTO.RequestReservationDTO" resultType="int">
+        select count(*)
+        from (select c.*, one_date, cont_no
+              from (select a.user_id, user_gender, user_phone, payd_qty, payd_no, payd_status, pro_no
+                    from payd a
+                    join user b
+                    on a.user_id = b.user_id) c
+              join one d
+              on c.pro_no = d.pro_no) e
+        join cont f
+        on e.cont_no = f.cont_no
+        where host_id = #{host_id}
+        <if test="filter != null">
+            <if test='!cont_name.equals("")'>
+                and cont_name like concat('%',#{cont_name},'%')
+            </if>
+            <if test='!(searchStartDate.equals("") and searchStartDate.equals(""))'>
+                and one_date between #{searchStartDate} and #{searchEndDate}
+            </if>
+            <if test='!searchKeyword.equals("")'>
+                and ${searchType} like concat('%',#{searchKeyword},'%')
+            </if>
+            <if test='!payd_status != null'>
+                and <foreach collection="payd_status" item="status" separator="or" open="(" close=")">payd_status = #{status}</foreach>
+            </if>
+        </if>
+    </select>
+
+    <!--  원데이 클래스 예약 상태변경(주문상세 상태변경)  -->
+    <update id="reservationStatusChange" parameterType="com.habit.host1.DTO.RequestReservationStatusChangeDTO">
+        update payd
+        set payd_status = #{payd_status}, refn_status = #{refn_status}
+        where payd_no = ${payd_no}
+    </update>
+
+    <!--  환불 처리를 위해 주문서, 주문상세에서 값 가져오기  -->
+    <select id="selectPayDetailForInsertRefund" parameterType="String" resultType="com.habit.host1.DTO.SelectPayDetailForInsertRefundDTO">
+        select payd_no, a.user_id, pro_no, payd_price, payd_qty, pay_point, pay_method
+        from payd a join pay b
+                         on a.pay_no = b.pay_no
+        where payd_no = ${payd_no}
+    </select>
+
+    <!--  주문상세 상태 가져오기  -->
+    <select id="selectPayDetailStatus" parameterType="int" resultType="String">
+        select payd_status
+        from payd
+        where pay_no = (select pay_no from payd where payd_no = ${payd_no})
+    </select>
+
+    <!--  환불테이블 insert  -->
+    <insert id="InsertRefund" parameterType="com.habit.host1.DTO.SelectPayDetailForInsertRefundDTO">
+        insert into refn (payd_no, user_id, pro_no, refn_qty, refn_point, refn_pay, refn_method)
+        values (${payd_no}, #{user_id}, #{pro_no}, ${payd_qty}, ${refn_point}, ${refn_pay}, #{pay_method})
+    </insert>
 </mapper>
