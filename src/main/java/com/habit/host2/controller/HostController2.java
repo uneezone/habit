@@ -30,11 +30,11 @@ public class HostController2 {
     private final HostServiceImpl2 hostService;
 
 
-    private String userId="user-2";
+    //private String userId="user-2";
 
     //호스트 홈으로
     @GetMapping("")                                             //true
-    public String showHostPage(@SessionAttribute(name = "userId",required = false)String userIds, Model model){
+    public String showHostPage(@SessionAttribute(name = "s_id",required = false)String userId, Model model){
 
 
         //host인지 확인
@@ -43,7 +43,6 @@ public class HostController2 {
             //home관련 정보들 가져오기(누적금액, 이번달금액, 전체건수, 취소건수, 전레리뷰거스,별점)
             HostHomeDTO hostHomeDTO = hostService.gethostHomeInfo(userId);
             model.addAttribute("HomeInfo",hostHomeDTO);
-            model.addAttribute("hostId",userId);
             return "host/host_home";
         }
 
@@ -53,7 +52,7 @@ public class HostController2 {
     //호스트 가입
     @PostMapping("newHost")
     public String joinHost(@ModelAttribute NewHostDTO dto
-                            , @SessionAttribute(name = "userId",required = false)String userIds, Model model
+                            , @SessionAttribute(name = "s_id",required = false)String userId, Model model
                             , @RequestParam MultipartFile Img
                             , HttpServletRequest req){
 
@@ -69,7 +68,7 @@ public class HostController2 {
         String userGrade = hostService.checkHost(userId);
         System.out.println("userGrade = " + userGrade);
         if(userGrade.equals("H")){
-            model.addAttribute("hostId",userId);
+
             return "host/host_home";
         }
 
@@ -110,24 +109,22 @@ public class HostController2 {
 
         log.info("newHostDTO={}",dto);
         hostService.newHostPro(dto,userId);
-        model.addAttribute("hostId",dto.getHostId());
+
 
         return "host/host_home";
     }
 
     //============호스트 로그아우
     @GetMapping("/logout")
-    public String hostLogout(@SessionAttribute(name = "userId",required = false)String userIds, HttpSession session){
+    public String hostLogout(@SessionAttribute(name = "s_id",required = false)String userId, HttpSession session){
 
-
-
-        session.removeAttribute("userId");
+        session.removeAttribute("s_id");
         return "redirect:/";
     }
 
     //===============프로필/정산정보 관리
     @GetMapping("/info")                             //나중에 true로 바꿔야함
-    public String info(@SessionAttribute(name = "userId",required = false)String userIds, Model model){
+    public String info(@SessionAttribute(name = "s_id",required = false)String userId, Model model){
 
 
 
@@ -140,7 +137,7 @@ public class HostController2 {
     }
 
     @PostMapping("/info")                                                       //나중에 true로 바꿔야함
-    public String modifyInfo(@SessionAttribute(name = "userId",required = false)String userIds,@RequestParam MultipartFile Img, @ModelAttribute HostEditDTO dto,HttpServletRequest req){
+    public String modifyInfo(@SessionAttribute(name = "s_id",required = false)String userId,@RequestParam MultipartFile Img, @ModelAttribute HostEditDTO dto,HttpServletRequest req){
         if(!(Img == null || Img.isEmpty())){
 
             String filename=Img.getOriginalFilename();
@@ -180,7 +177,7 @@ public class HostController2 {
     //=======================판매관리 시작======================
 
     @GetMapping("/product")
-    public String showProduct(@SessionAttribute(name = "userId",required = false) String userIds
+    public String showProduct(@SessionAttribute(name = "s_id",required = false) String userId
                             , Model model
                             , @ModelAttribute SearchProDTO searchdto
                             , @RequestParam(value = "paging", defaultValue = "1") Long paging){
@@ -369,7 +366,7 @@ public class HostController2 {
 
     //================정산서 view페이지
     @GetMapping("/adjust")
-    public String showAdjust(@SessionAttribute(name = "userId",required = false)String userIds
+    public String showAdjust(@SessionAttribute(name = "s_id",required = false)String userId
                                 ,Model model
                                 ,@ModelAttribute SearchAdjustDTO dto
                                 ,@RequestParam(value = "paging", defaultValue = "1") int paging){
@@ -429,7 +426,7 @@ public class HostController2 {
     //정산서 디테일 ajax
     @GetMapping("/adjustDetail")
     @ResponseBody
-    public List<Map<String,Object>> showAdjustDetail(@SessionAttribute(name = "userId",required = false)String userIds
+    public List<Map<String,Object>> showAdjustDetail(@SessionAttribute(name = "s_id",required = false)String userId
                                     ,@RequestParam(value = "calc_no") String calc_no){
 
         List<Map<String, Object>> adjustDetail = hostService.getAdjustDetail(calc_no);
@@ -476,7 +473,7 @@ public class HostController2 {
 
     @PostMapping("/adjustGive")
     @ResponseBody
-    public String adjustGive(@SessionAttribute(name = "userId",required = false)String userIds,@RequestParam(value = "calc_no")String calc_no){
+    public String adjustGive(@SessionAttribute(name = "s_id",required = false)String userId,@RequestParam(value = "calc_no")String calc_no){
 
 
 

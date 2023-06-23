@@ -349,7 +349,12 @@ a:hover{
 .Home_product_recommend_p_font>div>div{
     margin-bottom: 12px;
     line-height: 1.3;
-    height: 36.39px;
+    height: 36.93px;
+    overflow: hidden;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2 ;
+    -webkit-box-orient: vertical;
 }
 
 

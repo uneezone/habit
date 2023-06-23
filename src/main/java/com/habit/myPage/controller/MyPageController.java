@@ -28,10 +28,10 @@ public class MyPageController {
     private final MyPageServiceImpl myPageService;
 
     //임시 아이디
-    private String userId="user-1";
+    //private String userId="user-1";
 
     @GetMapping("")
-    public String showMyPage(@SessionAttribute(name = "userId",required = false)String userIds, Model model){
+    public String showMyPage(@SessionAttribute(name = "s_id",required = false)String userId, Model model){
 
         //임시아이디
         if(userId==null || userId ==""){
@@ -53,7 +53,7 @@ public class MyPageController {
     }
 
     @GetMapping("/myedit")
-    public String showMyPageEdit(@SessionAttribute(name = "userId",required = false)String userIds, Model model){
+    public String showMyPageEdit(@SessionAttribute(name = "s_id",required = false)String userId, Model model){
         //유저 수정할 수 있는 칼럼들 가져오기
         UserInfoDTO userInfo = myPageService.getUserInfo(userId);
 
@@ -62,7 +62,7 @@ public class MyPageController {
     }
 
     @PostMapping("/myedit")
-    public String editMyPageEdit(@SessionAttribute(name = "userId",required = false)String userIds
+    public String editMyPageEdit(@SessionAttribute(name = "s_id",required = false)String userId
                                     , @ModelAttribute UserEditDTO dto, @RequestParam MultipartFile img, HttpServletRequest req) {
 
         //프로필이미지 storage 저장방식
@@ -115,7 +115,7 @@ public class MyPageController {
     //ajax 비밀번호 체크
     @GetMapping("/checkpw")
     @ResponseBody
-    public String checkPw(@SessionAttribute(name = "userId",required = false)String userIds,@RequestParam("pw")String pw){
+    public String checkPw(@SessionAttribute(name = "s_id",required = false)String userId,@RequestParam("pw")String pw){
         pw=pw.trim();
         String status= myPageService.getPass(userId, pw);
 
@@ -124,7 +124,7 @@ public class MyPageController {
 
     @PostMapping("/changepw")
     @ResponseBody
-    public Map<String,String> changepw(@SessionAttribute(name = "userId",required = false)String userIds,@RequestParam("pw")String pw){
+    public Map<String,String> changepw(@SessionAttribute(name = "s_id",required = false)String userId,@RequestParam("pw")String pw){
 
         pw=pw.trim();
         String status = myPageService.updatePass(userId, pw);
@@ -136,7 +136,7 @@ public class MyPageController {
     }
 
     @GetMapping("/order")
-    public String showOrderList(@SessionAttribute(name = "userId",required = false)String userIds, Model model){
+    public String showOrderList(@SessionAttribute(name = "s_id",required = false)String userId, Model model){
         List<Map<String, Object>> orderList = myPageService.getOrderList(userId);
         model.addAttribute("payList",orderList);
         return "order/order";
@@ -182,6 +182,7 @@ public class MyPageController {
 
     @GetMapping("/review")
     public String showReview(@RequestParam(value = "contNo")int cont_no){
+        //리뷰작성했는지 확인
         log.info("contNo={}",cont_no);
         return "etc/reviewwrite";
     }
