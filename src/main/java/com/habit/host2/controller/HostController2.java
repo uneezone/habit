@@ -199,7 +199,7 @@ public class HostController2 {
         int productsLength = hostService.getProductsLength(searchdto);
         searchdto.setAllProductsLength((long) productsLength);
         //보여질 상품들수(행수)
-        Long showProductsLength=5L;
+        Long showProductsLength=2L;
         //pagin index 갯수
         int pagingIndex= (int) (Math.ceil(productsLength/(double)showProductsLength));
         searchdto.setPagingIndex(pagingIndex);
