@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +36,7 @@ public class HostController2 {
 
     //호스트 홈으로
     @GetMapping("")                                             //true
-    public String showHostPage(@SessionAttribute(name = "s_id",required = false)String userId, Model model){
+    public String showHostPage(@SessionAttribute(name = "s_id",required = false)String userId, Model model,HttpSession session){
 
 
         //host인지 확인
@@ -42,6 +44,9 @@ public class HostController2 {
         if(userGrade.equals("H")){
             //home관련 정보들 가져오기(누적금액, 이번달금액, 전체건수, 취소건수, 전레리뷰거스,별점)
             HostHomeDTO hostHomeDTO = hostService.gethostHomeInfo(userId);
+            log.info("hostHomeDTO={}",hostHomeDTO);
+            String hostImg = hostService.getHostImg(userId);
+            session.setAttribute("host_img",hostImg);
             model.addAttribute("HomeInfo",hostHomeDTO);
             return "host/host_home";
         }
@@ -91,7 +96,18 @@ public class HostController2 {
         if(Img == null || Img.isEmpty()){
             dto.setHostImg("defaulthostPro.png");
         }else{
+
+            SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMddHHmmss");
+            Date now = new Date();
+            String nowTime = sdf1.format(now);
+
             String filename=Img.getOriginalFilename();
+            int findIndex = filename.lastIndexOf(".");
+            String extension = filename.substring(findIndex + 1, filename.length());
+            filename=filename.substring(0,findIndex);
+            filename = "H" + filename + nowTime+"."+extension;
+            log.info("filename={}",filename);
+
             dto.setHostImg(filename);
             long filesize=Img.getSize();
             try {
@@ -118,7 +134,7 @@ public class HostController2 {
     @GetMapping("/logout")
     public String hostLogout(@SessionAttribute(name = "s_id",required = false)String userId, HttpSession session){
 
-        session.removeAttribute("s_id");
+        session.invalidate();
         return "redirect:/";
     }
 
@@ -137,12 +153,20 @@ public class HostController2 {
     }
 
     @PostMapping("/info")                                                       //나중에 true로 바꿔야함
-    public String modifyInfo(@SessionAttribute(name = "s_id",required = false)String userId,@RequestParam MultipartFile Img, @ModelAttribute HostEditDTO dto,HttpServletRequest req){
+    public String modifyInfo(@SessionAttribute(name = "s_id",required = false)String userId,@RequestParam MultipartFile Img
+                            , @ModelAttribute HostEditDTO dto,HttpServletRequest req,HttpSession session){
         if(!(Img == null || Img.isEmpty())){
 
+            SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMddHHmmss");
+            Date now = new Date();
+            String nowTime = sdf1.format(now);
+
             String filename=Img.getOriginalFilename();
+            int findIndex = filename.lastIndexOf(".");
+            String extension = filename.substring(findIndex + 1, filename.length());
+            filename=filename.substring(0,findIndex);
+            filename = "H" + filename + nowTime+"."+extension;
             log.info("filename={}",filename);
-            long filesize=Img.getSize();
             dto.setHost_img(filename);
 
             try {
@@ -150,6 +174,8 @@ public class HostController2 {
                 String path=application.getRealPath("/storage");  //실제 물리적인 경로
                 Img.transferTo(new File(path + "\\" + filename)); //파일저장
 
+                //하스트 이미지 세션 변경
+                session.setAttribute("host_img",filename);
             }catch (Exception e) {
                 e.printStackTrace(); //System.out.println(e);
             }

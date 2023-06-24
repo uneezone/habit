@@ -13,6 +13,8 @@ public interface HostService2 {
     //호스트 홈에 정보
     HostHomeDTO gethostHomeInfo(String id);
 
+    String getHostImg(String id);
+
 
 
     //새로운 하스트 가입

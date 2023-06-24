@@ -146,7 +146,7 @@ public class MyPageController {
     @ResponseBody
     public List<OrderAllDTO> showOrderAll(@RequestParam(value = "pay_no") String pay_no){
         List<OrderAllDTO> payDForOrder = myPageService.getPayDForOrder(pay_no);
-
+        log.info("payDForOrder={}",payDForOrder);
         return payDForOrder;
     }
 
@@ -181,9 +181,9 @@ public class MyPageController {
     }
 
     @GetMapping("/review")
-    public String showReview(@RequestParam(value = "contNo")int cont_no){
+    public String showReview(@RequestParam(value = "paydNo")int payd_no){
         //리뷰작성했는지 확인
-        log.info("contNo={}",cont_no);
+        log.info("payd_no={}",payd_no);
         return "etc/reviewwrite";
     }
 

@@ -156,6 +156,28 @@ $(function(){
 
     });
 
+    //=====인덱스 화면상에서  3개만 보이게
+    //첫번째 인덱스 클릭시
+    let indexpage=$(".page.active").parent().index();
+    console.log(indexpage);
+    console.log($(".index_page_btn").length);
+    if (indexpage == 1) {
+        $(".index_page_btn").parent().eq(indexpage - 1).css("display", "block");
+        $(".index_page_btn").parent().eq(indexpage).css("display", "block");
+        $(".index_page_btn").parent().eq(indexpage + 1).css("display", "block");
+        //마지막 인덱스 클릭시
+    } else if (indexpage == $(".index_page_btn").length) {
+        $(".index_page_btn").parent().eq(indexpage - 3).css("display", "block");
+        $(".index_page_btn").parent().eq(indexpage - 2).css("display", "block");
+        $(".index_page_btn").parent().eq(indexpage - 1).css("display", "block");
+    } else {
+        //인덱스 화면상에서  3개만 보이게
+        $(".index_page_btn").parent().css("display", "none");
+        $(".index_page_btn").parent().eq(indexpage - 2).css("display", "block");
+        $(".index_page_btn").parent().eq(indexpage - 1).css("display", "block");
+        $(".index_page_btn").parent().eq(indexpage).css("display", "block");
+    }
+
 
 
 });

@@ -105,6 +105,11 @@ public class HostServiceImpl2 implements HostService2 {
         return hostHomeDTO;
     }
 
+    @Override
+    public String getHostImg(String id) {
+        return repository.getHostImg(id);
+    }
+
     //새로운 하스트 가입 newHost메소드와 updateUserGrade메소드 합친거
     @Transactional
     @Override

@@ -106,6 +106,9 @@ public class CartCont {
 
     }
 
+    //해빈함
+
+    //카트 삭제
     @PostMapping(value="/cart/delete")
     @ResponseBody
     public String delete(@SessionAttribute(name = "s_id",required = false) String userId
@@ -124,6 +127,40 @@ public class CartCont {
         return "OK";
     }
 
+    //카트수량 변경
+    @PostMapping("/cart/change")
+    @ResponseBody
+    public String changeQty(@SessionAttribute(name = "s_id",required = false) String userId
+                            ,@RequestParam("cl_nos")String cl_nos,@RequestParam("qty")String qty){
+
+        log.info("cl_nos={}",cl_nos);
+        log.info("qty={}",qty);
+
+
+        String[] cartnos= cl_nos.split("-");// split으로 자르고 자른 조각들을 배열에 담는다.
+        String[] qtys=qty.split("-");
+        log.info("cl_nos={}",cartnos);
+        log.info("qty={}",qtys);
+        int status=0;
+       for(int i=0;i<cartnos.length;i++){
+           String cl_no=cartnos[i];
+           int cl_qty= Integer.parseInt(qtys[i]);
+
+           Map<String,Object> params= new HashMap<>();
+           params.put("cl_no",cl_no);
+           params.put("cl_qty",cl_qty);
+           params.put("user_id","user-3");
+
+           status += cartDAO.cartChage(params);
+
+       }
+
+       if(status!=cartnos.length){
+           return "NOK";
+       }
+
+        return "OK";
+    }
 
 
 

@@ -39,6 +39,10 @@
         and user_id=#{user_id}
     </delete>
 
+    <update id="change" parameterType="java.util.Map">
+        update cartlist set cl_qty=#{cl_qty} where user_id=#{user_id} and cl_no=#{cl_no}
+    </update>
+
 
 
     <!--장바구니에 담은 모든 상품의 금액 총 합-->
