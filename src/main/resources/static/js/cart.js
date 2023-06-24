@@ -37,6 +37,7 @@
     $('.all_select').click(function(){
       //alert("ddd");
       $('.Home_cart_check').prop('checked',true);
+      calcAll();
     });
 
 

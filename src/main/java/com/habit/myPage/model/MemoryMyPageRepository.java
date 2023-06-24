@@ -91,4 +91,9 @@ public class MemoryMyPageRepository implements MyPageRepository{
     public OrderRefnDTO getRefnForOrderDetail(int payd_no) {
         return sqlSession.selectOne("mypage.getRefnForOrderDetail",payd_no);
     }
+
+    @Override
+    public int checkReviewWrite(int payd_no) {
+        return sqlSession.selectOne("mypage.checkReviewWrite",payd_no);
+    }
 }
