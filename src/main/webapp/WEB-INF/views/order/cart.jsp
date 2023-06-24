@@ -35,7 +35,7 @@
           <button type="button" id="selectedDel" class="Home_choice_btn all-delete" onclick="deleteCheck()">선택상품 삭제</button>
         </div>
 
-          <c:forEach var="item" items="${list}" varStatus="one_status">
+          <c:forEach var="item" items="${list1}" varStatus="one_status">
           <table class="cartlist1" id="cartlist${one_status.index}">
           <tr>
             <td class="img_td" >
@@ -66,8 +66,36 @@
            </table>
           </c:forEach>
 
-
-
+              <c:forEach var="item" items="${list2}" varStatus="one_status">
+                     <table class="cartlist1" id="cartlist${one_status.index}">
+                     <tr>
+                       <td class="img_td" >
+                         <img src="/img/${item.cont_img}" class="item_img" />
+                       </td>
+                       <td class="pro_info">
+                         <div class="show_pro_info">
+                           <p >
+                             ${item.cont_name}
+                           </p>
+                           <p >
+                             <fmt:formatNumber var="price_one" value="${item.price}" pattern="#,###"></fmt:formatNumber>
+                             가격 : <span class="oneprice${one_status.index}">${price_one}</span>
+                           </p>
+                         </div>
+                       </td>
+                       <td>
+                         <div class="Home_show_qty">
+                           <input type="text" class="one${one_status.index} input_result" value="${item.cl_qty}"  readonly>
+                           <input type="button"   value="-" class="Home_qty_btn_min btn_min" />
+                           <input type="button"  value="+" class="Home_qty_btn_plus btn_plus"/>
+                         </div>
+                         <div class="Home_show_checkBox">
+                           <input type="checkbox" id="oneck${one_status.index}" value="${item.cl_no}" class="Home_cart_check">
+                         </div>
+                       </td>
+                      </tr>
+                      </table>
+                     </c:forEach>
 
 
         <div class="Home_show_result">
