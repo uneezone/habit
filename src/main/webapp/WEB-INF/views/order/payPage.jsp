@@ -23,7 +23,7 @@
 
         <p class="paypage_title">해빗정보</p>
 
-         <c:forEach var="item" items="${cartDTOS}" varStatus='status'>
+         <c:forEach var="item" items="${cartDTOS}" varStatus='one_status'>
             <section id="fripinfo">
                 <div id="frip_img">
                     <img src="/storage/${item.cont_img}" />

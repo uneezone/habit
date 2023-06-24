@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div style="margin-left: 35px;">
-                    <img style="width: 20px;" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 16 16'%3E %3Cpath stroke='%23333' stroke-linecap='round' stroke-width='1.5' d='M6 3l5 5-5 5'/%3E %3C/svg%3E">
+                    <img style="width: 20px; margin-left: 50px;" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 16 16'%3E %3Cpath stroke='%23333' stroke-linecap='round' stroke-width='1.5' d='M6 3l5 5-5 5'/%3E %3C/svg%3E">
                 </div>
             </div>
         </div>
@@ -78,7 +78,7 @@
     </div>
 
         <div class="Reviewblack">
-            <div class="Reviewflex">
+            <div class="Reviewflex parent-container">
                 <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                 <c:forEach items="${contreview}" var="review" varStatus="status">
                     <div class="Reviewgreen">
@@ -98,7 +98,7 @@
                 <a class="next" onclick="plusSlides(1)">&#10095;</a>
             </div>
             <div class="reviewplus">
-                <strong><a href="/category/${cont_no}/reviews" class="review_stylelink">${contreviewcnt.Reviewcnt}개 후기 더보기</a></strong>
+                <strong><a href="/category/products/${cont_no}/reviews" class="review_stylelink">${contreviewcnt.Reviewcnt}개 후기 더보기</a></strong>
             </div>
         </div>
 
@@ -115,10 +115,10 @@
                 </div>
             </div>
             <div class="DescriptionSection">
-                    <button type="button" class="Buttoninfo">
+                    <button type="button" class="Buttoninfo" id="detailButton">
                         <span>상세정보 더보기</span>
                         <div class="ButtonMore">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 16 16'%3E %3Cpath fill='%23333' fill-rule='evenodd' d='M3.21 5.203c.28-.27.735-.27 1.015 0L8.5 9.329l4.275-4.126c.28-.27.735-.27 1.015 0 .28.27.28.708 0 .979l-4.783 4.615c-.28.27-.734.27-1.014 0L3.21 6.182c-.28-.27-.28-.709 0-.98z' clip-rule='evenodd'/%3E %3C/svg%3E">
+                            <img class="arrow-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 16 16'%3E %3Cpath fill='%23333' fill-rule='evenodd' d='M3.21 5.203c.28-.27.735-.27 1.015 0L8.5 9.329l4.275-4.126c.28-.27.735-.27 1.015 0 .28.27.28.708 0 .979l-4.783 4.615c-.28.27-.734.27-1.014 0L3.21 6.182c-.28-.27-.28-.709 0-.98z' clip-rule='evenodd'/%3E %3C/svg%3E" >
                         </div>
                     </button>
             </div>

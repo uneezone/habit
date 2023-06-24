@@ -189,7 +189,7 @@
         <div class="ItemList_Wrapper jEQWdY">
           <a class="active" href="" style="font-weight: bold; color: rgb(51, 151, 255);">전체</a>
           <c:forEach items="${middle}" var="item">
-            <a href="/category/${item.cate_large}/${item.cate_middle}" class="midbtn">${item.cate_middle}</a>
+            <a href="/category/${item.cate_large}/${item.cate_middle}/all" class="midbtn">${item.cate_middle}</a>
           </c:forEach>
 
           <div id="otherParagraph"></div>
@@ -226,7 +226,7 @@
               <a href="/category/products/${row.cont_no}" class="href">
                 <div class="Home_product_recommend_p_div">
                   <div>
-                    <img src="/img/image.jpeg" alt="" width="150px">
+                    <img src="/storage/${row.cont_img}" alt="" width="150px" onerror="this.src='/storage/ang.png'">
                   </div>
                   <div>
                     <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
@@ -293,9 +293,18 @@
     </div>
   </div>
 </div>
-</div>
 
 
+
+<script>
+  var midHotListCount = ${midHotListCount};
+  var selectedCategory = "${selectedCategory}";
+
+  const selectedMiddle = $(this).text();
+  const cateLarge = '${cate_large}';
+  $('.active').removeClass('active');
+  $(this).addClass('active');
+</script>
 
 
 

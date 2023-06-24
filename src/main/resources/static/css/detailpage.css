@@ -348,13 +348,15 @@ a:hover{
 
 .Reviewflex {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    transition: transform 0.5s;
 }
 
 .Reviewgreen {
-    width: 20%;
-    height: 200px;
+    width: 25%;
+    height: 100%;
     margin: 10px;
+    box-sizing: border-box;
 }
 
 .Reviewgreen img {
@@ -399,18 +401,29 @@ a:hover{
     letter-spacing: -0.36px;
 }
 
-.prev {
+.parent-container {
+    position: relative;
+}
+
+.prev, .next {
+    position: absolute;
+    z-index: 1;
     top: 50%;
-    font-size: 20px;
+    transform: translateY(-50%);
     cursor: pointer;
-    transform: translateY(40%);
+
+}
+
+.prev {
+    left: 10px;
+    font-size: 30px;
+    color: #A04EF6;
 }
 
 .next {
-    top: 50%;
-    font-size: 20px;
-    cursor: pointer;
-    transform: translateY(40%);
+    right: 10px;
+    font-size: 30px;
+    color: #A04EF6;
 }
 
 .reviewplus {
@@ -517,6 +530,21 @@ a:hover{
 
 .DescriptionSection_Container {
     margin: 0px 0px 82px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 300px; /* 원하는 최대 너비 설정 */
+}
+
+.arrow-icon.rotated {
+    transform: rotate(180deg);
+
+}
+
+.expanded {
+    white-space: normal;
+    overflow-wrap: break-word;
+    text-overflow: clip;
 }
 
 

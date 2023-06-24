@@ -31,7 +31,9 @@
                                 </div>
                             </a>
                         </c:if>
+                    </c:forEach>
 
+                    <c:forEach var="row" items="${category}">
                         <c:if test="${row.cate_large eq '피트니스'}">
                             <a href="#" class="CategoryItem-A" data-category="${row.cate_large}">
                                 <div class="CategoryItem2">
@@ -41,7 +43,9 @@
                                 </div>
                             </a>
                         </c:if>
+                    </c:forEach>
 
+                    <c:forEach var="row" items="${category}">
                         <c:if test="${row.cate_large eq '공예DIY'}">
                             <a href="#" class="CategoryItem-A" data-category="${row.cate_large}">
                                 <div class="CategoryItem3">
@@ -51,7 +55,9 @@
                                 </div>
                             </a>
                         </c:if>
+                    </c:forEach>
 
+                    <c:forEach var="row" items="${category}">
                         <c:if test="${row.cate_large eq '스포츠'}">
                             <a href="#" class="CategoryItem-A" data-category="${row.cate_large}">
                                 <div class="CategoryItem4">
@@ -61,7 +67,9 @@
                                 </div>
                             </a>
                         </c:if>
+                    </c:forEach>
 
+                    <c:forEach var="row" items="${category}">
                         <c:if test="${row.cate_large eq '베이킹'}">
                             <a href="#" class="CategoryItem-A" data-category="${row.cate_large}">
                                 <div class="CategoryItem5">
@@ -71,7 +79,9 @@
                                 </div>
                             </a>
                         </c:if>
+                    </c:forEach>
 
+                    <c:forEach var="row" items="${category}">
                         <c:if test="${row.cate_large eq '문화예술'}">
                             <a href="#" class="CategoryItem-A" data-category="${row.cate_large}">
                                 <div class="CategoryItem6">

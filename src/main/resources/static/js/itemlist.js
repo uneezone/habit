@@ -31,8 +31,11 @@ $(function(){
 function getSelectedMiddleFromUrl() {
     const url = window.location.href;
     const urlParts = url.split('/');
-    if (urlParts.length >= 8) {
-        return decodeURI(urlParts[7]);
+
+    // 적절한 인덱스 값을 찾고 제대로 된 URL 인지 확인
+    const categoryIndex = urlParts.indexOf("category");
+    if (categoryIndex >= 0 && urlParts.length > (categoryIndex + 2)) {
+        return decodeURI(urlParts[categoryIndex + 2]);
     } else {
         return null;
     }
@@ -141,6 +144,7 @@ $(document).ready(function () {
 
         // 모달창 닫기
         modalCategory();
+
 
         // 필터단 유동 적용
         const productSectionTitle = `인기 ${categoryText}`;

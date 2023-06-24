@@ -87,21 +87,11 @@ public class CartCont {
         List<CartDTO> cartDTOS=cartDAO.selectedItemsInfo(map);
         System.out.println(cartDTOS);
         //log.info("carts={}",carts);
-        int sum=0;
-        for (CartDTO cartDTO : cartDTOS) {
-            sum+=cartDTO.getPrice()*cartDTO.getCl_qty();
-        }
-
-
-        int energy=energyDAO.getSavedEnergy(user_id);
-
 
         ModelAndView mav=new ModelAndView();
 
         mav.setViewName("order/payPage");
         mav.addObject("cartDTOS", cartDTOS);
-        mav.addObject("totPrice", sum);
-        mav.addObject("energy", energy);
         return mav;
 
     }
@@ -161,6 +151,7 @@ public class CartCont {
 
         return "OK";
     }
+
 
 
 
