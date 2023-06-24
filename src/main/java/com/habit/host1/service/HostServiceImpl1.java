@@ -121,19 +121,18 @@ public class HostServiceImpl1 implements HostService1 {
     }
 
     // 리뷰 List 가져오기
-
     @Override
     public List<ResponseReviewDTO> reviewList(RequestReviewDTO reqReviewDTO) {
-        List<ResponseReviewDTO> reviewList = memoryHostRepository1.reviewList(reqReviewDTO);
-        if (reviewList.size() > 0) {
-            int totalCount = memoryHostRepository1.totalCount(reqReviewDTO);
-            reviewList.get(0).setTotalCount(totalCount);
-        }
-        return reviewList;
+        return memoryHostRepository1.reviewList(reqReviewDTO);
+    }
+
+    // 리뷰 list Count 가져오기
+    @Override
+    public int totalReviewCount(RequestReviewDTO reqReviewDTO) {
+        return memoryHostRepository1.totalReviewCount(reqReviewDTO);
     }
 
     // 문의사항 리스트 가져오기
-
     @Override
     public List<ResponseInquiryDTO> inquiryList(RequestInquiryDTO reqInqDTO) {
         List<ResponseInquiryDTO> list = memoryHostRepository1.inquiryList(reqInqDTO);

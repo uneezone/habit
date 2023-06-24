@@ -23,4 +23,6 @@ public interface HostService1 {
     int reservationStatusChangeAndRefundInsert(RequestReservationStatusChangeDTO requestReservationStatusChangeDTO);
     int deleteContent(int no);
     RequestContentInsertDTO contentSelectOne(int no);
+
+    int totalReviewCount(RequestReviewDTO requestReviewDTO);
 }

@@ -14,7 +14,7 @@ public interface HostRepository1 {
     int insertOne(List<OneEntity> list);
     int insertProd(List<ProdEntity> list);
     List<ResponseReviewDTO> reviewList(RequestReviewDTO requestReviewDTO);
-    int totalCount(RequestReviewDTO requestReviewDTO);
+    int totalReviewCount(RequestReviewDTO requestReviewDTO);
     List<ResponseInquiryDTO> inquiryList(RequestInquiryDTO requestInquiryDTO);
     int inquiryCount(RequestInquiryDTO requestInquiryDTO);
     List<ResponseContentListDTO> contentList (RequestContentListDTO requestContentListDTO);

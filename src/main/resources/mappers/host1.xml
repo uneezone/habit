@@ -73,7 +73,7 @@
             <if test='!searchUserId.equals("")'>and user_id = #{searchUserId}</if>
         </if>
         order by review_date desc
-        limit ${recordSize} offset ${(page-1)*recordSize}
+        limit ${vo.recordPerPage} offset ${vo.offset}
     </select>
 
     <!-- 리뷰 리스트 count(*)-->

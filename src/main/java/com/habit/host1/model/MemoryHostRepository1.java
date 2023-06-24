@@ -58,7 +58,7 @@ public class MemoryHostRepository1 implements HostRepository1{
 
     // 리뷰 검색 count 수 가져오기
     @Override
-    public int totalCount(RequestReviewDTO reqReviewDTO) {
+    public int totalReviewCount(RequestReviewDTO reqReviewDTO) {
         return sqlSession.selectOne("host1.reviewCount", reqReviewDTO);
     }
 

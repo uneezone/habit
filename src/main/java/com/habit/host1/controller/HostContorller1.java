@@ -92,10 +92,37 @@ public class HostContorller1 {
         reqReviewDTO.setHost_id(userId);
 
         List<ResponseReviewDTO> list = hostService1.reviewList(reqReviewDTO);
+        int totalCount = hostService1.totalReviewCount(reqReviewDTO);
+
+        ResponsePageVO responsePageVO = new ResponsePageVO();
+        responsePageVO.setTotalRecord(totalCount);
+
         model.addAttribute("list", list);
+        model.addAttribute("paging", responsePageVO);
 
         return "host/habit_review_control";
     }
+
+    @GetMapping("/review/{currentPage}")
+    public String reviewSearch(@SessionAttribute(name = "userId", required = false) String userIdd, @PathVariable Integer currentPage, Model model) {
+        //임시 세션 아이디
+        String userId = "user-1";
+        RequestReviewDTO reqReviewDTO = new RequestReviewDTO();
+        reqReviewDTO.setHost_id(userId);
+        ResponsePageVO responsePageVO = new ResponsePageVO(currentPage);
+        reqReviewDTO.setVo(responsePageVO);
+
+        List<ResponseReviewDTO> list = hostService1.reviewList(reqReviewDTO);
+        int totalCount = hostService1.totalReviewCount(reqReviewDTO);
+        responsePageVO.setTotalRecord(totalCount);
+
+        model.addAttribute("list", list);
+        model.addAttribute("paging", responsePageVO);
+
+        return "host/habit_review_control";
+    }
+
+
     @PostMapping("/review.do")
     @ResponseBody
     public List<ResponseReviewDTO> reviewSearch(@SessionAttribute(name = "userId", required = false) String userIdd, RequestReviewDTO reqReviewDTO) {
@@ -106,15 +133,15 @@ public class HostContorller1 {
         System.out.println(hostService1.reviewList(reqReviewDTO));
         return hostService1.reviewList(reqReviewDTO);
     }
-
-    // 리뷰 페이징 번호에 따른 list 불러오기
-    @GetMapping("/review/{page}")
-    @ResponseBody
-    public List<ResponseReviewDTO> reviewPaging(@SessionAttribute(name = "userId", required = false) String userIdd, @PathVariable int page) {
-        //임시 세션 아이디
-        String user_id = "user-1";
-        return null;
-    }
+//
+//    // 리뷰 페이징 번호에 따른 list 불러오기
+//    @GetMapping("/review/{page}")
+//    @ResponseBody
+//    public List<ResponseReviewDTO> reviewPaging(@SessionAttribute(name = "userId", required = false) String userIdd, @PathVariable int page) {
+//        //임시 세션 아이디
+//        String user_id = "user-1";
+//        return null;
+//    }
 
 
 
