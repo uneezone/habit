@@ -174,20 +174,20 @@ $(document).ready(()=> {
                         let str =
                             "          <div class='class-box'>\n" +
                             "            <div style='display: flex; align-items: center; justify-content: center'>\n" +
-                            "              <a href='#'><img src='/storage/" + cont_img + "' alt='' style='background-color: cornflowerblue;'></a>\n" +
+                            "              <a href='#'><img src='/storage/" + cont_img + "' alt=''></a>\n" +
                             "            </div>\n" +
                             "            <div style='margin: 10px 0'>\n" +
                             "              <a href='#' style='font-size: large'><span><strong>" + row.cont_name + "</strong></span></a>\n" +
                             "            </div>\n" +
                             "            <div style='color: #494846'>\n" +
-                            "              <strong>[판매시작] </strong>" + row.cont_stdate.substring(0, 16) + "\n" +
-                            "            </div>\n" +
-                            "            <div style='color: #494846'>\n" +
-                            "              <strong>[판매종료] </strong>" + row.cont_endate.substring(0, 16) + "\n" +
-                            "            </div>\n" +
-                            "            <div style='color: #494846'>\n" +
+                            "              <strong>[판매시작] </strong>" + row.cont_stdate.substring(0, 16) + "<br>\n" +
+                            "              <strong>[판매종료] </strong>" + row.cont_endate.substring(0, 16) + "<br>\n" +
                             "              <strong>[카테고리] </strong>" + row.cate_large + " &gt; " + row.cate_middle + "\n" +
                             "            </div>\n" +
+                            "            <div>\n" +
+                            "              <input type='button' class='btn btn-sm btn-outline-primary content-update' id='update" + row.cont_no + "' value='해빗수정'>\n" +
+                            "              <input type='button' class='btn btn-sm btn-primary content-delete' id='delete" + row.cont_no + "' value='해빗삭제'>\n" +
+                            "            </div>"
                             "          </div>"
                         tableBody.append(str)
                     }
@@ -213,7 +213,7 @@ $(document).ready(()=> {
         let cont_no = e.currentTarget.id.substring(6)
         $('.update-modal').css('display', 'flex')
         $.ajax({
-            url: '/host/content/update/' + cont_no,
+            url: '/host/content/updateform/' + cont_no,
             type: 'get',
             dataType: 'json',
             data: cont_no,
@@ -248,6 +248,9 @@ $(document).ready(()=> {
                         cate_middle.val(cateMiddleValue)
                     }
                 })
+
+                // form url 설정
+                $('#updateform').attr('action', '/host/content/update/' + cont_no)
 
                 // 해빗 이름 가져오기
                 let cont_name = data.cont_name
@@ -292,15 +295,17 @@ $(document).ready(()=> {
                 // 판매종료일 : 지정한 날짜까지 판매일 최대 날짜 현재일로 부터 한달 지정
                 let stdate1 = new Date(cont_stdate) // 저장된 날짜 얻기
                 let getStdate1 = stdate1.getMonth() + 1 // 저장된 날짜의 Month값에 1더한 Month 얻기
-                let setStdate1 = stdate1.setMonth(getStdate1) // 저장된 날짜에 Month+1 적용된 전체 날짜 얻기
-                let maxDate = new Date(setStdate1).toISOString().split("T")[0]
+                let setStdate1 = new Date(stdate1.setMonth(getStdate1)) // 저장된 날짜에 Month+1 적용된 전체 날짜 얻기
+                let getStdate2 = setStdate1.getDate() + 1
+                let setStdate2 = setStdate1.setDate(getStdate2)
+                let maxDate = new Date(setStdate2).toISOString().split("T")[0]
                 endate.attr('max', maxDate)
 
                 let now = new Date().toISOString().split("T")[0]
-                let stdate2 = new Date(cont_stdate) // 저장된 날짜 얻기
-                let getStdate2 = stdate2.getDate() + 6 // 저장된 날짜의 date값에 6더한 date 얻기
-                let setStdate2 = stdate2.setDate(getStdate2) // 저장된 날짜에 date+6 적용된 전체 날짜 얻기
-                let minDate = new Date(setStdate2).toISOString().split("T")[0]
+                let stdate3 = new Date(cont_stdate) // 저장된 날짜 얻기
+                let getStdate3 = stdate3.getDate() + 6 // 저장된 날짜의 date값에 6더한 date 얻기
+                let setStdate3 = stdate3.setDate(getStdate3) // 저장된 날짜에 date+6 적용된 전체 날짜 얻기
+                let minDate = new Date(setStdate3).toISOString().split("T")[0]
 
                 if (minDate < now) {
                     endate.attr('min', now)
@@ -385,7 +390,7 @@ $(document).ready(()=> {
                 let preview_img_container = $('#preview_img_container')
                 for (let i = 1; i <=3; i++) {
                     let img = ''
-                    if (data.cont_img[i] != null) {
+                    if (data.cont_img[i-1] !== undefined) {
                         img = '/storage/' + data.cont_img[i-1].trim()
                     } else {
                         img = '/img/No_image_available.png'

@@ -13,16 +13,22 @@ public interface HostService1 {
 
     List<Map<String, Object>> cateList ();
     List<Map<String, Object>> selectCate (String keyword);
-    int contentInsert (RequestContentInsertDTO rciDTO) throws IOException;
+    int contentInsert (RequestContentValueDTO rciDTO) throws IOException;
+    int contentUpdate(RequestContentValueDTO rciDTO) throws IOException;
+
     List<ResponseReviewDTO> reviewList (RequestReviewDTO reqReviewDTO);
+    int totalReviewCount(RequestReviewDTO requestReviewDTO);
+    int reviewDelete(int no);
+
     List<ResponseInquiryDTO> inquiryList(RequestInquiryDTO requestInquiryDTO);
     List<ResponseContentListDTO> contentList (RequestContentListDTO requestContentListDTO);
 
     List<ResponseReservationDTO> reservationList(RequestReservationDTO requestReservationDTO);
+    int totalReservationCount(RequestReservationDTO requestReservationDTO);
 
     int reservationStatusChangeAndRefundInsert(RequestReservationStatusChangeDTO requestReservationStatusChangeDTO);
     int deleteContent(int no);
-    RequestContentInsertDTO contentSelectOne(int no);
+    RequestContentValueDTO contentSelectOne(int no);
+    String getHostImg(String host_id);
 
-    int totalReviewCount(RequestReviewDTO requestReviewDTO);
 }

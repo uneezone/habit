@@ -10,7 +10,7 @@ import java.util.Map;
 
 @ToString
 @Getter @Setter
-public class RequestContentInsertDTO {
+public class RequestContentValueDTO {
     private String host_id;
     private String cate_no;
     private int cont_no;

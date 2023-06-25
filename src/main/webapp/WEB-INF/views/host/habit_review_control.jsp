@@ -54,8 +54,8 @@
           </li>
         </ul>
         <div>
-          <a href="info"><img src="/img/profile-3_07724ab7a395fea9343ed7a13e59c1212e2e3d39c141edd99f83442f98340dfc.webp" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a>
-          <a href="info" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">HOST ID</span></a>
+          <a href="/host/info"><img src="${host_img.equals("defaulthostPro.png") ? '/img/' : '/storage/'}${host_img}" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a>
+          <a href="/host/info" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">${host_id}</span></a>
           <a href="/"><input type="button" class="btn btn-outline-primary btn-sm" value="해빗 홈으로 이동"></a>
           <a href="#"><input type="button" href="#" class="btn btn-secondary btn-sm" value="로그아웃"></a>
         </div>
@@ -182,18 +182,9 @@
         <!-- 페이징 -->
         <div style="display: flex; align-items: center; justify-content: center;">
           <ul class="pagination" id="pagination">
-            <c:choose>
-              <c:when test="${paging.prev == true}">
-                <li class="page-item">
-                  <a class="page-link" href="/host/review/${paging.startPage-1}">&laquo;</a>
-                </li>
-              </c:when>
-              <c:otherwise>
-                <li class="page-item disabled">
-                  <a class="page-link">&laquo;</a>
-                </li>
-              </c:otherwise>
-            </c:choose>
+            <li class="page-item ${paging.prev == true ? '' : 'disabled'}">
+              <a class="page-link" href="/host/review/${paging.startPage-1}">&laquo;</a>
+            </li>
             <c:choose>
               <c:when test="${list.size()>0}">
                 <c:forEach var="num" begin="${paging.startPage}" end="${paging.endPage}">
@@ -203,18 +194,9 @@
                 </c:forEach>
               </c:when>
             </c:choose>
-            <c:choose>
-              <c:when test="${paging.next == true}">
-                <li class="page-item">
-                  <a class="page-link" href="/host/review/${paging.endPage+1}">&raquo;</a>
-                </li>
-              </c:when>
-              <c:otherwise>
-                <li class="page-item disabled">
-                  <a class="page-link">&raquo;</a>
-                </li>
-              </c:otherwise>
-            </c:choose>
+            <li class="page-item ${paging.next == true ? '' : 'disabled'}">
+              <a class="page-link" href="/host/review/${paging.endPage+1}">&raquo;</a>
+            </li>
           </ul>
         </div>
       </div>

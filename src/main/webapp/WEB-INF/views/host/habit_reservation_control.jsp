@@ -55,8 +55,8 @@
           </li>
         </ul>
         <div>
-          <a href="info"><img src="/img/profile-3_07724ab7a395fea9343ed7a13e59c1212e2e3d39c141edd99f83442f98340dfc.webp" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a>
-          <a href="info" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">HOST ID</span></a>
+          <a href="/host/info"><img src="${host_img.equals("defaulthostPro.png") ? '/img/' : '/storage/'}${host_img}" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a>
+          <a href="/host/info" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">${host_id}</span></a>
           <a href="/"><input type="button" class="btn btn-outline-primary btn-sm" value="해빗 홈으로 이동"></a>
           <a href="#"><input type="button" href="#" class="btn btn-secondary btn-sm" value="로그아웃"></a>
         </div>
@@ -174,7 +174,7 @@
       <!-- 검색 결과 -->
       <div class="content">
         <div id="searchResult">
-          <p class="content-name">검색 결과 : ${list.size()} 건</p>
+          <p class="content-name">검색 결과 : ${paging.totalRecord} 건</p>
         </div>
         <div style="text-align: center;">
           <table class="table">
@@ -236,6 +236,21 @@
         <!-- 페이징 -->
         <div style="display: flex; align-items: center; justify-content: center;">
           <ul class="pagination" id="pagination">
+            <li class="page-item ${paging.prev == true ? '' : 'disabled'}">
+              <a class="page-link" href="/host/review/${paging.startPage-1}">&laquo;</a>
+            </li>
+            <c:choose>
+              <c:when test="${list.size()>0}">
+                <c:forEach var="num" begin="${paging.startPage}" end="${paging.endPage}">
+                  <li class="page-item">
+                    <a class="page-link ${num == paging.currentPage ? 'active': ''}" href="/host/reservation/${num}">${num}</a>
+                  </li>
+                </c:forEach>
+              </c:when>
+            </c:choose>
+            <li class="page-item ${paging.next == true ? '' : 'disabled'}">
+              <a class="page-link" href="/host/reservation/${paging.endPage+1}">&raquo;</a>
+            </li>
           </ul>
         </div>
       </div>
