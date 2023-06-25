@@ -179,6 +179,7 @@
         <if test="filter == null">
             order by cont_stdate desc
         </if>
+        limit ${vo.appendRow} offset ${vo.offset}
     </select>
 
     <!-- 해빗 리스트 조회 count -->

@@ -126,14 +126,18 @@ public class HostServiceImpl1 implements HostService1 {
 
         List<ResponseContentListDTO> list = memoryHostRepository1.contentList(reqContListDTO);
         if (list.size() > 0) {
-            int totalCount = memoryHostRepository1.contentListCount(reqContListDTO);
             for (ResponseContentListDTO dto : list) {
                 String cont_img = dto.getCont_img().trim().split("\\|")[0];
                 dto.setCont_img(cont_img);
             }
-            list.get(0).setTotalCount(totalCount);
         }
         return list;
+    }
+
+    @Override
+    public void contentListCount(RequestContentListDTO reqContListDTO) {
+        int totalRecord = memoryHostRepository1.contentListCount(reqContListDTO);
+        reqContListDTO.getVo().setTotalRecord(totalRecord);
     }
 
     // 해빗 삭제

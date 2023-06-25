@@ -159,7 +159,7 @@
       <!-- 조회 결과 -->
       <div class="content">
         <div id="searchResult">
-          <p class='content-name'>검색 결과 : ${list.size()} 건</p>
+          <p class='content-name'>검색 결과 : ${vo.totalRecord} 건</p>
         </div>
         <div class="class-flex" id="tableBody" style="align-items: center; justify-content: center">
           <c:choose>
@@ -191,7 +191,7 @@
         </div>
 
         <div class="d-grid gap-2" id="pagination">
-<%--          <button class="btn btn-lg btn-outline-primary" type="button">더보기</button>--%>
+          <button class="btn btn-lg btn-outline-primary" id="seeMoreButton" type="button" ${vo.currentEndRowNum < vo.totalRecord ? '' : 'hidden'}>더보기</button>
         </div>
       </div>
     </div>

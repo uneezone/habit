@@ -273,10 +273,15 @@ $(document).ready(()=>{
         let payd_no = statusButtonId.substring(18)
         let payd_status = $('#status' + payd_no).children('#payd_status' + payd_no).val()
 
+        if (payd_status === 'C' || payd_status === 'Y') {
+            if (!confirm("해당 유저의 예약 상태를 변경하시겠습니까?\n(상태 변경시 다시 수정할 수 없습니다")) {
+                return false
+            }
+        }
         let requestData = {
             'payd_no': payd_no,
             'payd_status': payd_status
-        }
+        };
 
         $.ajax({
             url: '/host/reservation/statuschange.do',

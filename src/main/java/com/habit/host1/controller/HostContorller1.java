@@ -54,6 +54,14 @@ public class HostContorller1 {
     }
 
 
+
+
+
+
+
+
+
+
     // [habit_list.jsp]
     // 해빗 리스트 조회
     @GetMapping("/content/list")
@@ -65,21 +73,54 @@ public class HostContorller1 {
         String host_img = hostService1.getHostImg(userId);
 
         List<ResponseContentListDTO> list = hostService1.contentList(reqContListDTO);
+        hostService1.contentListCount(reqContListDTO);
         model.addAttribute("host_id", userId);
         model.addAttribute("host_img", host_img);
+        model.addAttribute("vo", reqContListDTO.getVo());
         model.addAttribute("list", list);
 
         return "host/habit_list";
     }
 
+    // 해빗 페이징 (더보기)
+    @GetMapping("/content/seemore.do")
+    @ResponseBody
+    public Map<String, Object> contentList (int click, Model model) {
+        //임시 세션 아이디
+        String userId = "user-1";
+        RequestContentListDTO reqContListDTO = new RequestContentListDTO();
+        reqContListDTO.getVo().setClick(click);
+        reqContListDTO.setHost_id(userId);
+
+        List<ResponseContentListDTO> list = hostService1.contentList(reqContListDTO);
+        hostService1.contentListCount(reqContListDTO);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("vo", reqContListDTO.getVo());
+        map.put("list", list);
+
+        return map;
+    }
+
     // 해빗 리스트 필터 조회
     @PostMapping("/content/list.do")
     @ResponseBody
-    public List<ResponseContentListDTO> contentList (@SessionAttribute(name = "userId", required = false) String userIdd, RequestContentListDTO reqContListDTO) {
+    public Map<String, Object> contentList (@SessionAttribute(name = "userId", required = false) String userIdd, RequestContentListDTO reqContListDTO) {
         //임시 세션 아이디
         String userId = "user-1";
         reqContListDTO.setHost_id(userId);
-        return hostService1.contentList(reqContListDTO);
+
+        List<ResponseContentListDTO> list = hostService1.contentList(reqContListDTO);
+        hostService1.contentListCount(reqContListDTO);
+
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("vo", reqContListDTO.getVo());
+        map.put("list", list);
+
+        System.out.println("map.get(\"vo\") = " + map.get("vo"));
+        System.out.println("map.get(\"list\") = " + map.get("list"));
+        return map;
     }
 
     // 해빗 삭제
@@ -103,7 +144,6 @@ public class HostContorller1 {
         hostService1.contentUpdate(rciDTO);
         return "redirect:/host/content/list";
     }
-
 
     // [habit_review_control.jsp]
     // 리뷰 리스트 조회

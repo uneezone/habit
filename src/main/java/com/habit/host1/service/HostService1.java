@@ -21,7 +21,14 @@ public interface HostService1 {
     int reviewDelete(int no);
 
     List<ResponseInquiryDTO> inquiryList(RequestInquiryDTO requestInquiryDTO);
+
+
+
     List<ResponseContentListDTO> contentList (RequestContentListDTO requestContentListDTO);
+    void contentListCount(RequestContentListDTO requestContentListDTO);
+
+
+
 
     List<ResponseReservationDTO> reservationList(RequestReservationDTO requestReservationDTO);
     int totalReservationCount(RequestReservationDTO requestReservationDTO);

@@ -82,10 +82,6 @@ $(document).ready(()=> {
         });
     }
 
-    let searchResult = $('#searchResult')
-    let tableBody = $('#tableBody')
-    let pagination = $('#pagination')
-
     // 조회기간 제한
     $('input:radio[name=btnradio]').on('change', () => {
         let value = $('input:radio[name=btnradio]:checked').val()
@@ -120,8 +116,59 @@ $(document).ready(()=> {
         }
     })
 
+    const createTable = (map) => {
+        const list = map.list
+        const vo = map.vo
+        let tableBody = $('#tableBody')
+        let pagination = $('#pagination')
+        pagination.children().remove()
+
+        for (let item of list) {
+            str1 = "<div class='class-box'>\n" +
+                "                    <div style='display: flex; align-items: center; justify-content: center'>\n" +
+                "                      <a href='#'><img src='/storage/" + item.cont_img + "' alt=''></a>\n" +
+                "                    </div>\n" +
+                "                    <div style='margin: 10px 0'>\n" +
+                "                      <a href='#' style='font-size: large'><span><strong>" + item.cont_name + "</strong></span></a>\n" +
+                "                    </div>\n" +
+                "                    <div style='color: #494846'>\n" +
+                "                      <strong>[판매시작] </strong>" + item.cont_stdate.substring(0, 16) + "<br>\n" +
+                "                      <strong>[판매종료] </strong>" + item.cont_endate.substring(0, 16) + "<br>\n" +
+                "                      <strong>[카테고리] </strong>" + item.cate_large + " &gt; " + item.cate_middle + "\n" +
+                "                    </div>\n" +
+                "                    <div>\n" +
+                "                      <input type='button' class='btn btn-sm btn-outline-primary content-update' id='update" + item.cont_no + "' value='해빗수정'>\n" +
+                "                      <input type='button' class='btn btn-sm btn-primary content-delete' id='delete" + item.cont_no + "' value='해빗삭제'>\n" +
+                "                    </div>\n" +
+                "                  </div>"
+            tableBody.append(str1)
+        }
+
+        str2 = "<button class='btn btn-lg btn-outline-primary' id='seeMoreButton' type='button'" + (vo.currentEndRowNum < vo.totalRecord ? '' : 'hidden') + ">더보기</button>"
+        pagination.append(str2)
+    }
+
+
+    let click = 0
+    // 더보기 click
+    $('#pagination').on('click', '#seeMoreButton', ()=>{
+        click++
+        $.ajax({
+            url: '/host/content/seemore.do',
+            type: 'get',
+            dataType: 'json',
+            data: {'click': click},
+            success: (map) => {
+                createTable(map)
+            }
+        })
+    })
+
+    // 필터 조회
     $('#search-content').on('click', ()=>{
 
+        let searchResult = $('#searchResult')
+        let tableBody = $('#tableBody')
         let cont_name = $('#search-cont_name').val()
         let searchDateType = $('#searchDateType').val()
         let searchStartDate =  $('#date-calendar-start').val()
@@ -159,39 +206,12 @@ $(document).ready(()=> {
             type: 'post',
             dataType: 'json',
             data: requestData,
-            success: (list) => {
+            success: (map) => {
                 searchResult.children().remove()
                 tableBody.children().remove()
-                pagination.children().remove()
-                if (list.length === 0) { // 검색 리스트가 없다면
-                    searchResult.append("<p class='content-name'>검색 결과 : 0 건</p>")
-                    tableBody.append("<p>검색 결과가 없습니다</p>")
-                } else { // 검색 리스트가 있다면
-                    let totalCount = list[0].totalCount
-                    searchResult.append("<p class='content-name'>검색 결과 : " + totalCount + " 건</p>")
-                    for (let row of list) {
-                        let cont_img = row.cont_img.trim().split('|')[0]
-                        let str =
-                            "          <div class='class-box'>\n" +
-                            "            <div style='display: flex; align-items: center; justify-content: center'>\n" +
-                            "              <a href='#'><img src='/storage/" + cont_img + "' alt=''></a>\n" +
-                            "            </div>\n" +
-                            "            <div style='margin: 10px 0'>\n" +
-                            "              <a href='#' style='font-size: large'><span><strong>" + row.cont_name + "</strong></span></a>\n" +
-                            "            </div>\n" +
-                            "            <div style='color: #494846'>\n" +
-                            "              <strong>[판매시작] </strong>" + row.cont_stdate.substring(0, 16) + "<br>\n" +
-                            "              <strong>[판매종료] </strong>" + row.cont_endate.substring(0, 16) + "<br>\n" +
-                            "              <strong>[카테고리] </strong>" + row.cate_large + " &gt; " + row.cate_middle + "\n" +
-                            "            </div>\n" +
-                            "            <div>\n" +
-                            "              <input type='button' class='btn btn-sm btn-outline-primary content-update' id='update" + row.cont_no + "' value='해빗수정'>\n" +
-                            "              <input type='button' class='btn btn-sm btn-primary content-delete' id='delete" + row.cont_no + "' value='해빗삭제'>\n" +
-                            "            </div>"
-                            "          </div>"
-                        tableBody.append(str)
-                    }
-                }
+                createTable(map)
+                str = "<p class='content-name'>검색 결과 : " + map.vo.totalRecord + " 건</p>"
+                searchResult.append(str)
             }
         })
     })
@@ -199,9 +219,11 @@ $(document).ready(()=> {
     // 해빗 삭제
     $('#tableBody').on('click', '.content-delete', (e)=>{
 
-        if (confirm('해빗을 삭제하시겠습니까?')) {
+        if (confirm('해빗을 삭제하시겠습니까?\n(삭제된 해빗은 복구할 수 없습니다)')) {
             let cont_no = e.currentTarget.id.substring(6)
             location.href='/host/content/delete/' + cont_no
+        } else {
+            return false
         }
     })
 
@@ -413,12 +435,16 @@ $(document).ready(()=> {
 
     // 모달 끄기
     $('#update-modal-close').on('click', ()=>{
-        $('.update-modal').css('display', 'none')
-        document.getElementById('option_row_one').replaceChildren()
-        document.getElementById('option_row_prod').replaceChildren()
-        document.getElementById('preview_img_container').replaceChildren()
-        $('#summernote').summernote('reset');
-        $('#updateform')[0].reset()
+        if(confirm("해빗 수정을 취소할까요?\n(취소시 수정한 부분은 반영되지 않습니다)")){
+            $('.update-modal').css('display', 'none')
+            document.getElementById('option_row_one').replaceChildren()
+            document.getElementById('option_row_prod').replaceChildren()
+            document.getElementById('preview_img_container').replaceChildren()
+            $('#summernote').summernote('reset');
+            $('#updateform')[0].reset()
+        } else {
+            return false
+        }
     })
 
     // 대분류에 맞는 중분류 가져오기
@@ -437,6 +463,19 @@ $(document).ready(()=> {
             }
         })
     })
+
+    // 해빗 명 체크
+    contNameCheck = () => {
+        let cont_name = document.getElementById('cont_name')
+        let cont_name_small = document.getElementById('cont_name_small')
+        if(cont_name.value.length < 1) {
+            cont_name_small.removeAttribute('hidden')
+            cont_name.focus()
+            return
+        } else {
+            cont_name_small.setAttribute('hidden', true)
+        }
+    }
 
     // 대표 이미지 체크 (onChange)
     contImgCheck = (imgs) => {
@@ -514,7 +553,7 @@ $(document).ready(()=> {
 
     // 옵션 목록 이벤트 : 인원권/회차권
     let row_prod = "<tr>\n" +
-        "                      <td><input class=\"form-check-input\" type=\"checkbox\" name=\"cont_option_prod\" id=\"\"></td>\n" +
+        "                      <td><input class='form-check-input' type=\"checkbox\" name=\"cont_option_prod\" id=\"\"></td>\n" +
         "                      <td>\n" +
         "                        <div>\n" +
         "                          <input type=\"text\" name='prod_name' class=\"form-control\">\n" +
@@ -595,7 +634,7 @@ $(document).ready(()=> {
     })
 
     //habit_update 유효성 검사
-    const habitCreateCheck = () => {
+    habitCreateCheck = () => {
 
         // 카테고리 : 대분류
         let cate_large = $('#cate_large')
@@ -632,14 +671,11 @@ $(document).ready(()=> {
         }
 
         // 판매 종료일 확인
-        let cont_endate_type = $('input:radio[name="cont_endate_type"]:checked')
-        if (cont_endate_type.attr('id') === 'cont_endate_option2') {
-            let endate_option2 = $('#endate_option2')
-            if (endate_option2.val().length < 1) {
-                alert("판매종료일을 설정해주세요.")
-                endate_option2.focus()
-                return false
-            }
+        let endate_option2 = $('#endate_option2')
+        if (endate_option2.val().length < 1) {
+            alert("판매종료일을 설정해주세요.")
+            endate_option2.focus()
+            return false
         }
 
         // 옵션 목록 입력
@@ -763,7 +799,7 @@ $(document).ready(()=> {
             return false
         }
 
-        if (confirm('해빗을 등록하시겠습니까?')) {
+        if (confirm('해빗을 수정하시겠습니까?')) {
             return true
         } else {
             return false
