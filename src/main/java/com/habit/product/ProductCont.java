@@ -76,6 +76,11 @@ public class ProductCont {
         }
         mav.addObject("priceMap", priceMap);
 
+        Map<Integer, Map<String, Object>> reviewcnt = new HashMap<>();
+        for (Integer cont_no : contNoList) {
+            reviewcnt.put(cont_no, detailDao.contreviewcnt(cont_no));
+        }
+        mav.addObject("reviewcnt", reviewcnt);
 
         return mav;
     }
