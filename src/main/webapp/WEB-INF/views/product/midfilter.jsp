@@ -12,6 +12,81 @@
 <script src="/js/common.js"></script>
 
 
+<%-- 필터 모달창--%>
+<div id="filter-root">
+    <div>
+        <div class="Filter_Container_Modal" >
+            <div class="Filter_FlexFix">
+                <div class="Filter_Wrapper_Modal">
+                    <header class="Filter_HeaderWrapper">
+                        <div class="FilterModalHeader_Wrapper">
+                            <span class="FilterModalHeader_ModalTitle">필터</span>
+                        </div>
+                        <button name="CloseBtn" type="button" class="Filter_Button">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E %3Cg fill='none' fill-rule='nonzero'%3E %3Cpath d='M0 0h24v24H0z'/%3E %3Cpath stroke='%23000' stroke-width='2' d='M7.05 7.05l9.9 9.9M16.95 7.05l-9.9 9.9'/%3E %3C/g%3E %3C/svg%3E" alt="닫기버튼">
+                        </button>
+                    </header>
+                    <div class="FilterBodyContainer">
+                        <div class="FilterOther_Momo">
+                            <div class="FilterOther_ModalSection">
+                                <div>
+                                    <div class="FilterOthers_FilterTitle">정렬</div>
+                                    <div class="FilterRadio">
+                                        <div direction="column" class="FilterRadio_RadioInput">
+                                            <div class="FilterRadio_OptionWrapper">
+                                                <label  class="FilterRadio_StyleLabel">
+                                                    인기순
+                                                    <div class="FilterRadio_CustomRadio"></div>
+                                                    <input type="radio" id="radio-hot" name="filter" value="midpopularity" class="FilterRadio_RadioClick">
+                                                </label>
+                                            </div>
+                                            <div class="FilterRadio_OptionWrapper">
+                                                <label  class="FilterRadio_StyleLabel">
+                                                    등록일순
+                                                    <div class="FilterRadio_CustomRadio"></div>
+                                                    <input type="radio" id="radio-date" name="filter" value="middate" class="FilterRadio_RadioClick">
+                                                </label>
+                                            </div>
+                                            <div class="FilterRadio_OptionWrapper">
+                                                <label  class="FilterRadio_StyleLabel">
+                                                    평점순
+                                                    <div class="FilterRadio_CustomRadio"></div>
+                                                    <input type="radio" id="radio-review" name="filter" value="midrating" class="FilterRadio_RadioClick">
+                                                </label>
+                                            </div>
+                                            <div class="FilterRadio_OptionWrapper">
+                                                <label  class="FilterRadio_StyleLabel">
+                                                    가격 높은순
+                                                    <div class="FilterRadio_CustomRadio"></div>
+                                                    <input type="radio" id="radio-pricehigh" name="filter" value="midhighPrice" class="FilterRadio_RadioClick">
+                                                </label>
+                                            </div>
+                                            <div class="FilterRadio_OptionWrapper">
+                                                <label  class="FilterRadio_StyleLabel">
+                                                    가격 낮은순
+                                                    <div class="FilterRadio_CustomRadio"></div>
+                                                    <input type="radio" id="radio-pricelow" name="filter" value="midlowPrice" class="FilterRadio_RadioClick">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="FilterOther_Price">
+                                </div>
+                            </div>
+                        </div>
+                        <footer class="Filter_FooterWrapper">
+                            <button width="280px" height="50px" color="white" font-size="13px" font-weight="bold" class="Button_btn">적용하기</button>
+                        </footer>
+                    </div>
+                </div>
+                <div class="Filter_Overlay"></div>
+            </div>
+        </div>
+    </div>
+</div>
+    <%--    필터 모달창 끝--%>
+
 <!--* 대분류 클릭시 모달창-->
 
 <div class="modal_root" style="display: none;">
@@ -83,7 +158,7 @@
                                 </div>
                             </a>
 
-                            <a href="" class="CategoryItem-A" data-category="자기계발" onclick="selectCategory('자기계빨')">
+                            <a href="" class="CategoryItem-A" data-category="자기계발" onclick="selectCategory('자기계발')">
                                 <div class="CategoryItem8">
                                     <div class="CategoryItem__Background"></div>
                                     <div class="CategoryItem__Text"></div>
@@ -207,11 +282,11 @@
             <!-- 날짜 필터 버튼 -->
             <div class="Filter_Wrapper">
                 <div class="Filter__FilterButtonWrapper">
-                    <div class="FilterDate">
-                        <div class="FilterOpenButton">
-                            <button height="auto" color="initial" font-size="14px" font-weight="500" class="Button1">날짜</button>
-                        </div>
-                    </div>
+<%--                    <div class="FilterDate">--%>
+<%--                        <div class="FilterOpenButton">--%>
+<%--                            <button height="auto" color="initial" font-size="14px" font-weight="500" class="Button1">날짜</button>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
                     <div class="FilterOther">
                         <div class="FilterOpenButton">
                             <button height="auto" color="initial" font-size="14px" font-weight="500" class="Button1">필터</button>
@@ -237,7 +312,7 @@
                                     </div>
                                     <div>
                                         <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                            <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                            <img src="/img/black2.png" alt="" id="cont_no${row.cont_no}" width="40px" class="Home_product_recommend_p_div_img">
                                         </button>
                                     </div>
                                     <div class="Home_product_recommend_p_font">
@@ -283,12 +358,12 @@
                 <!--* 이전/다음 버튼 -->
                 <footer class="Wrapper_Paging">
                     <div class="paging">
-                        <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold"  onclick="onPageClick(-1)">&lt;</button>
-                        <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold"  onclick="onPageClick(1)">1</button>
-                        <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold"  onclick="onPageClick(2)">2</button>
-                        <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" onclick="onPageClick(3)">3</button>
-                        <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" onclick="onPageClick(4)">4</button>
-                        <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" onclick="onPageClick(-2)">></button>
+                        <button  width="40px" height="40px"  font-size="18px" font-weight="bold"  onclick="onPageClick(-1)">&lt;</button>
+                        <c:set var="numPages" value="${Math.ceil(midHotListCount / 8)}" />
+                        <c:forEach begin="1" end="${numPages}" var="page">
+                            <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" class="page-button" data-page="${page}"  onclick="onPageClick(${page})">${page}</button>
+                        </c:forEach>
+                        <button  width="40px" height="40px"  font-size="18px" font-weight="bold" onclick="onPageClick(-2)">&gt;</button>
                     </div>
                 </footer>
                     </div>
@@ -313,6 +388,80 @@
         localStorage.setItem("selectedCategory", cate_large);
 
         location.href = `/category/` + cate_large;
+    }
+
+    //필터 모달창
+    document.addEventListener("DOMContentLoaded", function() {
+        const button1 = document.querySelector(".FilterOther .FilterOpenButton .Button1");
+        const filterModal = document.querySelector(".Filter_Container_Modal");
+        const closeBtn = document.querySelector("[name='CloseBtn']");
+        const applyFilterButton = document.querySelector(".Button_btn");
+        const radioButtons = document.querySelectorAll("input[type='radio'][name='filter']");
+
+        // 필터 모달창 열고 닫기 기능
+        button1.addEventListener("click", function() {
+            filterModal.style.display = "flex";
+        });
+
+        closeBtn.addEventListener("click", function() {
+            filterModal.style.display = "none";
+        });
+
+
+        const cate_large = '<%=request.getAttribute("cate_large")%>';
+        const cate_middle = '<%=request.getAttribute("cate_middle")%>';
+
+        //필터 기능 구현
+        applyFilterButton.addEventListener("click", function () {
+            let selectedFilter;
+            for (const radio of radioButtons) {
+                if (radio.checked) {
+                    selectedFilter = radio.value;
+                    break;
+                }
+            }
+            const newPath = "/category/" + encodeURIComponent(cate_large) + "/"+ encodeURIComponent(cate_middle) + "?filter=" + encodeURIComponent(selectedFilter);
+            window.location.href = newPath;
+        });
+
+        radioButtons.forEach(radioButton => {
+            radioButton.addEventListener('change', () => {
+                if (radioButton.checked) {
+                    console.log(radioButton.value + ' is selected');
+                    // 원하시는 기능을 추가하시면 됩니다.
+                    radioButtons.forEach(rb => rb.parentElement.classList.remove('selected'));
+                    radioButton.parentElement.classList.add('selected');
+                }
+            });
+        });
+
+
+    });
+
+
+
+
+
+       if(${sessionScope.s_id!=null}){
+        let userId="${sessionScope.s_id}";
+        console.log(userId);
+        if(userId!=""){
+            $.ajax({
+                type: "GET"
+                , url: "/zzim/getZzim"
+                , data: {"userId": userId}
+                , async: false
+                , success: function (data) {
+                    //console.log(data);
+                    $(data).each(function (index, value) {
+                        console.log(value);
+
+                        $("#cont_no" + value).attr("src", "/img/redheart2.png");
+                    });
+                }
+
+            });
+        }
     }
 
 </script>

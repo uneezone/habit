@@ -1,10 +1,9 @@
 package com.habit.myPage.service;
 
-import com.habit.myPage.DTO.OrderAllDTO;
-import com.habit.myPage.DTO.OrderDetailDTO;
-import com.habit.myPage.DTO.OrderRefnDTO;
-import com.habit.myPage.DTO.UserInfoDTO;
+import com.habit.myPage.DTO.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -33,4 +32,24 @@ public interface MyPageService {
 
     //환불정보
     List<OrderRefnDTO> getRefnForOrderDetail( List<OrderDetailDTO> dto);
+
+    //리뷰쓰기
+    ReviewWriteDTO getReview(int payd_no,String pro_no);
+
+    //리뷰 에너지 넣기
+    int insertEnergy(EnergyDTO dto);
+
+    //리뷰 수정 또는 리뷰 인저트
+    int updateOrInsertReview(ReviewInsertDTO dto, List<MultipartFile> imgs) throws IOException;
+
+    //환불시작
+    RefundInfoDTO getForRefund(int payd_no);
+
+    //환불 넣기
+    String insertRefund(RefundInsertDTO dto, String user_id);
+
+    //환불완료 페이지
+    RefundResultDTO getResultRefund(int payd_no);
+
+
 }

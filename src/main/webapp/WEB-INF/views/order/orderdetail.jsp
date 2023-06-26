@@ -111,7 +111,7 @@
                 </div>
                 <div class="Home_order_check_num">
                     <c:if test="${refn.refn_method=='C'}">
-                        카드결제
+                        카드
                     </c:if>
                 </div>
             </div>
@@ -124,6 +124,7 @@
                 </div>
             </div>
         </div>
+
         </c:forEach>
         </c:if>
     </div>

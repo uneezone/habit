@@ -68,9 +68,9 @@
 
                 <div class="global_topbar2_menu1_search">
                     <div>
-                        <form action="search.html">
+                        <form action="/search" onsubmit="return checkSearch()">
                             <img src="img/search.png" alt="로고" >
-                            <input type="text" class="global_topbar2_menu1_search_input search_input" placeholder="지금 생각나는 취미를 검색하세요.">
+                            <input type="text" name="recentSearch" class="global_topbar2_menu1_search_input search_input" placeholder="지금 생각나는 취미를 검색하세요.">
                         </form>
                     </div>
                 </div>
@@ -120,27 +120,17 @@
                                 <section>
                                     <div class="global_modal_search">
                                         <div>최근검색어</div>
-                                        <a href="#"><div class="global_modal_search_del">지우기</div></a>
+                                        <div class="global_modal_search_del" onclick="delSearch()">지우기</div>
                                     </div>
-                            
-                                    <a href="#"><div class="global_modal_searchNew">소개팅</div></a>
-                                    <a><div class="global_modal_searchNew">소개팅</div></a>
-                                    <a><div class="global_modal_searchNew">소개팅</div></a>
-                                    <a><div class="global_modal_searchNew">소개팅</div></a>
-                                    <a><div class="global_modal_searchNew">소개팅</div></a>
-                                    <a><div class="global_modal_searchNew">소개팅</div></a>
-                                    <a><div class="global_modal_searchNew">소개팅</div></a>
-                                    <a><div class="global_modal_searchNew">소개팅</div></a>
-                                    <a><div class="global_modal_searchNew">소개팅</div></a>
-                                    <a><div class="global_modal_searchNew">소개팅</div></a>
-                                    <a><div class="global_modal_searchNew">소개팅</div></a>
+                                    <div class="recent_search">
+
+                                    </div>
                                 </section>
                                 <hr>
-                                <section>
+                                <section >
                                     <div class="global_modal_search">인기검색어</div>
-                                    <a href="#"><div class="global_modal_searchResult">소개팅</div></a>
-                                    <a href="#"><div class="global_modal_searchResult">소개팅</div></a>
-                                    <a href="#"><div class="global_modal_searchResult">소개팅</div></a>
+                                    <div class="hot_search">
+                                    </div>
                                 </section>
                                
                             </div>

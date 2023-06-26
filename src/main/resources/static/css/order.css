@@ -342,6 +342,7 @@ a:hover{
     border-radius: 20px;
     width: 90%;
     position: relative;
+    height: 152px;
 }
 
 .Home_show_order_img{
@@ -367,10 +368,24 @@ a:hover{
     top: -34px;
     margin-bottom: 20px;
     font-weight: 600;
+    height: 15px;
+    width: 250px;
+
+
+}
+
+.order_info_big{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 250px;
+    height: 20px;
+
 }
 .Home_show_order_info>div{
     margin-bottom: 5px;
     font-size: 15px;
+
 }
 
 .order_info_name{

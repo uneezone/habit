@@ -223,6 +223,7 @@ a:hover{
 
 .Home_show_order_img{
     width: 100px;
+    height: 100px;
     margin-top: 23px;
     border: 1px solid black;
     border-radius: 10px;
@@ -255,7 +256,7 @@ a:hover{
     font-weight: 600;
    --padding-left: 13px;
     padding-top: 10px;
-    padding-bottom: 6px;
+    padding-bottom:3px;
     
 }
 
@@ -396,4 +397,31 @@ a:hover{
 
 .footer_copy{
     margin-top: 10px;
+}
+#with_somebody{
+    margin-top: 15px;
+    padding-left: 25px;
+}
+.box-radio-input input[type="radio"]{
+    display:none;
+}
+
+.box-radio-input input[type="radio"] + span{
+    display:inline-block;
+    background:none;
+    border:1px solid #dfdfdf;
+    padding:0px 10px;
+    text-align:center;
+    height:35px;
+    line-height:33px;
+    font-weight:500;
+    cursor:pointer;
+    border-radius: 20px;
+    margin-right: 5px;
+}
+
+.box-radio-input input[type="radio"]:checked + span{
+    border:1px solid hotpink;
+    background:hotpink;
+    color:#fff;
 }

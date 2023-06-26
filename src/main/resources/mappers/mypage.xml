@@ -5,20 +5,20 @@
 <mapper namespace="mypage">
 
     <select id="getUserName" parameterType="String" resultType="java.util.Map">
-        select user_name,user_img from user where user_id=#{user_id};
+        select user_name,user_img from user where user_id=#{user_id}
     </select>
 
     <select id="getMyEnergy" parameterType="String" resultType="Integer">
-        select sum(energy_saveuse) from energy where user_id=#{user_id};
+        select sum(energy_saveuse) from energy where user_id=#{user_id}
     </select>
 
     <select id="getMyReviewCount" parameterType="String" resultType="Integer">
-        select count(*) from review where user_id=#{user_id};
+        select count(*) from review where user_id=#{user_id}
     </select>
 
     <select id="getUserInfo" parameterType="String" resultType="com.habit.myPage.DTO.UserInfoDTO">
         select user_pw, user_name, user_email, user_phone,user_birth,user_img
-        from user where user_id=#{user_id};
+        from user where user_id=#{user_id}
     </select>
 
     <select id="getPass" parameterType="String" resultType="String">
@@ -84,5 +84,103 @@
         where payd_no=#{payd_no}
     </select>
 
+    <select id="checkReviewWrite" parameterType="int" resultType="Integer">
+        select count(*) from review where payd_no=#{payd_no} and review_status !="N";
+    </select>
 
+    <select id="getContInfo" parameterType="java.util.Map" resultType="com.habit.myPage.DTO.ReviewWriteDTO">
+        select cont_name,cont_img,cont_no,op_name,DATE_FORMAT(payd_date,'%Y년 %m월 %d일 %H시 %i분') as payd_date,AA.payd_no as payd_no
+        from(select pro_no,payd_date,payd_no from payd where payd_no=#{payd_no}) AA
+        join (select c.cont_no,cont_img,cont_name,op_name,pro_no
+                    from(select pro_no,prod_name as op_name ,cont_no from prod where pro_no=#{pro_no}
+                         union
+                          select pro_no,DATE_FORMAT(one_date,'%Y년 %m월 %d일 %H시 %i분')as op_name,cont_no from one where pro_no=#{pro_no})
+             BB join cont c on BB.cont_no=c.cont_no)
+        CC on AA.pro_no=CC.pro_no
+    </select>
+
+    <select id="getReview" parameterType="Integer" resultType="com.habit.myPage.DTO.ReviewWriteDTO">
+        select review_img,review_star,review_cont,review_feed,review_ask from review where payd_no=#{payd_no}
+    </select>
+
+   <insert id="insertReview" parameterType="com.habit.myPage.DTO.ReviewInsertDTO">
+        insert into review (user_id,cont_no, payd_no, review_cont, review_star, review_ask
+        <if test="review_img!=null">
+            ,review_img
+        </if>
+        <if test="review_feed!=null">
+            , review_feed
+        </if> )
+
+       values (#{user_id},#{cont_no},#{payd_no},#{review_cont},#{review_star},#{review_ask}
+       <if test="review_img!=null">
+             ,
+            <foreach collection="review_img" item="img" open="'" close="'" separator="|" >${img}</foreach>
+        </if>
+        <if test="review_feed!=null">
+            ,#{review_feed}
+        </if>
+        )
+    </insert>
+
+    <insert id="insertEnergy" parameterType="com.habit.myPage.DTO.EnergyDTO">
+        insert into energy(user_id, energy_saveuse,  energy_sources)
+        values(#{user_id},#{energy_saveuse},#{energy_sources})
+    </insert>
+
+    <update id="updateReview" parameterType="com.habit.myPage.DTO.ReviewInsertDTO">
+        update review set review_cont=#{review_cont}, review_star=#{review_star},review_ask=#{review_ask}
+                        <if test="review_img!=null">
+                            ,review_img=
+                            <foreach collection="review_img" item="img" open="'" close="'" separator="|" >${img}</foreach>
+                        </if>
+                        <if test="review_feed!=null">
+                            ,review_feed=#{review_feed}
+                        </if>
+        where payd_no= #{payd_no}
+    </update>
+
+    <select id="getInfoForRefund" parameterType="Integer" resultType="com.habit.myPage.DTO.RefundInfoDTO">
+        select DD.*, c.cont_img,c.cont_name
+        from(select CC.*,p.pay_method,p.pay_point
+             from(select AA.pro_no as pro_no, op_name,cont_no,pay_no,payd_price,payd_qty,DATE_FORMAT(payd_date,'%Y년 %m월 %d일 %H시 %i분') as payd_date,payd_no
+                  from(select pro_no,prod_name as op_name ,cont_no from prod
+                       union
+                       select pro_no,DATE_FORMAT(one_date,'%Y년 %m월 %d일 %H시 %i분')as op_name,cont_no from one ) AA join
+                          (select p.pay_no,pro_no,payd_price,payd_qty,payd_date,payd_no from payd p
+                           join pay p2 on p.pay_no =p2.pay_no where payd_no=#{payd_no} )BB on AA.pro_no=BB.pro_no) CC join pay p on CC.pay_no=p.pay_no) DD join cont c on DD.cont_no=c.cont_no;
+
+    </select>
+
+    <select id="getCheckForEnergyRefund" parameterType="String" resultType="Integer">
+        select count(*) from payd where pay_no=#{pay_no} and refn_status='RO'
+    </select>
+
+    <insert id="insertRefund" parameterType="com.habit.myPage.DTO.RefundInsertDTO" >
+        insert into refn (payd_no, user_id, pro_no,refn_qty,refn_point,refn_pay ,refn_method)
+        values (#{payd_no},#{user_id},#{pro_no},#{refn_qty},#{refn_point},#{refn_price},#{pay_method})
+    </insert>
+
+    <update id="changeStatusPayd" parameterType="Integer" >
+        update payd set payd_status='C' , refn_status='CFRO' where payd_no=#{payd_no}
+    </update>
+
+    <insert id="insertEnergyRefund" parameterType="com.habit.myPage.DTO.EnergyDTO">
+        insert into energy(user_id, energy_saveuse,  energy_sources)
+        values(#{user_id},#{energy_saveuse},#{energy_sources})
+    </insert>
+
+    <select id="getResultRefund" parameterType="Integer" resultType="com.habit.myPage.DTO.RefundResultDTO">
+        select DD.refn_pay,DD.refn_qty,DD.refn_point,DD.pay_method,DD.refn_date,DD.op_name, c.cont_img,c.cont_name
+        from(select CC.*,p.pay_method
+             from(select AA.pro_no as pro_no, op_name,cont_no,pay_no,refn_pay,refn_qty,refn_point,DATE_FORMAT(refn_date,'%Y년 %m월 %d일 %H시 %i분') as refn_date
+                  from(select pro_no,prod_name as op_name ,cont_no from prod
+                       union
+                       select pro_no,DATE_FORMAT(one_date,'%Y년 %m월 %d일 %H시 %i분')as op_name,cont_no from one )
+                       AA join
+                      (select p.pay_no,p.pro_no,refn_pay,refn_qty,refn_date,refn_point from payd p
+                       join refn p2 on p.payd_no =p2.payd_no where p2.payd_no=#{payd_no} )BB on AA.pro_no=BB.pro_no) CC join pay p on CC.pay_no=p.pay_no) DD join cont c on DD.cont_no=c.cont_no;
+
+
+    </select>
 </mapper>

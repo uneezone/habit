@@ -28,7 +28,8 @@
             #{item}
         </foreach>
 
-        group by c.cont_no;
+        group by c.cont_no
+        order by c.cont_no asc;
     </select>
 
 

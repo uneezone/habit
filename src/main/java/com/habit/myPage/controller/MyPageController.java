@@ -9,10 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -169,22 +171,72 @@ public class MyPageController {
         return "order/orderdetail";
     }
 
+
+    @GetMapping("/review")
+    public String showReview(@RequestParam(value = "paydNo")int payd_no, @RequestParam(value = "proNo") String pro_no,Model model){
+        //리뷰작성했는지 확인
+        log.info("payd_no={}",payd_no);
+        log.info("pro_no={}",pro_no);
+
+        ReviewWriteDTO review = myPageService.getReview(payd_no,pro_no);
+
+        model.addAttribute("reviewDTO",review);
+        return "etc/reviewwrite";
+    }
+
+    @PostMapping("/review")
+    public String insertReview(@SessionAttribute(name = "s_id",required = false)String userId,@ModelAttribute ReviewInsertDTO reviewInsertDTO,@RequestParam List<MultipartFile> review_imgs) throws IOException {
+        //리뷰 수정인지 새로인지 확인
+
+        //파ㅇ;ㄹ
+        log.info("imgs={}",review_imgs.size());
+        log.info("ReviewInsertDTO={}",reviewInsertDTO);
+        reviewInsertDTO.setUser_id(userId);
+        int status = myPageService.updateOrInsertReview(reviewInsertDTO, review_imgs);
+
+        //에너지 적립
+        EnergyDTO energyDTO= new EnergyDTO();
+        energyDTO.setEnergy_saveuse(500);
+        energyDTO.setEnergy_sources("[리뷰]적립");
+        energyDTO.setUser_id(userId);
+
+        int insertEnergy = myPageService.insertEnergy(energyDTO);
+
+        if(status!=0&& insertEnergy!=0){
+            log.info("insertEnergy={}",insertEnergy);
+            return "redirect:/mypage/order";
+        }
+
+        return "redirect:/mypage/order";
+    }
+
     @GetMapping("/refund")
-    public String showRefund(@RequestParam(value = "paydNo")int paydNo){
+    public String showRefund(@RequestParam(value = "paydNo")int paydNo, Model model){
         log.info("paydNO={}",paydNo);
+        RefundInfoDTO forRefund = myPageService.getForRefund(paydNo);
+        log.info("refund={}",forRefund);
+        model.addAttribute("refundInfo",forRefund);
         return "order/refund";
     }
 
-    @GetMapping("/refundfinish")
-    public String showRefundFinish(){
-        return "order/refundfinish";
+    @PostMapping("/refund")
+    public String InsertRefund(@ModelAttribute RefundInsertDTO dto, @SessionAttribute(name = "s_id",required = false)String userId, RedirectAttributes redirectAttributes){
+        log.info("refundInsert={}",dto);
+        String status = myPageService.insertRefund(dto, userId);
+
+        log.info("refn_status={}",status);
+
+        redirectAttributes.addAttribute("payd_no",Integer.parseInt(dto.getPayd_no()));
+        return "redirect:/mypage/refundfinish";
     }
 
-    @GetMapping("/review")
-    public String showReview(@RequestParam(value = "paydNo")int payd_no){
-        //리뷰작성했는지 확인
+    @GetMapping("/refundfinish")
+    public String showRefundFinish(@RequestParam("payd_no")int payd_no,Model model){
         log.info("payd_no={}",payd_no);
-        return "etc/reviewwrite";
+
+        RefundResultDTO resultRefund = myPageService.getResultRefund(payd_no);
+        model.addAttribute("result",resultRefund);
+        return "order/refundfinish";
     }
 
 }
