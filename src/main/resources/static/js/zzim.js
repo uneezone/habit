@@ -1,14 +1,18 @@
+//보여줄 상품 갯수
+let showPro=2;
+
 function hello(e){
     $('.href').click(function(){
         $(e).parents().eq(3).remove();
+
+        $(".Home_product_recommend_p").slice(0, showPro).css('display','block'); // 초기갯수
         return false;
     })
 
 
 }
 
-//보여줄 상품 갯수
-let showPro=2;
+
 
 window.onload=function(){
   //common.js

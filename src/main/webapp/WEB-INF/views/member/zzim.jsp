@@ -71,31 +71,31 @@
 
                                                 <script>
 
-                                                    let avg${status.index}=${item.review_avg};
 
                                                     for(let i=0;i<=9;i++){
                                                         let htmlAppend="";
-                                                        //console.log(i/2);
-                                                        if(i%2==0){
-                                                            if(avg${status.index}==parseFloat(i/2)){
-                                                                //console.log("d");
+
+                                                        if(parseFloat(${item.review_avg})%2==0.0){
+
+                                                            if( parseFloat(${item.review_avg})==parseFloat(i/2)){
+
                                                                 for (let k = 0; k < i * 0.5; k++) {
                                                                     htmlAppend += "<img src='/img/star.png' class='Home_recommend_star''>";
                                                                 }
                                                                 $(".review_star"+'${status.index}').append(htmlAppend);
                                                                 break;
                                                             }
-                                                        }else if(avg${status.index}==0.5*i){
-                                                            //console.log("ddd");
-                                                            //console.log(i);
+                                                            continue;
+                                                        }else if( parseFloat(${item.review_avg})==0.5*i){
+
                                                                 for (let k = 0; k < (i * 0.5-0.5); k++) {
                                                                     htmlAppend += "<img src='/img/star.png' class='Home_recommend_star''>";
                                                                 }
                                                                 htmlAppend += "<img src='/img/halfstar.png' class='Home_recommend_star''>";
                                                                 $(".review_star"+'${status.index}').append(htmlAppend);
-                                                                break;
-                                                        }else if(avg${status.index}>0.5*i && avg${status.index}<0.5*(i+1)){
-                                                            console.log("dddd");
+                                                            break;
+                                                        }else if( parseFloat(${item.review_avg})>0.5*i &&  parseFloat(${item.review_avg})<0.5*(i+1)){
+
                                                             if(i%2==0) {
                                                                 for (let k = 0; k < i * 0.5; k++) {
                                                                     htmlAppend += "<img src='/img/star.png' class='Home_recommend_star''>";
@@ -110,7 +110,7 @@
                                                                 $(".review_star"+'${status.index}').append(htmlAppend);
                                                                 break;
                                                             }
-                                                        }else if(avg${status.index}<=5&&(avg${status.index}>4.5)){
+                                                        }else if(parseFloat(${item.review_avg})<=5.0 &&(parseFloat(${item.review_avg})>4.5)){
                                                             for(let k=0;k<5;k++){
                                                                 htmlAppend+="<img src='/img/star.png' class='Home_recommend_star''>";
                                                             }
