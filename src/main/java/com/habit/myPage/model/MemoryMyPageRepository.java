@@ -145,6 +145,11 @@ public class MemoryMyPageRepository implements MyPageRepository{
     }
 
     @Override
+    public String getUserGrade(String user_id) {
+        return sqlSession.selectOne("mypage.getUserGrade",user_id);
+    }
+
+    @Override
     public RefundResultDTO getResultRefund(int payd_no) {
         return sqlSession.selectOne("mypage.getResultRefund",payd_no);
     }

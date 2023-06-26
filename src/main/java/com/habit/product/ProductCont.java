@@ -53,6 +53,8 @@ public class ProductCont {
         mav.addObject("hotListCount", productDao.hotListCount(cate_large));
         mav.addObject("newTop", productDao.newtop(cate_large));
         mav.addObject("newListCount", productDao.newListCount(cate_large));
+        mav.addObject("reviewTop", productDao.reviewtop(cate_large));
+        mav.addObject("reviewCount", productDao.reviewCount(cate_large));
 
 
 

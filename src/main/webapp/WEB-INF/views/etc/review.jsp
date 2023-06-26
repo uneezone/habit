@@ -97,7 +97,7 @@
             
         </div>
         <!--페이징 인덱스 수-->
-        <c:set value="${reviewList.size()}" var="pages"/>
+        <c:set value="${reviewList.size()/4}" var="pages"/>
         <div class="Wrapper_Paging">
             <div class="paging">
                 <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold"  onclick="onPageClick(-1)">&lt;</button>

@@ -270,7 +270,7 @@ a:hover{
     font-size:15px;
     border: 1px solid rgb(205, 205, 205);
     border-radius: 2px;
-    background-color: #f1f1f1;
+    background-color: #ffffff;
     padding-left: 10px;
 }
 
@@ -286,7 +286,7 @@ a:hover{
     font-size:15px;
     border: 1px solid rgb(205, 205, 205);
     border-radius: 2px;
-    background-color: #f1f1f1;
+    background-color: #ffffff;
     padding-left: 10px;
 }
 
@@ -305,7 +305,7 @@ a:hover{
     font-size:15px;
     border: 1px solid rgb(205, 205, 205);
     border-radius: 2px;
-    background-color: #f1f1f1;
+    background-color: #ffffff;
     padding-left: 10px;
 }
 
@@ -326,7 +326,7 @@ a:hover{
     font-size:15px;
     border: 1px solid rgb(205, 205, 205);
     border-radius: 2px;
-    background-color: #f1f1f1;
+    background-color: #ffffff;
     padding-left: 10px;
 }
 
@@ -338,7 +338,7 @@ a:hover{
     font-size:15px;
     border: 1px solid rgb(205, 205, 205);
     border-radius: 2px;
-    background-color: #f1f1f1;
+    background-color: #ffffff;
     padding-left: 10px;
 }
 
@@ -354,7 +354,7 @@ a:hover{
     font-size:15px;
     border: 1px solid rgb(205, 205, 205);
     border-radius: 2px;
-    background-color: #f1f1f1;
+    background-color: #ffffff;
     padding-left: 10px;
 }
 
@@ -376,6 +376,11 @@ a:hover{
     outline: 1px solid #bbc6ff;
     background-color: white; 
 }
+
+input:focus{
+    outline: 1px solid #a0d7ff;
+}
+
 
 /*==================FOOTER===============*/
 .footer{

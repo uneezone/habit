@@ -59,7 +59,7 @@ $(document).ready(function () {
     const productSectionTitle = `인기 ${selectedCategory}`;
     $(".ProductSectionHeader_Title").text(productSectionTitle);
 
-    const productSectionTitle1 = `금주 ${selectedCategory}`;
+    const productSectionTitle1 = `평점 ${selectedCategory}`;
     $(".ProductSectionHeader_Title_a").text(productSectionTitle1);
 
     const productSectionTitle2 = `신규 ${selectedCategory}`;

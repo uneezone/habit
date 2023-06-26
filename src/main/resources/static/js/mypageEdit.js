@@ -78,8 +78,8 @@ function checkPw(){
 //비밀번호 변경
 function changePw(){
     let pw=$("#nowpw").val();
-    if(pw.length<5){
-        alert("비밀번호 5자리 이상 입력해주세요");
+    if(pw.length<6){
+        alert("비밀번호 6자리 이상 입력해주세요");
     }else {
         let params = {"pw": pw};
 
