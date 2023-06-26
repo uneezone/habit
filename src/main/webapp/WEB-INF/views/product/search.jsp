@@ -29,11 +29,6 @@
         <!-- 날짜 필터 버튼 -->
         <div class="Filter_Wrapper">
             <div class="Filter__FilterButtonWrapper">
-                <div class="FilterDate">
-                    <div class="FilterOpenButton">
-                        <button height="auto" color="initial" font-size="14px" font-weight="500" class="Button1">날짜</button>
-                    </div>
-                </div>
                 <div class="FilterOther">
                     <div class="FilterOpenButton">
                         <button height="auto" color="initial" font-size="14px" font-weight="500" class="Button1">필터</button>
@@ -44,6 +39,9 @@
 
                <!-- * 전체 아이템 리스트 시작 -->
             <div class="Home_product_recommend_list">
+                <c:if test="${list.size()==0}">
+                    검색결과없음
+                </c:if>
                 <c:forEach items="${list}" var="product" varStatus="vs">
                     <div class="Home_product_recommend_p">
                         <a href="detailpage.jsp" class="href">

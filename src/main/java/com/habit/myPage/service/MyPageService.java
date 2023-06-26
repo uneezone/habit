@@ -40,7 +40,7 @@ public interface MyPageService {
     int insertEnergy(EnergyDTO dto);
 
     //리뷰 수정 또는 리뷰 인저트
-    int updateOrInsertReview(ReviewInsertDTO dto, List<MultipartFile> imgs) throws IOException;
+    String updateOrInsertReview(ReviewInsertDTO dto, List<MultipartFile> imgs) throws IOException;
 
     //환불시작
     RefundInfoDTO getForRefund(int payd_no);

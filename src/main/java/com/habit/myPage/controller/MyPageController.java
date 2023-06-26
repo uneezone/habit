@@ -193,22 +193,25 @@ public class MyPageController {
         log.info("imgs={}",review_imgs.size());
         log.info("ReviewInsertDTO={}",reviewInsertDTO);
         reviewInsertDTO.setUser_id(userId);
-        int status = myPageService.updateOrInsertReview(reviewInsertDTO, review_imgs);
+        String reviewUpdateOrInsert = myPageService.updateOrInsertReview(reviewInsertDTO, review_imgs);
 
         //에너지 적립
-        EnergyDTO energyDTO= new EnergyDTO();
-        energyDTO.setEnergy_saveuse(500);
-        energyDTO.setEnergy_sources("[리뷰]적립");
-        energyDTO.setUser_id(userId);
+        int insertEnergy=0;
+        if(reviewUpdateOrInsert.contains("new")) {
+            EnergyDTO energyDTO = new EnergyDTO();
+            energyDTO.setEnergy_saveuse(500);
+            energyDTO.setEnergy_sources("[리뷰]적립");
+            energyDTO.setUser_id(userId);
 
-        int insertEnergy = myPageService.insertEnergy(energyDTO);
-
-        if(status!=0&& insertEnergy!=0){
-            log.info("insertEnergy={}",insertEnergy);
-            return "redirect:/mypage/order";
+            insertEnergy = myPageService.insertEnergy(energyDTO);
         }
 
-        return "redirect:/mypage/order";
+        if(reviewUpdateOrInsert!=""&& insertEnergy!=0){
+            log.info("insertEnergy={}",insertEnergy);
+            return "redirect:/products/reviews?cont_no="+reviewInsertDTO.getCont_no();
+        }
+
+        return "redirect:/products/reviews?cont_no="+reviewInsertDTO.getCont_no();
     }
 
     @GetMapping("/refund")
