@@ -54,8 +54,8 @@
           </li>
         </ul>
         <div>
-          <a href="info"><img src="/img/profile-3_07724ab7a395fea9343ed7a13e59c1212e2e3d39c141edd99f83442f98340dfc.webp" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a>
-          <a href="info" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">HOST ID</span></a>
+          <a href="/host/info"><img src="${host_img.equals("defaulthostPro.png") ? '/img/' : '/storage/'}${host_img}" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a>
+          <a href="/host/info" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">${host_id}</span></a>
           <a href="/"><input type="button" class="btn btn-outline-primary btn-sm" value="해빗 홈으로 이동"></a>
           <a href="#"><input type="button" href="#" class="btn btn-secondary btn-sm" value="로그아웃"></a>
         </div>
@@ -142,7 +142,7 @@
       <!-- 검색 결과 -->
       <div class="content">
         <div id="search-result">
-          <p class='content-name'>검색 결과 : ${list.size()} 건</p>
+          <p class='content-name'>검색 결과 : ${paging.totalRecord} 건</p>
         </div>
         <div style="text-align: center;">
           <table class="table">
@@ -182,27 +182,21 @@
         <!-- 페이징 -->
         <div style="display: flex; align-items: center; justify-content: center;">
           <ul class="pagination" id="pagination">
-<%--            <li class="page-item disabled">--%>
-<%--              <a class="page-link" href="#">&laquo;</a>--%>
-<%--            </li>--%>
-<%--            <li class="page-item active">--%>
-<%--              <a class="page-link" href="#">1</a>--%>
-<%--            </li>--%>
-<%--            <li class="page-item">--%>
-<%--              <a class="page-link" href="#">2</a>--%>
-<%--            </li>--%>
-<%--            <li class="page-item">--%>
-<%--              <a class="page-link" href="#">3</a>--%>
-<%--            </li>--%>
-<%--            <li class="page-item">--%>
-<%--              <a class="page-link" href="#">4</a>--%>
-<%--            </li>--%>
-<%--            <li class="page-item">--%>
-<%--              <a class="page-link" href="#">5</a>--%>
-<%--            </li>--%>
-<%--            <li class="page-item">--%>
-<%--              <a class="page-link" href="#">&raquo;</a>--%>
-<%--            </li>--%>
+            <li class="page-item ${paging.prev == true ? '' : 'disabled'}">
+              <a class="page-link" href="/host/review/${paging.startPage-1}">&laquo;</a>
+            </li>
+            <c:choose>
+              <c:when test="${list.size()>0}">
+                <c:forEach var="num" begin="${paging.startPage}" end="${paging.endPage}">
+                  <li class="page-item">
+                    <a class="page-link ${num == paging.currentPage ? 'active': ''}" href="/host/review/${num}">${num}</a>
+                  </li>
+                </c:forEach>
+              </c:when>
+            </c:choose>
+            <li class="page-item ${paging.next == true ? '' : 'disabled'}">
+              <a class="page-link" href="/host/review/${paging.endPage+1}">&raquo;</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -236,85 +230,4 @@
   </footer>
 <!--footer 종료-->
 </body>
-<script>
-  // $(document).ready(()=>{
-  //     let searchResult = $('#search-result')
-  //     let tableBody = $('#table-body')
-  //     let pagination = $('#pagination')
-  //     searchResult.append("<p class='content-name'>검색 결과 : 0 건</p>")
-  //     tableBody.append("<tr><td colspan='6'>검색 결과가 없습니다</td></tr>")
-  //     $('#searchReview').on('click', ()=>{
-  //
-  //         // let queryString = $('form[name=reviewForm]').serialize()
-  //         let list = $('input[name=starScore]:checked')
-  //         const starScore = [];
-  //         for (const score of list) {
-  //             starScore.push(score.value)
-  //         }
-  //
-  //         let reviewContKeyword = $('#reviewContKeyword').val()
-  //         let searchUserId = $('#searchUserId').val()
-  //
-  //         $.ajax({
-  //             url: '/host/review.do',
-  //             type: 'post',
-  //             dataType: 'json',
-  //             data: {
-  //               'starScore': starScore,
-  //               'reviewContKeyword': reviewContKeyword,
-  //               'searchUserId' : searchUserId
-  //             },
-  //             success: (row) => {
-  //                 searchResult.children().remove()
-  //                 tableBody.children().remove()
-  //                 pagination.children().remove()
-  //                 if (row.length === 0) {
-  //                   searchResult.append("<p class='content-name'>검색 결과 : 0 건</p>")
-  //                   tableBody.append("<tr><td colspan='6'>검색 결과가 없습니다</td></tr>")
-  //                 } else {
-  //                     let totalCount = row[0].totalCount
-  //                     searchResult.append("<p class='content-name'>검색 결과 : " + totalCount + " 건</p>")
-  //                     for (let item of row) {
-  //
-  //                         // 검색 결과 리스트 (table)
-  //                         let str = "<tr>\n" +
-  //                                 "    <td>" + item.user_id + "</td>\n" +
-  //                                 "    <td><a href=\"#\">" + item.cont_name + "</a></td>\n" +
-  //                                 "    <td>" + item.review_star + "</td>\n" +
-  //                                 "    <td>" + item.review_cont + "</td>\n" +
-  //                                 "    <td>" + item.review_date + "</td>\n" +
-  //                                 "    <td>\n" +
-  //                                 "    <button class=\"btn btn-sm btn-primary\">삭제</button>\n" +
-  //                                 "    </td>\n" +
-  //                                 "</tr>"
-  //                         tableBody.append(str)
-  //                     }
-  //
-  //                     // 페이징
-  //                     let pageSize = Math.floor(row.length/5)
-  //                     let paging = "  <li class='page-item disabled'>\n" +
-  //                                   "    <a class='page-link'>&laquo;</a>\n" +
-  //                                   "  </li>\n"
-  //                     for (let i = 1; i <= pageSize+1; i++) {
-  //                         paging += "  <li class='page-item'>\n" +
-  //                                   "    <a class='page-link' href='/host/reviewPaging/" + i + "'>" + i + "</a>\n" +
-  //                                   "  </li>\n"
-  //                     }
-  //
-  //                     if (pageSize <= 5) {
-  //                         paging += "  <li class='page-item'>\n" +
-  //                                   "    <a class='page-link'>&raquo;</a>\n" +
-  //                                   "  </li>\n"
-  //                     } else {
-  //                         paging += "  <li class='page-item'>\n" +
-  //                                   "    <a class='page-link' href='/host/reviewPaging/6'>&raquo;</a>\n" +
-  //                                   "  </li>\n"
-  //                     }
-  //                     pagination.append(paging)
-  //                 }
-  //             }
-  //         })
-  //     })
-  // })
-</script>
 </html>

@@ -14226,6 +14226,10 @@ small {
   cursor: pointer;
 }
 
+.page-link {
+  cursor: pointer;
+}
+
 
 /*.modal {*/
 /*  --bs-modal-zindex: 1055;*/

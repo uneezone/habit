@@ -88,6 +88,31 @@ public class ProductDAO {
     }
 
 
+    //필터 모달
+    public List<Map<String, Object>> selectContentsByPopularity(String cate_large) {
+        return sqlSession.selectList("product.selectContentsByPopularity", cate_large);
+    }
+
+    public List<Map<String, Object>> selectContentsByDate(String cate_large) {
+        return sqlSession.selectList("product.selectContentsByDate", cate_large);
+    }
+
+    public List<Map<String, Object>> selectContentsByRating(String cate_large) {
+        return sqlSession.selectList("product.selectContentsByRating", cate_large);
+    }
+
+    public List<Map<String, Object>> selectContentsByHighPrice(String cate_large) {
+        return sqlSession.selectList("product.selectContentsByHighPrice", cate_large);
+    }
+
+    public List<Map<String, Object>> selectContentsByLowPrice(String cate_large) {
+        return sqlSession.selectList("product.selectContentsByLowPrice", cate_large);
+    }
+
+
+
+
+
     //===리뷰가져오기
     public List<ReviewDTO> getReviewList(int cont_no){
         return sqlSession.selectList("product.getReviewList",cont_no);

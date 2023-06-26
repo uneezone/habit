@@ -80,11 +80,41 @@ public class ProductCont {
 
 //    전체보기 클릭시 매핑
 @RequestMapping("category/{cate_large}/all")
-public ModelAndView allList(@PathVariable String cate_large) {
+public ModelAndView allList(@PathVariable String cate_large, @RequestParam(required = false) String filter) {
 
     ModelAndView mav = new ModelAndView();
     mav.setViewName("product/allitemlist");
-    mav.addObject("list", productDao.list(cate_large));
+
+    // Filter 처리
+    List<Map<String, Object>> list;
+    if (filter != null) {
+        switch (filter) {
+            case "popularity":
+                list = productDao.selectContentsByPopularity(cate_large);
+                break;
+            case "date":
+                list = productDao.selectContentsByDate(cate_large);
+                break;
+            case "rating":
+                list = productDao.selectContentsByRating(cate_large);
+                break;
+            case "highPrice":
+                list = productDao.selectContentsByHighPrice(cate_large);
+                break;
+            case "lowPrice":
+                list = productDao.selectContentsByLowPrice(cate_large);
+                break;
+            default:
+                list = productDao.list(cate_large);
+                break;
+        }
+    } else {
+        list = productDao.list(cate_large);
+    }
+
+
+
+    mav.addObject("list", list);
     mav.addObject("middle", productDao.middle(cate_large));
     mav.addObject("hotListCount", productDao.hotListCount(cate_large));
 
@@ -106,6 +136,8 @@ public ModelAndView allList(@PathVariable String cate_large) {
         }
     }
     mav.addObject("priceMap", priceMap);
+
+
     return mav;
 }
 

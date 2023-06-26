@@ -73,17 +73,18 @@
         </div>
                     <!--* 인기 아이템 리스트 끝 -->
 
-            <!--* 이전/다음 버튼 -->
-            <footer class="Wrapper_Paging">
+
+        <!--* 이전/다음 버튼 -->
+        <footer class="Wrapper_Paging">
             <div class="paging">
-            <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold"  onclick="onPageClick(-1)">&lt;</button>
-            <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold"  onclick="onPageClick(1)">1</button>
-            <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold"  onclick="onPageClick(2)">2</button>
-            <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" onclick="onPageClick(3)">3</button>
-            <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" onclick="onPageClick(4)">4</button>
-            <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" onclick="onPageClick(-2)">></button>
+                <button  width="40px" height="40px"  font-size="18px" font-weight="bold"  onclick="onPageClick(-1)">&lt;</button>
+                <c:set var="numPages" value="${Math.ceil(hotListCount / 8)}" />
+                <c:forEach begin="1" end="${numPages}" var="page">
+                    <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" class="page-button" data-page="${page}"  onclick="onPageClick(${page})">${page}</button>
+                </c:forEach>
+                <button  width="40px" height="40px"  font-size="18px" font-weight="bold" onclick="onPageClick(-2)">&gt;</button>
             </div>
-            </footer>
+        </footer>
 
 
         </div>

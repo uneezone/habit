@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
@@ -21,17 +22,43 @@ public class FilterCont {
     @Autowired
     FilterDAO filterDao;
 
-    //중분류 클릭시 요약 매핑
+    //중분류 클릭시  매핑
     @RequestMapping("/category/{cate_large}/{cate_middle}")
-    public ModelAndView midfilter(@PathVariable String cate_large, @PathVariable String cate_middle) {
+    public ModelAndView midfilter(@PathVariable String cate_large, @PathVariable String cate_middle, @RequestParam(required = false) String filter) {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("product/midfilter");
+
+        // Filter 처리
+        List<Map<String, Object>> list;
+        if (filter != null) {
+            switch (filter) {
+                case "midpopularity":
+                    list = filterDao.selectMidByPopularity(cate_large, cate_middle);
+                    break;
+                case "middate":
+                    list = filterDao.selectMidByDate(cate_large, cate_middle);
+                    break;
+                case "midrating":
+                    list = filterDao.selectMidByRating(cate_large, cate_middle);
+                    break;
+                case "midhighPrice":
+                    list = filterDao.selectMidByHighPrice(cate_large, cate_middle);
+                    break;
+                case "midlowPrice":
+                    list = filterDao.selectMidByLowPrice(cate_large, cate_middle);
+                    break;
+                default:
+                    list = productDao.list(cate_large);
+                    break;
+            }
+        } else {
+            list = filterDao.midFilter(cate_large, cate_middle);
+        }
+
         mav.addObject("middle", productDao.middle(cate_large));
-        mav.addObject("midFilter", filterDao.midFilter(cate_large, cate_middle));
-        mav.addObject("midHotTop", filterDao.midHotTop(cate_large, cate_middle));
-        mav.addObject("midNewTop", filterDao.midNewTop(cate_large, cate_middle));
+        mav.addObject("midFilter", list);
         mav.addObject("midHotListCount", filterDao.midHotListCount(cate_large, cate_middle));
-        mav.addObject("midNewListCount", filterDao.midNewListCount(cate_large, cate_middle));
+
 
 
         List<Integer> contNoList = productDao.contNoList(cate_large);

@@ -9,6 +9,7 @@ import java.util.List;
 @ToString
 @Getter @Setter
 public class RequestReservationDTO {
+    private ResponsePageVO vo;
     private String filter;
     private String host_id;
     private String cont_name;
@@ -17,4 +18,8 @@ public class RequestReservationDTO {
     private String searchType;
     private String searchKeyword;
     private List<String> payd_status;
+
+    public RequestReservationDTO() {
+        vo = new ResponsePageVO();
+    }
 }
