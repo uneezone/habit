@@ -1,5 +1,12 @@
 function common(){
 
+    //태그 다시
+    $(".href").click(function (){
+
+        $(".href").css({ 'pointer-events': 'auto' });
+
+    });
+
     //검색어 쿠키
     let html = "";
     for (let i = 0; i < 6; i++) {
@@ -72,6 +79,7 @@ function common(){
     var btn=$('.zzim_btn');
 
     btn.click(function(){
+
         if($(".s_id").text()!="") {
             //찜아닐떄
             if (this.children[0].src.indexOf("black2.png") != -1) {
@@ -94,9 +102,11 @@ function common(){
                             , async: false
                             , success: function (data) {
                                 console.log(data);
+                                window.location.reload();
                             }
                         });
                     }
+
 
                 } else {   //찜일떄
                     //alert("ddssd");
@@ -114,15 +124,18 @@ function common(){
                             , async: false
                             , success: function (data) {
                                 //console.log(data);
-                                //window.location.reload();
+                                window.location.reload();
                             }
                         });
                     }
+
+
                 }
 
         }else{
             location.href="/login";
         }
+        setInterval(releaseA,1000);
     });
 }
 
@@ -135,6 +148,13 @@ function preventA(){
     })
     
 }
+
+function releaseA(){
+    $('.href').click(function(){
+        return true;
+    })
+}
+
 
 //검색어가 공백일때
 function checkSearch(){

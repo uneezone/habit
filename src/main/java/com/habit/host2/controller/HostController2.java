@@ -59,7 +59,8 @@ public class HostController2 {
     public String joinHost(@ModelAttribute NewHostDTO dto
                             , @SessionAttribute(name = "s_id",required = false)String userId, Model model
                             , @RequestParam MultipartFile Img
-                            , HttpServletRequest req){
+                            , HttpServletRequest req
+                            ,HttpSession session){
 
 
         //로그인세션 확인
@@ -122,7 +123,7 @@ public class HostController2 {
 
         //host 아이디
         dto.setHostId(userId);
-
+        session.setAttribute("host_img",dto.getHostImg());
         log.info("newHostDTO={}",dto);
         hostService.newHostPro(dto,userId);
 

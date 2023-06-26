@@ -4,11 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 
@@ -33,7 +38,7 @@ public class MemberCont {
 
 
     @RequestMapping("/welcome.do")
-    public String welcome(@RequestParam Map<String, Object> map) {
+    public String welcome(@RequestParam Map<String, Object> map, @RequestParam MultipartFile user_img,HttpServletRequest req) {
 
         System.out.println(map.get("user_id"));
         System.out.println(map.get("user_pw"));
@@ -46,6 +51,33 @@ public class MemberCont {
         System.out.println(map.get("user_birth"));
         System.out.println(map.get("user_gender"));
 
+        //프로필이미지 storage 저장방식
+        String pro_img="defaultPro.png";
+        if (user_img != null && !user_img.isEmpty()) {
+
+            SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMddHHmmss");
+            Date now = new Date();
+            String nowTime = sdf1.format(now);
+
+            String filename = user_img.getOriginalFilename();
+            int findIndex = filename.lastIndexOf(".");
+            String extension = filename.substring(findIndex + 1, filename.length());
+            filename=filename.substring(0,findIndex);
+            filename = "U" + filename + nowTime+"."+extension;
+            long filesize = user_img.getSize();
+            pro_img=filename;
+            try {
+                ServletContext application = req.getSession().getServletContext();
+                String path = application.getRealPath("/storage");  //실제 물리적인 경로
+                user_img.transferTo(new File(path + "\\" + filename)); //파일저장
+
+            } catch (Exception e) {
+                e.printStackTrace(); //System.out.println(e);
+
+            }
+
+        }
+        map.put("user_img",pro_img);
 
         String user_email = map.get("user_email") + "@" + map.get("user_email2");
         map.put("user_email", user_email);
@@ -55,14 +87,15 @@ public class MemberCont {
 
         memberdao.insert(map);
 
-        return "redirect:/";
+        return "redirect:/login";
     }
 
     //아이디 중복확인
     @PostMapping("/idCheck")
     @ResponseBody
-    public int idCheck(@RequestParam String id) {
+    public int idCheck(String id) {
         int cnt = memberdao.idCheck(id);
+        System.out.println("아이디 중복확인"+cnt);
         return cnt;
     }
 

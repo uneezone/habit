@@ -51,6 +51,7 @@
             </div>
         </div>
     </div>
+    <c:if test="${contreview.size()!=0}">
 
     <div class="ReviewSummary">
         <div class="ReviewSummary_info">
@@ -69,23 +70,30 @@
             <img src="/img/star.png" alt="" style="" class="detailstar">
         </c:forEach>
         </div>
+
         <strong class="ReviewSummary_Aver">
             <fmt:formatNumber value="${avgStarRating != null ? avgStarRating : 0}" pattern="#,##0.0" minFractionDigits="2" />
         </strong>
+
         <span class="ReviewSummary_Count">${starItem['cnt']}개 후기</span>
+
         </div>
+
             <span class="ReviewSummary_Comment">경험한 크루들은 이렇게 평가했어요!</span>
+
+
     </div>
+
 
         <div class="Reviewblack">
             <div class="Reviewflex parent-container">
                 <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                 <c:forEach items="${contreview}" var="review" varStatus="status">
                     <div class="Reviewgreen">
-                        <img src="/storage/${review.review_img}" alt="" onerror="this.src='/storage/defaultPro.png';"/>
+                        <img src="/storage/${review.review_img}" class="review_img" alt="" onerror="this.src='/storage/defaultPro.png';"/>
                         <div class="CoverReviewCard_User">
                             <div class="CoverReviewCard_ProfileImg">
-                                <img src="/storage/${review.user_img}}" alt="" onerror="this.src='/storage/ME.png';"/>
+                                <img src="/storage/${review.user_img}}" alt="" class="user_img" onerror="this.src='/storage/ME.png';"/>
                             </div>
                             <div class="CoverReviewCard_UserInfo">
                                  <p>${review.user_id}</p>
@@ -98,9 +106,10 @@
                 <a class="next" onclick="plusSlides(1)">&#10095;</a>
             </div>
             <div class="reviewplus">
-                <strong><a href="/category/products/${cont_no}/reviews" class="review_stylelink">${contreviewcnt.Reviewcnt}개 후기 더보기</a></strong>
+                <strong><a href="/products/reviews?cont_no=${cont_no}" class="review_stylelink">${contreviewcnt.Reviewcnt}개 후기 더보기</a></strong>
             </div>
         </div>
+    </c:if>
 
 
         <div class="Classintroduction">

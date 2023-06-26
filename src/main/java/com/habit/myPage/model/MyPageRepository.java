@@ -78,8 +78,11 @@ public interface MyPageRepository {
     //환불 후 주문상세내역 테이블 주문상세상태, 환불상태 바꾸기
     int changeStatusPayd(int payd_no);
 
-    //환불 에너지 있으면 환불시키기
+    //환불 에너지 있으면 환불시키기 and 상품적립포인트 빼기
     int insertEnergyRefund(EnergyDTO dto);
+
+    //유저 등급알아내서 상품 적립포인트 빼기
+    String getUserGrade(String user_id);
 
     //환불 완료 페이지
     RefundResultDTO getResultRefund(int payd_no);

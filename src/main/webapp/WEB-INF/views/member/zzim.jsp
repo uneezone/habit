@@ -39,7 +39,7 @@
                     <div>
                         <c:forEach var="item" items="${zzimList}" varStatus="status">
                             <div class="Home_product_recommend_p zzim${status.index}">
-                                <a href="" class="href">
+                                <a href="/category/products/${item.cont_no}" class="href">
                                     <div class="Home_product_recommend_p_div">
                                          <div>
                                             <input type="image" src="/storage/${item.cont_img}" alt="cont_img" width="140px" height="140px" style="border-radius:8px;">
@@ -61,7 +61,7 @@
                                                             <span class="review_star${status.index}">
 
                                                             </span>
-                                                            <span>${item.review_avg}</span>
+
                                                             <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);"> 후기 ${item.review_count}</span>
                                                         </c:if>
                                                         <c:if test="${item.review_count==0}">

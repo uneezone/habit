@@ -317,7 +317,7 @@
                                                 <img src="/storage/${ht.cont_img}" alt="" width="150px" onerror="this.src='/storage/ang.png'">
                                             </div>
                                             <div>
-                                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
+                                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" >
                                                     <img src="/img/black2.png" alt="" id="cont_no${ht.cont_no}" width="40px" class="Home_product_recommend_p_div_img">
                                                 </button>
                                             </div>
@@ -382,7 +382,7 @@
                                             <img src="/img/image.jpeg" alt="" width="150px">
                                         </div>
                                         <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
+                                            <button class="Home_product_recommend_p_div_btn zzim_btn"  onsubmit="return false">
                                                 <img src="/img/black2.png" alt="" id="cont_no${item.cont_no}" width="40px" class="Home_product_recommend_p_div_img">
                                             </button>
                                         </div>
@@ -467,7 +467,7 @@
                                     <a href="products/${nt.cont_no}" class="href">
                                         <div class="Home_product_recommend_p_div">
                                             <div>
-                                                <img src="/storage/${nt.cont_img}" alt="" width="150px" onerror="this.src='/storage/ang.png'">
+                                                <img src="/storage/${nt.cont_img}" alt="" width="150px" >
                                             </div>
                                             <div>
                                                 <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">

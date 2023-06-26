@@ -1,5 +1,5 @@
 //보여줄 상품 갯수
-let showPro=1;
+let showPro=4;
 
 
 window.onload=function(){

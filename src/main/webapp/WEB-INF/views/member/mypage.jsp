@@ -27,7 +27,9 @@
             </a>
             <a href="">
                 <div class="Home_myrecord_name">후기</div>
-                <div class="Home_myrecord_num">${myInfo.review}</div>
+                <div class="Home_myrecord_num">
+                    ${myInfo.review}
+                </div>
             </a>
             <a href="">
                 <div class="Home_myrecord_name">피드</div>
