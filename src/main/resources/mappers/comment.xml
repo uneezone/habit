@@ -3,6 +3,32 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="comment">
+<mapper namespace="intro">
+
+    <select id="introViewTop" resultType="java.util.Map">
+        SELECT cont.*, cate.*
+        FROM cont
+                 JOIN cate ON cont.cate_no = cate.cate_no
+        ORDER BY cont.cont_view DESC
+        LIMIT 4
+    </select>
+
+    <select id="introReviewTop" resultType="java.util.Map">
+        SELECT cont.*, cate.*, IFNULL(AVG(review.review_star), 0) AS average_star
+        FROM cont
+                 JOIN cate ON cont.cate_no = cate.cate_no
+                 LEFT JOIN review ON cont.cont_no = review.cont_no
+        GROUP BY cont.cont_no
+        ORDER BY average_star DESC
+        LIMIT 4
+    </select>
+
+    <select id="introDateTop" resultType="java.util.Map">
+        SELECT cont.*, cate.*
+        FROM cont
+                 JOIN cate ON cont.cate_no = cate.cate_no
+        ORDER BY cont.cont_stdate DESC
+            LIMIT 4
+    </select>
     
 </mapper>

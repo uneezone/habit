@@ -123,6 +123,33 @@
             LIMIT 10
     </select>
 
+<!--  요약 페이지 ->   평점 (상위 4개)-->
+    <select id="reviewTop" resultType="java.util.Map" parameterType="String">
+        SELECT cont.*, cate.*, IFNULL(AVG(review.review_star), 0) AS average_star
+        FROM cont
+                 JOIN cate ON cont.cate_no = cate.cate_no
+                 LEFT JOIN review ON cont.cont_no = review.cont_no
+        WHERE cate.cate_large = #{cate_large}
+        GROUP BY cont.cont_no
+        ORDER BY average_star DESC
+            LiMiT 4
+    </select>
+
+    <!-- 평점순 개수 -->
+    <select id="reviewCount" resultType="int" parameterType="String">
+        SELECT SUM(cnt) AS total_cnt
+        FROM (
+                 SELECT COUNT(*) AS cnt
+                 FROM cont
+                          JOIN cate ON cont.cate_no = cate.cate_no
+                          LEFT JOIN review ON cont.cont_no = review.cont_no
+                 WHERE cate.cate_large = #{cate_large}
+                 GROUP BY cont.cont_no
+                     LIMIT 4
+             ) AS temp
+    </select>
+
+
     <!--해빈 리뷰 페이지-->
     <select id="getReviewList" parameterType="Integer" resultType="com.habit.product.ReviewDTO">
         select AA.*, c.cont_name

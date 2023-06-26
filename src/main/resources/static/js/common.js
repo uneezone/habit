@@ -72,6 +72,7 @@ function common(){
     var btn=$('.zzim_btn');
 
     btn.click(function(){
+
         if($(".s_id").text()!="") {
             //찜아닐떄
             if (this.children[0].src.indexOf("black2.png") != -1) {
@@ -82,7 +83,6 @@ function common(){
                 id = id.substring(7, id.length);
 
                 console.log("id=" + $(".s_id").text());
-
 
 
                     //$.ajax 써야 함. async:true 잊지 않고 추가하기

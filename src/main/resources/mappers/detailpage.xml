@@ -35,7 +35,7 @@
         FROM user u
                  JOIN cont c ON u.user_id = c.host_id
                  JOIN review r ON c.cont_no = r.cont_no
-        WHERE r.cont_no = #{cont_no}
+        WHERE r.cont_no = #{cont_no} AND review_status = 'Y'
     </select>
 
     <!-- 상세 페이지 선택한 컨텐츠 리뷰 수량   -->
@@ -44,7 +44,7 @@
         FROM cont
                  INNER JOIN review
                             ON cont.cont_no = review.cont_no
-        WHERE  cont.cont_no = #{cont_no}
+        WHERE  cont.cont_no = #{cont_no} AND review_status = 'Y'
     </select>
 
     <!-- 상세 페이지 선택한 컨텐츠 찜 수량   -->
