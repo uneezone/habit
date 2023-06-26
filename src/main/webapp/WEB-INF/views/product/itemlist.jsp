@@ -317,8 +317,8 @@
                                                 <img src="/storage/${ht.cont_img}" alt="" width="150px" onerror="this.src='/storage/ang.png'">
                                             </div>
                                             <div>
-                                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" >
-                                                    <img src="/img/black2.png" alt="" id="cont_no${ht.cont_no}" width="40px" class="Home_product_recommend_p_div_img">
+                                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="return false" >
+                                                    <img src="/img/black2.png" alt="" id="cont_no${ht.cont_no}" width="40px" class="Home_product_recommend_p_div_img zzim_img">
                                                 </button>
                                             </div>
                                             <div class="Home_product_recommend_p_font">
@@ -384,8 +384,8 @@
                                                 <img src="/storage/${rt.cont_img}" alt="" width="150px" onerror="this.src='/storage/ang.png'">
                                             </div>
                                             <div>
-                                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                                    <img src="/img/black2.png" id="newcont_no${rt.cont_no}" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="return false">
+                                                    <img src="/img/black2.png" id="avgcont_no${rt.cont_no}" alt="" width="40px" class="Home_product_recommend_p_div_img zzim_img">
                                                 </button>
                                             </div>
                                             <div class="Home_product_recommend_p_font">
@@ -450,8 +450,8 @@
                                                 <img src="/storage/${nt.cont_img}" alt="" width="150px" >
                                             </div>
                                             <div>
-                                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                                    <img src="/img/black2.png" id="newcont_no${nt.cont_no}" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="return false">
+                                                    <img src="/img/black2.png" id="newcont_no${nt.cont_no}" alt="" width="40px" class="Home_product_recommend_p_div_img zzim_img">
                                                 </button>
                                             </div>
                                             <div class="Home_product_recommend_p_font">
@@ -558,7 +558,7 @@
         radioButtons.forEach(radioButton => {
             radioButton.addEventListener('change', () => {
                 if (radioButton.checked) {
-                    console.log(radioButton.value + ' is selected');
+                    //console.log(radioButton.value + ' is selected');
                     // 원하시는 기능을 추가하시면 됩니다.
                     radioButtons.forEach(rb => rb.parentElement.classList.remove('selected'));
                     radioButton.parentElement.classList.add('selected');
@@ -575,7 +575,7 @@
 
     if(${sessionScope.s_id!=null}){
         let userId="${sessionScope.s_id}";
-        console.log(userId);
+        //console.log(userId);
         if(userId!=""){
             $.ajax({
                 type: "GET"
@@ -589,6 +589,7 @@
 
                         $("#cont_no" + value).attr("src", "/img/redheart2.png");
                         $("#newcont_no"+value).attr("src", "/img/redheart2.png");
+                        $("#avgcont_no"+value).attr("src", "/img/redheart2.png");
                     });
                 }
 
