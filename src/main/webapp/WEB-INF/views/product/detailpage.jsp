@@ -87,7 +87,7 @@
                         <img src="/storage/${review.review_img}" alt="" onerror="this.src='/storage/defaultPro.png';"/>
                         <div class="CoverReviewCard_User">
                             <div class="CoverReviewCard_ProfileImg">
-                                <img src="/storage/${review.user_img}}" alt="" onerror="this.src='/storage/ME.png';"/>
+                                <img src="/storage/${review.user_img}}"  class="guest" alt="" onerror="this.src='/storage/ME.png';"/>
                             </div>
                             <div class="CoverReviewCard_UserInfo">
                                  <p>${review.user_id}</p>
