@@ -1,5 +1,7 @@
 function common(){
 
+
+
     //검색어 쿠키
     let html = "";
     for (let i = 0; i < 6; i++) {
@@ -80,7 +82,10 @@ function common(){
                 this.children[0].src = "/img/redheart2.png";
                 let id = this.children[0].id;
                 console.log(id);
-                id = id.substring(7, id.length);
+                let indexOf = id.indexOf("_");
+
+                id = id.substring(indexOf+3, id.length);
+                console.log(id);
 
                 console.log("id=" + $(".s_id").text());
 
@@ -94,17 +99,22 @@ function common(){
                             , async: false
                             , success: function (data) {
                                 console.log(data);
+                                window.location.reload();
                             }
                         });
                     }
+
 
                 } else {   //찜일떄
                     //alert("ddssd");
                     this.children[0].src = "/img/black2.png";
                     let id = this.children[0].id;
 
-                    id = id.substring(7, id.length);
+                    console.log(id);
+                    let indexOf = id.indexOf("_");
 
+                    id = id.substring(indexOf+3, id.length);
+                    console.log(id);
                     //$.ajax 써야 함. async:true 잊지 않고 추가하기
                     if ($(".s_id").text() != "") {
                         $.ajax({
@@ -114,15 +124,18 @@ function common(){
                             , async: false
                             , success: function (data) {
                                 //console.log(data);
-                                //window.location.reload();
+                                window.location.reload();
                             }
                         });
                     }
+
+
                 }
 
         }else{
             location.href="/login";
         }
+        setInterval(releaseA,1000);
     });
 }
 
@@ -135,6 +148,13 @@ function preventA(){
     })
     
 }
+
+function releaseA(){
+    $('.href').click(function(){
+        return true;
+    })
+}
+
 
 //검색어가 공백일때
 function checkSearch(){

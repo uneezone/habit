@@ -103,6 +103,7 @@ public class MyPageController {
         userInfoDTO.setUser_birth(dto.getUser_birth().replace("-",""));
         userInfoDTO.setUser_img(dto.getUser_img());
         userInfoDTO.setUser_id(userId);
+        log.info("userinfoUPdate={}",userInfoDTO);
 
         String status = myPageService.updateUserInfo(userInfoDTO);
 

@@ -5,8 +5,8 @@
 
 <mapper namespace="member">
     <insert id="insert" parameterType="java.util.Map">
-        insert into user (user_id,user_pw,user_name,user_email,user_phone,user_birth,user_gender)
-        values (#{user_id},#{user_pw},#{user_name},#{user_email},#{user_phone},#{user_birth},#{user_gender})
+        insert into user (user_id,user_pw,user_name,user_email,user_phone,user_birth,user_gender,user_img)
+        values (#{user_id},#{user_pw},#{user_name},#{user_email},#{user_phone},#{user_birth},#{user_gender},#{user_img})
     </insert>
 
     <!--아이디 중복확인-->

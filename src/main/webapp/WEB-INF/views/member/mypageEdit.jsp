@@ -36,7 +36,7 @@
                     <div class="Home_pro_sub">휴대폰번호</div>
                     <div class="Home_pro_btn1">
                         <c:set var="phone" value="${userInfo.user_phone}" />
-                        <input type="number" name="user_phone1" id="user_phone1" value="${fn:substring(phone,0,3)}" oninput="checkLength()">-
+                        <input type="text" name="user_phone1" id="user_phone1" value="${fn:substring(phone,0,3)}" oninput="checkLength()">-
                         <input type="number" name="user_phone2" id="user_phone2" value="${fn:substring(phone,4,8)}" oninput="checkLength()">-
                         <input type="number" name="user_phone3" id="user_phone3" value="${fn:substring(phone,9,13)}" oninput="checkLength()">
                     </div>

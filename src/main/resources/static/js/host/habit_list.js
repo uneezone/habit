@@ -143,11 +143,7 @@ $(document).ready(()=> {
                 "                  </div>"
             tableBody.append(str1)
         }
-
-        str2 = "<button class='btn btn-lg btn-outline-primary' id='seeMoreButton' type='button'" + (vo.currentEndRowNum < vo.totalRecord ? '' : 'hidden') + ">더보기</button>"
-        pagination.append(str2)
     }
-
 
     let click = 0
     // 더보기 click
@@ -155,17 +151,37 @@ $(document).ready(()=> {
         click++
         $.ajax({
             url: '/host/content/seemore.do',
-            type: 'get',
+            type: 'post',
             dataType: 'json',
             data: {'click': click},
             success: (map) => {
                 createTable(map)
+                str2 = "<button class='btn btn-lg btn-outline-primary' id='seeMoreButton' type='button'" + (map.vo.currentEndRowNum < map.vo.totalRecord ? '' : 'hidden') + ">더보기</button>"
+                $('#pagination').append(str2)
             }
         })
+
     })
+
+    // // 더보기 click (필터)
+    // $('#pagination').on('click', '#seeMoreButton', ()=>{
+    //     click++
+    //     $.ajax({
+    //         url: '/host/content/seemore.do',
+    //         type: 'get',
+    //         dataType: 'json',
+    //         data: {'click': click},
+    //         success: (map) => {
+    //             createTable(map)
+    //         }
+    //     })
+    // })
+
 
     // 필터 조회
     $('#search-content').on('click', ()=>{
+
+        click = 0
 
         let searchResult = $('#searchResult')
         let tableBody = $('#tableBody')
@@ -193,6 +209,7 @@ $(document).ready(()=> {
         }
 
         let requestData = {
+            'click': click,
             'filter': 'filter',
             'cont_name': cont_name,
             'searchDateType': searchDateType,
@@ -212,6 +229,53 @@ $(document).ready(()=> {
                 createTable(map)
                 str = "<p class='content-name'>검색 결과 : " + map.vo.totalRecord + " 건</p>"
                 searchResult.append(str)
+                str2 = "<button class='btn btn-lg btn-outline-primary' id='seeMoreButton-filter' type='button'" + (map.vo.currentEndRowNum < map.vo.totalRecord ? '' : 'hidden') + ">더보기</button>"
+                $('#pagination').append(str2)
+            }
+        })
+    })
+
+    // 더보기 click (필터)
+    $('#pagination').on('click', '#seeMoreButton-filter', ()=>{
+        click++
+
+        let cont_name = $('#search-cont_name').val()
+        let searchDateType = $('#searchDateType').val()
+        let searchStartDate =  $('#date-calendar-start').val()
+        let searchEndDate = $('#date-calendar-end').val()
+
+        if (searchEndDate !== '') {
+            let endDate =  new Date($('#date-calendar-end').val());
+            let getEndDate = endDate.getDate();
+            let setEndDate = endDate.setDate(getEndDate+1);
+            searchEndDate = new Date(setEndDate).toISOString().split('T')[0];
+        }
+
+        let cont_status = []
+        let list = $('input[name=cont_status]:checked')
+        for (let status of list) {
+            cont_status.push(status.value)
+        }
+
+        let requestData = {
+            'click': click,
+            'filter': 'filter',
+            'cont_name': cont_name,
+            'searchDateType': searchDateType,
+            'searchStartDate': searchStartDate,
+            'searchEndDate': searchEndDate,
+            'cont_status': cont_status
+        }
+
+        $.ajax({
+            url: '/host/content/seemore.do',
+            type: 'post',
+            dataType: 'json',
+            data: requestData,
+            success: (map) => {
+                createTable(map)
+                str2 = "<button class='btn btn-lg btn-outline-primary' id='seeMoreButton-filter' type='button'" + (map.vo.currentEndRowNum < map.vo.totalRecord ? '' : 'hidden') + ">더보기</button>"
+                $('#pagination').append(str2)
             }
         })
     })

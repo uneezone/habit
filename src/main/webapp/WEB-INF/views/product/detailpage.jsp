@@ -45,12 +45,13 @@
                         </div>
                     </div>
                 </div>
-                <div style="margin-left: 1px;">
-                    <img style="width: 70px; margin-left: 50px;" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='17' fill='none' viewBox='0 0 56 17'%3E %3Cpath fill='%238B56CD' d='M23.024 13.92V9.216h1.104v-1.68h-6.72v1.68h1.104v4.704h1.752V9.216h1.008v4.704h1.752zm1.164-8.568c-1.548 0-2.472-.84-2.472-1.74V2.88H19.82v.732c0 .9-.876 1.74-2.472 1.74v1.656c1.716 0 2.844-.492 3.42-1.512.576 1.02 1.692 1.512 3.42 1.512V5.352zm5.495 8.568v-1.68h-.504V4.68h.444V3h-4.8v1.68h.444v7.56h-.444v1.68h4.86zm2.34 0V3h-1.74v3.972h-.648v1.92h.648v5.028h1.74zm-4.512-1.68h-.576V4.68h.576v7.56zm12.05 1.68v-1.68h-2.423V9.036h-1.872v3.204h-2.424v1.68h6.72zm.013-7.212c0-1.104-.924-1.728-2.328-1.728h-2.088c-1.404 0-2.328.576-2.328 1.728v.168c0 1.164.888 1.728 2.328 1.728h2.088c1.5 0 2.328-.564 2.328-1.728v-.168zm-.012-2.028V3.24H37.15v-.6h-1.896v.6h-2.412v1.44h6.72zm-1.644 2.124c0 .324-.192.48-.588.48h-2.256c-.372 0-.588-.156-.588-.48V6.78c0-.324.192-.48.588-.48h2.256c.372 0 .588.156.588.48v.024zm9.179 7.116v-1.68h-6.72v1.68h6.72zm.06-4.968c-1.548 0-2.472-1.08-2.472-2.22V2.88h-1.896v3.852c0 1.14-.876 2.22-2.472 2.22v1.656c1.716 0 2.964-.732 3.42-1.752.456 1.02 1.692 1.752 3.42 1.752V8.952zm7.475 2.052v-1.56h-4.968V7.536h4.848v-1.56h-4.848V4.56h4.968V3h-6.72v8.004h6.72zm0 2.916v-1.68h-6.72v1.68h6.72z'/%3E %3Ccircle cx='6.5' cy='10.5' r='6.5' fill='%239965DA'/%3E %3Cpath fill='%23713BB4' fill-rule='evenodd' d='M4 0H0l2.359 4.246c.987-.655 2.137-1.082 3.377-1.208L4 0z' clip-rule='evenodd'/%3E %3Cpath fill='%239965DA' fill-rule='evenodd' d='M9 0h4l-2.36 4.245C9.667 3.6 8.532 3.174 7.31 3.043L8.999 0z' clip-rule='evenodd'/%3E %3Ccircle cx='6.5' cy='10.5' r='6' stroke='%23713BB4'/%3E %3Cpath fill='%23fff' d='M9 9.154V8H4.619c-.063 0-.132.024-.207.072-.074.043-.143.102-.206.176-.057.07-.106.147-.146.233-.04.08-.06.157-.06.232v1.426c0 .332.072.57.215.714.149.139.318.213.507.224h2.955c.029 0 .052.01.069.032.023.021.034.043.034.064v.577c0 .064-.034.096-.103.096H4V13h4.399c.068 0 .137-.021.206-.064.069-.048.132-.107.189-.176.063-.07.111-.145.146-.225.04-.085.06-.165.06-.24V10.86c0-.177-.023-.324-.069-.441-.04-.118-.097-.214-.172-.289-.074-.074-.157-.128-.249-.16-.091-.032-.186-.048-.283-.048H5.323c-.074 0-.112-.032-.112-.096V9.25c0-.021.012-.043.035-.064.023-.021.048-.032.077-.032H9z'/%3E %3C/svg%3E">
+                <div style="margin-left: 35px;">
+                    <img style="width: 20px; margin-left: 50px;" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 16 16'%3E %3Cpath stroke='%23333' stroke-linecap='round' stroke-width='1.5' d='M6 3l5 5-5 5'/%3E %3C/svg%3E">
                 </div>
             </div>
         </div>
     </div>
+    <c:if test="${contreview.size()!=0}">
 
     <div class="ReviewSummary">
         <div class="ReviewSummary_info">
@@ -69,6 +70,7 @@
             <img src="/img/star.png" alt="" style="" class="detailstar">
         </c:forEach>
         </div>
+
         <strong class="ReviewSummary_Aver">
             <fmt:formatNumber value="${avgStarRating != null ? avgStarRating : 0}" pattern="#,##0.0" minFractionDigits="2" />
         </strong>
@@ -101,6 +103,7 @@
                 <strong><a href="/category/products/${cont_no}/reviews" class="review_stylelink">${contreviewcnt.Reviewcnt}개 후기 더보기</a></strong>
             </div>
         </div>
+    </c:if>
 
 
         <div class="Classintroduction">

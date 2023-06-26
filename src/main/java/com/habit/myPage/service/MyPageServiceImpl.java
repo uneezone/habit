@@ -280,13 +280,34 @@ public class MyPageServiceImpl implements MyPageService{
             //내역상태바꾸기
             int changeStatus = repository.changeStatusPayd(Integer.parseInt(dto.getPayd_no()));
 
+
             //사용한 에너지 환불
+            EnergyDTO energyDTO= new EnergyDTO();
+            energyDTO.setUser_id(user_id);
             if(Integer.parseInt(dto.getRefn_point())!=0){
-                EnergyDTO energyDTO= new EnergyDTO();
                 energyDTO.setEnergy_sources("[결제]취소");
                 energyDTO.setEnergy_saveuse(Integer.parseInt(dto.getRefn_point()));
                 repository.insertEnergyRefund(energyDTO);
             }
+
+            //가격대비 적립 포인트 빼기
+            //회원등급확인
+            String userGrade = repository.getUserGrade(user_id);
+            int contRefnPoint=0;
+            if(userGrade.equals("B")){
+                contRefnPoint= (int) (Integer.parseInt(refn_price)*0.01);
+            }else if (userGrade.equals("A")){
+                contRefnPoint= (int) (Integer.parseInt(refn_price)*0.03);
+            }else {
+                contRefnPoint= (int) (Integer.parseInt(refn_price)*0.05);
+            }
+
+            energyDTO.setEnergy_saveuse(-contRefnPoint);
+            energyDTO.setEnergy_sources("[결제]적립취소");
+            repository.insertEnergyRefund(energyDTO);
+
+
+            //유저 등급확인
 
             if(changeStatus!=0) {
                 return "OK";
