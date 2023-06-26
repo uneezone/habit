@@ -9,6 +9,7 @@ import java.util.List;
 @ToString
 @Getter @Setter
 public class RequestContentListDTO {
+    private int click;
     private SeeMoreVO vo;
     private String filter;
     private String host_id;

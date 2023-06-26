@@ -83,13 +83,12 @@ public class HostContorller1 {
     }
 
     // 해빗 페이징 (더보기)
-    @GetMapping("/content/seemore.do")
+    @PostMapping("/content/seemore.do")
     @ResponseBody
-    public Map<String, Object> contentList (int click, Model model) {
+    public Map<String, Object> contentList (int click, RequestContentListDTO reqContListDTO) {
         //임시 세션 아이디
         String userId = "user-1";
-        RequestContentListDTO reqContListDTO = new RequestContentListDTO();
-        reqContListDTO.getVo().setClick(click);
+        reqContListDTO.getVo().setClick(reqContListDTO.getClick());
         reqContListDTO.setHost_id(userId);
 
         List<ResponseContentListDTO> list = hostService1.contentList(reqContListDTO);
