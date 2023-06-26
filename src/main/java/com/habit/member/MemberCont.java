@@ -1,14 +1,18 @@
 package com.habit.member;
 
+import com.habit.host1.DTO.RequestFindPasswordDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.mail.javamail.JavaMailSender;
 
 import javax.servlet.ServletContext;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
@@ -22,6 +26,8 @@ public class MemberCont {
 
     @Autowired
     MemberDAO memberdao;
+    @Autowired
+    JavaMailSender javaMailSender;
 
 
     public MemberCont() {
@@ -87,15 +93,14 @@ public class MemberCont {
 
         memberdao.insert(map);
 
-        return "redirect:/login";
+        return "redirect:/";
     }
 
     //아이디 중복확인
     @PostMapping("/idCheck")
     @ResponseBody
-    public int idCheck(String id) {
+    public int idCheck(@RequestParam String id) {
         int cnt = memberdao.idCheck(id);
-        System.out.println("아이디 중복확인"+cnt);
         return cnt;
     }
 
@@ -150,37 +155,86 @@ public class MemberCont {
     public String findId() {
         return "member/findMember";
     }
-    //아이디찾기
-    @GetMapping("/resultFindId")
-    public String resultFindId() {
+
+    //아이디 찾기
+    @PostMapping("/findid/result")
+    public String findIdResult(@RequestParam String user_email, Model model) {
+
+        // 회원 정보를 조회
+        MemberDTO memberDTO = memberdao.findId(user_email);
+        ModelAndView mav = new ModelAndView();
+
+        model.addAttribute("user_id", memberDTO.getUser_id());
         return "member/resultFindId";
     }
 
-
-    //아이디 찾기
-    @PostMapping("/findId.do")
-    public ModelAndView findId(@RequestParam Map<String, Object> map) {
-        // 회원 정보를 조회합니다.
-        System.out.println(map.get("user_email"));
-        System.out.println(map.get("user_email2"));
-
-        String user_email = map.get("user_email") + "@" + map.get("user_email2");
-        map.put("user_email", user_email);
-
-        String user_id=memberdao.findId(map);
-        ModelAndView mav = new ModelAndView();
-
-        mav.addObject("user_id", user_id);
-        mav.setViewName("member/resultFindId");
-//
-        return mav;
+    //비밀번호찾기
+    @PostMapping("/findpw")
+    public String resultFindPw(String user_email, Model model) {
+        // 회원 정보를 조회
+        MemberDTO memberDTO = memberdao.findId(user_email);
+        if (memberDTO == null) {
+            return "member/resultFindId";
+        } else {
+            model.addAttribute("user_email", user_email);
+            model.addAttribute("user_phone", memberDTO.getUser_phone());
+            return "member/findPassword";
+        }
     }
 
-    //비밀번호찾기
-    @GetMapping("/resultFind")
-    public String resultFindPw() {
+    @PostMapping("/findpw/result")
+    @ResponseBody
+    public int findPasswordResult (RequestFindPasswordDTO reqFindPWDTO) throws MessagingException {
 
-        return "member/resultFind";
+        int result = 0;
+
+        if (reqFindPWDTO.getMethodOfFine().equals("user_email")) {
+            MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+
+            //수신대상추가
+            String email = reqFindPWDTO.getMethodValue();
+
+            //수신자 설정
+            helper.setTo(email);
+
+            //메일 제목
+            helper.setSubject("[habit] 임시 비밀번호 발급");
+
+            //랜덤 임시비밀번호 발급 (숫자(0-9), 문자(a-z, A-Z))
+            String newPw = "";
+            boolean run = true;
+            while (run) {
+                int num = (int)((Math.random() * 124));
+                if ((num >= 48 && num <= 57) || (num >= 65 && num <= 90) || (num >= 97 && num <= 122)) {
+                    newPw += String.valueOf((char) num);
+                }
+                if (newPw.length() == 10) {
+                    run = false;
+                }
+            }
+
+            //임시 비밀번호 해당 user 비밀번호 update
+            reqFindPWDTO.setNewPassword(newPw);
+            result = memberdao.updatePW(reqFindPWDTO);
+
+            if (result == 1) {
+                MemberDTO memberDTO = memberdao.findId(email);
+                String user_id = memberDTO.getUser_id();
+                //메일 내용
+                String htmlMessage = new StringBuffer()
+                        .append("<p style='text-align: center'>안녕하세요. <strong>" + user_id + "</strong>님!</p>")
+                        .append("<p style='text-align: center'><strong>" + user_id + "</strong> 님의 임시 비밀번호 10자리는 아래와 같습니다.</p>")
+                        .append("<p style='text-align: center'>habit 로그인 후 비밀번호를 변경하시기 바랍니다.</p>")
+                        .append("<p style='text-align: center'>임시 비밀번호 : <strong>" + newPw + "</strong></p>")
+                        .toString();
+                helper.setText(htmlMessage, true);
+                //메일 발송
+                javaMailSender.send(mimeMessage);
+            }
+        } else if (reqFindPWDTO.getMethodOfFine().equals("user_phone")) {
+        }
+        return result;
     }
 
 

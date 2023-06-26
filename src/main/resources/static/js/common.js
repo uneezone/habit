@@ -90,7 +90,6 @@ function common(){
                 console.log("id=" + $(".s_id").text());
 
 
-
                     //$.ajax 써야 함. async:true 잊지 않고 추가하기
                     if ($(".s_id").text() != "") {
                         $.ajax({

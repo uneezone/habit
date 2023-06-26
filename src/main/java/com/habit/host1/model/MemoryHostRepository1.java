@@ -203,4 +203,10 @@ public class MemoryHostRepository1 implements HostRepository1{
     public int insertEnergy(EnergyEntity energyEntity) {
         return sqlSession.insert("host1.insertEnergy", energyEntity);
     }
+
+    // 유저 등급 조회
+    @Override
+    public String selectUserLevel(String id) {
+        return sqlSession.selectOne("host1.selectUserLevel");
+    }
 }

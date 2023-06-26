@@ -320,4 +320,11 @@
         insert into habit.energy (user_id, energy_saveuse, energy_sources)
         values ( #{user_id}, ${energy_saveuse}, #{energy_sources} )
     </insert>
+
+    <!--  멤버 등급 조회  -->
+    <select id="selectUserLevel" parameterType="String" resultType="String">
+        select user_level
+        from user
+        where user_id = #{user_id}
+    </select>
 </mapper>

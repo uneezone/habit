@@ -366,7 +366,7 @@
                         <div font-size="14px" class="ProductSectionHeader_Wrapper">
                             <div font-size="18" class="ProductSectionHeader_Header">
                                 <h2 class="ProductSectionHeader_Title_a">금주 리스트</h2>
-                                <span class="ProductSectionHeader_Count"></span>
+                                <span class="ProductSectionHeader_Count">${reviewCount}</span>
                             </div>
                             <div class="ProductSectionHeader_LinkWrapper">
 
@@ -374,75 +374,55 @@
                         </div>
 
                         <!-- ^ 금주 리스트 아이템 -->
+
                         <div class="Home_product_recommend_list">
-                            <div class="Home_product_recommend_p">
-                                <a href="" class="href">
-                                    <div class="Home_product_recommend_p_div">
-                                        <div>
-                                            <img src="/img/image.jpeg" alt="" width="150px">
-                                        </div>
-                                        <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn"  onsubmit="return false">
-                                                <img src="/img/black2.png" alt="" id="cont_no${item.cont_no}" width="40px" class="Home_product_recommend_p_div_img">
-                                            </button>
-                                        </div>
-                                        <div class="Home_product_recommend_p_font">
+                            <c:forEach items="${reviewTop}" var="rt" varStatus="vs">
+                                <div class="Home_product_recommend_p">
+                                    <a href="products/${rt.cont_no}" class="href">
+                                        <div class="Home_product_recommend_p_div">
                                             <div>
-                                                <span class="Miniarea">강남/서초</span>
+                                                <img src="/storage/${rt.cont_img}" alt="" width="150px" onerror="this.src='/storage/ang.png'">
+                                            </div>
+                                            <div>
+                                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
+                                                    <img src="/img/black2.png" id="newcont_no${rt.cont_no}" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                                </button>
+                                            </div>
+                                            <div class="Home_product_recommend_p_font">
                                                 <div>
-                                                    [금주 리스트 아이템 1]
-                                                </div>
-                                                <section class="Home_recommend_img">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
-                                                </section>
-                                                <hr class="Home_recommend_hr">
-                                                <div>
-                                                    100,000원
+                                                    <span class="Miniarea">${fn:substring(rt.cont_addr1, 0, 7)}</span>
+                                                    <div>
+                                                            ${rt.cont_name}
+                                                    </div>
+                                                    <section class="Home_recommend_img">
+                                                        <c:set var="starItem" value="${starMap[rt.cont_no]}" />
+                                                        <c:set var="avgStarRating" value="${starItem['avg_star']}" />
+                                                        <c:choose>
+                                                            <c:when test="${avgStarRating != null}">
+                                                                <c:set var="roundedStarRating" value="${Math.round(avgStarRating.doubleValue())}" />
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <c:set var="roundedStarRating" value="0" />
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                        <c:forEach begin="1" end="${roundedStarRating > 5 ? 5 : roundedStarRating}" varStatus="starStatus">
+                                                            <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                                        </c:forEach>
+                                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 ${starItem['cnt']}</span>
+                                                    </section>
+                                                    <hr class="Home_recommend_hr">
+                                                    <div>
+                                                        <c:set var="priceItem" value="${priceMap[rt.cont_no]}" />
+                                                        <c:set var="money" value="${priceItem['money']}" />
+                                                        <fmt:formatNumber type="number" value="${money}" pattern="###,###" var="formattedMoney" />
+                                                            ${formattedMoney}원
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="Home_product_recommend_p">
-                                <a href="" class="href">
-                                    <div class="Home_product_recommend_p_div">
-                                        <div>
-                                            <img src="/img/image.jpeg" alt="" width="150px">
-                                        </div>
-                                        <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                                <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                            </button>
-                                        </div>
-                                        <div class="Home_product_recommend_p_font">
-                                            <div>
-                                                <span class="Miniarea">강남/서초</span>
-                                                <div>
-                                                    [금주 리스트 아이템 2]
-                                                </div>
-                                                <section class="Home_recommend_img">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
-                                                </section>
-                                                <hr class="Home_recommend_hr">
-                                                <div>
-                                                    100,000원
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
+                                    </a>
+                                </div>
+                            </c:forEach>
                         </div>
                     </div>
                     <!--! 금주 리스트 끝 -->

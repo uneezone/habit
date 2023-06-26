@@ -74,26 +74,20 @@
         <strong class="ReviewSummary_Aver">
             <fmt:formatNumber value="${avgStarRating != null ? avgStarRating : 0}" pattern="#,##0.0" minFractionDigits="2" />
         </strong>
-
-        <span class="ReviewSummary_Count">${starItem['cnt']}개 후기</span>
-
+        <span class="ReviewSummary_Count">${contreviewcnt.Reviewcnt}개 후기</span>
         </div>
-
             <span class="ReviewSummary_Comment">경험한 크루들은 이렇게 평가했어요!</span>
-
-
     </div>
-
 
         <div class="Reviewblack">
             <div class="Reviewflex parent-container">
                 <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                 <c:forEach items="${contreview}" var="review" varStatus="status">
                     <div class="Reviewgreen">
-                        <img src="/storage/${review.review_img}" class="review_img" alt="" onerror="this.src='/storage/defaultPro.png';"/>
+                        <img src="/storage/${review.review_img}" alt="" onerror="this.src='/storage/defaultPro.png';"/>
                         <div class="CoverReviewCard_User">
                             <div class="CoverReviewCard_ProfileImg">
-                                <img src="/storage/${review.user_img}}" alt="" class="user_img" onerror="this.src='/storage/ME.png';"/>
+                                <img src="/storage/${review.user_img}}" alt="" onerror="this.src='/storage/ME.png';"/>
                             </div>
                             <div class="CoverReviewCard_UserInfo">
                                  <p>${review.user_id}</p>
@@ -106,7 +100,7 @@
                 <a class="next" onclick="plusSlides(1)">&#10095;</a>
             </div>
             <div class="reviewplus">
-                <strong><a href="/products/reviews?cont_no=${cont_no}" class="review_stylelink">${contreviewcnt.Reviewcnt}개 후기 더보기</a></strong>
+                <strong><a href="/category/products/${cont_no}/reviews" class="review_stylelink">${contreviewcnt.Reviewcnt}개 후기 더보기</a></strong>
             </div>
         </div>
     </c:if>
@@ -141,7 +135,8 @@
             <h2 class="Article_Header_title">진행하는 장소</h2>
                 </header>
                 <div class="Classplace">
-                    ${detail.cont_addr1} ${detail.cont_addr2} / ${detail.cont_extaddr}
+                    <div id="map" style="width:100%;height:350px;"></div>
+                    <div class="address">${detail.cont_addr1} ${detail.cont_addr2} / ${detail.cont_extaddr}</div>
                 </div>
             </article>
         </section>
@@ -178,7 +173,9 @@
                 <div>유의 사항</div>
                 <div class="Accordion_Icon"><img class ="Accordion_IconArrow" src="data:image/svg+xml,%3Csvg width='7' height='12' viewBox='0 0 7 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M1 11L6 6L1 1' stroke='%23CCCCCC' stroke-linecap='round' stroke-linejoin='round'/%3E %3C/svg%3E"></div>
             </div>
-            <div class="Accordion_Content"></div>
+            <div class="Accordion_Content" style="display:none;">
+                * 본문 내용 참고
+            </div>
         </div>
         </article>
         <article>
@@ -187,7 +184,23 @@
                     <div>환불 정책</div>
                     <div class="Accordion_Icon"><img class ="Accordion_IconArrow" src="data:image/svg+xml,%3Csvg width='7' height='12' viewBox='0 0 7 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M1 11L6 6L1 1' stroke='%23CCCCCC' stroke-linecap='round' stroke-linejoin='round'/%3E %3C/svg%3E"></div>
                 </div>
-                <div class="Accordion_Content"></div>
+                <div class="Accordion_Content" style="display:none;">
+                    [날짜 조율형]
+                    1. 결제 후 7일 이내 취소 시 : 전액 환불
+                    (단, 결제 후 14일 이내라도 호스트와 해빗 진행일 예약 확정 후 환불 불가)
+                    2. 결제 후 14일 이후 취소 시 : 환불 불가
+                    ※ 상품의 유효기간 만료 시 연장은 불가합니다.
+                    ※ 다회권의 경우, 1회라도 사용시 부분 환불이 불가합니다.
+
+                    [날짜 지정형]
+                    1. 구매한 클래스 이용권 사용일 전 취소 시 : 전액 환불
+                    2. 구매한 클래스 이용권 사용일 이후 취소 시 : 환불 불가
+                    ※ 상품의 유효기간 만료 시 연장은 불가합니다.
+
+                    [환불 신청 방법]
+                    1. 해당 해빗 결제한 계정으로 로그인
+                    2. 마이해빗 - 신청내역 or 결제내역
+                </div>
             </div>
         </article>
     </section>
@@ -206,7 +219,7 @@
     <div class="FloatingActionBar" id="FloatingActionBar" >
         <div class="FloatingButton">
             <button class="SaveActionButton zzim_btn" type="button" onclick="preventA()" onsubmit="return false">
-                <img src="/img/black2.png" alt="상품 찜" >
+                <img src="/img/black2.png" id="cont_no${detail.cont_no}" alt="상품 찜" >
                 <span class="SaveActionButton">${contzzim.zzim_cont_cnt}</span>
             </button>
             <button class="ActionButton" id="openModalButton">
@@ -267,7 +280,7 @@
         </div>
         <div class="OptionBottomSheet_ProductInfo">
             <button class="SaveActionButton" type="button">
-                <img src="/img/black2.png">
+                <img src="/img/black2.png" id="cont_no${detail.cont_no}">
                 <span class="SaveActionButton_Count">${contzzim.zzim_cont_cnt}</span>
             </button>
             <button class="OptionBottomSheet_Button">참여하기</button>
@@ -275,13 +288,22 @@
     </div>
 </div>
 
+<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=514f787389abd52c7772e80e1f1beba1&libraries=services"></script>
 <script>
+
+    $(document).ready(function() {
+        $(".LinkAccordion").click(function() {
+            var $content = $(this).find(".Accordion_Content");
+            $content.slideToggle("slow");
+
+            $(this).toggleClass('active');
+        });
+    });
 
     // 여기에 세션 처리가 완성되면, 해당 로그인 상태를 확인하는 코드로 변경
     // 예를 들면, `const isLoggedIn = sessionStorage.getItem('isLoggedIn');`
-    const user_id = "user-3";
-
-    const isLoggedIn = true;
+    const isLoggedIn = ${sessionScope.s_id != null};
+    const user_id = isLoggedIn ? "${sessionScope.s_id}" : "";
 
     let selectedOption = "";
 
@@ -337,6 +359,65 @@
             window.location.href = '/login';
         }
     }
+
+    if(isLoggedIn){
+        let userId= user_id;
+        console.log(userId);
+        if(userId!=""){
+            $.ajax({
+                type: "GET"
+                , url: "/zzim/getZzim"
+                , data: {"userId": userId}
+                , async: false
+                , success: function (data) {
+                    //console.log(data);
+                    $(data).each(function (index, value) {
+                        console.log(value);
+
+                        $("#cont_no" + value).attr("src", "/img/redheart2.png");
+                        $("#newcont_no"+value).attr("src", "/img/redheart2.png");
+                    });
+                }
+
+            });
+        }
+    }
+
+
+    // 지도 API
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+        mapOption = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+        };
+
+    // 지도를 생성합니다
+    var map = new kakao.maps.Map(mapContainer, mapOption);
+
+    // 주소-좌표 변환 객체를 생성합니다
+    var geocoder = new kakao.maps.services.Geocoder();
+
+    // 주소로 좌표를 검색합니다
+    geocoder.addressSearch('${detail.cont_addr1}', function(result, status) {
+
+        // 정상적으로 검색이 완료됐으면
+        if (status === kakao.maps.services.Status.OK) {
+
+            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+            // 결과값으로 받은 위치를 마커로 표시합니다
+            var marker = new kakao.maps.Marker({
+                map: map,
+                position: coords
+            });
+
+
+
+            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+            map.setCenter(coords);
+        }
+    });
+
 
 
 </script>

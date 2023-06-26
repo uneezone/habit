@@ -60,7 +60,12 @@ public interface HostRepository1 {
     // table host
     String getHostImg(String id);
 
+
     // table energy
     int insertEnergy(EnergyEntity energyEntity);
+
+
+    // table user
+    String selectUserLevel(String id);
 
 }

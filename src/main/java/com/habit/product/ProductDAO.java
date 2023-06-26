@@ -77,7 +77,7 @@ public class ProductDAO {
         return sqlSession.selectList("product.newList", cate_large);
     }
 
-    //요약페이지 인기 상위 4개
+    //요약페이지 신규 상위 4개
     public List<Map<String, Object>> newtop(String cate_large) {
         return sqlSession.selectList("product.newTop", cate_large);
     }
@@ -87,6 +87,16 @@ public class ProductDAO {
         return sqlSession.selectOne("product.newListCount", cate_large);
     }
 
+
+    //요약페이지 평점 상위 4개
+    public List<Map<String, Object>> reviewtop(String cate_large) {
+        return sqlSession.selectList("product.reviewTop", cate_large);
+    }
+
+    //평점순 요약 수량
+    public Integer reviewCount(String cate_large){
+        return sqlSession.selectOne("product.reviewCount", cate_large);
+    }
 
     //필터 모달
     public List<Map<String, Object>> selectContentsByPopularity(String cate_large) {
@@ -145,4 +155,20 @@ public class ProductDAO {
     public List<ProductDTO> getContList(List<Integer> conts){
         return sqlSession.selectList("product.getContList",conts);
     }
+
+
+    //인트로
+
+    public List<Map<String, Object>> introViewTop() {
+        return sqlSession.selectList("intro.introViewTop");
+    }
+
+    public List<Map<String, Object>> introReviewTop() {
+        return sqlSession.selectList("intro.introReviewTop");
+    }
+
+    public List<Map<String, Object>> introDateTop() {
+        return sqlSession.selectList("intro.introDateTop");
+    }
+
 }
