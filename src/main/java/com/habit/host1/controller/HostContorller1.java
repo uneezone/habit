@@ -112,7 +112,6 @@ public class HostContorller1 {
         List<ResponseContentListDTO> list = hostService1.contentList(reqContListDTO);
         hostService1.contentListCount(reqContListDTO);
 
-
         Map<String, Object> map = new HashMap<>();
         map.put("vo", reqContListDTO.getVo());
         map.put("list", list);
