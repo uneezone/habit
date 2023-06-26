@@ -203,7 +203,7 @@ public class MyPageServiceImpl implements MyPageService{
     }
 
     @Override
-    public int updateOrInsertReview(ReviewInsertDTO dto, List<MultipartFile> imgs) throws IOException {
+    public String updateOrInsertReview(ReviewInsertDTO dto, List<MultipartFile> imgs) throws IOException {
 
         //리뷰수정인지 새로운 것인지 체크
         int status = repository.checkReviewWrite(dto.getPayd_no());
@@ -232,14 +232,16 @@ public class MyPageServiceImpl implements MyPageService{
         }
 
         log.info("reviewInsertDTO={}",dto);
-        int resultstatus=0;
+        String resultstatus="";
         //리뷰수정 ? 리뷰 새로운?
         if(status==0){
             //새로은 리뷰
-            resultstatus = repository.insertReview(dto);
+            int i =repository.insertReview(dto);
+            resultstatus="new"+i;
         }else{
             //리뷰수정
-            resultstatus=repository.updateReview(dto);
+            int i = repository.updateReview(dto);
+            resultstatus="update"+i;
         }
         return resultstatus;
     }
