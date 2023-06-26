@@ -132,7 +132,7 @@ public class HostContorller1 {
     // 해빗 수정 폼
     @GetMapping("/content/updateform/{cont_no}")
     @ResponseBody
-    public RequestContentValueDTO contentUpdateBefore(@PathVariable int cont_no, Model model) {
+    public RequestContentValueDTO contentUpdateBefore(@PathVariable int cont_no) {
         return hostService1.contentSelectOne(cont_no);
     }
 

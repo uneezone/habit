@@ -30,7 +30,7 @@ public class MailService {
         simpleMailMessage.setTo((String[]) toUserList.toArray(new String[toUserSize]));
 
         //메일 제목
-        simpleMailMessage.setSubject("제목");
+        simpleMailMessage.setSubject("[habit]");
 
         //메일 내용
         simpleMailMessage.setText("내용");
