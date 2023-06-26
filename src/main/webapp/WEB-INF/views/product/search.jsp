@@ -39,7 +39,7 @@
 
                <!-- * 전체 아이템 리스트 시작 -->
             <div class="Home_product_recommend_list">
-                <c:if test="${list.size()==0}">
+                <c:if test="${product.size()==0}">
                     검색결과없음
                 </c:if>
                 <c:forEach items="${list}" var="product" varStatus="vs">
