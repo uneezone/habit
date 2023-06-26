@@ -6,7 +6,7 @@
     common();
 
     //총합계산
-    calc();
+    calcAll();
 
     //수량 플러스 마이너스
     let min=$('.btn_min');
@@ -19,7 +19,7 @@
         this.previousSibling.previousSibling.value-=1;
         };
 
-        calc();
+        calcAll();
     })
 
     let plus=$('.btn_plus');
@@ -29,7 +29,7 @@
         this.previousSibling.previousSibling.previousSibling.previousSibling.value
         =parseInt(this.previousSibling.previousSibling.previousSibling.previousSibling.value)+1;
 
-        calc();
+        calcAll();
     })
 
 
@@ -37,12 +37,35 @@
     $('.all_select').click(function(){
       //alert("ddd");
       $('.Home_cart_check').prop('checked',true);
+      calcAll();
     });
 
+
+    //
 
 
 
 }
+
+function calcAll(){
+    let checkboxSize=$(".Home_cart_check").length;
+    let allPrice=0;
+    for(let i=0;i<checkboxSize;i++){
+        if($("#oneck"+i).is(":checked")==true){
+            let qty=parseInt($(".one"+i).val());
+            let price=$(".oneprice"+i).text();
+            price=parseInt(price.replace(",",""));
+            console.log(price);
+            console.log(qty);
+            allPrice+=qty*price;
+        }
+
+    }
+    allPrice=allPrice.toLocaleString();
+    $(".totalPrice").text(allPrice);
+}
+
+
 
 function calc(){
       let sumprice=0;
@@ -81,22 +104,34 @@ function calc(){
   function order(){
       let checkboxSize=$(".Home_cart_check").length;
       let checkCart="";
-      for(let i=0;i<checkboxSize;i++){
-              if($("#oneck"+i).is(":checked")==true){
-                  checkCart+=$("#oneck"+i).val()+"-";
+      let length="";
+      for(let i=0;i<checkboxSize;i++) {
+          if ($("#oneck" + i).is(":checked") == true) {
+              checkCart += $("#oneck" + i).val() + "-";
+              length +=$(".one"+i).val()+"-";
+          }
+
+          console.log(checkCart);
+
+      }
+
+
+      if(checkCart!=""){
+          //수량변경되거 DB 반영
+          $.ajax({
+              type:"POST"
+              ,url:"/cart/change"
+              ,data:{"cl_nos":checkCart,"qty":length}
+              ,async: false
+              ,success:function(data){
+                  console.log(data);
               }
+          });
 
-              console.log(checkCart);
-
-
-              }
-
-              if(checkCart!=""){
-
-                   if(confirm("주문할까요?")){
+          if(confirm("주문할까요?")){
                           location.href='/cart/order/payPage?cartno='+checkCart;
-                    }
-              }
+          }
+      }
 
   }
 

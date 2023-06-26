@@ -7,31 +7,60 @@ import java.util.Map;
 
 public interface HostRepository1 {
 
+    // table cate
     List<Map<String, Object>> cateList();
     List<Map<String, Object>> selectCate(String keyword);
     String selectCateNo(String keyword);
-    int insertCont(RequestContentInsertDTO requestContentInsertDTO);
-    int insertOne(List<OneEntity> list);
-    int insertProd(List<ProdEntity> list);
-    List<ResponseReviewDTO> reviewList(RequestReviewDTO requestReviewDTO);
-    int totalCount(RequestReviewDTO requestReviewDTO);
-    List<ResponseInquiryDTO> inquiryList(RequestInquiryDTO requestInquiryDTO);
-    int inquiryCount(RequestInquiryDTO requestInquiryDTO);
+
+
+    // table cont
     List<ResponseContentListDTO> contentList (RequestContentListDTO requestContentListDTO);
-
     int contentListCount(RequestContentListDTO requestContentListDTO);
+    CategoryAndContentDTO contentSelectOne(int no);
+    int insertCont(RequestContentValueDTO requestContentValueDTO);
+    int deleteContent(int no);
+    int updateContent(RequestContentValueDTO requestContentValueDTO);
 
+
+    // table one
+    List<OneEntity> oneList(int no);
+    int insertOne(List<OneEntity> list);
+    int deleteOne(int no);
     List<ResponseReservationDTO> reservationList(RequestReservationDTO requestReservationDTO);
     int reservationListCount(RequestReservationDTO requestReservationDTO);
     int reservationStatusChange(RequestReservationStatusChangeDTO requestReservationStatusChangeDTO);
+
+
+    // table prod
+    List<ProdEntity> prodList(int no);
+    int insertProd(List<ProdEntity> list);
+    int deleteProd(int no);
+
+
+    // table payd
     SelectPayDetailForInsertRefundDTO selectPayDetailForInsertRefund(int no);
     List<String> selectPayDetailStatus(int no);
+
+
+    // table refn
     int insertRefund(SelectPayDetailForInsertRefundDTO selectPayDetailForInsertRefundDTO);
-    int deleteContent(int no);
 
-    CategoryAndContentDTO contentSelectOne(int no);
 
-    List<OneEntity> oneList(int no);
-    List<ProdEntity> prodList(int no);
+    // table review
+    List<ResponseReviewDTO> reviewList(RequestReviewDTO requestReviewDTO);
+    int totalReviewCount(RequestReviewDTO requestReviewDTO);
+    int reviewDelete(int no);
+
+
+    // table question
+    List<ResponseInquiryDTO> inquiryList(RequestInquiryDTO requestInquiryDTO);
+    int inquiryCount(RequestInquiryDTO requestInquiryDTO);
+
+
+    // table host
+    String getHostImg(String id);
+
+    // table energy
+    int insertEnergy(EnergyEntity energyEntity);
 
 }

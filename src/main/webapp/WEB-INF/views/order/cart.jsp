@@ -59,14 +59,12 @@
                 <input type="button"  value="+" class="Home_qty_btn_plus btn_plus"/>
               </div>
               <div class="Home_show_checkBox">
-                <input type="checkbox" id="oneck${one_status.index}" value="${item.cl_no}" class="Home_cart_check">
+                <input type="checkbox" id="oneck${one_status.index}" value="${item.cl_no}" onchange="calcAll()" class="Home_cart_check">
               </div>
             </td>
            </tr>
            </table>
           </c:forEach>
-
-
 
 
 

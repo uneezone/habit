@@ -39,12 +39,12 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">해빗 관리</a>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="/host/content">해빗 목록</a> <%--링크--%>
-                <a class="dropdown-item" href="/host/contentform">해빗 등록</a> <%--링크--%>
-                <a class="dropdown-item" href="/host/product">판매 관리</a> <%--링크--%>
-                <a class="dropdown-item" href="habit_reservation_control.jsp">예약 관리</a> <%--링크--%>
-                <a class="dropdown-item" href="/host/inquiry">문의 관리</a> <%--링크--%>
-                <a class="dropdown-item" href="/host/review">리뷰 관리</a> <%--링크--%>
+                <a class="dropdown-item" href="/host/content/list">해빗 목록</a>
+                <a class="dropdown-item" href="/host/content/form">해빗 등록</a>
+                <a class="dropdown-item" href="/host/product">판매 관리</a>
+                <a class="dropdown-item" href="/host/reservation">예약 관리</a> <!--링크-->
+                <a class="dropdown-item" href="/host/inquiry">문의 관리</a>
+                <a class="dropdown-item" href="/host/review">리뷰 관리</a>
               </div>
             </li>
             <li class="nav-item dropdown">
@@ -55,7 +55,7 @@
             </li>
           </ul>
           <div>
-            <a href="/host/info"><img src="/img/profile-3_07724ab7a395fea9343ed7a13e59c1212e2e3d39c141edd99f83442f98340dfc.webp" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a> <%--링크--%>
+            <a href="/host/info"><img src="/storage/${sessionScope.host_img}" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a> <%--링크--%>
             <a href="/host/info" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">${sessionScope.s_name}</span></a> <%--링크--%>
             <button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='/'">해빗 홈으로 이동</button>
             <button type="button" class="btn btn-secondary btn-sm" onclick="location.href='/host/logout'">로그아웃</button>
@@ -246,8 +246,8 @@
               <a class="page-link" id="pagePrev" >&laquo;</a>
             </li>
             <c:forEach begin="1" end="${pagingMap.index}" varStatus="status">
-              <li class="page-item page-num">
-                <a class="page-link page" id="page${status.index}">${status.index}</a>
+              <li class="page-item page-num" style="display: none;">
+                <a class="page-link page index_page_btn" id="page${status.index}">${status.index}</a>
               </li>
             </c:forEach>
             <li class="page-item page-way ">

@@ -20,4 +20,5 @@ public class ResponseContentListDTO {
     private String cate_large;
 
     private int totalCount;
+
 }

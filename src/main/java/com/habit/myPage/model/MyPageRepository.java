@@ -50,4 +50,8 @@ public interface MyPageRepository {
 
     //환불상태확인
     OrderRefnDTO getRefnForOrderDetail(int payd_no);
+
+    //=============리뷰쓰기
+    //리뷰를 작성했는지 확인
+    int checkReviewWrite(int payd_no);
 }

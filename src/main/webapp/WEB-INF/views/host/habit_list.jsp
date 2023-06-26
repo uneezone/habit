@@ -59,8 +59,8 @@
           </li>
         </ul>
         <div>
-          <a href="info"><img src="/img/profile-3_07724ab7a395fea9343ed7a13e59c1212e2e3d39c141edd99f83442f98340dfc.webp" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a>
-          <a href="info" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">HOST ID</span></a>
+          <a href="info"><img src="${host_img.equals("defaulthostPro.png") ? '/img/' : '/storage/'}${host_img}" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a>
+          <a href="info" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">${host_id}</span></a>
           <a href="/"><input type="button" class="btn btn-outline-primary btn-sm" value="해빗 홈으로 이동"></a>
           <a href="#"><input type="button" href="#" class="btn btn-secondary btn-sm" value="로그아웃"></a>
         </div>
@@ -159,7 +159,7 @@
       <!-- 조회 결과 -->
       <div class="content">
         <div id="searchResult">
-          <p class='content-name'>검색 결과 : ${list.size()} 건</p>
+          <p class='content-name'>검색 결과 : ${vo.totalRecord} 건</p>
         </div>
         <div class="class-flex" id="tableBody" style="align-items: center; justify-content: center">
           <c:choose>
@@ -178,7 +178,6 @@
                       <strong>[카테고리] </strong>${item.cate_large} &gt; ${item.cate_middle}
                     </div>
                     <div>
-<%--                      <input type="button" class="btn btn-sm btn-outline-primary content-update" onclick="location.href = '/host/content/update/${item.cont_no}'" id="update${item.cont_no}" value="해빗수정">--%>
                       <input type="button" class="btn btn-sm btn-outline-primary content-update" id="update${item.cont_no}" value="해빗수정">
                       <input type="button" class="btn btn-sm btn-primary content-delete" id="delete${item.cont_no}" value="해빗삭제">
                     </div>
@@ -192,7 +191,7 @@
         </div>
 
         <div class="d-grid gap-2" id="pagination">
-<%--          <button class="btn btn-lg btn-outline-primary" type="button">더보기</button>--%>
+          <button class="btn btn-lg btn-outline-primary" id="seeMoreButton" type="button" ${vo.currentEndRowNum < vo.totalRecord ? '' : 'hidden'}>더보기</button>
         </div>
       </div>
     </div>
@@ -255,10 +254,10 @@
     </div>
     <div class="container">
       <!-- 페이지 이름 -->
-      <p class="page-name">해빗 등록</p>
+      <p class="page-name">해빗 수정</p>
 
       <!-- main 시작 -->
-      <form method="post" action="/host/content/insert" id="updateform" onsubmit="return habitCreateCheck()" enctype="multipart/form-data">
+      <form method="post" id="updateform" onsubmit="return habitCreateCheck()" enctype="multipart/form-data">
         <!-- 기본 정보 -->
         <div class="content-wrap">
           <div class="content">
@@ -676,8 +675,8 @@
             </div>
           </div>
         </div>
-        <div class="d-grid gap-2" style="margin: 20px 0 40px;">
-          <input type="submit" class="btn btn-lg btn-outline-primary" value="해빗 등록">
+        <div class="d-grid gap-2" style="margin: 20px 0 40px;" id="cotent-update-button">
+          <input type="submit" class="btn btn-lg btn-outline-primary" value="해빗 수정">
         </div>
       </form>
     </div>

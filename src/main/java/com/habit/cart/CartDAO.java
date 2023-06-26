@@ -35,9 +35,12 @@ public class CartDAO {
         return sqlSession.selectList("cart.selectedItemsInfo", map);
     }
 
-
     public int cartDelete(HashMap<String, Object> map) {
         return sqlSession.delete("cart.delete", map);
+    }
+
+    public int cartChage(Map<String,Object> map){
+        return sqlSession.update("cart.change",map);
     }
 
 }
