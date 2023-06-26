@@ -23,11 +23,11 @@
         where user_id=#{user_id} and user_pw=#{user_pw}
     </select>
 
-    <!-- 아이디 찾기 -->
-    <select id="findId" parameterType="java.util.Map" resultType="String">
-        SELECT user_id
+    <!-- 아이디, 휴대폰 번호 찾기 -->
+    <select id="findId" parameterType="String" resultType="com.habit.member.MemberDTO">
+        SELECT user_id, user_phone
         from user
-        where user_email=#{user_email}
+        where user_email = #{user_email}
     </select>
 
     <!-- 비밀번호 찾기 -->
@@ -36,4 +36,9 @@
         from user
         where user_id=#{user_id}
     </select>
+
+    <!--  비밀번호 update  -->
+    <update id="updatePassword" parameterType="com.habit.host1.DTO.RequestFindPasswordDTO">
+        update user set user_pw = #{newPassword} where ${methodOfFine} = #{methodValue}
+    </update>
 </mapper>

@@ -16,13 +16,15 @@
     </select>
 
     <select id="getAllPriceForHome" resultType="java.util.Map">
-        select count(*) as count,IFNULL(sum(payd_qty*payd.payd_price),0) as sum from payd
+        select count(*) as count, IFNULL(sum(payd_qty*payd.payd_price),0) as sum from payd
+        <if test="">
         where pro_no in
                 <foreach item="item" index="index" collection="list"
                         open="(" separator="," close=")" nullable="true">
                     #{item}
                 </foreach>
               and payd_status !='C'
+        </if>
     </select>
 
     <select id="getMonthPriceForHome" resultType="Long">

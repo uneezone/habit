@@ -278,9 +278,21 @@ public class HostServiceImpl1 implements HostService1 {
 
                     // 에너지 테이블 insert(에너지 환불)
                     EnergyEntity en = new EnergyEntity();
-                    en.setUser_id(spdfirDTO.getUser_id());
+                    String user_id = spdfirDTO.getUser_id();
+                    en.setUser_id(user_id);
                     en.setEnergy_saveuse(pay_point);
                     en.setEnergy_source("[결제]호스트취소");
+                    memoryHostRepository1.insertEnergy(en);
+
+                    String level = memoryHostRepository1.selectUserLevel(user_id);
+                    if (level.equals("S")) {
+                        en.setEnergy_saveuse((int) (refn_pay * 0.05));
+                    } else if (level.equals("A")) {
+                        en.setEnergy_saveuse((int) (refn_pay * 0.03));
+                    } else if (level.equals("B")) {
+                        en.setEnergy_saveuse((int) (refn_pay * 0.01));
+                    }
+                    en.setEnergy_source("[결제]적립취소");
                     memoryHostRepository1.insertEnergy(en);
                 }
 
