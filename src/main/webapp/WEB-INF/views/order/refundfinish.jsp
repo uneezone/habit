@@ -13,29 +13,30 @@
             </h1>
             <hr style="border-width: 2px" />
             <div>
-              <img src="../img/check.png" class="paydone_img" />
+              <img src="/img/check.png" class="paydone_img" />
               <p class="Home_refund_ment">
                 환불이 정상적으로 완료되었습니다.
               </p>
+                <div class="Home_refund_date">${result.refn_date}</div>
             </div>
       
             <div style="position: relative; display: inline-block;">
-              <img src="../img/eggtart.jpg" class="refund_pro_img" />
+              <img src="/storage/${result.cont_img}" class="refund_pro_img" />
               <div class="Home_sub2">
-                <div><span>상품 이름 : </span>신사 / 가로수길 칵테일 클래스 <br></div>
-                <div><span>날짜 : </span>6월 1일 (일) 오후 2시 30분 </div>
-                <div><span>명수/횟수 : </span>1명</div>
+                <div>${result.cont_name}<br></div>
+                <div>${result.op_name} </div>
+                <div><span> 구매 수량 : </span>${result.refn_qty}</div>
               </div>
          
             </div>
             <hr style="border: 1px solid rgb(203, 203, 203)" />
             <div class="show_result_wrapper">
-                <p  class="show_result">환불 에너지 : <span>0</span> 원</p> 
-                <p  class="show_result">환불 금액 : <span>0</span> 원</p>
+                <p  class="show_result">환불 에너지 : <span>${result.refn_point}</span> 원</p>
+                <p  class="show_result">환불 금액 : <span>${result.refn_pay}</span> 원</p>
             </div>
             <div class="payed_btn_con">
               <div class="payed_btn_wrapper">
-                <input type="button" value="홈으로" id="continue_shop_btn" onclick="location.href='intro.html'" />
+                <input type="button" value="홈으로" id="continue_shop_btn" onclick="location.href='/mypage'" />
               </div>
             </div>
           

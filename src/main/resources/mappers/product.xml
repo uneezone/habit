@@ -123,7 +123,66 @@
             LIMIT 10
     </select>
 
+    <!--해빈 리뷰 페이지-->
+    <select id="getReviewList" parameterType="Integer" resultType="com.habit.product.ReviewDTO">
+        select AA.*, c.cont_name
+        from(select review_no,review_date as date,DATE_FORMAT(review_date,'%Y년 %m월 %d일 %H시 %i분') as review_date, review_cont, review_img, review_star,cont_no, r.user_id,u.user_name,u.user_img
+             from review r join user u on r.user_id=u.user_id
+             where cont_no=#{cont_no} and review_status="Y"
+             )
+        AA join cont c on AA.cont_no=c.cont_no order by AA.date desc
 
+    </select>
+
+    <select id="getReviewListByStar" parameterType="Integer" resultType="com.habit.product.ReviewDTO">
+        select AA.*, c.cont_name
+        from(select review_no,DATE_FORMAT(review_date,'%Y년 %m월 %d일 %H시 %i분') as review_date, review_cont, review_img, review_star,cont_no, r.user_id,u.user_name,u.user_img
+             from review r join user u on r.user_id=u.user_id
+             where cont_no=#{cont_no} and review_status="Y"
+            )
+                AA join cont c on AA.cont_no=c.cont_no order by AA.review_star desc
+    </select>
+
+    <update id="changeReviewStatus" parameterType="Integer">
+        update review set review_status='N' where review_no=#{review_no}
+    </update>
+
+    <!--해빈 검색-->
+    <insert id="insertSearch" parameterType="String">
+        insert into reco (reco_keyword) values(#{search});
+    </insert>
+
+    <!--해빈 인기 검색어-->
+    <select id="showHotSearch" resultType="String">
+        select reco_keyword  from reco group by reco_keyword order by count(*) desc limit 0, 3;
+    </select>
+
+    <!--검색-->
+    <select id="getContNoForSearch" parameterType="String" resultType="Integer">
+        select cont_no from cont where cont_name like  CONCAT('%',#{search},'%') or cont_content like CONCAT('%',#{search},'%');
+    </select>
+
+    <!--검색관련 상품들 정보-->
+    <select id="getContList" resultType="com.habit.product.ProductDTO">
+        select c.cont_name,c.cont_no,cont_img,cont_addr1,AA.price as price
+        ,IFNULL(avg(r.review_star),0) as review_avg,count(r.review_no) as review_count
+        from cont c inner join
+
+        (select cont_no, min(prod_price) as price
+        from prod group by cont_no
+        union
+        select cont_no, min(one_price) as price
+        from one group by cont_no )
+
+        AA on c.cont_no=AA.cont_no left outer join review r on c.cont_no = r.cont_no and review_status!="N"
+        where c.cont_no in
+        <foreach item="item" index="index" collection="list"
+                 open="(" separator="," close=")" nullable="true">
+            #{item}
+        </foreach>
+
+        group by c.cont_no;
+    </select>
 <!--    =========== 중분류 ===========-->
 
     <!--   중분류 필터 출력-->

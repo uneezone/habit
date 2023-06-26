@@ -88,4 +88,36 @@ public class ProductDAO {
     }
 
 
+    //===리뷰가져오기
+    public List<ReviewDTO> getReviewList(int cont_no){
+        return sqlSession.selectList("product.getReviewList",cont_no);
+    }
+
+    public List<ReviewDTO> getReviewListByStar(int cont_no){
+        return sqlSession.selectList("product.getReviewListByStar",cont_no);
+    }
+
+    //===리뷰상태 변경
+    public int changeReviewStatus(int review_no){
+        return sqlSession.update("product.changeReviewStatus",review_no);
+    }
+
+    //==검색어 테이블 저장
+    public int insertSearch(String search){
+        return sqlSession.insert("product.insertSearch",search);
+    }
+
+    //==인기검색어 노출
+    public List<String> showHotSearch(){
+        return sqlSession.selectList("product.showHotSearch");
+    }
+
+    //검색페이지
+    public List<Integer> getContNoForSearch(String search){
+        return sqlSession.selectList("product.getContNoForSearch",search);
+    }
+
+    public List<ProductDTO> getContList(List<Integer> conts){
+        return sqlSession.selectList("product.getContList",conts);
+    }
 }

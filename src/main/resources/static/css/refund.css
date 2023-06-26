@@ -247,6 +247,14 @@ a:hover{
     margin-bottom: 5px;
 }
 
+.refn_qty{
+    width: 50px;
+    border: none;
+}
+
+.refn_qty:focus{
+    outline: none;
+}
 
 .Home_show_date{
     display: inline-block;
@@ -286,6 +294,28 @@ a:hover{
     display: inline-block;
     float: right;
     padding-right: 10px;
+}
+
+.refn_price{
+    width: 100px;
+    border: none;
+    text-align: right;
+
+}
+
+.refn_price:focus{
+    outline: none;
+}
+
+.refn_point{
+    width: 100px;
+    border: none;
+    text-align: right;
+
+}
+
+.refn_point:focus{
+    outline: none;
 }
 
 .Home_refund_explain{

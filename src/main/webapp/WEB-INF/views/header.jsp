@@ -31,7 +31,7 @@
                       <a href="/login" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">로그인</div></a>
                   </c:when>
                   <c:otherwise>
-                      <a href="/mygage" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu"><span>${sessionScope.s_name}</span>님</div></a>
+                      <a href="/mygage" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu"><span class="s_id">${sessionScope.s_name}</span>님</div></a>
                       <a href="/logout.do" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu"><button style="display: inline-block; border:0.5px solid rgb(165, 165, 165); background-color: white; border-radius: 2px;">로그아웃</button></div></a>
                   </c:otherwise>
               </c:choose>
@@ -62,9 +62,9 @@
 
               <div class="global_topbar2_menu1_search">
                   <div>
-                      <form action="">
+                      <form action="/search" onsubmit="return checkSearch()">
                           <img src="/img/search.png" alt="로고" >
-                          <input type="text" class="global_topbar2_menu1_search_input search_input" placeholder="지금 생각나는 취미를 검색하세요.">
+                          <input type="text" name="recentSearch" class="global_topbar2_menu1_search_input search_input" placeholder="지금 생각나는 취미를 검색하세요.">
                       </form>
                   </div>
               </div>
@@ -116,27 +116,17 @@
                         <section>
                             <div class="global_modal_search">
                                 <div>최근검색어</div>
-                                <a href="#"><div class="global_modal_search_del">지우기</div></a>
+                                <div class="global_modal_search_del" onclick="delSearch()">지우기</div>
                             </div>
-                    
-                            <a href="#"><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
-                            <a><div class="global_modal_searchNew">소개팅</div></a>
+                            <div class="recent_search">
+
+                            </div>
                         </section>
                         <hr>
-                        <section>
+                        <section >
                             <div class="global_modal_search">인기검색어</div>
-                            <a href="#"><div class="global_modal_searchResult">소개팅</div></a>
-                            <a href="#"><div class="global_modal_searchResult">소개팅</div></a>
-                            <a href="#"><div class="global_modal_searchResult">소개팅</div></a>
+                            <div class="hot_search">
+                            </div>
                         </section>
                        
                     </div>

@@ -1,9 +1,6 @@
 package com.habit.myPage.model;
 
-import com.habit.myPage.DTO.OrderAllDTO;
-import com.habit.myPage.DTO.OrderDetailDTO;
-import com.habit.myPage.DTO.OrderRefnDTO;
-import com.habit.myPage.DTO.UserInfoDTO;
+import com.habit.myPage.DTO.*;
 
 import java.util.List;
 import java.util.Map;
@@ -54,4 +51,36 @@ public interface MyPageRepository {
     //=============리뷰쓰기
     //리뷰를 작성했는지 확인
     int checkReviewWrite(int payd_no);
+
+    //리뷰페이지 보여줄 상풍명 가져오기
+    ReviewWriteDTO getContInfo(Map<String, Object> params);
+
+    //리뷰를 이미 작성했을 경우 수정으로
+    ReviewWriteDTO getReview(int payd_no);
+
+    //리뷰인저트
+    int insertReview(ReviewInsertDTO dto);
+
+    int insertEnergy(EnergyDTO dto);
+
+    //리뷰업데이트
+    int updateReview(ReviewInsertDTO dto);
+
+    //환불페이지에 필요한 정보가져오기
+    RefundInfoDTO getInfoForRefund(int payd_no);
+
+    //RO가 있는지 확인해서 에너지 환불 체크
+    int getCheckForEnergyRefund(String pay_no);
+
+    //환불 테이블에 넣기
+    int insertRefund(RefundInsertDTO dto);
+
+    //환불 후 주문상세내역 테이블 주문상세상태, 환불상태 바꾸기
+    int changeStatusPayd(int payd_no);
+
+    //환불 에너지 있으면 환불시키기
+    int insertEnergyRefund(EnergyDTO dto);
+
+    //환불 완료 페이지
+    RefundResultDTO getResultRefund(int payd_no);
 }

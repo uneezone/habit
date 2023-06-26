@@ -7,8 +7,8 @@
 <link rel="stylesheet" href="/css/feed.css" />
 <link rel="stylesheet" href="/css/itemlist.css">
 <script src="/js/jquery.cookie.js"></script>
-<script src="/js/itemlist.js"></script>
 <script src="/js/common.js"></script>
+<script src="/js/itemlist.js"></script>
 
 
 <!--* 대분류 클릭시 모달창-->
@@ -242,7 +242,7 @@
                                             </div>
                                             <div>
                                                 <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                                    <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                                    <img src="/img/black2.png" alt="" id="cont_no${ht.cont_no}" width="40px" class="Home_product_recommend_p_div_img">
                                                 </button>
                                             </div>
                                             <div class="Home_product_recommend_p_font">
@@ -307,7 +307,7 @@
                                         </div>
                                         <div>
                                             <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                                <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                                <img src="/img/black2.png" alt="" id="cont_no${item.cont_no}" width="40px" class="Home_product_recommend_p_div_img">
                                             </button>
                                         </div>
                                         <div class="Home_product_recommend_p_font">
@@ -395,7 +395,7 @@
                                             </div>
                                             <div>
                                                 <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                                    <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                                    <img src="/img/black2.png" id="newcont_no${nt.cont_no}" alt="" width="40px" class="Home_product_recommend_p_div_img">
                                                 </button>
                                             </div>
                                             <div class="Home_product_recommend_p_font">
@@ -469,6 +469,30 @@
 
 
 
+
+
+    if(${sessionScope.s_id!=null}){
+        let userId="${sessionScope.s_id}";
+        console.log(userId);
+        if(userId!=""){
+            $.ajax({
+                type: "GET"
+                , url: "/zzim/getZzim"
+                , data: {"userId": userId}
+                , async: false
+                , success: function (data) {
+                    //console.log(data);
+                    $(data).each(function (index, value) {
+                        console.log(value);
+
+                        $("#cont_no" + value).attr("src", "/img/redheart2.png");
+                        $("#newcont_no"+value).attr("src", "/img/redheart2.png");
+                    });
+                }
+
+            });
+        }
+    }
 
 </script>
 

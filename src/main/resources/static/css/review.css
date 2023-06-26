@@ -217,8 +217,12 @@ a:hover{
     margin: 0px auto;
     max-width: 808px;
     width: 100%;
-    padding: 0px 20px;
+    padding: 0px 55px;
     min-height: 1px;
+}
+
+.review_con{
+    display: none;
 }
 
 .select_option{
@@ -246,6 +250,7 @@ a:hover{
     height: 100px;
     border-radius: 10px;
     display: inline-block;
+    margin-right: 8px;
 }
 .Wrapper_Paging{
     display: flex;
@@ -279,12 +284,12 @@ a:hover{
     align-items: center;
 }
 
-.Wrapper_Paging  .paging button:hover, .Wrapper_Paging  .paging button:focus {
+.Wrapper_Paging  .paging button:hover, .Wrapper_Paging  .paging>.pactive {
     color:rgb(51, 151, 255);
-	background-color:white;
+    background-color:white;
     text-align:center;
     font-weight: bold;
-	text-decoration:none;
+    text-decoration:none;
     align-items: center;
     -webkit-box-pack: center;
     justify-content: center;

@@ -224,6 +224,13 @@ a:hover{
     font-size: 21px; 
     text-align: center;
     font-weight: bold; 
+    margin-bottom: 10px;
+}
+
+.Home_refund_date{
+    font-size: 21px;
+    text-align: center;
+    font-weight: bold;
     margin-bottom: 50px;
 }
 

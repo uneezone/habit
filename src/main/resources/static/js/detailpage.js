@@ -20,6 +20,14 @@ window.onload=function(){
 //참여하기 클릭시 옵션창 출력과 기능
 $(document).ready(function() {
     function openModal() {
+        //해빈추가
+       /* if($(".s_id").text()==""){
+            let path=window.location.pathname;
+            console.log(path);
+            window.location.href="/login?redirectURL="+path;
+
+        }*/
+
         document.getElementById('FloatingActionBar').style.display = 'none';
         document.getElementById('productOptionsModal').style.display = 'block';
     }

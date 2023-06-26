@@ -1,176 +1,123 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../header.jsp"%>
-<link rel="stylesheet" href="css/review.css?after" />
+<link rel="stylesheet" href="/css/review.css?after" />
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<script src="/js/review.js"></script>
 
     <!-- 본문 시작 -->
 
     <div class="Home">
         <div style="margin: 30px 0px 20px 0px; display: flex; justify-content: space-between">
-            <span style="font-size:20px; font-weight: 600;">후기 456개</span>
+            <span style="font-size:20px; font-weight: 600;">후기 ${reviewList.size()}개</span>
             <span>
-                <select name="" id="" class="select_option">
-                    <option value="">평점 높은순</option>
-                    <option value="">최신순</option>
+                <select name="reviewFilter" id="reviewFilter" class="select_option" onchange="changeReviewList()">
+                    <option value="new">최신순</option>
+                    <option value="avg">평점 높은순</option>
                 </select>
             </span>
         </div>
-        <div>
-            <section class="Home_recommend_img">
-                <img src="/img/star.png" alt="" class="Home_recommend_star">
-                <img src="/img/star.png" alt="" class="Home_recommend_star">
-                <img src="/img/star.png" alt="" class="Home_recommend_star">
-                <img src="/img/star.png" alt="" class="Home_recommend_star">
-                <img src="/img/star.png" alt="" class="Home_recommend_star">
-            </section>
-        </div>
         <hr>
+        <script>
+            let filter=window.location.search;
+            if(filter.includes("avg")){
+                $("#reviewFilter").val("avg").prop("selected",true);
+            }
+
+        </script>
         <div>
-            <div>
-                <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                    <img src="/img/ME.png" style="border-radius: 40px; width: 40px; height: 40px; background-color: rgb(0, 0, 0);"></img>
-                    <div style="margin-left: 15px;">
-                        <div>yoyo</div>
-                        <span>
-                            <section class="Home_recommend_img">
-                                <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                <img src="/img/halfstar.png" alt="" class="Home_recommend_star">
-                            </section>
-                        </span>
-                        <span style="font-size: small;">2023년 5월 6일 19:26 작성</span>
-                    </div>
-                </div>
-                <div style="font-size: 13px; margin-bottom: 15px;">노래를 잘하고 싶지만 특별히 배울 기회나 시간이 없어 생각만 가지고 있던 차에 프립 어플을 알게 되어 신청했습니다! 처음엔 조금 부끄러웠지만 편하게 해주셔서 금방 적응했어요! 기초적인 부분부터 차근차근 알려주셔서 좋았습니당</div>
-                <div style="font-size: 11px; margin-bottom: 5px;">보컬레슨, 녹음하며 정복하자! (예약 가능)</div>
-                <div style="font-size: 11px; margin-bottom: 10px;">원데이 녹음+보컬레슨 (60분)</div>
-                <div class="show_img_wrapper">
-                    <img src="/img/eggtart.jpg" alt="" class="show_review_img">
-                    <img src="/img/eggtart.jpg" alt="" class="show_review_img">
-                    <img src="/img/eggtart.jpg" alt="" class="show_review_img">
-                </div>
-                <hr>
-            </div>
-        
+            <input type="hidden" value="${reviewList.get(1).cont_no}" id="cont_no">
+            <c:forEach items="${reviewList}" var="review" varStatus="vs">
+                <div class="review${review.review_no} review_con">
+                    <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                        <img src="/storage/${review.user_img}" style="border-radius: 40px; width: 40px; height: 40px; background-color: rgb(0, 0, 0);">
+                        <div style="margin-left: 15px;">
+                            <div>${review.user_name}</div>
+                            <span>
+                                <section class="Home_recommend_img review_star${vs.index}">
 
-            <div>
-                <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                    <img src="/img/ME.png" style="border-radius: 40px; width: 40px; height: 40px; background-color: rgb(0, 0, 0);"></img>
-                    <div style="margin-left: 15px;">
-                        <div>yoyo</div>
-                        <span>
-                            <section class="Home_recommend_img">
-                                <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                <img src="/img/halfstar.png" alt="" class="Home_recommend_star">
-                            </section>
-                        </span>
-                        <span style="font-size: small;">2023년 5월 6일 19:26 작성</span>
+                                </section>
+                                    ${review.review_star}
+                            </span>
+                            <span style="font-size: small;">${review.review_date}</span>
+                        </div>
+                        <c:if test="${sessionScope.s_id==review.user_id}">
+                            <div style="text-align: center;position: relative;top: -5px; right: -440px;">
+                                <input type="button" value="리뷰 삭제"
+                                       style="width: 60px;height: 20px;font-size: 10px; background-color: #fae3ff;border: none; border-radius: 3px;"
+                                onclick="delReview(${review.review_no})">
+                            </div>
+                        </c:if>
                     </div>
-                </div>
-                <div style="font-size: 13px; margin-bottom: 15px;">노래를 잘하고 싶지만 특별히 배울 기회나 시간이 없어 생각만 가지고 있던 차에 프립 어플을 알게 되어 신청했습니다! 처음엔 조금 부끄러웠지만 편하게 해주셔서 금방 적응했어요! 기초적인 부분부터 차근차근 알려주셔서 좋았습니당</div>
-                <div style="font-size: 11px; margin-bottom: 5px;">보컬레슨, 녹음하며 정복하자! (예약 가능)</div>
-                <div style="font-size: 11px; margin-bottom: 10px;">원데이 녹음+보컬레슨 (60분)</div>
-                <div class="show_img_wrapper">
-                </div>
-                <hr>
-            </div>
+                    <div style="font-size: 13px; margin-bottom: 15px;">${review.review_cont}</div>
+                    <div style="font-size: 11px; margin-bottom: 5px;">${review.cont_name}</div>
+                    <div class="show_img_wrapper${vs.index}">
+                    </div>
 
-            <div>
-                <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                    <img src="/img/ME.png" style="border-radius: 40px; width: 40px; height: 40px; background-color: rgb(0, 0, 0);"></img>
-                    <div style="margin-left: 15px;">
-                        <div>yoyo</div>
-                        <span>
-                            <section class="Home_recommend_img">
-                                <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                <img src="/img/halfstar.png" alt="" class="Home_recommend_star">
-                            </section>
-                        </span>
-                        <span style="font-size: small;">2023년 5월 6일 19:26 작성</span>
-                    </div>
+                    <hr>
                 </div>
-                <div style="font-size: 13px; margin-bottom: 15px;">노래를 잘하고 싶지만 특별히 배울 기회나 시간이 없어 생각만 가지고 있던 차에 프립 어플을 알게 되어 신청했습니다! 처음엔 조금 부끄러웠지만 편하게 해주셔서 금방 적응했어요! 기초적인 부분부터 차근차근 알려주셔서 좋았습니당</div>
-                <div style="font-size: 11px; margin-bottom: 5px;">보컬레슨, 녹음하며 정복하자! (예약 가능)</div>
-                <div style="font-size: 11px; margin-bottom: 10px;">원데이 녹음+보컬레슨 (60분)</div>
-                <div class="show_img_wrapper">
-                    <img src="/img/eggtart.jpg" alt="" class="show_review_img">
-                    <img src="/img/eggtart.jpg" alt="" class="show_review_img">
-                    <img src="/img/eggtart.jpg" alt="" class="show_review_img">
-                </div>
-                <hr>
-            </div>
+                <script>
+                    //리뷰 별점
+                    let star${vs.index}=parseInt(parseFloat(${review.review_star})*10);
 
-            <div>
-                <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                    <img src="/img/ME.png" style="border-radius: 40px; width: 40px; height: 40px; background-color: rgb(0, 0, 0);"></img>
-                    <div style="margin-left: 15px;">
-                        <div>yoyo</div>
-                        <span>
-                            <section class="Home_recommend_img">
-                                <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                <img src="/img/halfstar.png" alt="" class="Home_recommend_star">
-                            </section>
-                        </span>
-                        <span style="font-size: small;">2023년 5월 6일 19:26 작성</span>
-                    </div>
-                </div>
-                <div style="font-size: 13px; margin-bottom: 15px;">노래를 잘하고 싶지만 특별히 배울 기회나 시간이 없어 생각만 가지고 있던 차에 프립 어플을 알게 되어 신청했습니다! 처음엔 조금 부끄러웠지만 편하게 해주셔서 금방 적응했어요! 기초적인 부분부터 차근차근 알려주셔서 좋았습니당</div>
-                <div style="font-size: 11px; margin-bottom: 5px;">보컬레슨, 녹음하며 정복하자! (예약 가능)</div>
-                <div style="font-size: 11px; margin-bottom: 10px;">원데이 녹음+보컬레슨 (60분)</div>
-                <div class="show_img_wrapper">
-                </div>
-                <hr>
-            </div>
+                    //console.log(star${vs.index}%2);
+                    if(star${vs.index}%2==0){
+                        let starHtml="";
+                        for(let i=0;i<star${vs.index}/10;i++){
+                            starHtml+="<img src='/img/star.png' class='Home_recommend_star'>";
+                        }
 
-            <div>
-                <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                    <img src="/img/ME.png" style="border-radius: 40px; width: 40px; height: 40px; background-color: rgb(0, 0, 0);"></img>
-                    <div style="margin-left: 15px;">
-                        <div>yoyo</div>
-                        <span>
-                            <section class="Home_recommend_img">
-                                <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                <img src="/img/halfstar.png" alt="" class="Home_recommend_star">
-                            </section>
-                        </span>
-                        <span style="font-size: small;">2023년 5월 6일 19:26 작성</span>
-                    </div>
-                </div>
-                <div style="font-size: 13px; margin-bottom: 15px;">노래를 잘하고 싶지만 특별히 배울 기회나 시간이 없어 생각만 가지고 있던 차에 프립 어플을 알게 되어 신청했습니다! 처음엔 조금 부끄러웠지만 편하게 해주셔서 금방 적응했어요! 기초적인 부분부터 차근차근 알려주셔서 좋았습니당</div>
-                <div style="font-size: 11px; margin-bottom: 5px;">보컬레슨, 녹음하며 정복하자! (예약 가능)</div>
-                <div style="font-size: 11px; margin-bottom: 10px;">원데이 녹음+보컬레슨 (60분)</div>
-                <div class="show_img_wrapper">
-                    <img src="/img/eggtart.jpg" alt="" class="show_review_img">
-                    <img src="/img/eggtart.jpg" alt="" class="show_review_img">
-                    <img src="/img/eggtart.jpg" alt="" class="show_review_img">
-                </div>
-                <hr>
-            </div>
+                        $(".review_star${vs.index}").append(starHtml);
+                    }else {
+                        let starHtml="";
+                        for(let i=0;i<parseInt(star${vs.index}/10);i++){
+                            starHtml+="<img src='/img/star.png' class='Home_recommend_star'>";
+                        }
+                        starHtml+="<img src='/img/halfstar.png' class='Home_recommend_star'>";
+                        $(".review_star${vs.index}").append(starHtml);
+                    }
+
+                    //리뷰이미지
+                    let reviewImgs${vs.index}="${review.review_img}";
+                    //console.log(reviewImgs${vs.index});
+                    let Imgs${vs.index}=reviewImgs${vs.index}.split('|');
+                    //console.log(Imgs${vs.index});
+                    for(let i=0;i<Imgs${vs.index}.length;i++){
+                        let img=Imgs${vs.index}[i].trim();
+                        //console.log(img);
+                        if(img!=""){
+                            let htmlAppend="<img src='/storage/"+img+"' class='show_review_img'>";
+                            $(".show_img_wrapper${vs.index}").append(htmlAppend);
+                        }
+                    }
+                </script>
+
+            </c:forEach>
             
         </div>
+        <!--페이징 인덱스 수-->
+        <c:set value="${reviewList.size()}" var="pages"/>
         <div class="Wrapper_Paging">
             <div class="paging">
-                <button onclick="movePage(1)">1</button>
-                <button onclick="movePage(2)">2</button>
-                <button onclick="movePage(3)">3</button>
-                <button onclick="movePage(4)">4</button>
-                <button onclick="movePage(5)">5</button>
+                <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold"  onclick="onPageClick(-1)">&lt;</button>
+                <button width="40px" height="40px" color="#3397ff"  class="pactive index_page_btn" font-size="18px" font-weight="bold"  onclick="onPageClick(this)">1</button>
+                <c:forEach begin="2" end="${pages+(1-(pages%1))%1}" var="paging">
+                    <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" class="index_page_btn"  onclick="onPageClick(this)">${paging}</button>
+                </c:forEach>
+                <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" onclick="onPageClick(0)">></button>
             </div>
         </div>
     </div>
+    <script>
+        $(".index_page_btn").css("display","none");
+        //console.log($(".index_page").index());
+        if($(".index_page_btn").length>3){
+            $(".index_page_btn").slice(0,3).show();
+        }else{
+            $(".index_page_btn").show();
+        }
+    </script>
 
 
     <!-- 본문 끝-->

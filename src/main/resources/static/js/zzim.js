@@ -21,7 +21,7 @@ window.onload=function(){
 }
 
 
-function onPageClick(ele,) {
+function onPageClick(ele) {
 
     //=====인덱스 전후 번튼 클릭시 페이징
     if(ele==-1) {
