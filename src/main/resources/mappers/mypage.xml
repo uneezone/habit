@@ -13,7 +13,7 @@
     </select>
 
     <select id="getMyReviewCount" parameterType="String" resultType="Integer">
-        select count(*) from review where user_id=#{user_id}
+        select count(*) from review where user_id=#{user_id} and review_status!='N'
     </select>
 
     <select id="getUserInfo" parameterType="String" resultType="com.habit.myPage.DTO.UserInfoDTO">
@@ -30,7 +30,7 @@
     </update>
 
     <update id="updateUserInfo" parameterType="com.habit.myPage.DTO.UserInfoDTO">
-        update user set user_name=#{user_name},user_email=#{user_email},user_birth=#{user_birth}
+        update user set user_name=#{user_name},user_email=#{user_email},user_birth=#{user_birth},user_phone=#{user_phone}
         <if test="user_img!=null">
             ,user_img=#{user_img}
         </if>

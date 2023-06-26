@@ -283,8 +283,8 @@ public class MyPageServiceImpl implements MyPageService{
 
             //사용한 에너지 환불
             EnergyDTO energyDTO= new EnergyDTO();
+            energyDTO.setUser_id(user_id);
             if(Integer.parseInt(dto.getRefn_point())!=0){
-                energyDTO.setUser_id(user_id);
                 energyDTO.setEnergy_sources("[결제]취소");
                 energyDTO.setEnergy_saveuse(Integer.parseInt(dto.getRefn_point()));
                 repository.insertEnergyRefund(energyDTO);

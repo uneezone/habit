@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="/css/refund.css?after" />'
 <script src="/js/refund.js"></script>
     <!-- 본문 시작 -->
-    <form action="/mypage/refund" method="POST" >
+    <form action="/mypage/refund" method="POST" onsubmit="return refundCheck()">
     <div class="Home">
         <div class="Home_order_sub">환불 정보</div>
         <div class="Home_show_wrapper">
@@ -82,7 +82,7 @@
             * 알아서 되니까 기다려
         </div>
         <div class="Home_refund_btn">
-          <div><button class="refund_btn" onclick="location.href='/mypage/refundfinish'">환불하기</button></div>
+          <div><button class="refund_btn" type="submit">환불하기</button></div>
         </div>
     </div>
     <input type="hidden" name="payd_no" value="${refundInfo.payd_no}">

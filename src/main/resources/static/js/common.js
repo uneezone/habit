@@ -1,11 +1,6 @@
 function common(){
 
-    //태그 다시
-    $(".href").click(function (){
 
-        $(".href").css({ 'pointer-events': 'auto' });
-
-    });
 
     //검색어 쿠키
     let html = "";
@@ -87,7 +82,10 @@ function common(){
                 this.children[0].src = "/img/redheart2.png";
                 let id = this.children[0].id;
                 console.log(id);
-                id = id.substring(7, id.length);
+                let indexOf = id.indexOf("_");
+
+                id = id.substring(indexOf+3, id.length);
+                console.log(id);
 
                 console.log("id=" + $(".s_id").text());
 
@@ -113,8 +111,11 @@ function common(){
                     this.children[0].src = "/img/black2.png";
                     let id = this.children[0].id;
 
-                    id = id.substring(7, id.length);
+                    console.log(id);
+                    let indexOf = id.indexOf("_");
 
+                    id = id.substring(indexOf+3, id.length);
+                    console.log(id);
                     //$.ajax 써야 함. async:true 잊지 않고 추가하기
                     if ($(".s_id").text() != "") {
                         $.ajax({

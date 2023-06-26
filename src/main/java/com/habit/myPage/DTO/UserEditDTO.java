@@ -9,7 +9,7 @@ public class UserEditDTO {
 
     private String user_name;
     private String user_img;
-    private int user_phone1;
+    private String user_phone1;
     private int user_phone2;
     private int user_phone3;
     private String user_email1;
