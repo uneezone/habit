@@ -22,8 +22,25 @@ public class HomeController {
     public String intro(Model model){
 
         List<Map<String, Object>> introViewTopList = productDAO.introViewTop();
+        for (Map<String, Object> cont : introViewTopList) {
+            String cont_img = (String) cont.get("cont_img");
+            cont_img = cont_img.trim().split("\\|")[0];
+            cont.put("cont_img", cont_img);
+        }
+
         List<Map<String, Object>> introReviewTopList = productDAO.introReviewTop();
+        for (Map<String, Object> cont : introReviewTopList) {
+            String cont_img = (String) cont.get("cont_img");
+            cont_img = cont_img.trim().split("\\|")[0];
+            cont.put("cont_img", cont_img);
+        }
+
         List<Map<String, Object>> introDateTopList = productDAO.introDateTop();
+        for (Map<String, Object> cont : introDateTopList) {
+            String cont_img = (String) cont.get("cont_img");
+            cont_img = cont_img.trim().split("\\|")[0];
+            cont.put("cont_img", cont_img);
+        }
 
         addStarAndPriceInfo(introViewTopList);
         addStarAndPriceInfo(introReviewTopList);

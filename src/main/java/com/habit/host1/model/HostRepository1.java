@@ -16,7 +16,8 @@ public interface HostRepository1 {
     // table cont
     List<ResponseContentListDTO> contentList (RequestContentListDTO requestContentListDTO);
     int contentListCount(RequestContentListDTO requestContentListDTO);
-    CategoryAndContentDTO contentSelectOne(int no);
+    CategoryAndContentVO contentSelectOne(int no);
+    CategoryAndContentVO contentSelectOne1(int no);
     int insertCont(RequestContentValueDTO requestContentValueDTO);
     int deleteContent(int no);
     int updateContent(RequestContentValueDTO requestContentValueDTO);

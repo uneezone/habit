@@ -49,7 +49,15 @@ public class ProductCont {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("product/itemlist");
         mav.addObject("middle", productDao.middle(cate_large));
-        mav.addObject("hotTop", productDao.hotTop(cate_large));
+
+        List<Map<String, Object>> list = productDao.hotTop(cate_large);
+        for (Map<String, Object> cont : list) {
+            String cont_img = (String) cont.get("cont_img");
+            cont_img = cont_img.trim().split("\\|")[0];
+            cont.put("cont_img", cont_img);
+        }
+        mav.addObject("hotTop", list);
+
         mav.addObject("hotListCount", productDao.hotListCount(cate_large));
         mav.addObject("newTop", productDao.newtop(cate_large));
         mav.addObject("newListCount", productDao.newListCount(cate_large));
@@ -76,6 +84,11 @@ public class ProductCont {
         }
         mav.addObject("priceMap", priceMap);
 
+        Map<Integer, Map<String, Object>> reviewcnt = new HashMap<>();
+        for (Integer cont_no : contNoList) {
+            reviewcnt.put(cont_no, detailDao.contreviewcnt(cont_no));
+        }
+        mav.addObject("reviewcnt", reviewcnt);
 
         return mav;
     }

@@ -112,7 +112,6 @@ public class HostContorller1 {
         List<ResponseContentListDTO> list = hostService1.contentList(reqContListDTO);
         hostService1.contentListCount(reqContListDTO);
 
-
         Map<String, Object> map = new HashMap<>();
         map.put("vo", reqContListDTO.getVo());
         map.put("list", list);
@@ -132,8 +131,20 @@ public class HostContorller1 {
     // 해빗 수정 폼
     @GetMapping("/content/updateform/{cont_no}")
     @ResponseBody
-    public RequestContentValueDTO contentUpdateBefore(@PathVariable int cont_no) {
-        return hostService1.contentSelectOne(cont_no);
+    public Map<String, Object> contentUpdateBefore(@PathVariable int cont_no) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("item", hostService1.contentSelectOne1(cont_no));
+        List<OneEntity> oneList = hostService1.oneList(cont_no);
+        List<ProdEntity> prodList = hostService1.prodList(cont_no);
+
+        if (oneList.size() > 0) {
+            map.put("option", oneList);
+            map.put("optionType", "one");
+        } else {
+            map.put("option", prodList);
+            map.put("optionType", "prod");
+        }
+        return map;
     }
 
     // 해빗 수정
@@ -143,6 +154,47 @@ public class HostContorller1 {
         hostService1.contentUpdate(rciDTO);
         return "redirect:/host/content/list";
     }
+
+
+
+
+
+    @GetMapping("/content/list1")
+    public String contentList1 (@SessionAttribute(name = "userId", required = false) String userIdd, Model model) {
+        //임시 세션 아이디
+        String userId = "user-1";
+        RequestContentListDTO reqContListDTO = new RequestContentListDTO();
+        reqContListDTO.setHost_id(userId);
+        String host_img = hostService1.getHostImg(userId);
+
+        List<ResponseContentListDTO> list = hostService1.contentList(reqContListDTO);
+        hostService1.contentListCount(reqContListDTO);
+        model.addAttribute("host_id", userId);
+        model.addAttribute("host_img", host_img);
+        model.addAttribute("vo", reqContListDTO.getVo());
+        model.addAttribute("list", list);
+
+        return "host/habit_list1";
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // [habit_review_control.jsp]
     // 리뷰 리스트 조회

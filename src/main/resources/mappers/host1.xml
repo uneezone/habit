@@ -207,7 +207,7 @@
     </delete>
     
     <!--  해빗 수정 전 값 불러오기  -->
-    <select id="contentSelectOne" parameterType="int" resultType="com.habit.host1.DTO.CategoryAndContentDTO">
+    <select id="contentSelectOne" parameterType="int" resultType="com.habit.host1.DTO.CategoryAndContentVO">
         select cate_large, cate_middle, cont_name, cont_zip, cont_addr1, cont_addr2, cont_extaddr, cont_hashtag1, cont_hashtag2,
                cont_hashtag3, cont_hashtag4, cont_hashtag5, cont_stdate, cont_endate, cont_img, cont_content
         from cont a join cate b
@@ -327,4 +327,23 @@
         from user
         where user_id = #{user_id}
     </select>
+
+
+
+
+
+
+    <select id="contentSelectOne1" parameterType="int" resultType="com.habit.host1.DTO.CategoryAndContentVO">
+        select cate_large, cate_middle, cont_name, cont_zip, cont_addr1, cont_addr2, cont_extaddr,
+               cont_hashtag1, cont_hashtag2, cont_hashtag3, cont_hashtag4, cont_hashtag5,
+               cont_endate, cont_img, cont_content
+        from cont a join cate b
+        on a.cate_no = b.cate_no
+        where cont_no = ${cont_no}
+    </select>
+
+
+
+
+
 </mapper>
