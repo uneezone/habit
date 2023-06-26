@@ -2,13 +2,11 @@
 let showPro=2;
 
 function hello(e){
-    $('.href').click(function(){
-        $(e).parents().eq(3).remove();
 
+        $(e).parents().eq(3).remove();
+        $(".Home_product_recommend_p").css('display','none');
         $(".Home_product_recommend_p").slice(0, showPro).css('display','block'); // 초기갯수
         return false;
-    })
-
 
 }
 
@@ -22,6 +20,15 @@ window.onload=function(){
   onPageClick(1);*/
 
     $(".Home_product_recommend_p").slice(0, showPro).css('display','block'); // 초기갯수
+
+    var btn=$('.zzim_btn');
+    btn.click(function (){
+
+        $(this).parents().eq(3).remove();
+
+        $(".Home_product_recommend_p").slice(0, showPro).css('display','block'); // 초기갯수
+        return false;
+    })
 }
 
 

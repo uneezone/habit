@@ -137,15 +137,14 @@ function common(){
         }else{
             location.href="/login";
         }
-        setInterval(releaseA,1000);
+
     });
 }
 
 //찜목록가져오기
 function getZzim(){
     $(".zzim_img").attr("src", "/img/black2.png");
-    $(".zzim_img").attr("src", "/img/black2.png");
-    $(".zzim_img").attr("src", "/img/black2.png");
+
     $.ajax({
         type: "GET"
         , url: "/zzim/getZzim"
@@ -153,7 +152,7 @@ function getZzim(){
         , success: function (data) {
             //console.log(data);
             $(data).each(function (index, value) {
-                console.log(value);
+                //console.log(value);
 
                 $("#cont_no" + value).attr("src", "/img/redheart2.png");
                 $("#newcont_no"+value).attr("src", "/img/redheart2.png");

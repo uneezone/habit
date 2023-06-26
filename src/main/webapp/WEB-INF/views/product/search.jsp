@@ -10,6 +10,81 @@
   <div class="Home">
   <div class="PageWrapper">
     <div class="Fade_Wrapper" style="opacity: 1; display: block;">
+
+        <%-- 필터 모달창--%>
+        <div id="filter-root">
+            <div>
+                <div class="Filter_Container_Modal" >
+                    <div class="Filter_FlexFix">
+                        <div class="Filter_Wrapper_Modal">
+                            <header class="Filter_HeaderWrapper">
+                                <div class="FilterModalHeader_Wrapper">
+                                    <span class="FilterModalHeader_ModalTitle">필터</span>
+                                </div>
+                                <button name="CloseBtn" type="button" class="Filter_Button">
+                                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E %3Cg fill='none' fill-rule='nonzero'%3E %3Cpath d='M0 0h24v24H0z'/%3E %3Cpath stroke='%23000' stroke-width='2' d='M7.05 7.05l9.9 9.9M16.95 7.05l-9.9 9.9'/%3E %3C/g%3E %3C/svg%3E" alt="닫기버튼">
+                                </button>
+                            </header>
+                            <div class="FilterBodyContainer">
+                                <div class="FilterOther_Momo">
+                                    <div class="FilterOther_ModalSection">
+                                        <div>
+                                            <div class="FilterOthers_FilterTitle">정렬</div>
+                                            <div class="FilterRadio">
+                                                <div direction="column" class="FilterRadio_RadioInput">
+                                                    <div class="FilterRadio_OptionWrapper">
+                                                        <label  class="FilterRadio_StyleLabel">
+                                                            인기순
+                                                            <div class="FilterRadio_CustomRadio"></div>
+                                                            <input type="radio" id="radio-hot" name="filter" value="popularity" class="FilterRadio_RadioClick">
+                                                        </label>
+                                                    </div>
+                                                    <div class="FilterRadio_OptionWrapper">
+                                                        <label  class="FilterRadio_StyleLabel">
+                                                            등록일순
+                                                            <div class="FilterRadio_CustomRadio"></div>
+                                                            <input type="radio" id="radio-date" name="filter" value="date" class="FilterRadio_RadioClick">
+                                                        </label>
+                                                    </div>
+                                                    <div class="FilterRadio_OptionWrapper">
+                                                        <label  class="FilterRadio_StyleLabel">
+                                                            평점순
+                                                            <div class="FilterRadio_CustomRadio"></div>
+                                                            <input type="radio" id="radio-review" name="filter" value="rating" class="FilterRadio_RadioClick">
+                                                        </label>
+                                                    </div>
+                                                    <div class="FilterRadio_OptionWrapper">
+                                                        <label  class="FilterRadio_StyleLabel">
+                                                            가격 높은순
+                                                            <div class="FilterRadio_CustomRadio"></div>
+                                                            <input type="radio" id="radio-pricehigh" name="filter" value="highPrice" class="FilterRadio_RadioClick">
+                                                        </label>
+                                                    </div>
+                                                    <div class="FilterRadio_OptionWrapper">
+                                                        <label  class="FilterRadio_StyleLabel">
+                                                            가격 낮은순
+                                                            <div class="FilterRadio_CustomRadio"></div>
+                                                            <input type="radio" id="radio-pricelow" name="filter" value="lowPrice" class="FilterRadio_RadioClick">
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="FilterOther_Price">
+                                        </div>
+                                    </div>
+                                </div>
+                                <footer class="Filter_FooterWrapper">
+                                    <button width="280px" height="50px" color="white" font-size="13px" font-weight="bold" class="Button_btn">적용하기</button>
+                                </footer>
+                            </div>
+                        </div>
+                        <div class="Filter_Overlay"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%--    필터 모달창 끝--%>
                     
         <!-- 콘텐츠 리스트 -->
 
@@ -39,8 +114,8 @@
 
                <!-- * 전체 아이템 리스트 시작 -->
             <div class="Home_product_recommend_list">
-                <c:if test="${product.size()==0}">
-                    검색결과없음
+                <c:if test="${list==null}">
+                    <span style="font-size: 16px;font-weight: 600;">검색결과없음</span>
                 </c:if>
                 <c:forEach items="${list}" var="product" varStatus="vs">
                     <div class="Home_product_recommend_p">
@@ -76,31 +151,31 @@
 
                                         <script>
 
-                                            let avg${vs.index}=${product.review_avg};
 
                                             for(let i=0;i<=9;i++){
                                                 let htmlAppend="";
-                                                //console.log(i/2);
-                                                if(i%2==0){
-                                                    if(avg${vs.index}==parseFloat(i/2)){
-                                                        //console.log("d");
+
+                                                if(parseFloat(${product.review_avg})%2==0.0){
+
+                                                    if( parseFloat(${product.review_avg})==parseFloat(i/2)){
+
                                                         for (let k = 0; k < i * 0.5; k++) {
                                                             htmlAppend += "<img src='/img/star.png' class='Home_recommend_star''>";
                                                         }
                                                         $(".review_star"+'${vs.index}').append(htmlAppend);
                                                         break;
                                                     }
-                                                }else if(avg${vs.index}==0.5*i){
-                                                    //console.log("ddd");
-                                                    //console.log(i);
+                                                    continue;
+                                                }else if( parseFloat(${product.review_avg})==0.5*i){
+
                                                     for (let k = 0; k < (i * 0.5-0.5); k++) {
                                                         htmlAppend += "<img src='/img/star.png' class='Home_recommend_star''>";
                                                     }
                                                     htmlAppend += "<img src='/img/halfstar.png' class='Home_recommend_star''>";
                                                     $(".review_star"+'${vs.index}').append(htmlAppend);
                                                     break;
-                                                }else if(avg${vs.index}>0.5*i && avg${vs.index}<0.5*(i+1)){
-                                                    console.log("dddd");
+                                                }else if( parseFloat(${product.review_avg})>0.5*i &&  parseFloat(${product.review_avg})<0.5*(i+1)){
+
                                                     if(i%2==0) {
                                                         for (let k = 0; k < i * 0.5; k++) {
                                                             htmlAppend += "<img src='/img/star.png' class='Home_recommend_star''>";
@@ -115,7 +190,7 @@
                                                         $(".review_star"+'${vs.index}').append(htmlAppend);
                                                         break;
                                                     }
-                                                }else if(avg${vs.index}<=5&&(avg${vs.index}>4.5)){
+                                                }else if(parseFloat(${product.review_avg})<=5.0 &&(parseFloat(${product.review_avg})>4.5)){
                                                     for(let k=0;k<5;k++){
                                                         htmlAppend+="<img src='/img/star.png' class='Home_recommend_star''>";
                                                     }
@@ -187,57 +262,51 @@
 
     <script>
 
-        // URL에서 카테고리 정보 가져오기
-        const urlSearchParams = new URLSearchParams(window.location.search);
+        //필터 모달창
+        document.addEventListener("DOMContentLoaded", function() {
+            const button1 = document.querySelector(".FilterOther .FilterOpenButton .Button1");
+            const filterModal = document.querySelector(".Filter_Container_Modal");
+            const closeBtn = document.querySelector("[name='CloseBtn']");
+            const applyFilterButton = document.querySelector(".Button_btn");
+            const radioButtons = document.querySelectorAll("input[type='radio'][name='filter']");
 
-        let categoryText1;
+            // 필터 모달창 열고 닫기 기능
+            button1.addEventListener("click", function() {
+                filterModal.style.display = "flex";
+            });
 
-        // 모달창에서 새로운 카테고리를 선택한 경우 이전 정보를 대체한다.
-        if (localStorage.getItem('newCategory')) {
-            urlSearchParams.delete("category");
-            const newCategory = localStorage.getItem("newCategory");
-            localStorage.removeItem("newCategory");
-            categoryText1 = newCategory;
-        } else {
-            categoryText1 = urlSearchParams.get("category");
-        }
+            closeBtn.addEventListener("click", function() {
+                filterModal.style.display = "none";
+            });
 
-        // 카테고리 이름 설정
-        if (categoryText1) {
-            // 카테고리 텍스트를 동적으로 변경
-            $("#selectedCategory").text(categoryText1);
-            const productSectionTitle = ` ${categoryText1} 해빗 `;
-            $(".ProductSectionHeader_Title_all").text(productSectionTitle);
-        }
 
-        // 대분류 카테고리 단 클릭 시 모달창 열기
-        $('.CategoryNav_Wrapper').on('click', function() {
-            $('.modal_root').css('display', 'block');
-            $('body').css('overflow', 'hidden'); // 스크롤 비활성화
-        });
-        
-        // 닫기 버튼 클릭 시 모달창 닫기
-        function modalCategory() {
-            $('.modal_root').css('display', 'none');
-            $('body').css('overflow', 'auto'); // 스크롤 복원
-        }
-        
-        // 닫기 버튼에 클릭 이벤트를 바인딩
-        $('button[name="CloseBtn"]').on('click', modalCategory);
+            const cate_large = '<%=request.getAttribute("cate_large")%>';
 
-        $(".CategoryItem-A").on("click", function (event) {
-            // 클릭한 카테고리에 맞게 된 원래 클릭 경로로 변경
-            event.preventDefault();
+            //필터 기능 구현
+            applyFilterButton.addEventListener("click", function () {
+                let selectedFilter;
+                for (const radio of radioButtons) {
+                    if (radio.checked) {
+                        selectedFilter = radio.value;
+                        break;
+                    }
+                }
+                const newPath = "/category/" + encodeURIComponent(cate_large) + "/all" + "?filter=" + encodeURIComponent(selectedFilter);
+                window.location.href = newPath;
+            });
 
-            // 선택한 카테고리 이름 가져오기
-            const selectedCategory = $(event.currentTarget).data("category");
+            radioButtons.forEach(radioButton => {
+                radioButton.addEventListener('change', () => {
+                    if (radioButton.checked) {
+                        //console.log(radioButton.value + ' is selected');
+                        // 원하시는 기능을 추가하시면 됩니다.
+                        radioButtons.forEach(rb => rb.parentElement.classList.remove('selected'));
+                        radioButton.parentElement.classList.add('selected');
+                    }
+                });
+            });
 
-            // 새롭게 선택한 카테고리를 로컬 저장소에 저장한다
-            localStorage.setItem("newCategory", selectedCategory);
 
-            // 새로운 카테고리 페이지로 이동
-            const newUrl = `itemlist.html?category=${selectedCategory}`;
-            location.href = newUrl;
         });
 
         if(${sessionScope.s_id!=null}){

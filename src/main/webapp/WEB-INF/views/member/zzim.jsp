@@ -45,7 +45,7 @@
                                             <input type="image" src="/storage/${item.cont_img}" alt="cont_img" width="140px" height="140px" style="border-radius:8px;">
                                          </div>
                                         <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn"  onclick="hello(this)" onsubmit="return false">
+                                            <button class="Home_product_recommend_p_div_btn zzim_btn"  onclick="return false" >
                                                 <img src="/img/redheart2.png" id="cont_no${item.cont_no}" alt="" width="40px" class="Home_product_recommend_p_div_img" onchange="delZzim()">
                                             </button>
                                         </div>
@@ -152,6 +152,7 @@
         </footer>
 
         <script>
+            console.log(${zzimList.size()/2});
             $(".index_page_btn").css("display","none");
             //console.log($(".index_page").index());
             if($(".index_page_btn").length>3){
