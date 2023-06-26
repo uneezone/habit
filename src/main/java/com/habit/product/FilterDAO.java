@@ -70,4 +70,41 @@ public class FilterDAO {
         return sqlSession.selectOne("product.midNewListCount", params);
     }
 
+    //중분류 -> 필터 모달
+
+    public List<Map<String, Object>> selectMidByPopularity(String cate_large, String cate_middle) {
+        Map<String, String> params = new HashMap<>();
+        params.put("cate_large", cate_large);
+        params.put("cate_middle", cate_middle);
+        return sqlSession.selectList("product.selectMidByPopularity", params);
+    }
+
+    public List<Map<String, Object>> selectMidByDate(String cate_large, String cate_middle) {
+        Map<String, String> params = new HashMap<>();
+        params.put("cate_large", cate_large);
+        params.put("cate_middle", cate_middle);
+        return sqlSession.selectList("product.selectMidByDate", params);
+    }
+
+    public List<Map<String, Object>> selectMidByRating(String cate_large, String cate_middle) {
+        Map<String, String> params = new HashMap<>();
+        params.put("cate_large", cate_large);
+        params.put("cate_middle", cate_middle);
+        return sqlSession.selectList("product.selectMidByRating", params);
+    }
+
+    public List<Map<String, Object>> selectMidByHighPrice(String cate_large, String cate_middle) {
+        Map<String, String> params = new HashMap<>();
+        params.put("cate_large", cate_large);
+        params.put("cate_middle", cate_middle);
+        return sqlSession.selectList("product.selectMidByHighPrice", params);
+    }
+
+    public List<Map<String, Object>> selectMidByLowPrice(String cate_large, String cate_middle) {
+        Map<String, String> params = new HashMap<>();
+        params.put("cate_large", cate_large);
+        params.put("cate_middle", cate_middle);
+        return sqlSession.selectList("product.selectMidByLowPrice", params);
+    }
+
 }

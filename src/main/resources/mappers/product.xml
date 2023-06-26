@@ -198,7 +198,144 @@
             LIMIT 10
     </select>
 
+    <!--    =========== 필터  ===========-->
 
+    <select id="selectContentsByPopularity" resultType="java.util.Map" parameterType="String">
+        SELECT cont.*, cate.*
+        FROM cont
+                 JOIN cate ON cont.cate_no = cate.cate_no
+        WHERE cate.cate_large = #{cate_large}
+        ORDER BY cont.cont_view DESC
+    </select>
 
+    <select id="selectContentsByDate" resultType="java.util.Map" parameterType="String">
+        SELECT cont.*, cate.*
+        FROM cont
+                 JOIN cate ON cont.cate_no = cate.cate_no
+        WHERE cate.cate_large = #{cate_large}
+        ORDER BY cont.cont_stdate DESC
+    </select>
+
+    <select id="selectContentsByRating" resultType="java.util.Map" parameterType="String">
+        SELECT cont.*, cate.*, IFNULL(AVG(review.review_star), 0) AS average_star
+        FROM cont
+                 JOIN cate ON cont.cate_no = cate.cate_no
+                 LEFT JOIN review ON cont.cont_no = review.cont_no
+        WHERE cate.cate_large = #{cate_large}
+        GROUP BY cont.cont_no
+        ORDER BY average_star DESC
+    </select>
+
+    <select id="selectContentsByHighPrice" resultType="java.util.Map" parameterType="String">
+        SELECT temp.* , MIN(price) AS representative_price
+        FROM (
+                 SELECT cont.*, cate.cate_large, one.one_price AS price
+                 FROM cont
+                          JOIN cate ON cont.cate_no = cate.cate_no
+                          JOIN one ON cont.cont_no = one.cont_no
+                 WHERE cate.cate_large = #{cate_large}
+
+                 UNION ALL
+
+                 SELECT cont.*, cate.cate_large, prod.prod_price AS price
+                 FROM cont
+                          JOIN cate ON cont.cate_no = cate.cate_no
+                          JOIN prod ON cont.cont_no = prod.cont_no
+                 WHERE cate.cate_large = #{cate_large}
+             ) AS temp
+        GROUP BY temp.cont_no
+        ORDER BY representative_price DESC
+    </select>
+
+    <select id="selectContentsByLowPrice" resultType="java.util.Map" parameterType="String">
+        SELECT temp.* , MIN(price) AS representative_price
+        FROM (
+                 SELECT cont.*, cate.cate_large, one.one_price AS price
+                 FROM cont
+                          JOIN cate ON cont.cate_no = cate.cate_no
+                          JOIN one ON cont.cont_no = one.cont_no
+                 WHERE cate.cate_large = #{cate_large}
+
+                 UNION ALL
+
+                 SELECT cont.*, cate.cate_large, prod.prod_price AS price
+                 FROM cont
+                          JOIN cate ON cont.cate_no = cate.cate_no
+                          JOIN prod ON cont.cont_no = prod.cont_no
+                 WHERE cate.cate_large = #{cate_large}
+             ) AS temp
+        GROUP BY temp.cont_no
+        ORDER BY representative_price ASC
+    </select>
+
+    <!--    =========== 중분류 필터  ===========-->
+
+    <select id="selectMidByPopularity" resultType="java.util.Map" parameterType="String">
+        SELECT cont.*, cate.*
+        FROM cont
+                 JOIN cate ON cont.cate_no = cate.cate_no
+        WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle}
+        ORDER BY cont.cont_view DESC
+    </select>
+
+    <select id="selectMidByDate" resultType="java.util.Map" parameterType="String">
+        SELECT cont.*, cate.*
+        FROM cont
+                 JOIN cate ON cont.cate_no = cate.cate_no
+        WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle}
+        ORDER BY cont.cont_stdate DESC
+    </select>
+
+    <select id="selectMidByRating" resultType="java.util.Map" parameterType="String">
+        SELECT cont.*, cate.*, IFNULL(AVG(review.review_star), 0) AS average_star
+        FROM cont
+                 JOIN cate ON cont.cate_no = cate.cate_no
+                 LEFT JOIN review ON cont.cont_no = review.cont_no
+        WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle}
+        GROUP BY cont.cont_no
+        ORDER BY average_star DESC
+    </select>
+
+    <select id="selectMidByHighPrice" resultType="java.util.Map" parameterType="String">
+        SELECT temp.* , MIN(price) AS representative_price
+        FROM (
+                 SELECT cont.*, cate.cate_large, one.one_price AS price
+                 FROM cont
+                          JOIN cate ON cont.cate_no = cate.cate_no
+                          JOIN one ON cont.cont_no = one.cont_no
+                 WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle}
+
+                 UNION ALL
+
+                 SELECT cont.*, cate.cate_large, prod.prod_price AS price
+                 FROM cont
+                          JOIN cate ON cont.cate_no = cate.cate_no
+                          JOIN prod ON cont.cont_no = prod.cont_no
+                 WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle}
+             ) AS temp
+        GROUP BY temp.cont_no
+        ORDER BY representative_price DESC
+    </select>
+
+    <select id="selectMidByLowPrice" resultType="java.util.Map" parameterType="String">
+        SELECT temp.* , MIN(price) AS representative_price
+        FROM (
+                 SELECT cont.*, cate.cate_large, one.one_price AS price
+                 FROM cont
+                          JOIN cate ON cont.cate_no = cate.cate_no
+                          JOIN one ON cont.cont_no = one.cont_no
+                 WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle}
+
+                 UNION ALL
+
+                 SELECT cont.*, cate.cate_large, prod.prod_price AS price
+                 FROM cont
+                          JOIN cate ON cont.cate_no = cate.cate_no
+                          JOIN prod ON cont.cont_no = prod.cont_no
+                 WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle}
+             ) AS temp
+        GROUP BY temp.cont_no
+        ORDER BY representative_price ASC
+    </select>
 
 </mapper>
