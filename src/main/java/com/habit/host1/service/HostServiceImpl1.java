@@ -150,7 +150,7 @@ public class HostServiceImpl1 implements HostService1 {
     @Override
     public RequestContentValueDTO contentSelectOne(int cont_no) {
 
-        CategoryAndContentDTO cateAndContDTO = memoryHostRepository1.contentSelectOne(cont_no);
+        CategoryAndContentVO cateAndContDTO = memoryHostRepository1.contentSelectOne(cont_no);
         RequestContentValueDTO reqContInsDTO = new RequestContentValueDTO();
         if (cateAndContDTO != null) {
 
@@ -380,10 +380,69 @@ public class HostServiceImpl1 implements HostService1 {
     }
 
     // 호스트 이미지 가져오기
-
-
     @Override
     public String getHostImg(String host_id) {
         return memoryHostRepository1.getHostImg(host_id);
+    }
+
+
+
+
+
+    // 수정전 해빗 값 가져오기1
+    @Override
+    public CategoryAndContentVO contentSelectOne1(int cont_no) {
+
+        return memoryHostRepository1.contentSelectOne1(cont_no);
+
+//        if (cateAndContDTO != null) {
+//
+//
+//            // 옵션값 가져오기
+//            List<OneEntity> oneEntities = memoryHostRepository1.oneList(cont_no);
+//            List<ProdEntity> prodEntities = memoryHostRepository1.prodList(cont_no);
+//            if (oneEntities.size() > 0) {
+//                List<String> one_date = new ArrayList<>();
+//                List<Integer> one_maxqty = new ArrayList<>();
+//                List<Integer> one_price = new ArrayList<>();
+//                reqContInsDTO.setCont_type("one");
+//                for (OneEntity oneEntity : oneEntities) {
+//                    one_date.add(oneEntity.getOne_date());
+//                    one_maxqty.add(oneEntity.getOne_maxqty());
+//                    one_price.add(oneEntity.getOne_price());
+//                }
+//                reqContInsDTO.setOne_date(one_date);
+//                reqContInsDTO.setOne_maxqty(one_maxqty);
+//                reqContInsDTO.setOne_price(one_price);
+//
+//            } else if (prodEntities.size() > 0){
+//                List<String> prod_name = new ArrayList<>();
+//                List<Integer> prod_qty = new ArrayList<>();
+//                List<Integer> prod_price = new ArrayList<>();
+//                reqContInsDTO.setCont_type("prod");
+//                for (ProdEntity prodEntity : prodEntities) {
+//                    prod_name.add(prodEntity.getProd_name());
+//                    prod_qty.add(prodEntity.getProd_qty());
+//                    prod_price.add(prodEntity.getProd_price());
+//                }
+//                reqContInsDTO.setProd_name(prod_name);
+//                reqContInsDTO.setProd_qty(prod_qty);
+//                reqContInsDTO.setProd_price(prod_price);
+//            }
+//
+//        }
+//        System.out.println("reqContInsDTO = " + reqContInsDTO);
+//        return reqContInsDTO;
+    }
+
+
+    @Override
+    public List<OneEntity> oneList(int cont_no) {
+        return memoryHostRepository1.oneList(cont_no);
+    }
+
+    @Override
+    public List<ProdEntity> prodList(int cont_no) {
+        return memoryHostRepository1.prodList(cont_no);
     }
 }

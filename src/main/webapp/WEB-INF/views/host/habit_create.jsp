@@ -327,19 +327,19 @@
             <div class="item-name">
               <p>판매 유형</p>
             </div>
-            <div style="display: flex;">
-              <div class="select">
-                <input type="radio" id="prod" name="cont_type" value="prod" checked>
-                <label for="prod">
+            <div style="display: flex; align-items: center; justify-content: space-around;">
+              <div class="select" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center">
+                <input type="radio" id="prod" name="cont_type" value="prod">
+                <label for="prod" style="height: 100%; min-height: 170px; display: flex; flex-direction: column; align-items: center; justify-content: center">
                   <p>날짜 조율형</p>
-                  호스트님이 회원 연락처로 별도 연락하여 일정을 조율하는 형태의 해빗입니다. (에스테틱, 네일 등에 적합)
+                  <p>호스트님이 회원 연락처로 별도 연락하여 일정을 조율하는 형태의 해빗입니다. (에스테틱, 네일 등에 적합)</p>
                 </label>
               </div>
-              <div class="select">
+              <div class="select" style="flex: 1;">
                 <input type="radio" id="one" name="cont_type" value="one">
-                <label for="one">
+                <label for="one" style="height: 100%; min-height: 170px; display: flex; flex-direction: column; align-items: center; justify-content: center">
                   <p>날짜 지정형</p>
-                  호스트님께서 날짜와 옵션을 등록하여 가능한 날에만 예약을 받을 수 있는 해빗입니다. 일정 관리 및 고객 관리를 더 간편하게 하실 수 있습니다. (에스테틱, 네일 제외한 대부분의 해빗)
+                  <p>호스트님께서 날짜와 옵션을 등록하여 가능한 날에만 예약을 받을 수 있는 해빗입니다. 일정 관리 및 고객 관리를 더 간편하게 하실 수 있습니다. (에스테틱, 네일 제외한 대부분의 해빗)</p>
                 </label>
               </div>
             </div>
