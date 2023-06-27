@@ -98,14 +98,15 @@ $(document).ready(()=> {
             item: cont_no,
             success: (data) => {
                 $('.update-modal').css('display', 'flex')
-                let item = data.item //DTO
-                let option = data.option //리스트
+                let item = data.item //콘텐츠 DTO
+                let option = data.option //옵션 리스트
+                let optionType = data.optionType //옵션 타입
+                let cateList = data.cateList //옵션 리스트
 
                 // 카테고리 대분류 리스트 불러오기
                 let cate_large_container = $('#cate_large')
-                let cateList = item.cate_list;
-                for (let option of cateList) {
-                    cate_large_container.append("<option value='" + option.cate_large + "'>" + option.cate_large + "</option>")
+                for (let cate of cateList) {
+                    cate_large_container.append("<option value='" + cate.cate_large + "'>" + cate.cate_large + "</option>")
                 }
 
                 // 선택한 대분류 가져오기
@@ -117,8 +118,8 @@ $(document).ready(()=> {
                 $.ajax({
                     url: '/host/cate_middle.do',
                     type: 'get',
-                    itemType: 'json',
-                    item: {'cate_large': cate_large},
+                    dataType: 'json',
+                    data: {'cate_large': cate_large},
                     success: (list) => {
                         cate_middle.children().remove()
                         cate_middle.append("<option value='0'>2차 카테고리</option>")
@@ -149,13 +150,14 @@ $(document).ready(()=> {
 
                 // check한 해시태그 가져오기
                 let hashtag1 = item.cont_hashtag1
-                const hashtag2 = item.cont_hashtag2
+                const hashtag2 = item.hashtag2
                 let hashtag3 = item.cont_hashtag3
-                const hashtag4 = item.cont_hashtag4
+                const hashtag4 = item.hashtag4
                 let hashtag5 = item.cont_hashtag5
                 $('input:radio[value=' + hashtag1 + ']').attr('checked', true)
                 $('input:radio[value=' + hashtag3 + ']').attr('checked', true)
                 $('input:radio[value=' + hashtag5 + ']').attr('checked', true)
+
                 for (let tag2 of hashtag2) {
                     $('input:checkbox[value='+ tag2 +']').attr('checked', true)
                 }
@@ -166,6 +168,7 @@ $(document).ready(()=> {
                 // 판매 시작일 가져오기
                 let stdate = $('#stdate')
                 let cont_stdate = item.cont_stdate
+                console.log(cont_stdate)
                 stdate.html('판매 시작일로부터 (<strong>' + cont_stdate.substring(0,10) + '</strong>)')
 
                 // 판매종료일 가져오기
@@ -195,89 +198,106 @@ $(document).ready(()=> {
                 }
 
                 // 판매유형 가져오기
-                $('#' + optionType).removeAttr("hidden")
-                // let cont_option_one = $('#cont_option_one')
-                // let cont_option_prod = $('#cont_option_prod')
-                // if (item.prod_name !== null) {
-                //     let optionRow = $('#option_row_prod')
-                //     cont_option_prod.removeAttr('hidden')
-                //     cont_option_one.attr('hidden', true)
-                //     for (let i = 0; i < item.prod_name.length; i++) {
-                //         if (i === 0) {
-                //             $('input:text[id=prod_name' + i + ']').val(item.prod_name[i])
-                //             $('input[type="number"][id="prod_qty' + i + '"]').val(item.prod_qty[i])
-                //             $('input[type="number"][id="prod_price' + i + '"]').val(item.prod_price[i])
-                //         } else {
-                //             let row_prod = "<tr>\n" +
-                //                 "                      <td><input class='form-check-input' type='checkbox' name='cont_option_prod'></td>\n" +
-                //                 "                      <td>\n" +
-                //                 "                        <div>\n" +
-                //                 "                          <input type='text' name='prod_name' class='form-control' value='" + item.prod_name[i] + "'>\n" +
-                //                 "                        </div>\n" +
-                //                 "                      </td>\n" +
-                //                 "                      <td>\n" +
-                //                 "                        <div>\n" +
-                //                 "                          <input type='number' name='prod_qty' min='0' class='form-control' value='" + item.prod_qty[i] + "'>\n" +
-                //                 "                        </div>\n" +
-                //                 "                      </td>\n" +
-                //                 "                      <td>\n" +
-                //                 "                        <div class='input-group mb-2'>\n" +
-                //                 "                          <span class='input-group-text'>판매가</span>\n" +
-                //                 "                          <input type='number' class='form-control' name='prod_price' min='0' aria-label='Amount (to the nearest dollar)' value='" + item.prod_price[i] + "'>\n" +
-                //                 "                          <span class='input-group-text'>원</span>\n" +
-                //                 "                        </div>\n" +
-                //                 "                      </td>\n" +
-                //                 "                    </tr>"
-                //             optionRow.append(row_prod)
-                //         }
-                //     }
-                // } else if (item.one_date !== null) {
-                //     let optionRow = $('#option_row_one')
-                //     cont_option_one.removeAttr('hidden')
-                //     cont_option_prod.attr('hidden', true)
-                //     for (let i = 0; i < item.one_date.length; i++) {
-                //         if (i === 0) {
-                //             $('input[type="datetime-local"][id=one_date' + i + ']').val(item.one_date[i])
-                //             $('input[type="number"][id="one_maxqty' + i + '"]').val(item.one_maxqty[i])
-                //             $('input[type="number"][id="one_price' + i + '"]').val(item.one_price[i])
-                //         } else {
-                //             let row_one = "<tr>\n" +
-                //                 "                      <td><input class='form-check-input' type='checkbox' name='cont_option_one'></td>\n" +
-                //                 "                      <td>\n" +
-                //                 "                        <div>\n" +
-                //                 "                          <input type='datetime-local' name='one_date' class='form-control' value='" + item.one_date[i] + "'>\n" +
-                //                 "                        </div>\n" +
-                //                 "                      </td>\n" +
-                //                 "                      <td>\n" +
-                //                 "                        <div>\n" +
-                //                 "                          <input type='number' name='one_maxqty' min='0' class='form-control' value='" + item.one_maxqty[i] + "'>\n" +
-                //                 "                        </div>\n" +
-                //                 "                      </td>\n" +
-                //                 "                      <td>\n" +
-                //                 "                        <div class='input-group mb-2'>\n" +
-                //                 "                          <span class='input-group-text'>판매가</span>\n" +
-                //                 "                          <input type='number' class='form-control' name='one_price' min='0' aria-label='Amount (to the nearest dollar)' value='" + item.one_price[i] + "'>\n" +
-                //                 "                          <span class='input-group-text'>원</span>\n" +
-                //                 "                        </div>\n" +
-                //                 "                      </td>\n" +
-                //                 "                    </tr>"
-                //             optionRow.append(row_one)
-                //         }
-                //     }
-                // }
+                let type = $('#' + optionType)
+                let cont_option = $('#cont_option_' + optionType)
+                let optionRow = $('#option_row_' + optionType)
+
+                type.css('display', 'flex')
+                cont_option.removeAttr('hidden')
+
+                if(optionType === 'prod') { // 옵션이 prod 일 때
+                    $('#cont_option_one').attr('hidden', true)
+                    for (let i=0; i<option.length; i++) {
+
+                        let disabled;
+                        if (option[i].prod_status === 'N') {
+                            disabled = true
+                        } else {
+                            disabled = false
+                        }
+
+                        let row_prod =
+                            "                    <tr>\n" +
+                            "                      <td><input class='form-check-input' type='checkbox' name='cont_option_prod'></td>\n" +
+                            "                      <td>\n" +
+                            "                        <div>\n" +
+                            "                          <input type='text' name='prod_name' " + (option[i].prod_status === 'N'? '': "id=\'prod_name" + option[i].pro_no) + "' class='form-control' value='" + option[i].prod_name + "'>\n" +
+                            "                        </div>\n" +
+                            "                      </td>\n" +
+                            "                      <td>\n" +
+                            "                        <div>\n" +
+                            "                          <input type='number' name='prod_qty' " + (option[i].prod_status === 'N'? '': "id=\'prod_qty" + option[i].pro_no) + "' min='0' class='form-control' value='" + option[i].prod_qty + "'>\n" +
+                            "                        </div>\n" +
+                            "                      </td>\n" +
+                            "                      <td>\n" +
+                            "                        <div class='input-group mb-2'>\n" +
+                            "                          <span class='input-group-text'>판매가</span>\n" +
+                            "                          <input type='number' class='form-control' name='prod_price' " + (option[i].prod_status === 'N'? '': "id=\'prod_price" + option[i].pro_no) + "' min='0' aria-label='Amount (to the nearest dollar)' value='" + option[i].prod_price + "'>\n" +
+                            "                          <span class='input-group-text'>원</span>\n" +
+                            "                        </div>\n" +
+                            "                      </td>\n" +
+                            "                    </tr>"
+                        optionRow.append(row_prod)
+                        if (option[i].proed_status === 'N') {
+                            optionRow.children('#prod_name' + option[i].pro_no).attr('disabled', true)
+                            optionRow.children('#prod_qty' + option[i].pro_no).attr('disabled', true)
+                            optionRow.children('#prod_price' + option[i].pro_no).attr('disabled', true)
+                        }
+
+                    }
+
+                } else if (optionType === 'one') { // 옵션이 one 일 때
+                    $('#cont_option_prod').attr('hidden', true)
+                    for (let i = 0; i < option.length; i++) {
+                        let disabled;
+                        let id;
+                        if (option[i].one_status === 'N') {
+                            disabled = true
+                        } else {
+                            disabled = false
+                        }
+
+                        let row_one = "<tr>\n" +
+                            "                      <td><input class='form-check-input' type='checkbox' " + (option[i].one_status === 'N'? '': 'id=\'' + option[i].pro_no) + "' name='cont_option_one'></td>\n" +
+                            "                      <td>\n" +
+                            "                        <div>\n" +
+                            "                          <input type='datetime-local' name='one_date' class='form-control' value='" + option[i].one_date + "'>\n" +
+                            "                        </div>\n" +
+                            "                      </td>\n" +
+                            "                      <td>\n" +
+                            "                        <div>\n" +
+                            "                          <input type='number' name='one_maxqty' min='0' class='form-control' value='" + option[i].one_maxqty + "'>\n" +
+                            "                        </div>\n" +
+                            "                      </td>\n" +
+                            "                      <td>\n" +
+                            "                        <div class='input-group mb-2'>\n" +
+                            "                          <span class='input-group-text'>판매가</span>\n" +
+                            "                          <input type='number' class='form-control' name='one_price' min='0' aria-label='Amount (to the nearest dollar)' value='" + option[i].one_price + "'>\n" +
+                            "                          <span class='input-group-text'>원</span>\n" +
+                            "                        </div>\n" +
+                            "                      </td>\n" +
+                            "                    </tr>"
+                        optionRow.append(row_one)
+                        if (option[i].one_status === 'N') {
+                            optionRow.children('#one_date' + option[i].pro_no).attr('disabled', true)
+                            optionRow.children('#one_maxqty' + option[i].pro_no).attr('disabled', true)
+                            optionRow.children('#one_price' + option[i].pro_no).attr('disabled', true)
+                        }
+                    }
+                }
 
                 // 이미지 보여주기
-                let preview_img_container = $('#preview_img_container')
+                let preview_img_container = $('#preview_img_container');
                 for (let i = 1; i <=3; i++) {
                     let img = ''
-                    if (item.cont_img[i-1] !== undefined) {
-                        img = '/storage/' + item.cont_img[i-1].trim()
+                    if (item.imgs[i-1] !== undefined) {
+                        img = '/storage/' + item.imgs[i-1].trim()
                     } else {
                         img = '/img/No_image_available.png'
                     }
                     str = "                <div>\n" +
                         "                  <img src='" + img + "' class='preview_img' id='preview_cont_img" + i + "' alt='이미지 없음' width='200px' height='200px'>\n" +
-                        "                </div>";
+                        "                </div>"
                     preview_img_container.append(str)
                 }
 
@@ -297,9 +317,15 @@ $(document).ready(()=> {
             $('.update-modal').css('display', 'none')
             document.getElementById('option_row_one').replaceChildren()
             document.getElementById('option_row_prod').replaceChildren()
+            $('#one').css('display', 'none')
+            $('#prod').css('display', 'none')
             document.getElementById('preview_img_container').replaceChildren()
             $('#summernote').summernote('reset');
-            $('#updateform')[0].reset()
+            $('input[type="radio"][name="cont_hashtag1"]').attr('checked', false)
+            $('input[type="radio"][name="cont_hashtag3"]').attr('checked', false)
+            $('input[type="radio"][name="cont_hashtag5"]').attr('checked', false)
+            $('input[type="checkbox"][name="cont_hashtag2"]').attr('checked', false)
+            $('input[type="checkbox"][name="cont_hashtag4"]').attr('checked', false)
         } else {
             return false
         }
@@ -311,9 +337,10 @@ $(document).ready(()=> {
         $.ajax({
             url: '/host/cate_middle.do',
             type: 'get',
-            item: {'cate_large': cate_large}, // json형태로 넘김
+            dataType: 'json',
+            data: {'cate_large': cate_large}, // json형태로 넘김
             success: (List) => {
-                document.getElementById('cate_middle').replaceChildren()
+                $('#cate_middle').children().remove()
                 $('#cate_middle').append("<option value='0'>2차 카테고리</option>")
                 for (let map of List) {
                     $('#cate_middle').append("<option value='" + map.cate_middle + "'>" + map.cate_middle + "</option>")
@@ -394,6 +421,7 @@ $(document).ready(()=> {
 
     $('#option_remove_prod').on('click', () => {
         let checked = $('input:checkbox[name="cont_option_prod"]:checked')
+        console.log(checked.attr('id'))
 
         if(checked.length === 0) {
             alert("삭제할 항목을 선택해 주세요")
@@ -435,17 +463,62 @@ $(document).ready(()=> {
 
     $('#option_remove_one').on('click', () => {
         let checked = $('input:checkbox[name="cont_option_one"]:checked')
+        let checkedSize = checked.length;
 
-        if(checked.length === 0) {
-            alert("삭제할 항목을 선택해 주세요")
-            return
+        if(checkedSize === 0) {
+            alert("삭제할 항목을 선택해 주세요");
+            return;
         }
-        let checkedSize = checked.length
-        if(confirm('선택된 ' + checkedSize + '개의 옵션을 삭제하시겠습니까?')) {
-            checked.each((i, value)=>{
-                let checkRow = value.parentElement.parentElement
-                $(checkRow).remove()
-            })
+
+        let count = 0
+        let idList = []
+        for (let input of checked) {
+            if(input.id !== '') {
+                count++
+                idList.push(input.id)
+            }
+        }
+
+        if (count > 0) {
+            if (confirm("선택된 옵션중 기존의 옵션이 포함되어 있습니다. 삭제하시겠습니까?\n(삭제한 옵션은 복구할 수 없습니다)")) {
+
+                let optionType;
+                if (idList[0].substring(0, 1) === 'o') {
+                    optionType = 'one'
+                } else {
+                    optionType = 'prod'
+                }
+
+                // 옵션 삭제 ajax
+                $.ajax({
+                    url: '/host/option/delete.do',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        'idList': idList,
+                        'optionType': optionType
+                    },
+                    success: (result)=>{
+                        if (result == 0) {
+                            alert("다시 시도 해주세요")
+                        } else {
+                            checked.each((i, value)=>{
+                                let checkRow = value.parentElement.parentElement
+                                $(checkRow).remove()
+                            })
+                        }
+                    }
+                })
+            } else {
+                return;
+            }
+        } else {
+            if(confirm('선택된 ' + checkedSize + '개의 옵션을 삭제하시겠습니까?')) {
+                checked.each((i, value)=>{
+                    let checkRow = value.parentElement.parentElement
+                    $(checkRow).remove()
+                })
+            }
         }
     })
 

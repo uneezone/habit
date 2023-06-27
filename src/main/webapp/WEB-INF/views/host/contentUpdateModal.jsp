@@ -48,10 +48,10 @@
                   <input type="text" class="form-control" id="cont_name" name="cont_name" placeholder="해빗명을 입력해주세요" onchange="contNameCheck()">
                 </div>
                 <div>
-                  <small hidden id="cont_name_small">해빗명은 필수입니다. 40자 이내로 입력해주세요.</small>
+                  <p class="item2-info" hidden id="cont_name_small" style="color: gray;">해빗명은 필수입니다. 40자 이내로 입력해주세요.</p>
                 </div>
                 <div>
-                  <p style="color: gray;">해빗의 특징이 잘 드러나도록 해빗명을 입력해주세요.</p>
+                  <p class="item2-info" style="color: gray;">해빗의 특징이 잘 드러나도록 해빗명을 입력해주세요.</p>
                 </div>
               </div>
             </div><hr>
@@ -91,7 +91,7 @@
                 <p>해시태그</p>
               </div>
               <div>
-                <p style="color: gray;">해빗 이용자들에게 해시태그로 보여질 정보입니다.<br> 해당되는 정보를 선택해 주세요.</p>
+                <p class="item2-info" style="color: gray;">해빗 이용자들에게 해시태그로 보여질 정보입니다.<br> 해당되는 정보를 선택해 주세요.</p>
               </div>
               <div>
                 <div class="item">
@@ -254,14 +254,14 @@
                 <p>판매 유형</p>
               </div>
               <div style="display: flex; align-items: center; justify-content: space-around;">
-                <div id="prod" hidden class="select" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center">
+                <div id="prod" class="select" style="flex: 1; display: none; flex-direction: column; align-items: center; justify-content: center">
                   <input type="radio" id="type-prod" name="cont_type" value="prod" checked>
                   <label for="type-prod" style="height: 100%; min-height: 170px; display: flex; flex-direction: column; align-items: center; justify-content: center">
                     <p>날짜 조율형</p>
                     <p>호스트님이 회원 연락처로 별도 연락하여 일정을 조율하는 형태의 해빗입니다. (에스테틱, 네일 등에 적합)</p>
                   </label>
                 </div>
-                <div id="one" hidden class="select" style="flex: 1;">
+                <div id="one" class="select" style="flex: 1; display: none; flex-direction: column; align-items: center; justify-content: center">
                   <input type="radio" id="type-one" name="cont_type" value="one" checked>
                   <label for="type-one" style="height: 100%; min-height: 170px; display: flex; flex-direction: column; align-items: center; justify-content: center">
                     <p>날짜 지정형</p>
@@ -289,26 +289,7 @@
                       <th>(예시) 판매수량</th>
                       <th>가격</th>
                     </tr>
-                    <tr>
-                      <td></td>
-                      <td>
-                        <div>
-                          <input type="text" name="prod_name" id="prod_name0" class="form-control">
-                        </div>
-                      </td>
-                      <td>
-                        <div>
-                          <input type="number" min="0" name="prod_qty" id="prod_qty0" class="form-control">
-                        </div>
-                      </td>
-                      <td>
-                        <div class="input-group mb-2">
-                          <span class="input-group-text">판매가</span>
-                          <input type="number" class="form-control" min="0" name="prod_price" id="prod_price0" aria-label="Amount (to the nearest dollar)">
-                          <span class="input-group-text">원</span>
-                        </div>
-                      </td>
-                    </tr>
+
                     </thead>
                     <!-- 옵션목록 추가 태그 시작 -->
                     <tbody id="option_row_prod">
@@ -321,7 +302,10 @@
                     </tr>
                   </table>
                   <div>
-                    <p class="item2-info" style="color: gray;">해빗 옵션 가격은 5000원 이상부터 등록 가능합니다.</p>
+                    <p class="item2-info" style="color: gray;">- 구매 기록이 있는 옵션은 수정이 불가능 합니다.</p>
+                  </div>
+                  <div>
+                    <p class="item2-info" style="color: gray;">- 해빗 옵션 가격은 5000원 이상부터 등록 가능합니다.</p>
                   </div>
                 </div>
               </div>
@@ -341,26 +325,6 @@
                       <th>(예시) 최대 모집인원</th>
                       <th>가격</th>
                     </tr>
-                    <tr>
-                      <td></td>
-                      <td>
-                        <div>
-                          <input class="form-control" name="one_date" id="one_date0" type="datetime-local">
-                        </div>
-                      </td>
-                      <td>
-                        <div>
-                          <input type="number" name="one_maxqty" id="one_maxqty0" min="0" class="form-control">
-                        </div>
-                      </td>
-                      <td>
-                        <div class="input-group mb-2">
-                          <span class="input-group-text">판매가</span>
-                          <input type="number" class="form-control" name="one_price" id="one_price0" min="0" aria-label="Amount (to the nearest dollar)">
-                          <span class="input-group-text">원</span>
-                        </div>
-                      </td>
-                    </tr>
                     </thead>
                     <!-- 옵션목록 추가 태그 시작 -->
                     <tbody id="option_row_one">
@@ -373,7 +337,10 @@
                     </tr>
                   </table>
                   <div>
-                    <p class="item2-info" style="color: gray;">해빗 옵션 가격은 5000원 이상부터 등록 가능합니다.</p>
+                    <p class="item2-info" style="color: gray;">- 구매 기록이 있는 옵션은 수정이 불가능 합니다.</p>
+                  </div>
+                  <div>
+                    <p class="item2-info" style="color: gray;">- 해빗 옵션 가격은 5000원 이상부터 등록 가능합니다.</p>
                   </div>
                 </div>
               </div>

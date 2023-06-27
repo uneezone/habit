@@ -35,13 +35,14 @@ public interface HostService1 {
 
     int reservationStatusChangeAndRefundInsert(RequestReservationStatusChangeDTO requestReservationStatusChangeDTO);
     int deleteContent(int no);
-    RequestContentValueDTO contentSelectOne(int no);
-    CategoryAndContentVO contentSelectOne1(int no);
+    CategoryAndContentVO contentSelectOne(int no);
     String getHostImg(String host_id);
 
 
     List<OneEntity> oneList(int no);
     List<ProdEntity> prodList(int no);
 
+    Map<String, Object> contentUpdateBefore (int cont_no);
 
+    int optionDelete(RequestOptionDeleteDTO requestOptionDeleteDTO);
 }

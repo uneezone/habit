@@ -24,8 +24,8 @@ public class MemoryHostRepository1 implements HostRepository1{
 
     // 대분류 선택에 따른 중분류 list 불러오기
     @Override
-    public List<Map<String, Object>> selectCate(String cateLarge) {
-        return sqlSession.selectList("host1.cateListMiddle", cateLarge);
+    public List<Map<String, Object>> selectCate(String cate_large) {
+        return sqlSession.selectList("host1.cateListMiddle", cate_large);
     }
 
     // 카테고리코드 가져오기
@@ -49,20 +49,10 @@ public class MemoryHostRepository1 implements HostRepository1{
     }
 
     // habit update를 위한 값 가져오기
+
     @Override
     public CategoryAndContentVO contentSelectOne(int cont_no) {
         return sqlSession.selectOne("host1.contentSelectOne", cont_no);
-    }
-
-
-
-
-
-
-
-    @Override
-    public CategoryAndContentVO contentSelectOne1(int cont_no) {
-        return sqlSession.selectOne("host1.contentSelectOne1", cont_no);
     }
 
 
@@ -92,6 +82,12 @@ public class MemoryHostRepository1 implements HostRepository1{
     @Override
     public int updateContent(RequestContentValueDTO reqContValDTO) {
         return sqlSession.update("host1.updateCont", reqContValDTO);
+    }
+
+    // 콘텐츠 번호에 따른 구매기록 확인
+    @Override
+    public int contentPurchaseCheck(Map<String, Object> map) {
+        return sqlSession.selectOne("host1.contentPurchaseCheck", map);
     }
 
 
@@ -230,5 +226,15 @@ public class MemoryHostRepository1 implements HostRepository1{
     @Override
     public String selectUserLevel(String id) {
         return sqlSession.selectOne("host1.selectUserLevel");
+    }
+
+    @Override
+    public int optionPurchaseCheck(String pro_no) {
+        return sqlSession.selectOne("host1.optionPurchaseCheck");
+    }
+
+    @Override
+    public int deleteOption(RequestOptionDeleteDTO reqOptDelDTO) {
+        return sqlSession.delete("host1.deleteOption", reqOptDelDTO);
     }
 }

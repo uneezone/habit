@@ -17,11 +17,10 @@ public interface HostRepository1 {
     List<ResponseContentListDTO> contentList (RequestContentListDTO requestContentListDTO);
     int contentListCount(RequestContentListDTO requestContentListDTO);
     CategoryAndContentVO contentSelectOne(int no);
-    CategoryAndContentVO contentSelectOne1(int no);
     int insertCont(RequestContentValueDTO requestContentValueDTO);
     int deleteContent(int no);
     int updateContent(RequestContentValueDTO requestContentValueDTO);
-
+    int contentPurchaseCheck(Map<String, Object> map);
 
     // table one
     List<OneEntity> oneList(int no);
@@ -31,11 +30,16 @@ public interface HostRepository1 {
     int reservationListCount(RequestReservationDTO requestReservationDTO);
     int reservationStatusChange(RequestReservationStatusChangeDTO requestReservationStatusChangeDTO);
 
+    int optionPurchaseCheck(String pro_no);
+    int deleteOption(RequestOptionDeleteDTO requestOptionDeleteDTO);
+
+
 
     // table prod
     List<ProdEntity> prodList(int no);
     int insertProd(List<ProdEntity> list);
     int deleteProd(int no);
+
 
 
     // table payd
@@ -68,5 +72,6 @@ public interface HostRepository1 {
 
     // table user
     String selectUserLevel(String id);
+
 
 }

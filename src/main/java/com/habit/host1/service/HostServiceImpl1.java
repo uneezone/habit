@@ -27,8 +27,8 @@ public class HostServiceImpl1 implements HostService1 {
 
     // 대분류 선택에 따른 중분류 list 불러오기
     @Override
-    public List<Map<String, Object>> selectCate(String keyword) {
-        return memoryHostRepository1.selectCate(keyword);
+    public List<Map<String, Object>> selectCate(String cate_large) {
+        return memoryHostRepository1.selectCate(cate_large);
     }
 
     // 해빗 등록 (insert)
@@ -129,6 +129,16 @@ public class HostServiceImpl1 implements HostService1 {
             for (ResponseContentListDTO dto : list) {
                 String cont_img = dto.getCont_img().trim().split("\\|")[0];
                 dto.setCont_img(cont_img);
+
+                Map<String, Object> map = new HashMap<>();
+                map.put("host_id", dto.getHost_id());
+                map.put("cont_no", dto.getCont_no());
+                int result = memoryHostRepository1.contentPurchaseCheck(map);
+
+                if (result > 0) {
+                    // 삭제 불가를 위해 status에 기록 남기기
+                    dto.setContentPurchaseStatus("N");
+                }
             }
         }
         return list;
@@ -147,78 +157,6 @@ public class HostServiceImpl1 implements HostService1 {
     }
 
     // 수정전 해빗 값 가져오기
-    @Override
-    public RequestContentValueDTO contentSelectOne(int cont_no) {
-
-        CategoryAndContentVO cateAndContDTO = memoryHostRepository1.contentSelectOne(cont_no);
-        RequestContentValueDTO reqContInsDTO = new RequestContentValueDTO();
-        if (cateAndContDTO != null) {
-
-            // 카테고리 불러오기
-            reqContInsDTO.setCate_list(memoryHostRepository1.cateList());
-            reqContInsDTO.setCont_no(cont_no);
-            reqContInsDTO.setCate_large(cateAndContDTO.getCate_large());
-            reqContInsDTO.setCate_middle(cateAndContDTO.getCate_middle());
-            reqContInsDTO.setCont_name(cateAndContDTO.getCont_name());
-            reqContInsDTO.setCont_zip(cateAndContDTO.getCont_zip());
-            reqContInsDTO.setCont_addr1(cateAndContDTO.getCont_addr1());
-            reqContInsDTO.setCont_addr2(cateAndContDTO.getCont_addr2());
-            reqContInsDTO.setCont_extaddr(cateAndContDTO.getCont_extaddr());
-            reqContInsDTO.setCont_hashtag1(cateAndContDTO.getCont_hashtag1());
-            reqContInsDTO.setCont_hashtag3(cateAndContDTO.getCont_hashtag3());
-            reqContInsDTO.setCont_hashtag5(cateAndContDTO.getCont_hashtag5());
-            reqContInsDTO.setCont_endate(cateAndContDTO.getCont_endate());
-            reqContInsDTO.setCont_stdate(cateAndContDTO.getCont_stdate());
-            reqContInsDTO.setCont_content(cateAndContDTO.getCont_content());
-
-            // 해시태그2
-            List<String> cont_hashtag2 = List.of(cateAndContDTO.getCont_hashtag2().trim().split("\\|"));
-            reqContInsDTO.setCont_hashtag2(cont_hashtag2);
-
-            // 해시태그4
-            List<String> cont_hashtag4 = List.of(cateAndContDTO.getCont_hashtag4().trim().split("\\|"));
-            reqContInsDTO.setCont_hashtag4(cont_hashtag4);
-
-            // 이미지
-            List<String> cont_imgs = List.of(cateAndContDTO.getCont_img().trim().split("\\|"));
-            reqContInsDTO.setCont_img(cont_imgs);
-
-            // 옵션값 가져오기
-            List<OneEntity> oneEntities = memoryHostRepository1.oneList(cont_no);
-            List<ProdEntity> prodEntities = memoryHostRepository1.prodList(cont_no);
-            if (oneEntities.size() > 0) {
-                List<String> one_date = new ArrayList<>();
-                List<Integer> one_maxqty = new ArrayList<>();
-                List<Integer> one_price = new ArrayList<>();
-                reqContInsDTO.setCont_type("one");
-                for (OneEntity oneEntity : oneEntities) {
-                    one_date.add(oneEntity.getOne_date());
-                    one_maxqty.add(oneEntity.getOne_maxqty());
-                    one_price.add(oneEntity.getOne_price());
-                }
-                reqContInsDTO.setOne_date(one_date);
-                reqContInsDTO.setOne_maxqty(one_maxqty);
-                reqContInsDTO.setOne_price(one_price);
-
-            } else if (prodEntities.size() > 0){
-                List<String> prod_name = new ArrayList<>();
-                List<Integer> prod_qty = new ArrayList<>();
-                List<Integer> prod_price = new ArrayList<>();
-                reqContInsDTO.setCont_type("prod");
-                for (ProdEntity prodEntity : prodEntities) {
-                    prod_name.add(prodEntity.getProd_name());
-                    prod_qty.add(prodEntity.getProd_qty());
-                    prod_price.add(prodEntity.getProd_price());
-                }
-                reqContInsDTO.setProd_name(prod_name);
-                reqContInsDTO.setProd_qty(prod_qty);
-                reqContInsDTO.setProd_price(prod_price);
-            }
-
-        }
-        System.out.println("reqContInsDTO = " + reqContInsDTO);
-        return reqContInsDTO;
-    }
 
     // 원데이클래스 예약건 List 가져오기
     @Override
@@ -391,48 +329,9 @@ public class HostServiceImpl1 implements HostService1 {
 
     // 수정전 해빗 값 가져오기1
     @Override
-    public CategoryAndContentVO contentSelectOne1(int cont_no) {
+    public CategoryAndContentVO contentSelectOne(int cont_no) {
 
-        return memoryHostRepository1.contentSelectOne1(cont_no);
-
-//        if (cateAndContDTO != null) {
-//
-//
-//            // 옵션값 가져오기
-//            List<OneEntity> oneEntities = memoryHostRepository1.oneList(cont_no);
-//            List<ProdEntity> prodEntities = memoryHostRepository1.prodList(cont_no);
-//            if (oneEntities.size() > 0) {
-//                List<String> one_date = new ArrayList<>();
-//                List<Integer> one_maxqty = new ArrayList<>();
-//                List<Integer> one_price = new ArrayList<>();
-//                reqContInsDTO.setCont_type("one");
-//                for (OneEntity oneEntity : oneEntities) {
-//                    one_date.add(oneEntity.getOne_date());
-//                    one_maxqty.add(oneEntity.getOne_maxqty());
-//                    one_price.add(oneEntity.getOne_price());
-//                }
-//                reqContInsDTO.setOne_date(one_date);
-//                reqContInsDTO.setOne_maxqty(one_maxqty);
-//                reqContInsDTO.setOne_price(one_price);
-//
-//            } else if (prodEntities.size() > 0){
-//                List<String> prod_name = new ArrayList<>();
-//                List<Integer> prod_qty = new ArrayList<>();
-//                List<Integer> prod_price = new ArrayList<>();
-//                reqContInsDTO.setCont_type("prod");
-//                for (ProdEntity prodEntity : prodEntities) {
-//                    prod_name.add(prodEntity.getProd_name());
-//                    prod_qty.add(prodEntity.getProd_qty());
-//                    prod_price.add(prodEntity.getProd_price());
-//                }
-//                reqContInsDTO.setProd_name(prod_name);
-//                reqContInsDTO.setProd_qty(prod_qty);
-//                reqContInsDTO.setProd_price(prod_price);
-//            }
-//
-//        }
-//        System.out.println("reqContInsDTO = " + reqContInsDTO);
-//        return reqContInsDTO;
+        return memoryHostRepository1.contentSelectOne(cont_no);
     }
 
 
@@ -444,5 +343,46 @@ public class HostServiceImpl1 implements HostService1 {
     @Override
     public List<ProdEntity> prodList(int cont_no) {
         return memoryHostRepository1.prodList(cont_no);
+    }
+
+    @Override
+    public Map<String, Object> contentUpdateBefore(int cont_no) {
+        Map<String, Object> map = new HashMap<>();
+
+        List<OneEntity> oneList = memoryHostRepository1.oneList(cont_no);
+        List<ProdEntity> prodList = memoryHostRepository1.prodList(cont_no);
+        List<Map<String, Object>> cateList = memoryHostRepository1.cateList();
+
+        map.put("item", memoryHostRepository1.contentSelectOne(cont_no));
+        map.put("cateList", cateList);
+
+        if (oneList.size() > 0) {
+            for (OneEntity entity : oneList) {
+                String pro_no = entity.getPro_no();
+                int result = memoryHostRepository1.optionPurchaseCheck(pro_no);
+                if (result > 0) {
+                    entity.setOne_status("N");
+                }
+            }
+            map.put("option", oneList);
+            map.put("optionType", "one");
+
+        } else {
+            for (ProdEntity entity : prodList) {
+                String pro_no = entity.getPro_no();
+                int result = memoryHostRepository1.optionPurchaseCheck(pro_no);
+                if (result > 0) {
+                    entity.setProd_status("N");
+                }
+            }
+            map.put("option", prodList);
+            map.put("optionType", "prod");
+        }
+        return map;
+    }
+
+    @Override
+    public int optionDelete(RequestOptionDeleteDTO reqOptDelDTO) {
+        return memoryHostRepository1.deleteOption(reqOptDelDTO);
     }
 }
