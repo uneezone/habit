@@ -29,7 +29,7 @@
         </foreach>
 
         group by c.cont_no
-        order by c.cont_no asc;
+        order by c.cont_no desc;
     </select>
 
 

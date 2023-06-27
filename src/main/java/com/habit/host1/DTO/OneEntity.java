@@ -5,7 +5,6 @@ import lombok.Setter;
 
 @Getter @Setter
 public class OneEntity {
-    public OneEntity() {}
 
     private String pro_no;
     private int cont_no;

@@ -59,10 +59,10 @@ public class ZzimContH {
 
     @GetMapping("/getZzim")
     @ResponseBody
-    public List<Integer> zzimGet(@RequestParam(value = "userId")String user_id){
+    public List<Integer> zzimGet(@SessionAttribute(name = "s_id",required = false)String user_id){
         log.info("user-id={}",user_id);
         List<Integer> cont_nos = zzimService.zzimGet(user_id);
-
+        log.info("cont_nos={}",cont_nos);
         return cont_nos;
     }
 

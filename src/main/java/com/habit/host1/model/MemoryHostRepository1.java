@@ -50,9 +50,31 @@ public class MemoryHostRepository1 implements HostRepository1{
 
     // habit update를 위한 값 가져오기
     @Override
-    public CategoryAndContentDTO contentSelectOne(int cont_no) {
+    public CategoryAndContentVO contentSelectOne(int cont_no) {
         return sqlSession.selectOne("host1.contentSelectOne", cont_no);
     }
+
+
+
+
+
+
+
+    @Override
+    public CategoryAndContentVO contentSelectOne1(int cont_no) {
+        return sqlSession.selectOne("host1.contentSelectOne1", cont_no);
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     // 콘텐츠 테이블 insert
     @Override

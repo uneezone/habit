@@ -1,14 +1,16 @@
-function hello(e){
-    $('.href').click(function(){
-        $(e).parents().eq(3).remove();
-        return false;
-    })
+//보여줄 상품 갯수
+let showPro=2;
 
+function hello(e){
+
+        $(e).parents().eq(3).remove();
+        $(".Home_product_recommend_p").css('display','none');
+        $(".Home_product_recommend_p").slice(0, showPro).css('display','block'); // 초기갯수
+        return false;
 
 }
 
-//보여줄 상품 갯수
-let showPro=2;
+
 
 window.onload=function(){
   //common.js
@@ -18,6 +20,15 @@ window.onload=function(){
   onPageClick(1);*/
 
     $(".Home_product_recommend_p").slice(0, showPro).css('display','block'); // 초기갯수
+
+    var btn=$('.zzim_btn');
+    btn.click(function (){
+
+        $(this).parents().eq(3).remove();
+
+        $(".Home_product_recommend_p").slice(0, showPro).css('display','block'); // 초기갯수
+        return false;
+    })
 }
 
 

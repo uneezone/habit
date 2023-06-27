@@ -51,7 +51,7 @@ function common(){
             , url: "/search/hotSearch"
             , async: false
             , success: function (data) {
-                console.log(data);
+                ///console.log(data);
                 let html="";
                 $(data).each(function(index,value){
                     html+="<a href='/search?recentSearch="+value+"'><div class=\"global_modal_searchResult\">"+value+"</div></a>";
@@ -81,13 +81,13 @@ function common(){
                 // alert("ddd");
                 this.children[0].src = "/img/redheart2.png";
                 let id = this.children[0].id;
-                console.log(id);
+                //console.log(id);
                 let indexOf = id.indexOf("_");
 
                 id = id.substring(indexOf+3, id.length);
-                console.log(id);
+                //console.log(id);
 
-                console.log("id=" + $(".s_id").text());
+                //console.log("id=" + $(".s_id").text());
 
 
                     //$.ajax 써야 함. async:true 잊지 않고 추가하기
@@ -98,8 +98,9 @@ function common(){
                             , data: {"cont_no": id}
                             , async: false
                             , success: function (data) {
-                                console.log(data);
-                                window.location.reload();
+                                //console.log(data);
+                                //window.location.reload();
+                                getZzim();
                             }
                         });
                     }
@@ -110,11 +111,11 @@ function common(){
                     this.children[0].src = "/img/black2.png";
                     let id = this.children[0].id;
 
-                    console.log(id);
+                    //console.log(id);
                     let indexOf = id.indexOf("_");
 
                     id = id.substring(indexOf+3, id.length);
-                    console.log(id);
+                    //console.log(id);
                     //$.ajax 써야 함. async:true 잊지 않고 추가하기
                     if ($(".s_id").text() != "") {
                         $.ajax({
@@ -123,8 +124,9 @@ function common(){
                             , data: {"cont_no": id}
                             , async: false
                             , success: function (data) {
-                                //console.log(data);
-                                window.location.reload();
+                                console.log(data);
+                                //window.location.reload();
+                                getZzim();
                             }
                         });
                     }
@@ -135,11 +137,32 @@ function common(){
         }else{
             location.href="/login";
         }
-        setInterval(releaseA,1000);
+
     });
 }
 
+//찜목록가져오기
+function getZzim(){
+    $(".zzim_img").attr("src", "/img/black2.png");
 
+    $.ajax({
+        type: "GET"
+        , url: "/zzim/getZzim"
+        , async: false
+        , success: function (data) {
+            //console.log(data);
+            $(data).each(function (index, value) {
+                //console.log(value);
+
+                $("#cont_no" + value).attr("src", "/img/redheart2.png");
+                $("#newcont_no"+value).attr("src", "/img/redheart2.png");
+                $("#avgcont_no"+value).attr("src", "/img/redheart2.png");
+
+            });
+        }
+
+    });
+}
 
 //찜할때 a태그 이동 막기
 function preventA(){

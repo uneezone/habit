@@ -37,7 +37,7 @@
                         <a href="/login" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">로그인</div></a>
                     </c:when>
                     <c:otherwise>
-                        <a href="/mygage" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu"><span>${sessionScope.s_name}</span>님</div></a>
+                        <a href="/mygage" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu"><span class="s_id">${sessionScope.s_name}</span>님</div></a>
                         <a href="/logout.do" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu"><button style="display: inline-block; border:0.5px solid rgb(165, 165, 165); background-color: white; border-radius: 2px;">로그아웃</button></div></a>
                     </c:otherwise>
                 </c:choose>
@@ -321,11 +321,11 @@
                                     <a href="/category/products/${vt.cont_no}" class="href">
                                         <div class="Home_product_recommend_p_div">
                                             <div>
-                                                <img src="/storage/${vt.cont_img}" alt="" width="150px" onerror="this.src='/storage/ang.png'">
+                                                <img src="/storage/${vt.cont_img}" alt="" style="width: 150px;height: 150px;" onerror="this.src='/storage/ang.png'">
                                             </div>
                                             <div>
-                                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                                    <img src="/img/black2.png" id="newcont_no${vt.cont_no}" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="return false">
+                                                    <img src="/img/black2.png" id="cont_no${vt.cont_no}" alt="" width="40px" class="Home_product_recommend_p_div_img zzim_img">
                                                 </button>
                                             </div>
                                             <div class="Home_product_recommend_p_font">
@@ -403,11 +403,11 @@
                                     <a href="/category/products/${rt.cont_no}" class="href">
                                         <div class="Home_product_recommend_p_div">
                                             <div>
-                                                <img src="/storage/${rt.cont_img}" alt="" width="150px" onerror="this.src='/storage/ang.png'">
+                                                <img src="/storage/${rt.cont_img}" alt="" style="width: 150px;height: 150px;" onerror="this.src='/storage/ang.png'">
                                             </div>
                                             <div>
-                                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                                    <img src="/img/black2.png" id="newcont_no${rt.cont_no}" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="return false">
+                                                    <img src="/img/black2.png" id="avgcont_no${rt.cont_no}" alt="" width="40px" class="Home_product_recommend_p_div_img zzim_img">
                                                 </button>
                                             </div>
                                             <div class="Home_product_recommend_p_font">
@@ -469,11 +469,11 @@
                                     <a href="/category/products/${dt.cont_no}" class="href">
                                         <div class="Home_product_recommend_p_div">
                                             <div>
-                                                <img src="/storage/${dt.cont_img}" alt="" width="150px" onerror="this.src='/storage/ang.png'">
+                                                <img src="/storage/${dt.cont_img}" alt="" style="width: 150px;height: 150px;" onerror="this.src='/storage/ang.png'">
                                             </div>
                                             <div>
-                                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                                    <img src="/img/black2.png" id="newcont_no${dt.cont_no}" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="return false">
+                                                    <img src="/img/black2.png" id="newcont_no${dt.cont_no}" alt="" width="40px" class="Home_product_recommend_p_div_img zzim_img">
                                                 </button>
                                             </div>
                                             <div class="Home_product_recommend_p_font">
@@ -522,7 +522,7 @@
             <!--호스트 지원 배너-->
             <div class="Home_smallBanner2">
                 <div>
-                    <a href="host_newhost.html"><img src="img/host.png" alt=""></a>
+                    <a href="/host"><img src="img/host.png" alt=""></a>
                 </div>
             </div>
 
@@ -578,7 +578,7 @@
                     //console.log(data);
                     $(data).each(function (index, value) {
                         console.log(value);
-
+                        $("#avgcont_no"+value).attr("src", "/img/redheart2.png");
                         $("#cont_no" + value).attr("src", "/img/redheart2.png");
                         $("#newcont_no"+value).attr("src", "/img/redheart2.png");
                     });

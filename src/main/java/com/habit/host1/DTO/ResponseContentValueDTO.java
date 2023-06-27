@@ -10,7 +10,7 @@ import java.util.Map;
 
 @ToString
 @Getter @Setter
-public class RequestContentValueDTO {
+public class ResponseContentValueDTO {
     private String host_id;
 
     private String cate_no;
@@ -37,11 +37,11 @@ public class RequestContentValueDTO {
     private List<String> cont_img;
     private String cont_content;
 
-    private List<String> prod_name;
-    private List<Integer> prod_qty;
-    private List<Integer> prod_price;
-    private List<String> one_date;
-    private List<Integer> one_maxqty;
-    private List<Integer> one_price;
+//    private List<String> prod_name;
+//    private List<Integer> prod_qty;
+//    private List<Integer> prod_price;
+//    private List<String> one_date;
+//    private List<Integer> one_maxqty;
+//    private List<Integer> one_price;
 
 }

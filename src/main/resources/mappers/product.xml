@@ -167,7 +167,7 @@
              from review r join user u on r.user_id=u.user_id
              where cont_no=#{cont_no} and review_status="Y"
             )
-                AA join cont c on AA.cont_no=c.cont_no order by AA.review_star desc
+                AA join cont c on AA.cont_no=c.cont_no order by AA.review_star desc, review_date desc
     </select>
 
     <update id="changeReviewStatus" parameterType="Integer">
@@ -195,11 +195,11 @@
         ,IFNULL(avg(r.review_star),0) as review_avg,count(r.review_no) as review_count
         from cont c inner join
 
-        (select cont_no, min(prod_price) as price
-        from prod group by cont_no
-        union
-        select cont_no, min(one_price) as price
-        from one group by cont_no )
+            (select cont_no, min(prod_price) as price
+            from prod group by cont_no
+            union
+            select cont_no, min(one_price) as price
+            from one group by cont_no )
 
         AA on c.cont_no=AA.cont_no left outer join review r on c.cont_no = r.cont_no and review_status!="N"
         where c.cont_no in

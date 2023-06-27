@@ -1,9 +1,4 @@
-function hello(){
-    $('.href').click(function(){
-        return false;
-    })
-    
-}
+
 
 $(document).ready(function(){
     if($.cookie("modal")!='check'){
@@ -17,16 +12,70 @@ window.onload=function(){
     
     var btn=$('.zzim_btn');
 
+
     btn.click(function(){
-       //찜아닐떄
-        if( this.children[0].src.indexOf("black2.png")!=-1){
-          //찜에 insert
-            this.children[0].src="img/redheart2.png";
-            
-            
-        }else {   //찜일떄
-            //찜에서 제거
-            this.children[0].src="img/black2.png";
+
+        if($(".s_id").text()!="") {
+            //찜아닐떄
+            if (this.children[0].src.indexOf("black2.png") != -1) {
+                // alert("ddd");
+                this.children[0].src = "/img/redheart2.png";
+                let id = this.children[0].id;
+                console.log(id);
+                let indexOf = id.indexOf("_");
+
+                id = id.substring(indexOf+3, id.length);
+                //console.log(id);
+
+                //console.log("id=" + $(".s_id").text());
+
+
+                //$.ajax 써야 함. async:true 잊지 않고 추가하기
+                if ($(".s_id").text() != "") {
+                    $.ajax({
+                        type: "POST"
+                        , url: "/zzim/insert"
+                        , data: {"cont_no": id}
+                        , async: false
+                        , success: function (data) {
+                            console.log(data);
+                            //window.location.reload();
+                            getZzim();
+                        }
+                    });
+                }
+
+
+            } else {   //찜일떄
+                //alert("ddssd");
+                this.children[0].src = "/img/black2.png";
+                let id = this.children[0].id;
+
+                console.log(id);
+                let indexOf = id.indexOf("_");
+
+                id = id.substring(indexOf+3, id.length);
+                //console.log(id);
+                //$.ajax 써야 함. async:true 잊지 않고 추가하기
+                if ($(".s_id").text() != "") {
+                    $.ajax({
+                        type: "POST"
+                        , url: "/zzim/del"
+                        , data: {"cont_no": id}
+                        , async: false
+                        , success: function (data) {
+                            console.log(data);
+                            //window.location.reload();
+                            getZzim();
+                        }
+                    });
+                }
+
+
+            }
+
+        }else{
+            location.href="/login";
         }
 
     });
@@ -181,6 +230,28 @@ window.onload=function(){
 
 
  
+}
+
+function getZzim(){
+    $(".zzim_img").attr("src", "/img/black2.png");
+
+    $.ajax({
+        type: "GET"
+        , url: "/zzim/getZzim"
+        , async: false
+        , success: function (data) {
+            //console.log(data);
+            $(data).each(function (index, value) {
+                //console.log(value);
+
+                $("#cont_no" + value).attr("src", "/img/redheart2.png");
+                $("#newcont_no"+value).attr("src", "/img/redheart2.png");
+                $("#avgcont_no"+value).attr("src", "/img/redheart2.png");
+
+            });
+        }
+
+    });
 }
 
 function setCookie( name, value, exDay ) {
