@@ -311,7 +311,27 @@ $(document).ready(function() {
 
 });
 
+//이미지 슬라이드
+let currentIndex = 0;
+let imageItems = document.getElementsByClassName('image_item');
 
+function prevImage() {
+    imageItems[currentIndex].style.display = "none";
+    currentIndex--;
+    if (currentIndex < 0) {
+        currentIndex = imageItems.length - 1;
+    }
+    imageItems[currentIndex].style.display = "block";
+}
+
+function nextImage() {
+    imageItems[currentIndex].style.display = "none";
+    currentIndex++;
+    if (currentIndex >= imageItems.length) {
+        currentIndex = 0;
+    }
+    imageItems[currentIndex].style.display = "block";
+}
 
 
 <!-- 슬라이드 -->
