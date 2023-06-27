@@ -50,18 +50,33 @@ public class ProductCont {
         mav.setViewName("product/itemlist");
         mav.addObject("middle", productDao.middle(cate_large));
 
-        List<Map<String, Object>> list = productDao.hotTop(cate_large);
-        for (Map<String, Object> cont : list) {
+        List<Map<String, Object>> hotTop = productDao.hotTop(cate_large);
+        for (Map<String, Object> cont : hotTop) {
             String cont_img = (String) cont.get("cont_img");
             cont_img = cont_img.trim().split("\\|")[0];
             cont.put("cont_img", cont_img);
         }
-        mav.addObject("hotTop", list);
+        mav.addObject("hotTop", hotTop);
 
         mav.addObject("hotListCount", productDao.hotListCount(cate_large));
-        mav.addObject("newTop", productDao.newtop(cate_large));
+
+        List<Map<String, Object>> newtop = productDao.newtop(cate_large);
+        for (Map<String, Object> cont : newtop) {
+            String cont_img = (String) cont.get("cont_img");
+            cont_img = cont_img.trim().split("\\|")[0];
+            cont.put("cont_img", cont_img);
+        }
+        mav.addObject("newTop", newtop);
+
         mav.addObject("newListCount", productDao.newListCount(cate_large));
-        mav.addObject("reviewTop", productDao.reviewtop(cate_large));
+
+        List<Map<String, Object>> reviewtop = productDao.reviewtop(cate_large);
+        for (Map<String, Object> cont : reviewtop) {
+            String cont_img = (String) cont.get("cont_img");
+            cont_img = cont_img.trim().split("\\|")[0];
+            cont.put("cont_img", cont_img);
+        }
+        mav.addObject("reviewTop", reviewtop);
         mav.addObject("reviewCount", productDao.reviewCount(cate_large));
 
 
@@ -126,10 +141,15 @@ public ModelAndView allList(@PathVariable String cate_large, @RequestParam(requi
     } else {
         list = productDao.list(cate_large);
     }
+    List<Map<String, Object>> alllist = list;
+    for (Map<String, Object> cont : alllist) {
+        String cont_img = (String) cont.get("cont_img");
+        cont_img = cont_img.trim().split("\\|")[0];
+        cont.put("cont_img", cont_img);
+    }
 
 
-
-    mav.addObject("list", list);
+    mav.addObject("list", alllist);
     mav.addObject("middle", productDao.middle(cate_large));
     mav.addObject("hotListCount", productDao.hotListCount(cate_large));
 
@@ -152,6 +172,12 @@ public ModelAndView allList(@PathVariable String cate_large, @RequestParam(requi
     }
     mav.addObject("priceMap", priceMap);
 
+    Map<Integer, Map<String, Object>> reviewcnt = new HashMap<>();
+    for (Integer cont_no : contNoList) {
+        reviewcnt.put(cont_no, detailDao.contreviewcnt(cont_no));
+    }
+    mav.addObject("reviewcnt", reviewcnt);
+
 
     return mav;
 }
@@ -161,11 +187,19 @@ public ModelAndView allList(@PathVariable String cate_large, @RequestParam(requi
     @RequestMapping("category/{cate_large}/hot")
     public ModelAndView hotList(@PathVariable String cate_large) {
         ModelAndView mav = new ModelAndView();
+
         mav.setViewName("product/hotlist");
         mav.addObject("hotListCount", productDao.hotListCount(cate_large));
 
         // 기존 메서드에서 사용한 로직
-        mav.addObject("hotList", productDao.hotList(cate_large));
+
+        List<Map<String, Object>> hotlist = productDao.hotList(cate_large);
+        for (Map<String, Object> cont : hotlist) {
+            String cont_img = (String) cont.get("cont_img");
+            cont_img = cont_img.trim().split("\\|")[0];
+            cont.put("cont_img", cont_img);
+        }
+        mav.addObject("hotList", hotlist);
         List<Integer> contNoList = productDao.contNoList(cate_large);
         Map<Integer, Map<String, Object>> starMap = new HashMap<>();
 
@@ -183,6 +217,13 @@ public ModelAndView allList(@PathVariable String cate_large, @RequestParam(requi
             }
         }
         mav.addObject("priceMap", priceMap);
+
+        Map<Integer, Map<String, Object>> reviewcnt = new HashMap<>();
+        for (Integer cont_no : contNoList) {
+            reviewcnt.put(cont_no, detailDao.contreviewcnt(cont_no));
+        }
+        mav.addObject("reviewcnt", reviewcnt);
+
         return mav;
     }
 
@@ -194,7 +235,14 @@ public ModelAndView allList(@PathVariable String cate_large, @RequestParam(requi
         mav.addObject("newListCount", productDao.newListCount(cate_large));
 
         // 기존 메서드에서 사용한 로직
-        mav.addObject("newList", productDao.newList(cate_large));
+
+        List<Map<String, Object>> newlist = productDao.newList(cate_large);
+        for (Map<String, Object> cont : newlist) {
+            String cont_img = (String) cont.get("cont_img");
+            cont_img = cont_img.trim().split("\\|")[0];
+            cont.put("cont_img", cont_img);
+        }
+        mav.addObject("newList", newlist);
         List<Integer> contNoList = productDao.contNoList(cate_large);
         Map<Integer, Map<String, Object>> starMap = new HashMap<>();
 
@@ -212,6 +260,13 @@ public ModelAndView allList(@PathVariable String cate_large, @RequestParam(requi
             }
         }
         mav.addObject("priceMap", priceMap);
+
+        Map<Integer, Map<String, Object>> reviewcnt = new HashMap<>();
+        for (Integer cont_no : contNoList) {
+            reviewcnt.put(cont_no, detailDao.contreviewcnt(cont_no));
+        }
+        mav.addObject("reviewcnt", reviewcnt);
+
         return mav;
     }
 

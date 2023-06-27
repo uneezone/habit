@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="/css/itemlist.css" />
 <script src="/js/jquery.cookie.js"></script>
 <script src="/js/allitemlist.js"></script>
-<script src="/js/itemlist.js"></script>
 <script src="/js/common.js"></script>
 
 
@@ -322,7 +321,8 @@
                                             <c:forEach begin="1" end="${roundedStarRating > 5 ? 5 : roundedStarRating}" varStatus="starStatus">
                                                 <img src="/img/star.png" alt="" class="Home_recommend_star">
                                             </c:forEach>
-                                            <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 ${starItem['cnt']}</span>
+                                            <c:set var="contNo" value="${row.cont_no}" />
+                                            <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 ${reviewcnt[contNo].Reviewcnt}</span>
                                         </section>
                                         <hr class="Home_recommend_hr">
                                         <div>

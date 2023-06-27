@@ -22,6 +22,9 @@ public class FilterCont {
     @Autowired
     FilterDAO filterDao;
 
+    @Autowired
+    DetailDAO detailDao;
+
     //중분류 클릭시  매핑
     @RequestMapping("/category/{cate_large}/{cate_middle}")
     public ModelAndView midfilter(@PathVariable String cate_large, @PathVariable String cate_middle, @RequestParam(required = false) String filter) {
@@ -56,7 +59,14 @@ public class FilterCont {
         }
 
         mav.addObject("middle", productDao.middle(cate_large));
-        mav.addObject("midFilter", list);
+
+        List<Map<String, Object>> midfilter = list;
+        for (Map<String, Object> cont : midfilter) {
+            String cont_img = (String) cont.get("cont_img");
+            cont_img = cont_img.trim().split("\\|")[0];
+            cont.put("cont_img", cont_img);
+        }
+        mav.addObject("midFilter", midfilter);
         mav.addObject("midHotListCount", filterDao.midHotListCount(cate_large, cate_middle));
 
 
@@ -79,6 +89,12 @@ public class FilterCont {
             }
         }
         mav.addObject("priceMap", priceMap);
+
+        Map<Integer, Map<String, Object>> reviewcnt = new HashMap<>();
+        for (Integer cont_no : contNoList) {
+            reviewcnt.put(cont_no, detailDao.contreviewcnt(cont_no));
+        }
+        mav.addObject("reviewcnt", reviewcnt);
 
         return mav;
     }

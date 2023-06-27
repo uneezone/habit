@@ -75,6 +75,7 @@ $(document).ready(function () {
     let selectedCategory = localStorage.getItem("newCategory") || localStorage.getItem("selectedCategory");
     let selectedMiddle = localStorage.getItem("selectedMiddle");
 
+    $("#selectedCategory").text(selectedCategory);
 
         if (selectedMiddle && selectedCategory) {
             localStorage.removeItem("newCategory");

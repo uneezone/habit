@@ -409,7 +409,8 @@
                                                         <c:forEach begin="1" end="${roundedStarRating > 5 ? 5 : roundedStarRating}" varStatus="starStatus">
                                                             <img src="/img/star.png" alt="" class="Home_recommend_star">
                                                         </c:forEach>
-                                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 ${starItem['cnt']}</span>
+                                                        <c:set var="contNo" value="${rt.cont_no}" />
+                                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 ${reviewcnt[contNo].Reviewcnt}</span>
                                                     </section>
                                                     <hr class="Home_recommend_hr">
                                                     <div>
@@ -448,7 +449,7 @@
                                     <a href="products/${nt.cont_no}" class="href">
                                         <div class="Home_product_recommend_p_div">
                                             <div>
-                                                <img src="/storage/${nt.cont_img}" alt="" width="150px" >
+                                                <img src="/storage/${nt.cont_img}" alt="" width="150px" onerror="this.src='/storage/ang.png'" >
                                             </div>
                                             <div>
                                                 <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="return false">
@@ -475,7 +476,8 @@
                                                         <c:forEach begin="1" end="${roundedStarRating > 5 ? 5 : roundedStarRating}" varStatus="starStatus">
                                                             <img src="/img/star.png" alt="" class="Home_recommend_star">
                                                         </c:forEach>
-                                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 ${starItem['cnt']}</span>
+                                                        <c:set var="contNo" value="${nt.cont_no}" />
+                                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 ${reviewcnt[contNo].Reviewcnt}</span>
                                                     </section>
                                                     <hr class="Home_recommend_hr">
                                                     <div>
