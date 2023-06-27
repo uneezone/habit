@@ -42,7 +42,13 @@ public class DetailCont {
         }
 
         mav.setViewName("product/detailpage");
-        mav.addObject("detail", productDao.detail(cont_no));
+
+        Map<String, Object> detail = productDao.detail(cont_no);
+        String cont_img = (String) detail.get("cont_img");
+        cont_img = cont_img.trim().split("\\|")[0];
+        detail.put("cont_img", cont_img);
+        mav.addObject("detail", detail);
+
         mav.addObject("hostprofile", detailDao.hostprofile(cont_no));
         mav.addObject("price", productDao.price(cont_no));
         mav.addObject("star", productDao.star(cont_no));

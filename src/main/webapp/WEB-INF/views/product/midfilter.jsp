@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="/css/itemlist.css">
 <script src="/js/jquery.cookie.js"></script>
 <script src="/js/midfilter.js"></script>
-<script src="/js/itemlist.js"></script>
 <script src="/js/common.js"></script>
 
 

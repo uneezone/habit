@@ -296,7 +296,7 @@ $(document).ready(function() {
 
 
     document.getElementById("detailButton").addEventListener("click", function() {
-        var descriptionContainer = document.querySelector(".DescriptionSection_Container");// expanded 클래스 전환
+        var descriptionContainer = document.querySelector(".product-description");// expanded 클래스 전환
         
         descriptionContainer.classList.toggle("expanded");
 
@@ -310,6 +310,7 @@ $(document).ready(function() {
     });
 
 });
+
 
 
 

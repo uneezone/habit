@@ -548,7 +548,7 @@ a:hover{
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    max-width: 300px; /* 원하는 최대 너비 설정 */
+
 }
 
 .arrow-icon.rotated {
@@ -567,7 +567,15 @@ a:hover{
     padding: 0 20px;
     margin: 0;
     font-weight: bold;
+    max-height: 300px; /* 원하는 높이로 설정하세요. */
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out; /* 선택 사항: 전환 효과를 완화합니다. */
 }
+
+.product-description.expanded { /* 오타 수정 */
+    max-height: 100%; /* 전체 높이를 보여줍니다. */
+}
+
 .product-description img {
     width: calc(100% + 40px);
     max-width: calc(100% + 40px);
@@ -1016,6 +1024,7 @@ a:hover{
     -webkit-box-align: center;
     align-items: center;
     margin-bottom: 16px;
+    margin-left: 14px;
 }
 
 .CoverReviewCard_ProfileImg {
@@ -1055,6 +1064,7 @@ a:hover{
     line-height: 22px;
     height: 66px;
     font-family: inherit;
+    margin-left: 14px;
 }
 
 .ProductDetailPage {
