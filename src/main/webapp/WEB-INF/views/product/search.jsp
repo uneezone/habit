@@ -148,7 +148,7 @@
                 </c:if>
                 <c:forEach items="${list}" var="product" varStatus="vs">
                     <div class="Home_product_recommend_p">
-                        <a href="detailpage.jsp" class="href">
+                        <a href="/category/products/${product.cont_no}" class="href">
                             <div class="Home_product_recommend_p_div">
                                 <div>
                                     <img src="/storage/${product.cont_img}" alt="" style="width:150px; height: 150px;">
