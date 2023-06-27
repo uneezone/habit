@@ -15,9 +15,13 @@
 <div class="PageWrapper">
     <div style="margin-top: 30px; margin-bottom: 18px; display: flex;">
         <div class="image-slider">
-        <img data-role="none" class="ImageSlider_Prev" style="display: block;" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'%3E %3Cpath fill='none' fill-rule='evenodd' stroke='%23FFF' stroke-width='2' d='M21 17l8 8.014L21.028 33'/%3E %3C/svg%3E"  onclick="prevImage()">
-        <img style="width: 300px; border-radius: 3px;" src="/storage/${detail.cont_img}" onerror="this.src='/storage/ang.png'">
-        <img data-role="none" class="ImageSlider_Next" style="display: block;" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'%3E %3Cpath fill='none' fill-rule='evenodd' stroke='%23FFF' stroke-width='2' d='M21 17l8 8.014L21.028 33'/%3E %3C/svg%3E" onclick="nextImage()">
+            <span class="slide_prev" onclick="prevImage()"><</span>
+            <span class="slide_next" onclick="nextImage()">></span>
+<%--        <img data-role="none" class="ImageSlider_Prev" style="display: block;" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'%3E %3Cpath fill='none' fill-rule='evenodd' stroke='%23FFF' stroke-width='2' d='M21 17l8 8.014L21.028 33'/%3E %3C/svg%3E"  onclick="prevImage()">--%>
+            <c:forEach items="${detail.cont_imgs}" var="img" varStatus="status">
+                <img style="width: 350px; height: 350px; border-radius: 3px; display: ${status.index == 0 ? 'block' : 'none'}" src="/storage/${img}" onerror="this.src='/storage/ang.png'" class="image_item">
+            </c:forEach>
+<%--            <img data-role="none" class="ImageSlider_Next" style="display: block;" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'%3E %3Cpath fill='none' fill-rule='evenodd' stroke='%23FFF' stroke-width='2' d='M21 17l8 8.014L21.028 33'/%3E %3C/svg%3E" onclick="nextImage()">--%>
         </div>
             <div style="margin-left: 20px; width: 280px;">
             <div style="height: 255px;">

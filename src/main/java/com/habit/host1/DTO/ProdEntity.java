@@ -14,5 +14,5 @@ public class ProdEntity {
         private String prod_name;
         private int prod_qty;
         private int prod_price;
-        private int prod_status;
+        private String prod_status;
 }

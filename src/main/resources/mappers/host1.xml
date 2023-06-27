@@ -205,15 +205,6 @@
     <delete id="deleteContent" parameterType="int">
         delete from cont where cont_no = ${cont_no}
     </delete>
-    
-    <!--  해빗 수정 전 값 불러오기  -->
-    <select id="contentSelectOne" parameterType="int" resultType="com.habit.host1.DTO.CategoryAndContentVO">
-        select cate_large, cate_middle, cont_name, cont_zip, cont_addr1, cont_addr2, cont_extaddr, cont_hashtag1, cont_hashtag2,
-               cont_hashtag3, cont_hashtag4, cont_hashtag5, cont_stdate, cont_endate, cont_img, cont_content
-        from cont a join cate b
-        on a.cate_no = b.cate_no
-        where cont_no = ${cont_no}
-    </select>
 
     <select id="oneList" parameterType="int" resultType="com.habit.host1.DTO.OneEntity">
         select one_date, one_maxqty, one_price, pro_no
@@ -332,18 +323,37 @@
 
 
 
-
-    <select id="contentSelectOne1" parameterType="int" resultType="com.habit.host1.DTO.CategoryAndContentVO">
+    <!--  해빗 수정 전 값 불러오기  -->
+    <select id="contentSelectOne" parameterType="int" resultType="com.habit.host1.DTO.CategoryAndContentVO">
         select cate_large, cate_middle, cont_name, cont_zip, cont_addr1, cont_addr2, cont_extaddr,
                cont_hashtag1, cont_hashtag2, cont_hashtag3, cont_hashtag4, cont_hashtag5,
-               cont_endate, cont_img, cont_content
+               cont_stdate, cont_endate, cont_img, cont_content
         from cont a join cate b
         on a.cate_no = b.cate_no
         where cont_no = ${cont_no}
     </select>
 
+    <select id="optionPurchaseCheck" parameterType="String" resultType="int">
+        select count(*)
+        from payd
+        where pro_no = #{pro_no}
+    </select>
 
+    <delete id="deleteOption" parameterType="com.habit.host1.DTO.RequestOptionDeleteDTO">
+        delete from ${optionType}
+        where <foreach collection="idList" item="pro_no" separator="or">pro_no = #{pro_no}</foreach>
+    </delete>
 
-
+    <!--  호스트 아이디에 따른 content 구매기록 확인 (count)  -->
+    <select id="contentPurchaseCheck" parameterType="java.util.Map" resultType="int">
+        select count(*)
+        from (select a.pro_no, cont_no
+              from payd a
+              join (select pro_no, cont_no from one union select pro_no, cont_no from prod) b
+              on a.pro_no = b.pro_no) c
+        join cont d
+        on c.cont_no = d.cont_no
+        where host_id = #{host_id} and c.cont_no = #{cont_no}
+    </select>
 
 </mapper>

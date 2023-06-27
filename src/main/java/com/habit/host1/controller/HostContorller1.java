@@ -9,10 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -38,8 +37,7 @@ public class HostContorller1 {
     // 대분류 선택에 따른 중분류 list 불러오기
     @GetMapping("/cate_middle.do")
     @ResponseBody
-    public List<Map<String, Object>> selectCate(HttpServletRequest request) {
-        String cate_large = request.getParameter("cate_large");
+    public List<Map<String, Object>> selectCate(String cate_large) {
         return hostService1.selectCate(cate_large);
     }
 
@@ -63,24 +61,6 @@ public class HostContorller1 {
 
 
     // [habit_list.jsp]
-    // 해빗 리스트 조회
-    @GetMapping("/content/list")
-    public String contentList (@SessionAttribute(name = "userId", required = false) String userIdd, Model model) {
-        //임시 세션 아이디
-        String userId = "user-1";
-        RequestContentListDTO reqContListDTO = new RequestContentListDTO();
-        reqContListDTO.setHost_id(userId);
-        String host_img = hostService1.getHostImg(userId);
-
-        List<ResponseContentListDTO> list = hostService1.contentList(reqContListDTO);
-        hostService1.contentListCount(reqContListDTO);
-        model.addAttribute("host_id", userId);
-        model.addAttribute("host_img", host_img);
-        model.addAttribute("vo", reqContListDTO.getVo());
-        model.addAttribute("list", list);
-
-        return "host/habit_list";
-    }
 
     // 해빗 페이징 (더보기)
     @PostMapping("/content/seemore.do")
@@ -116,8 +96,6 @@ public class HostContorller1 {
         map.put("vo", reqContListDTO.getVo());
         map.put("list", list);
 
-        System.out.println("map.get(\"vo\") = " + map.get("vo"));
-        System.out.println("map.get(\"list\") = " + map.get("list"));
         return map;
     }
 
@@ -132,19 +110,7 @@ public class HostContorller1 {
     @GetMapping("/content/updateform/{cont_no}")
     @ResponseBody
     public Map<String, Object> contentUpdateBefore(@PathVariable int cont_no) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("item", hostService1.contentSelectOne1(cont_no));
-        List<OneEntity> oneList = hostService1.oneList(cont_no);
-        List<ProdEntity> prodList = hostService1.prodList(cont_no);
-
-        if (oneList.size() > 0) {
-            map.put("option", oneList);
-            map.put("optionType", "one");
-        } else {
-            map.put("option", prodList);
-            map.put("optionType", "prod");
-        }
-        return map;
+        return hostService1.contentUpdateBefore(cont_no);
     }
 
     // 해빗 수정
@@ -155,12 +121,9 @@ public class HostContorller1 {
         return "redirect:/host/content/list";
     }
 
-
-
-
-
-    @GetMapping("/content/list1")
-    public String contentList1 (@SessionAttribute(name = "userId", required = false) String userIdd, Model model) {
+    // 해빗 리스트 조회
+    @GetMapping("/content/list")
+    public String contentList (@SessionAttribute(name = "userId", required = false) String userIdd, Model model) {
         //임시 세션 아이디
         String userId = "user-1";
         RequestContentListDTO reqContListDTO = new RequestContentListDTO();
@@ -169,14 +132,23 @@ public class HostContorller1 {
 
         List<ResponseContentListDTO> list = hostService1.contentList(reqContListDTO);
         hostService1.contentListCount(reqContListDTO);
+
         model.addAttribute("host_id", userId);
         model.addAttribute("host_img", host_img);
         model.addAttribute("vo", reqContListDTO.getVo());
         model.addAttribute("list", list);
 
-        return "host/habit_list1";
+        return "host/habit_list";
     }
 
+    // 옵션 삭제
+    @PostMapping("/option/delete.do")
+    @ResponseBody
+    public int optionDelete (RequestOptionDeleteDTO reqOptDelDTO) {
+        System.out.println("reqOptDelDTO.getIdList().get(0) = " + reqOptDelDTO.getIdList().get(0));
+        System.out.println("reqOptDelDTO.getIdList().get(0) = " + reqOptDelDTO.getIdList().get(1));
+        return hostService1.optionDelete(reqOptDelDTO);
+    }
 
 
 

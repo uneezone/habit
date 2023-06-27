@@ -23,9 +23,8 @@ public class CategoryAndContentVO {
     private String cont_hashtag4;
     private List<String> hashtag4;
     private String cont_hashtag5;
-    private String cont_endate;
-
     private String cont_stdate;
+    private String cont_endate;
     private String cont_img;
     private List<String> imgs;
     private String cont_content;

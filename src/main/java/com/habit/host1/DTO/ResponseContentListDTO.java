@@ -15,6 +15,7 @@ public class ResponseContentListDTO {
     private String cont_stdate;
     private String cont_endate;
     private String cont_status;
+    private String contentPurchaseStatus;
 
     private String cate_middle;
     private String cate_large;
