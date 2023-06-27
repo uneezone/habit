@@ -53,7 +53,7 @@ public interface MyPageRepository {
     int checkReviewWrite(int payd_no);
 
     //리뷰페이지 보여줄 상풍명 가져오기
-    ReviewWriteDTO getContInfo(Map<String, Object> params);
+    ReviewWriteDTO getContInfo(int payd_no);
 
     //리뷰를 이미 작성했을 경우 수정으로
     ReviewWriteDTO getReview(int payd_no);

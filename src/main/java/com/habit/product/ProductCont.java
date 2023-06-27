@@ -264,96 +264,111 @@ public ModelAndView allList(@PathVariable String cate_large, @RequestParam(requi
 
     //==검색창
     @GetMapping("/search")
-    public String showSearch(@RequestParam("recentSearch") String recent,HttpServletResponse res,HttpServletRequest req,Model model){
+    public String showSearch(@RequestParam("recentSearch") String recent, @RequestParam(value = "filter",defaultValue = "N") String filter
+                            ,HttpServletResponse res ,HttpServletRequest req,Model model){
 
-        int status=0;
-        Cookie[] cookies= req.getCookies();
-        for (Cookie cookie : cookies) {
-            if(cookie.getName().contains("search")){
-                if(status<=5) {
-                    status++;
-                }
-            }
-        }
-
-        log.info("status={}",status);
-        //검색어가 공백이 아닐때
-        if(!recent.equals("")) {
-            String check="";
+        //검색 필터 안했을때
+        if(filter.equals("N")) {
+            int status = 0;
+            Cookie[] cookies = req.getCookies();
             for (Cookie cookie : cookies) {
-                if(cookie.getName().contains("search0")){
-                    check=cookie.getValue();
+                if (cookie.getName().contains("search")) {
+                    if (status <= 5) {
+                        status++;
+                    }
                 }
             }
 
-            if(!check.equals(recent)) {
-                if (status != 0) {
-                    //검색어 쿠키가 이미 있을때
+            log.info("status={}", status);
+            //검색어가 공백이 아닐때
+            if (!recent.equals("")) {
 
-                    //최근검색어 6개까지 보여주기
-                    if (status > 5) {
-                        System.out.println("쿠키생성1");
-                        //새로운 검색어
-                        Cookie newcookie = new Cookie("search0", recent);
+                int cookielap = 0;
+                for (int i = 0; i <= status; i++) {
+                    if (recent.equals(cookies[i].getValue())) {
+                        cookielap++;
+                    }
+                }
+
+                if (cookielap == 0) {
+                    if (status != 0) {
+                        //검색어 쿠키가 이미 있을때
+
+                        //최근검색어 6개까지 보여주기
+                        if (status > 5) {
+                            System.out.println("쿠키생성1");
+                            //새로운 검색어
+                            Cookie newcookie = new Cookie("search0", recent);
+                            newcookie.setMaxAge(60 * 60 * 24 * 7);
+                            newcookie.setPath("/");
+                            res.addCookie(newcookie);
+
+                            for (int i = 0; i < status - 1; i++) {
+
+                                String cookieValue = "";
+                                for (Cookie cookie : cookies) {
+                                    if (cookie.getName().contains("search" + i)) {
+                                        cookieValue = cookie.getValue();
+                                    }
+                                }
+
+                                //첫번째 쿠키 삭제
+                                //검색어 하나씩 뒤로
+                                Cookie cookie = new Cookie("search" + (i + 1), cookieValue);
+                                cookie.setMaxAge(60 * 60 * 24 * 7); //최근검색어 일주일
+                                cookie.setPath("/");
+                                res.addCookie(cookie);
+                            }
+                        } else {
+                            System.out.println("쿠키생성2");
+                            Cookie cookie = new Cookie("search" + (5 - status), recent);
+                            res.addCookie(cookie);
+                        }
+
+                    } else {
+                        //처음 검색어를 입력할때
+                        Cookie newcookie = new Cookie("search5", recent);
                         newcookie.setMaxAge(60 * 60 * 24 * 7);
                         newcookie.setPath("/");
                         res.addCookie(newcookie);
-
-                        for (int i = 0; i < status - 1; i++) {
-
-                            String cookieValue = "";
-                            for (Cookie cookie : cookies) {
-                                if (cookie.getName().contains("search" + i)) {
-                                    cookieValue = cookie.getValue();
-                                }
-                            }
-
-                            //첫번째 쿠키 삭제
-                            //검색어 하나씩 뒤로
-                            Cookie cookie = new Cookie("search" + (i + 1), cookieValue);
-                            cookie.setMaxAge(60 * 60 * 24 * 7); //최근검색어 일주일
-                            cookie.setPath("/");
-                            res.addCookie(cookie);
-                        }
-                    } else {
-                        System.out.println("쿠키생성2");
-                        Cookie cookie = new Cookie("search" + (5-status), recent);
-                        res.addCookie(cookie);
+                        System.out.println("쿠키생성3");
                     }
-
-                } else {
-                    //처음 검색어를 입력할때
-                    Cookie newcookie = new Cookie("search5", recent);
-                    newcookie.setMaxAge(60 * 60 * 24 * 7);
-                    newcookie.setPath("/");
-                    res.addCookie(newcookie);
-                    System.out.println("쿠키생성3");
                 }
             }
-        }
 
-        Cookie[] cookies2= req.getCookies();
-        for (Cookie cookie : cookies2) {
-            log.info("cookiename={}",cookie.getName()+"/"+cookie.getValue());
-        }
+            Cookie[] cookies2 = req.getCookies();
+            for (Cookie cookie : cookies2) {
+                log.info("cookiename={}", cookie.getName() + "/" + cookie.getValue());
+            }
 
-        //검색어 테이블에 저장
-        int insertSearch = productDao.insertSearch(recent.trim());
+            //검색어 테이블에 저장
+            int insertSearch = productDao.insertSearch(recent.trim());
 
-        if(insertSearch!=0){
-            log.info("검색어 테이블 insert 성공");
-        }else{
-            log.info("검색어 테이블 insert 실패");
+            if (insertSearch != 0) {
+                log.info("검색어 테이블 insert 성공");
+            } else {
+                log.info("검색어 테이블 insert 실패");
+            }
+
+        }else {
+            //필터적용
+            log.info("filter={}",filter);
         }
 
         //검색페이지
         List<Integer> contNoForSearch = productDao.getContNoForSearch(recent.trim());
-        log.info("cont={}",contNoForSearch);
-        if(contNoForSearch.size()!=0){
-            List<ProductDTO> contList = productDao.getContList(contNoForSearch);
-            model.addAttribute("list",contList);
-            log.info("list={}",contList);
+        log.info("cont={}", contNoForSearch);
+        if (contNoForSearch.size() != 0) {
+
+            Map<String,Object> params= new HashMap<>();
+            params.put("contList",contNoForSearch);
+            params.put("filter",filter);
+            List<ProductDTO> contList = productDao.getContList(params);
+
+            model.addAttribute("list", contList);
+            log.info("list={}", contList);
         }
+
 
         return "product/search";
     }

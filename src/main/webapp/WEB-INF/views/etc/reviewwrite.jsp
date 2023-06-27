@@ -125,14 +125,17 @@
 
 
                     $(".Home_write_review").text('${reviewDTO.review_cont}');
-                    let imgs='${reviewDTO.review_img}';
-                    let strings = imgs.split("|");
-                    console.log(strings);
-                    for(let i=0;i<strings.length;i++) {
-                        let img=strings[i].trim();
-                        console.log(img);
-                        var img_html = "<img class='Home_review_imgs' src='/storage/"+img+"'>";
-                        $(".Home_show_review").append(img_html);
+                    if('${reviewDTO.review_img}'!=""){
+
+                        let imgs='${reviewDTO.review_img}';
+                        let strings = imgs.split("|");
+                        console.log(strings);
+                        for(let i=0;i<strings.length;i++) {
+                            let img=strings[i].trim();
+                            console.log(img);
+                            var img_html = "<img class='Home_review_imgs' src='/storage/"+img+"'>";
+                            $(".Home_show_review").append(img_html);
+                        }
                     }
 
                     if('${reviewDTO.review_feed}'=='Y'){

@@ -94,10 +94,39 @@
         </div>
         <script>
             let search=decodeURI(window.location.search);
-            let index=search.indexOf("=");
-            search=search.substring(index+1,search.length);
             console.log(search);
-            $(".title").text(search+" 검색 결과");
+            let showname;
+            let index=search.indexOf("=");
+            let index2=search.indexOf("&");
+            if(index2!=-1){
+                showname=search.substring(index+1,index2);
+                console.log(showname);
+                let filter=search.substring(index2+8,search.length);
+
+                switch ( filter )
+                {
+                    case 'popularity' :
+                        showname+=' 인기순';
+                        break;
+                    case 'date' :
+                        showname+=' 날짜순';
+                        break;
+                    case 'rating' :
+                        showname+=' 평점순';
+                        break;
+                    case 'highPrice' :
+                        showname+=' 가격 높은순';
+                        break;
+                    case 'lowPrice' :
+                        showname+=' 가격 낮은순';
+                        break;
+                }
+            }else {
+                showname=search.substring(index+1,search.length);
+                console.log(showname);
+            }
+            console.log(showname);
+            $(".title").text(showname+" 검색 결과");
         </script>
 
 
@@ -280,7 +309,6 @@
             });
 
 
-            const cate_large = '<%=request.getAttribute("cate_large")%>';
 
             //필터 기능 구현
             applyFilterButton.addEventListener("click", function () {
@@ -291,7 +319,12 @@
                         break;
                     }
                 }
-                const newPath = "/category/" + encodeURIComponent(cate_large) + "/all" + "?filter=" + encodeURIComponent(selectedFilter);
+                let url=new URL(window.location.href);
+                const urlParams = url.searchParams;
+                let recentSearch = urlParams.get("recentSearch");
+                //alert(recentSearch);
+
+                const newPath = "/search?recentSearch="+recentSearch+"&filter="+selectedFilter;
                 window.location.href = newPath;
             });
 

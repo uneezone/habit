@@ -37,7 +37,7 @@ function delReview(reviewNo){
         ,async:false
         ,success:function (data){
            console.log(data);
-           $(".review"+reviewNo).remove();
+           window.location.reload();
         }
 
     });
