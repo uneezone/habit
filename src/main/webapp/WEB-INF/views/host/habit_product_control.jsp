@@ -222,11 +222,25 @@
                   <script>
                     window.addEventListener('load', function() {
 
+
+                        $.ajax({
+                          type:"GET"
+                          ,url:"/host/checkAdjustForProCon"
+                          ,data:{"payd_no":${product.payd_no}}
+                          ,async:false
+                          ,success:function (data){
+                            //console.log(data);
+                            if(data=="AdjustOK"){
+                              $("#pstatus option[value='C']").remove();
+                            }
+                          }
+                        })
+
                         $(".pstatus").eq("${status.index}").val('${product.payd_status}').prop("selected",true);
 
                     });
                   </script>
-                  <select class="form-select pstatus" name="" id="staus${product.payd_no}">
+                  <select class="form-select pstatus" id="pstatus" name="status_pro" id="staus${product.payd_no}">
                     <option value="R">사용중</option>
                     <option value="Y">사용완료</option>
                     <option value="C">취소완료</option>

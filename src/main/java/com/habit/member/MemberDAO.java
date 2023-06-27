@@ -24,6 +24,10 @@ public class MemberDAO {
         return sqlSession.insert("member.insert", map);
     }
 
+    public int inserEnery(String user_id){
+        return sqlSession.insert("member.insertEnergy",user_id);
+    }
+
     //아이디 중복확인
     public int idCheck(String user_id) {
         return sqlSession.selectOne("member.idCheck" , user_id);

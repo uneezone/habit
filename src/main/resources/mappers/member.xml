@@ -9,6 +9,11 @@
         values (#{user_id},#{user_pw},#{user_name},#{user_email},#{user_phone},#{user_birth},#{user_gender},#{user_img})
     </insert>
 
+    <insert id="insertEnergy" parameterType="String">
+        insert into energy (user_id, energy_saveuse, energy_sources)
+        values (#{user_id},1000,'[회원가입]적립')
+    </insert>
+
     <!--아이디 중복확인-->
     <select id="idCheck" parameterType="String" resultType="int">
         SELECT COUNT(user_id)

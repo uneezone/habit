@@ -1,6 +1,7 @@
 package com.habit.member;
 
 import com.habit.host1.DTO.RequestFindPasswordDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ import java.util.Map;
 
 
 @Controller
+@Slf4j
 public class MemberCont {
 
     @Autowired
@@ -93,7 +95,17 @@ public class MemberCont {
 
         memberdao.insert(map);
 
-        return "redirect:/";
+        //회원가입 에너지 적립
+        int energyStatus = memberdao.inserEnery(String.valueOf(map.get("user_id")));
+        if(energyStatus!=0){
+            log.info("회원가입 에너지 적립 성공");
+        }else {
+            log.info("회원가입 에너지 적립 실패");
+
+        }
+
+
+        return "redirect:/login";
     }
 
     //아이디 중복확인

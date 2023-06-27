@@ -29,8 +29,8 @@
                     </div>
                     <div class="Home_form_div">
                         <div>성별</div>
-                        <input type="radio" class="Home_form_input1" name="user_gender" id="user_gender"  value="M">남
-                        <input type="radio" class="Home_form_input1" name="user_gender" value="W">여
+                        <span class="Home_form_input1"><input type="radio" name="user_gender" id="user_gender"  value="M">남</span>
+                        <span class="Home_form_input1" ><input type="radio" name="user_gender" value="W">여</span>
                     </div>
                     <div class="Home_form_div">
                         <div>이메일</div>

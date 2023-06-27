@@ -27,6 +27,8 @@ public interface HostService2 {
     int getProductsLength(SearchProDTO dto);
     List<ProductDTO> getProduct(SearchProDTO dto);
 
+    String checkAjustForProCon(int payd_no);
+
     void updatePaydStatus(Long payd_no, String status);
 
     String getPayNo(Long payd_no);
@@ -58,9 +60,11 @@ public interface HostService2 {
 
     Map<String,Object> getHostAccount(String host_id);
 
-    List<Integer> updateForDonePro(String host_id);
+    void calcMethod(String host_id);
 
-    Long adjustFee(List<Integer> contNos,String host_id);
+    //List<Integer> updateForDonePro(String host_id);
+
+    //Long adjustFee(List<Integer> contNos,String host_id);
 
     String checkAccount(String host_id,String calc_no);
 

@@ -16,7 +16,7 @@ public class CalcDTO {
     private Long cont_no;
 
     private String host_bank;
-    private int host_account;
+    private String host_account;
     private String host_acholder;
 
     public CalcDTO() {
