@@ -95,8 +95,8 @@ public class MemoryMyPageRepository implements MyPageRepository{
     }
 
     @Override
-    public ReviewWriteDTO getContInfo(Map<String, Object> params) {
-        return sqlSession.selectOne("mypage.getContInfo",params);
+    public ReviewWriteDTO getContInfo(int payd_no) {
+        return sqlSession.selectOne("mypage.getContInfo",payd_no);
     }
 
     @Override

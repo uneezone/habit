@@ -35,7 +35,7 @@
         FROM user u
                  JOIN cont c ON u.user_id = c.host_id
                  JOIN review r ON c.cont_no = r.cont_no
-        WHERE r.cont_no = #{cont_no} and (r.review_img!="" or r.review_img!=null)
+        WHERE r.cont_no = #{cont_no} AND (r.review_img!="" or r.review_img!=null)
          AND review_status = 'Y'
     </select>
 

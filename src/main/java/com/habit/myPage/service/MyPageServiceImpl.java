@@ -108,7 +108,7 @@ public class MyPageServiceImpl implements MyPageService{
                 orderAllDTO.setCont_no((Integer) proForOrder.get("cont_no"));
             }
         }
-        //log.info("OrderAllDTO={}",payDForOrder);
+        log.info("OrderAllDTO={}",payDForOrder);
 
         return payDForOrder;
     }
@@ -176,16 +176,13 @@ public class MyPageServiceImpl implements MyPageService{
     }
 
     @Override
-    public ReviewWriteDTO getReview(int payd_no,String pro_no) {
+    public ReviewWriteDTO getReview(int payd_no) {
 
-        //리뷰 썻는지 확인
+        //리뷰 썻는지 확인(리뷰상태가 N인 아닌것도 확인)
         int i = repository.checkReviewWrite(payd_no);
 
         //상품 명 가져오기
-        Map<String,Object> params= new HashMap<>();
-        params.put("payd_no",payd_no);
-        params.put("pro_no",pro_no);
-        ReviewWriteDTO contInfo = repository.getContInfo(params);
+        ReviewWriteDTO contInfo = repository.getContInfo(payd_no);
 
 
         if(i!=0){

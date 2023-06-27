@@ -153,7 +153,7 @@
     <!--해빈 리뷰 페이지-->
     <select id="getReviewList" parameterType="Integer" resultType="com.habit.product.ReviewDTO">
         select AA.*, c.cont_name
-        from(select review_no,review_date as date,DATE_FORMAT(review_date,'%Y년 %m월 %d일 %H시 %i분') as review_date, review_cont, review_img, review_star,cont_no, r.user_id,u.user_name,u.user_img
+        from(select review_no,review_date as date,DATE_FORMAT(review_date,'%Y년 %m월 %d일 %H시 %i분') as review_date, review_cont, TRIM(SUBSTRING_INDEX(review_img, '|', 1)) as review_img, review_star,cont_no, r.user_id,u.user_name,u.user_img
              from review r join user u on r.user_id=u.user_id
              where cont_no=#{cont_no} and review_status="Y"
              )
@@ -163,7 +163,7 @@
 
     <select id="getReviewListByStar" parameterType="Integer" resultType="com.habit.product.ReviewDTO">
         select AA.*, c.cont_name
-        from(select review_no,DATE_FORMAT(review_date,'%Y년 %m월 %d일 %H시 %i분') as review_date, review_cont, review_img, review_star,cont_no, r.user_id,u.user_name,u.user_img
+        from(select review_no,DATE_FORMAT(review_date,'%Y년 %m월 %d일 %H시 %i분') as review_date, review_cont, TRIM(SUBSTRING_INDEX(review_img, '|', 1)) as review_img, review_star,cont_no, r.user_id,u.user_name,u.user_img
              from review r join user u on r.user_id=u.user_id
              where cont_no=#{cont_no} and review_status="Y"
             )
@@ -190,8 +190,8 @@
     </select>
 
     <!--검색관련 상품들 정보-->
-    <select id="getContList" resultType="com.habit.product.ProductDTO">
-        select c.cont_name,c.cont_no,cont_img,cont_addr1,AA.price as price
+    <select id="getContList" parameterType="java.util.Map" resultType="com.habit.product.ProductDTO">
+        select c.cont_name,c.cont_no,TRIM(SUBSTRING_INDEX(cont_img, '|', 1)) as cont_img,cont_addr1,AA.price as price
         ,IFNULL(avg(r.review_star),0) as review_avg,count(r.review_no) as review_count
         from cont c inner join
 
@@ -203,12 +203,30 @@
 
         AA on c.cont_no=AA.cont_no left outer join review r on c.cont_no = r.cont_no and review_status!="N"
         where c.cont_no in
-        <foreach item="item" index="index" collection="list"
+        <foreach item="item" index="index" collection="contList"
                  open="(" separator="," close=")" nullable="true">
             #{item}
         </foreach>
+        group by c.cont_no
+        <if test='filter != "N"'>
+            order by
+                <if test='filter=="popularity"'>
+                    c.cont_view desc
+                </if>
+                <if test='filter=="date"'>
+                    c.cont_stdate desc
+                </if>
+                <if test='filter=="rating"'>
+                    r.review_star desc
+                </if>
+                <if test='filter=="highPrice"'>
+                    price desc
+                </if>
+                <if test='filter=="lowPrice"'>
+                    price asc
+                </if>
 
-        group by c.cont_no;
+        </if>
     </select>
 <!--    =========== 중분류 ===========-->
 

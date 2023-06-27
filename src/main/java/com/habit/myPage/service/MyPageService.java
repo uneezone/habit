@@ -34,7 +34,7 @@ public interface MyPageService {
     List<OrderRefnDTO> getRefnForOrderDetail( List<OrderDetailDTO> dto);
 
     //리뷰쓰기
-    ReviewWriteDTO getReview(int payd_no,String pro_no);
+    ReviewWriteDTO getReview(int payd_no);
 
     //리뷰 에너지 넣기
     int insertEnergy(EnergyDTO dto);

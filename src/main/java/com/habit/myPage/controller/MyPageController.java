@@ -174,12 +174,11 @@ public class MyPageController {
 
 
     @GetMapping("/review")
-    public String showReview(@RequestParam(value = "paydNo")int payd_no, @RequestParam(value = "proNo") String pro_no,Model model){
+    public String showReview(@RequestParam(value = "paydNo")int payd_no,Model model){
         //리뷰작성했는지 확인
         log.info("payd_no={}",payd_no);
-        log.info("pro_no={}",pro_no);
 
-        ReviewWriteDTO review = myPageService.getReview(payd_no,pro_no);
+        ReviewWriteDTO review = myPageService.getReview(payd_no);
 
         model.addAttribute("reviewDTO",review);
         return "etc/reviewwrite";

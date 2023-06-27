@@ -152,8 +152,8 @@ public class ProductDAO {
         return sqlSession.selectList("product.getContNoForSearch",search);
     }
 
-    public List<ProductDTO> getContList(List<Integer> conts){
-        return sqlSession.selectList("product.getContList",conts);
+    public List<ProductDTO> getContList(Map<String,Object> params){
+        return sqlSession.selectList("product.getContList",params);
     }
 
 

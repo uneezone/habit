@@ -19,7 +19,7 @@
                 <div class="btn_circle1"></div>
             </button>
           </a>
-          <a href="zzim2.html" class="Home_wrapper_a" class="href">
+<%--          <a href="zzim2.html" class="Home_wrapper_a" class="href">
             <button class="Home_wrapper_btn">
                 <div>
                     호스트
@@ -27,7 +27,7 @@
                 <div class="btn_circle2">
                 </div>
             </button>
-          </a>  
+          </a> --%>
         </div>
 
         <!--본컨텐츠-->

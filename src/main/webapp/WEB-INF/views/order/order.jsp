@@ -83,7 +83,7 @@
                                             htmlAppend+="        <button class='Home_change_btn_refund' disabled>환불하기</button>";
                                             htmlAppend+="    </div>";
                                             htmlAppend+="    <div>";
-                                            htmlAppend+="        <button class='Home_change_btn' onclick=location.href='/mypage/review?paydNo="+this.payd_no+"&proNo="+this.pro_no+"'>리뷰쓰기</button>";
+                                            htmlAppend+="        <button class='Home_change_btn' onclick=location.href='/mypage/review?paydNo="+this.payd_no+"'>리뷰쓰기</button>";
                                             htmlAppend+="    </div>";
                                             htmlAppend+="  </div>";
                                             htmlAppend+="</div>";
