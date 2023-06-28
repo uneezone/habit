@@ -231,39 +231,40 @@
                           ,success:function (data){
                             //console.log(data);
                             if(data=="AdjustOK"){
-                              $("#pstatus option[value='C']").remove();
+                              $(".pstatus${status.index} option[value='C']").remove();
                             }
                           }
                         })
 
-                        $(".pstatus").eq("${status.index}").val('${product.payd_status}').prop("selected",true);
+                        $(".pstatus${status.index}").val('${product.payd_status}').prop("selected",true);
 
                     });
                   </script>
-                  <select class="form-select pstatus" id="pstatus" name="status_pro" id="staus${product.payd_no}">
+                  <select class="form-select pstatus${status.index}"  name="status_pro" id="staus${product.payd_no}">
                     <option value="R">사용중</option>
                     <option value="Y">사용완료</option>
                     <option value="C">취소완료</option>
                   </select>
                 </td>
                 <td>
-                  <script>
-                    window.addEventListener('load', function() {
-
-                      //console.log($(".pstatus").eq("${status.index}").val());
-                      let pstatus=$(".pstatus").eq("${status.index}").val();
-                      if(pstatus=="C"||pstatus=="Y"){
-
-                        $(".use").eq("${status.index}").attr("disabled",true);
-                        $(".use").eq("${status.index}").css("background-color","gray");
-                        $(".use").eq("${status.index}").css("border","none");
-                        $(".pstatus").eq("${status.index}").attr("disabled",true);
-                      }
-
-                    });
-                  </script>
                   <input type="button" value="상태처리" class="btn btn-sm btn-primary use" onclick="changeStatus('${product.payd_no}')">
                 </td>
+                  <script>
+
+
+                    console.log("${product.payd_status}");
+                    // let pstatus='${product.payd_status}';
+                    if('${product.payd_status}'=="C"||'${product.payd_status}'=="Y"){
+
+                      $(".use").eq(${status.index}).attr("disabled",true);
+                      $(".use").eq(${status.index}).css("background-color","gray");
+                      $(".use").eq(${status.index}).css("border","none");
+                      //$(".pstatus${status.index}").val('${product.payd_status}').prop("selected",true);
+                      $(".pstatus${status.index}").attr("disabled",true);
+                    }
+
+
+                  </script>
                 </tr>
               </c:forEach>
               <c:if test="${products.size()==0}">

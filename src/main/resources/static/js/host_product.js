@@ -192,7 +192,7 @@ function changeStatus(e){
         alert("'사용중' 상태 이외의 상태로 처리해주세요.");
     }else {
         let check = confirm("상태를 변경하시겠습니까?");
-        if (status == "Y" || status=="C" && check) {
+        if ((status == "Y" || status=="C" )&& check) {
             let now=location.href;
             $.ajax({
                 type: "POST"

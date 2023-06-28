@@ -455,7 +455,7 @@ a:hover{
 }
 
 .Classintroduction{
-    padding: 40px 0px;
+    --padding: 40px 0px;
     display: block;
 }
 
@@ -892,7 +892,6 @@ a:hover{
 }
 
 .OptionItem_Wrapper {
-    padding: 0px 16px;
     background-color: rgb(255, 255, 255);
 }
 
@@ -902,7 +901,7 @@ a:hover{
     justify-content: space-between;
     -webkit-box-align: center;
     align-items: center;
-    padding: 10px 0px;
+    padding: 10px 16px;
 }
 
 .OptionItem_ContentContainer {
@@ -1228,7 +1227,7 @@ a:hover{
     font-size: 24px;
     position: absolute;
     top: 45%;
-    left: -5%;
+    left: -2%;
 }
 .slide_next {
     font-size:24px ;
@@ -1238,7 +1237,7 @@ a:hover{
     font-size: 24px;
     position: absolute;
     top: 45%;
-    right: -5%;
+    right: -2%;
 }
 
 

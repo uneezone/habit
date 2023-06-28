@@ -84,6 +84,11 @@ public interface HostRepository2 {
     //에너지 테이블에 로그남기기
     void insertEnergy(Map<String,Object> params);
 
+    //회원등급알아서 상품대비 적립금 빼주기
+    String getUserGradeForRefund(String user_id);
+
+    //상품대비 적립금 빼주기
+    int insertEnergyRefundByCont(Map<String,Object> params);
     //필터링을 위한 것들
     List<Map<String, Object>> getProductNames(String host_id);
 
