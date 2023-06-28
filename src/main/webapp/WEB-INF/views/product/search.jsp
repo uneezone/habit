@@ -154,7 +154,7 @@
                                     <img src="/storage/${product.cont_img}" alt="" style="width:150px; height: 150px;">
                                 </div>
                                 <div>
-                                    <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
+                                    <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="return false" >
                                         <img src="/img/black2.png"  id="cont_no${product.cont_no}" alt="" width="40px" class="Home_product_recommend_p_div_img">
 
                                     </button>

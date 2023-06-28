@@ -530,6 +530,7 @@
         </div>
     </div>
 
+
     <!-- 본문 끝-->
 
 <!--footer 시작-->
@@ -563,7 +564,7 @@
     </footer>
     <!--footer 끝-->
 
-   
+</body>
 <script>
     if(${sessionScope.s_id!=null}){
         let userId="${sessionScope.s_id}";

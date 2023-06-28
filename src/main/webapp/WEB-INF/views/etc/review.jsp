@@ -27,7 +27,7 @@
 
         </script>
         <div>
-            <input type="hidden" value="${reviewList.get(1).cont_no}" id="cont_no">
+            <input type="hidden" value="${reviewList.get(0).cont_no}" id="cont_no">
             <c:forEach items="${reviewList}" var="review" varStatus="vs">
                 <div class="review${review.review_no} review_con">
                     <div style="display: flex; align-items: center; margin-bottom: 20px;">
@@ -94,7 +94,7 @@
                 </script>
 
             </c:forEach>
-            
+
         </div>
         <!--페이징 인덱스 수-->
         <c:set value="${reviewList.size()/4}" var="pages"/>

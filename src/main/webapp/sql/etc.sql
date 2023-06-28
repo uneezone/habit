@@ -101,3 +101,12 @@ insert into survey (user_id, ask_1, ask_2, ask_3, ask_4, ask_5, ask_date)
 values ('user-3', 'm', '30', 'out', 'WA', 'p7', '2023-06-07 00:00:00');
 
 select * from survey;
+
+
+CREATE TABLE reco (
+                      reco_no       int	       NOT NULL  auto_increment  primary key, #키워드 코드
+        reco_keyword  varchar(50)  NOT NULL,                              #키워드
+                                    reco_date     datetime	   NOT NULL  DEFAULT now()                #키워드 생성일
+);
+
+ALTER TABLE reco convert to charset utf8;

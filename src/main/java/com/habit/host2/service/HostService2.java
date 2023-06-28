@@ -27,22 +27,9 @@ public interface HostService2 {
     int getProductsLength(SearchProDTO dto);
     List<ProductDTO> getProduct(SearchProDTO dto);
 
-    String checkAjustForProCon(int payd_no);
+    String checkAdjustForProCon(int payd_no);
 
-    void updatePaydStatus(Long payd_no, String status);
-
-    String getPayNo(Long payd_no);
-    Long getRefnCount(String pay_no);
-
-    String getPayMethod(String pay_no);
-
-    Map<String, Object> getInfoByPaydNo(Long payd_no);
-
-    void insertRefund(Map<String,Object> params);
-
-    Integer getRefundPoint(String pay_no);
-
-    void insertEnergy(Map<String,Object> params);
+    String changeProStatusByHost(Long payd_no, String status);
 
     List<Map<String, Object>> getProductNames(String host_id);
     List<Map<String, Object>> getProductOptions(Long cont_no);

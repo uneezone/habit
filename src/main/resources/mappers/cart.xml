@@ -44,30 +44,6 @@
     </update>
 
 
-
-    <!--장바구니에 담은 모든 상품의 금액 총 합-->
-    <select id="total_price" resultType="Integer" parameterType="String">
-        select SUM(cl_qty*price)
-        from
-            (
-                select cl_qty, price
-                    from (
-                          select cl_qty, one_price as price from cartlist
-                          inner join one
-                          on cartlist.pro_no=one.pro_no
-                          where user_id=#{user_id}
-                         ) AAA
-                    union all
-
-                    select cl_qty, price
-                        from (select cl_qty, prod_price as price from cartlist
-                              inner join prod
-                              on cartlist.pro_no=prod.pro_no
-                               where user_id=#{user_id}
-                        ) BBB
-            ) CCCC
-    </select>
-
     <select id="selectedItemsInfo" parameterType="java.util.HashMap" resultType="com.habit.cart.CartDTO">
         select * from
         (
@@ -90,7 +66,9 @@
         </foreach>
     </select>
 
-
+    <select id="pro_no" resultType="String" parameterType="int">
+        select pro_no from cartlist where cl_no=#{cl_no}
+    </select>
 
 
 

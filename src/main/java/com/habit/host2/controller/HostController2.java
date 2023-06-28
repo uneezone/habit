@@ -65,13 +65,6 @@ public class HostController2 {
                             ,HttpSession session){
 
 
-        //로그인세션 확인
-        /*if(userId==null){
-            return "member/login";
-        }*/
-
-        ;
-
         //임시 host인지 확인
         String userGrade = hostService.checkHost(userId);
         System.out.println("userGrade = " + userGrade);
@@ -230,7 +223,7 @@ public class HostController2 {
         int productsLength = hostService.getProductsLength(searchdto);
         searchdto.setAllProductsLength((long) productsLength);
         //보여질 상품들수(행수)
-        Long showProductsLength=2L;
+        Long showProductsLength=5L;
         //pagin index 갯수
         int pagingIndex= (int) (Math.ceil(productsLength/(double)showProductsLength));
         searchdto.setPagingIndex(pagingIndex);
@@ -255,11 +248,12 @@ public class HostController2 {
         return "host/habit_product_control";
     }
 
+    //정산이 되었으면 호스트 취소 못하게 막기 위해
     @GetMapping("/checkAdjustForProCon")
     @ResponseBody
     public String checkAdjustForPorCon(@RequestParam("payd_no") int payd_no){
         log.info("Payd_no={}",payd_no);
-        String adjustStatus = hostService.checkAjustForProCon(payd_no);
+        String adjustStatus = hostService.checkAdjustForProCon(payd_no);
 
         return adjustStatus;
     }
@@ -272,116 +266,9 @@ public class HostController2 {
         log.info("payd_no={}",payd_no);
         log.info("status={}",status);
 
-        if(status.equals("Y")){
-            //주문상세테이블 변경
-            hostService.updatePaydStatus(payd_no,status);
-            return "ROK";  //사용완료
-            
-        }else if(status.equals("C")){
-            //주문상세테이블 변경
-            hostService.updatePaydStatus(payd_no,status);
-
-            //환불테이블 insert
-            //주문서번호 기준으로 RO 혹은 NRO 있으면 에너지 환불 X
-
-            //주문상세번호로 주문서번호 알아오기
-            String payNo = hostService.getPayNo(payd_no);
-            log.info("주문서번호={}",payNo);
-            //주문서번호 기준으로 RO혹은 NRO가 있는지 확인
-            Long refnCount = hostService.getRefnCount(payNo);
-
-            //주문서번호로 결제수단 가져오기(해당 결제수단으로 환불해주기 위해서)
-            String payMethod = hostService.getPayMethod(payNo);
-            log.info("결제수단={}",payMethod);
-
-            //환불에너지 선언
-            Integer refundPoint=0;
-            
-            if(refnCount>=1){
-                //에너지 환붍 X
-                //주문상세번호 해당 제품의 금액과 수량,상품코드,유저아이디
-                Map<String, Object> info = hostService.getInfoByPaydNo(payd_no);
-                log.info("info={}",info.toString());
-
-                //환불금액 계산
-                int refundPrice=(Integer)info.get("payd_qty")*(Integer)info.get("payd_price");
-
-                //환불테이블에 insert할 값들 모으기
-                Map<String, Object> params = new HashMap<>();
-                params.put("payd_no",payd_no);
-                params.put("user_id",info.get("user_id"));
-                params.put("pro_no",info.get("pro_no"));
-                params.put("pay_qty",info.get("payd_qty"));
-                params.put("refund_price",refundPrice);
-                params.put("pay_method",payMethod);
-                params.put("refn_point",refundPoint);
-
-                //환불테이블에 insert 하기
-                hostService.insertRefund(params);
-                log.info("환불테이블 insert 성공1");
-
-            }else{
-                //에너지 환불 O
-                //주문상세번호 해당 제품의 금액과 수량,상품코드,유저아이디
-                Map<String, Object> info = hostService.getInfoByPaydNo(payd_no);
-                log.info("info={}",info.toString());
-
-                //환불금액 계산
-                int refundPrice=(Integer)info.get("payd_qty")*(Integer)info.get("payd_price");
-
-                //환불에너지 가져오기
-                log.info("주문서번호={}",payNo);
-                refundPoint = hostService.getRefundPoint(payNo);
-                log.info("환불에너지={}",refundPoint);
-
-                if(refundPoint==null) {
-                    //에너지 로그안안남김
-                    //환불테이블에 insert할 값들 모으기
-
-                    refundPoint=0;
-
-                    Map<String, Object> params = new HashMap<>();
-                    params.put("payd_no",payd_no);
-                    params.put("user_id",info.get("user_id"));
-                    params.put("pro_no",info.get("pro_no"));
-                    params.put("pay_qty",info.get("payd_qty"));
-                    params.put("refund_price",refundPrice);
-                    params.put("pay_method",payMethod);
-                    params.put("refn_point",refundPoint);
-
-                    //환불테이블에 insert 하기
-                    hostService.insertRefund(params);
-                    log.info("환불테이블 insert 성공2");
-
-                }else{
-                    //에너지 로그남기기
-                    //환불테이블에 insert할 값들 모으기
-                    Map<String, Object> params = new HashMap<>();
-                    params.put("payd_no",payd_no);
-                    params.put("user_id",info.get("user_id"));
-                    params.put("pro_no",info.get("pro_no"));
-                    params.put("pay_qty",info.get("payd_qty"));
-                    params.put("refund_price",refundPrice);
-                    params.put("pay_method",payMethod);
-                    params.put("refn_point",refundPoint);
-
-                    //환불테이블에 insert 하기
-                    hostService.insertRefund(params);
-                    log.info("환불테이블 insert 성공3");
-
-                    //에너지테이블에 환불에너지 남기기
-                    Map<String, Object> energyParams= new HashMap<>();
-                    energyParams.put("user_id",info.get("user_id"));
-                    energyParams.put("energy_saveuse",refundPoint);
-                    energyParams.put("energy_sources","[결제]호스트취소");
-
-                    hostService.insertEnergy(energyParams);
-                }
-            }
-            
-            return "COK"; //취소완료
-        }
-        return "COK"; //취소완료
+        String resultstatus = hostService.changeProStatusByHost(payd_no, status);
+        log.info("resultStatus={}",resultstatus);
+        return resultstatus;
     }
 
     //상품에 대한 옵션 ajax 가져오기
@@ -437,7 +324,7 @@ public class HostController2 {
         Map<String ,Object> pagingMap= new HashMap<>();
 
         //보여줄 상품수
-        int showAdjust=2;
+        int showAdjust=5;
         //sql문 limit 값
         int startPaging=showAdjust*(paging-1);
         //전체행갯수

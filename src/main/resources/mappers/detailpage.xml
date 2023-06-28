@@ -19,9 +19,9 @@
     <select id="detailproduct" resultType="java.util.Map" parameterType="int">
         SELECT a.cont_no, a.one_date, a.one_maxqty, a.one_status, a.pro_no,
                CAST(a.one_price AS DECIMAL) AS one_price
-        FROM (SELECT * FROM one
+        FROM (SELECT * FROM one where one_status ='OO'
               UNION
-              SELECT * FROM prod) a
+              SELECT * FROM prod where prod_status ='PO') a
                  JOIN cont c
                       ON a.cont_no = c.cont_no
                  JOIN cate ct

@@ -13,21 +13,22 @@
 <!-- 본문 시작 -->
 
 <div class="PageWrapper">
-    <div style="margin-top: 30px; margin-bottom: 18px; display: flex;">
+    <div style="margin-top: 30px; margin-bottom: 25px; display: flex;">
         <div class="image-slider">
             <span class="slide_prev" onclick="prevImage()"><</span>
             <span class="slide_next" onclick="nextImage()">></span>
 <%--        <img data-role="none" class="ImageSlider_Prev" style="display: block;" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'%3E %3Cpath fill='none' fill-rule='evenodd' stroke='%23FFF' stroke-width='2' d='M21 17l8 8.014L21.028 33'/%3E %3C/svg%3E"  onclick="prevImage()">--%>
             <c:forEach items="${detail.cont_imgs}" var="img" varStatus="status">
-                <img style="width: 350px; height: 350px; border-radius: 3px; display: ${status.index == 0 ? 'block' : 'none'}" src="/storage/${img}" onerror="this.src='/storage/ang.png'" class="image_item">
+                <img style="width: 380px; height: 380px; border-radius: 3px; display: ${status.index == 0 ? 'block' : 'none'}" src="/storage/${img}" onerror="this.src='/storage/ang.png'" class="image_item">
             </c:forEach>
 <%--            <img data-role="none" class="ImageSlider_Next" style="display: block;" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'%3E %3Cpath fill='none' fill-rule='evenodd' stroke='%23FFF' stroke-width='2' d='M21 17l8 8.014L21.028 33'/%3E %3C/svg%3E" onclick="nextImage()">--%>
         </div>
-            <div style="margin-left: 20px; width: 280px;">
-            <div style="height: 255px;">
+            <div style="margin-left: 20px; width: 360px;">
+            <div style="height: 290px;">
                 <div class="BasicInfoSection">
                     <hgroup class="BasicInfoSecion_Title">
                     <h1 class="BIS_title">${detail.cont_name}</h1>
+
                     </hgroup>
                     <div class="BasicInfoSection_Action">
                         <button type="button" name="ShareBtn" class="ButtonShare">
@@ -39,7 +40,13 @@
                     <div style="font-weight: bold; font-size: 30px; margin-right: auto; margin-left: 5px">
                         <fmt:formatNumber value="${price.money}" pattern="#,##0" />원
                     </div>
+
                 </div>
+                <c:if test="${detail.cont_status eq 'N'}">
+                    <div style="font-weight: bold; font-size: 15px; margin-right: auto; margin-left: 5px; color: red;margin-top: 5px;">
+                        <span>판매가 종료된 상품입니다</span>
+                    </div>
+                </c:if>
             </div>
             <hr>
             <div style="display: flex; align-items: center;">
@@ -59,7 +66,7 @@
             </div>
         </div>
     </div>
-    <c:if test="${contreview.size()!=0}">
+
 
     <div class="ReviewSummary">
         <div class="ReviewSummary_info">
@@ -86,7 +93,7 @@
         </div>
             <span class="ReviewSummary_Comment">경험한 크루들은 이렇게 평가했어요!</span>
     </div>
-
+    <c:if test="${contreview.size()!=0}">
         <div class="Reviewblack">
             <div class="Reviewflex parent-container">
                 <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -107,11 +114,11 @@
                 </c:forEach>
                 <a class="next" onclick="plusSlides(1)">&#10095;</a>
             </div>
-            <div class="reviewplus">
-                <strong><a href="/products/reviews?cont_no=${cont_no}" class="review_stylelink">${contreviewcnt.Reviewcnt}개 후기 더보기</a></strong>
-            </div>
         </div>
     </c:if>
+    <div class="reviewplus">
+        <strong><a href="/products/reviews?cont_no=${cont_no}" class="review_stylelink">${contreviewcnt.Reviewcnt}개 후기 더보기</a></strong>
+    </div>
 
 
         <div class="Classintroduction">
@@ -224,7 +231,7 @@
         </article>
     </section>
 </div>
-    <div class="FloatingActionBar" id="FloatingActionBar" >
+    <div class="FloatingActionBar" id="FloatingActionBar" style="display: none;">
         <div class="FloatingButton">
             <button class="SaveActionButton zzim_btn" type="button" onclick="preventA()" onsubmit="return false">
                 <img src="/img/black2.png" id="cont_no${detail.cont_no}" alt="상품 찜" >
@@ -238,7 +245,7 @@
 </div>
 
 <%--아이템 옵션 모달창--%>
-<div  id="productOptionsModal" class="Main_Wrapper">
+<div  id="productOptionsModal" class="Main_Wrapper" style="display: none">
     <div role="button" class="Toggle_Purch">
         <img src="data:image/svg+xml,%3Csvg width='17' height='10' viewBox='0 0 17 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M1.75 1.75L8.5 8.5L15.25 1.75' stroke='%23777777' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E %3C/svg%3E" class="Toggle_PurchIcon">
     </div>
@@ -249,6 +256,11 @@
                 <img src="data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M17.5 6.25L10 13.75L2.5 6.25' stroke='%23333333' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E %3C/svg%3E" class="OptionSelect_Icon">
             </div>
             <div class="OptionItem_Wrapper">
+                <c:if test="${detailproduct.size()==0}">
+                    <div class="OptionItem_Container">
+                        품절된 상품입니다.
+                    </div>
+                </c:if>
             <c:forEach var="option" items="${detailproduct}" varStatus="status">
                 <div class="OptionItem_Container" id="${status.index}" data-price="${option.one_price}">
                     <input type="hidden" value="${option.pro_no}" class="Option_Head">
@@ -299,6 +311,8 @@
 <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=514f787389abd52c7772e80e1f1beba1&libraries=services"></script>
 <script>
 
+
+
     $(document).ready(function() {
         $(".LinkAccordion").click(function() {
             var $content = $(this).find(".Accordion_Content");
@@ -306,7 +320,14 @@
 
             $(this).toggleClass('active');
         });
+
+        if('${detail.cont_status}'=='N'){
+            $("#FloatingActionBar").css('display','none');
+            //$("#openModalButton").off('click');
+        }
+
     });
+
 
     // 여기에 세션 처리가 완성되면, 해당 로그인 상태를 확인하는 코드로 변경
     // 예를 들면, `const isLoggedIn = sessionStorage.getItem('isLoggedIn');`
@@ -326,6 +347,8 @@
             selectedOption = item.querySelector('.Option_Head').value;
         });
     });
+
+
 
 
     // 참여하기 버튼 클릭시 동작
