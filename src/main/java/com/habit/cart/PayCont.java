@@ -113,12 +113,12 @@ public class PayCont {
 
         map4.put("cl_nos",cl_nos);
         map4.put("user_id", user_id);
-//
-//        int result= payDAO.paydInsert(payDTO);
-//        if(result!=0){
-//            payDAO.cartDelete(map4);
-//        }
-//
+
+        int result= payDAO.paydInsert(paydDTO);
+        if(result!=0){
+            payDAO.cartDelete(map4);
+        }
+
 
 
         //사용에너지 차감
