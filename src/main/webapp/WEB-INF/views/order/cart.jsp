@@ -39,7 +39,7 @@
 
           <tr>
             <td class="img_td" >
-              <img src="/img/${item.cont_img}" class="item_img" />
+              <img src="/storage/${item.cont_img}" class="item_img" />
             </td>
             <td class="pro_info">
               <div class="show_pro_info">
