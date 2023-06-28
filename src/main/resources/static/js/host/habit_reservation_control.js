@@ -96,6 +96,14 @@ $(document).ready(()=>{
 
         } else {
             tableBody.append("<tr><td colspan='8'>검색 결과가 없습니다</td></tr>")
+            let pagingAppend =
+                "  <li class='page-item disabled'>\n" +
+                "    <a class='page-link'>&laquo;</a>\n" +
+                "  </li>\n" +
+                "  <li class='page-item disabled'>\n" +
+                "    <a class='page-link'>&raquo;</a>\n" +
+                "  </li>\n"
+            pagination.append(pagingAppend)
         }
     }
 

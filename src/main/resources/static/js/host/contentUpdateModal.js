@@ -89,13 +89,13 @@ $(document).ready(()=> {
     // 해빗 update 모달창 띄우기 + 정보 가져오기
     $('#tableBody').on('click', '.content-update', (e)=>{
 
-        let cont_no = e.currentTarget.id.substring(6)
         $('.update-modal').css('display', 'flex')
+        let cont_no = e.currentTarget.id.substring(6)
         $.ajax({
             url: '/host/content/updateform/' + cont_no,
             type: 'get',
-            itemType: 'json',
-            item: cont_no,
+            dataType: 'json',
+            data: cont_no,
             success: (data) => {
                 $('.update-modal').css('display', 'flex')
                 let item = data.item //콘텐츠 DTO
@@ -310,8 +310,6 @@ $(document).ready(()=> {
 
             }
         })
-
-
     })
 
     // 모달 끄기

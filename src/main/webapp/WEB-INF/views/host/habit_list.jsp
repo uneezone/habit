@@ -190,10 +190,10 @@
             <c:forEach var="item" items="${list}">
               <div class='class-box'>
                 <div style='display: flex; align-items: center; justify-content: center'>
-                  <a href='#'><img src='/storage/${item.cont_img}' alt=''></a>
+                  <button style="border: 0; background-color: transparent;" name="detail${item.cont_no}" class="contentDetail"><img src='/storage/${item.cont_img}' alt='이미지 없음'></button>
                 </div>
                 <div style='margin: 10px 0'>
-                  <a href='#' style='font-size: large'><span><strong>${item.cont_name}</strong></span></a>
+                  <button style="border: 0; background-color: transparent;" name="detail${item.cont_no}" class="contentDetail"><span style='font-size: large'><strong>${item.cont_name}</strong></span></button>
                 </div>
                 <div style='color: #494846'>
                   <strong>[판매시작] </strong>${item.cont_stdate.substring(0, 16)}<br>
@@ -201,14 +201,14 @@
                   <strong>[카테고리] </strong>${item.cate_large} &gt; ${item.cate_middle}
                 </div>
                 <div>
-                  <input type="button" class="btn btn-sm btn-outline-primary content-update" id="update${item.cont_no}" value="해빗수정">
+                  <input type="button" class="btn btn-sm btn-outline-primary content-update" id="update${item.cont_no}" value="해빗수정" ${item.cont_endate < now ? "disabled" : ""}>
                   <input type="button" class="btn btn-sm btn-primary content-delete" id="delete${item.cont_no}" value="해빗삭제" ${item.contentPurchaseStatus.equals("N") ? "disabled" : ""}>
                 </div>
               </div>
             </c:forEach>
           </c:when>
           <c:otherwise>
-            <p>검색 결과가 없습니다</p>
+            <p style="font-weight: bold; font-size: large">검색 결과가 없습니다</p>
           </c:otherwise>
         </c:choose>
       </div>
@@ -248,8 +248,9 @@
 </footer>
 <!--footer 종료-->
 
-
 <%@include file="contentUpdateModal.jsp"%>
+<%@include file="contentDetailModal.jsp"%>
+
 <script>
   /* 카카오 우편번호 찾기 */
   // 우편번호 찾기 찾기 화면을 넣을 element

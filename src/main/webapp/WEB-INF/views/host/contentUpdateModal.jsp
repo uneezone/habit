@@ -311,6 +311,9 @@
                   <div>
                     <p class="item2-info" style="color: gray;">- 해빗 옵션 가격은 5000원 이상부터 등록 가능합니다.</p>
                   </div>
+                  <div>
+                    <p class="item2-info" style="color: gray;">- 옵션수정은 해빗수정과는 별개입니다. 옵션 수정버튼을 눌러야 옵션이 수정됩니다.</p>
+                  </div>
                 </div>
               </div>
               <!-- 콘텐츠 옵션 : 인원권/회차권 종료 -->
@@ -378,12 +381,12 @@
               </div>
             </div><hr>
 
-            <div>
-              <div class="item-name" style="margin: 50px 30px 0">
+            <div class="content-flex">
+              <div class="item-name">
                 <p>해빗 상세 설명</p>
               </div>
               <!-- 썸머노트 사용 textarea -->
-              <div style="margin: 20px 30px">
+              <div>
                 <textarea id="summernote" name="cont_content" maxlength="2000"></textarea>
               </div>
             </div>

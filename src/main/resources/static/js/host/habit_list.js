@@ -38,6 +38,7 @@ $(document).ready(()=> {
     const createTable = (map) => {
         const list = map.list
         const vo = map.vo
+        const now = map.now
         let tableBody = $('#tableBody')
         let pagination = $('#pagination')
         pagination.children().remove()
@@ -45,10 +46,10 @@ $(document).ready(()=> {
         for (let item of list) {
             str1 = "<div class='class-box'>\n" +
                 "                    <div style='display: flex; align-items: center; justify-content: center'>\n" +
-                "                      <a href='#'><img src='/storage/" + item.cont_img + "' alt=''></a>\n" +
+                "                      <a href='/host/content/detail/" + item.cont_no + "'><img src='/storage/" + item.cont_img + "' alt=''></a>\n" +
                 "                    </div>\n" +
                 "                    <div style='margin: 10px 0'>\n" +
-                "                      <a href='#' style='font-size: large'><span><strong>" + item.cont_name + "</strong></span></a>\n" +
+                "                      <a href='/host/content/detail/" + item.cont_no + "' style='font-size: large'><span><strong>" + item.cont_name + "</strong></span></a>\n" +
                 "                    </div>\n" +
                 "                    <div style='color: #494846'>\n" +
                 "                      <strong>[판매시작] </strong>" + item.cont_stdate.substring(0, 16) + "<br>\n" +
@@ -56,7 +57,7 @@ $(document).ready(()=> {
                 "                      <strong>[카테고리] </strong>" + item.cate_large + " &gt; " + item.cate_middle + "\n" +
                 "                    </div>\n" +
                 "                    <div>\n" +
-                "                      <input type='button' class='btn btn-sm btn-outline-primary content-update' id='update" + item.cont_no + "' value='해빗수정'>\n" +
+                "                      <input type='button' class='btn btn-sm btn-outline-primary content-update' id='update" + item.cont_no + "' value='해빗수정'" + (item.cont_endate < now ? 'disabled' : '') + ">\n" +
                 "                      <input type='button' class='btn btn-sm btn-primary content-delete' id='delete" + item.cont_no + "' value='해빗삭제'" + (item.contentPurchaseStatus === 'N' ? 'disabled' : '') + ">\n" +
                 "                    </div>\n" +
                 "                  </div>"
