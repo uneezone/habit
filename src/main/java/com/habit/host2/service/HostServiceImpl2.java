@@ -363,6 +363,8 @@ public class HostServiceImpl2 implements HostService2 {
         if(contNoForAdjust.size()!=0) {
             List<String> one_proNo = new ArrayList<>();
             List<String> prod_proNo = new ArrayList<>();
+
+            //콘텐츠, 상품옵션 상태들 바꾸기
             for (Integer cont_no : contNoForAdjust) {
                 //콘텐츠 코드 판매 상태 N으로
                 repository.updateContStatus(cont_no);
@@ -384,7 +386,8 @@ public class HostServiceImpl2 implements HostService2 {
                 //상품옵션코드 각각 한 곳에 모으기
                 one_proNo.addAll(oneProNo);
                 prod_proNo.addAll(prodProNo);
-            }
+            }//for end
+
             log.info("onePro={}", one_proNo);
             log.info("prodPro={}", prod_proNo);
 
@@ -397,256 +400,120 @@ public class HostServiceImpl2 implements HostService2 {
             log.info("pro_no={}", proNo);
             //주문상세코드 가져오기
             List<Integer> paydNo;
+
             //정산해야할 상품코드가 있다면...
             if (proNo.size() >= 1) {
                 paydNo = repository.getPaydNo(proNo);
                 log.info("payd_no={}", paydNo);
-                //주문상세상태 바꾸기
-                if(paydNo.size()!=0) {
+
+                //주문상세상태 바꾸기(판매가 된 상품코드에 한해서만) + 정산,정산상세테이블 insert
+                if (paydNo.size() != 0) {
+
+                    //주문상태 바꾸기
                     repository.updatePaydStatus(paydNo);
-                }
-            }
-
-            //=====정산해야할 것이 있다면 정산테이블, 정산상세테이블에 insert 시작
-            //호스트 계좌번호 조회
-            Map<String, Object> hostAccount = repository.getHostAccount(host_id);
-            log.info("hostAccount={}",hostAccount);
-            for (Integer contNo : contNoForAdjust) {
-
-                //컨텐츠 정보 판매일과 종료일, 상품이름
-                AdjustContDTO adjustContDTO = repository.getAdjustContDTO(contNo);
-                log.info("컨텐츠 정보={}",adjustContDTO);
-                String calc_date=adjustContDTO.getCont_stdate()+" - "+adjustContDTO.getCont_endate();
-
-                //상품옵션코드
-                List<String> adjustProNo = repository.getAdjustProNo(contNo);
-                log.info("contNo={}",contNo);
-                log.info("pro-no={}",adjustProNo);
 
 
-                //주문상세에서 뒤지기
-                List<AdjustPaydDTO> adjustPaydDTO = repository.getAdjustPaydDTO(adjustProNo);
-                log.info("paydDTO={}",adjustPaydDTO);
+                    //=====정산해야할 것이 있다면 정산테이블, 정산상세테이블에 insert 시작
+                    //호스트 계좌번호 조회
+                    Map<String, Object> hostAccount = repository.getHostAccount(host_id);
+                    log.info("hostAccount={}", hostAccount);
+                    for (Integer contNo : contNoForAdjust) {
+
+                        //컨텐츠 정보 판매일과 종료일, 상품이름
+                        AdjustContDTO adjustContDTO = repository.getAdjustContDTO(contNo);
+                        log.info("컨텐츠 정보={}", adjustContDTO);
+                        String calc_date = adjustContDTO.getCont_stdate() + " - " + adjustContDTO.getCont_endate();
+
+                        //상품옵션코드
+                        List<String> adjustProNo = repository.getAdjustProNo(contNo);
+                        log.info("contNo={}", contNo);
+                        log.info("pro-no={}", adjustProNo);
 
 
-                //총지급액(수수료전)
-                int adjustfee=0;
-                for (AdjustPaydDTO paydDTO : adjustPaydDTO) {
-                    if(paydDTO.getRefn_status().equals("NRO")){
-                        adjustfee+=paydDTO.getPayd_price()*paydDTO.getPayd_qty();
-                    }
+                        //주문상세에서 뒤지기
+                        List<AdjustPaydDTO> adjustPaydDTO = repository.getAdjustPaydDTO(adjustProNo);
+                        log.info("paydDTO={}", adjustPaydDTO);
 
-                }
-                //총 수수료
-                int commision= (int) (adjustfee*0.2);
-                log.info("adjustfee={}",adjustfee);
-                log.info("commision={}",commision);
 
-                //정산테이블 번호 생성
-                String calcNo="";
-                SimpleDateFormat sd= new SimpleDateFormat("yyyyMMddHHmmss");
-                String date=sd.format(new Date());
-                String findCalcNo = repository.findCalcNo(date);
-                if(findCalcNo.equals("1")){
-                    calcNo="C"+date+1;
-                }else {
+                        //총지급액(수수료전)
+                        int adjustfee = 0;
+                        for (AdjustPaydDTO paydDTO : adjustPaydDTO) {
+                            if (paydDTO.getRefn_status().equals("NRO")) {
+                                adjustfee += paydDTO.getPayd_price() * paydDTO.getPayd_qty();
+                            }
 
-                    int lastno=Integer.parseInt(findCalcNo.substring(findCalcNo.length()-1));
-                    date+=(lastno+1);
-                    calcNo="C"+date;
-                }
+                        }
+                        //총 수수료
+                        int commision = (int) (adjustfee * 0.2);
+                        log.info("adjustfee={}", adjustfee);
+                        log.info("commision={}", commision);
 
-                log.info("정산번호={}",calcNo);
+                        //정산테이블 번호 생성
+                        String calcNo = "";
+                        SimpleDateFormat sd = new SimpleDateFormat("yyyyMMddHHmmss");
+                        String date = sd.format(new Date());
+                        String findCalcNo = repository.findCalcNo(date);
+                        if (findCalcNo.equals("1")) {
+                            calcNo = "C" + date + 1;
+                        } else {
 
-                //정산테이블에 인저트 해보자
-                CalcDTO calcDTO= new CalcDTO();
-                calcDTO.setCalc_no(calcNo);
-                calcDTO.setHost_id(host_id);
-                calcDTO.setCalc_date(calc_date);
-                calcDTO.setCalc_title(adjustContDTO.getCont_name());
-                calcDTO.setCalc_ttlprice(adjustfee);
-                calcDTO.setCalc_fee(commision);
-                calcDTO.setCont_no(Long.valueOf(contNo));
-                calcDTO.setHost_account((String) hostAccount.get("host_account"));
-                calcDTO.setHost_acholder((String) hostAccount.get("host_acholder"));
-                calcDTO.setHost_bank((String) hostAccount.get("host_bank"));
-                log.info("calcDTO={}",calcDTO);
-                repository.insertCalc(calcDTO);
+                            int lastno = Integer.parseInt(findCalcNo.substring(findCalcNo.length() - 1));
+                            date += (lastno + 1);
+                            calcNo = "C" + date;
+                        }
 
-                //정산상세 하..
-                for (AdjustPaydDTO paydDTO : adjustPaydDTO) {
-                    String calcd_status="";
-                    if(paydDTO.getRefn_status().equals("NRO")){
-                        calcd_status="Y";
-                    }else if(paydDTO.getRefn_status().equals("HFRO")){
-                        calcd_status="C";
-                    }else if (paydDTO.getRefn_status().equals("CFRO")) {
-                        calcd_status="R";
-                    }
+                        log.info("정산번호={}", calcNo);
 
-                    CalcdDTO calcdDTO= new CalcdDTO(calcNo,paydDTO.getPayd_no(),paydDTO.getPro_no(),
-                            paydDTO.getPayd_price(),paydDTO.getPayd_qty(),calcd_status,paydDTO.getPayd_date());
+                        //정산테이블에 인저트 해보자
+                        CalcDTO calcDTO = new CalcDTO();
+                        calcDTO.setCalc_no(calcNo);
+                        calcDTO.setHost_id(host_id);
+                        calcDTO.setCalc_date(calc_date);
+                        calcDTO.setCalc_title(adjustContDTO.getCont_name());
+                        calcDTO.setCalc_ttlprice(adjustfee);
+                        calcDTO.setCalc_fee(commision);
+                        calcDTO.setCont_no(Long.valueOf(contNo));
+                        calcDTO.setHost_account((String) hostAccount.get("host_account"));
+                        calcDTO.setHost_acholder((String) hostAccount.get("host_acholder"));
+                        calcDTO.setHost_bank((String) hostAccount.get("host_bank"));
+                        log.info("calcDTO={}", calcDTO);
+                        //정산인저트
+                        int calcStatus = repository.insertCalc(calcDTO);
 
-                    //insert
-                    int status = repository.insertCalcD(calcdDTO);
+                        //정산상세 하..
+                        for (AdjustPaydDTO paydDTO : adjustPaydDTO) {
+                            String calcd_status = "";
+                            if (paydDTO.getRefn_status().equals("NRO")) {
+                                calcd_status = "Y";
+                            } else if (paydDTO.getRefn_status().equals("HFRO")) {
+                                calcd_status = "C";
+                            } else if (paydDTO.getRefn_status().equals("CFRO")) {
+                                calcd_status = "R";
+                            }
 
-                    if(status!=0){
-                        log.info("정산성공");
-                    }else{
-                        log.info("정산실패");
-                    }
-                }
+                            CalcdDTO calcdDTO = new CalcdDTO(calcNo, paydDTO.getPayd_no(), paydDTO.getPro_no(),
+                                    paydDTO.getPayd_price(), paydDTO.getPayd_qty(), calcd_status, paydDTO.getPayd_date());
 
-            }
+                            //정산상세 insert
+                            int calcdStatus = repository.insertCalcD(calcdDTO);
+
+                            if (calcdStatus != 0 && calcStatus!=0) {
+                                log.info("정산성공");
+                            } else {
+                                log.info("정산실패");
+                            }
+
+                        }//정산상세 잔복문 돌리기
+
+                    }//for 문(정산해야할 cont_no 반복문 돌리기)
+                }//주문상세상태변경 및 정산,정산상세  insert  end(판매가 된 상품에 한해서만)
+            }//정산이 진행되어야할 pro_no
 
         }
+
+        //======정산해야할 상품들이 없음====//
 
     }
-/*    @Override
-    @Transactional
-    public List<Integer> updateForDonePro(String host_id) {
-
-        //판매종료일기준 판매가 완료된 콘텐츠 테이블에서 정산테이블에 없는 콘텐츠 코드
-        List<Integer> contNoForAdjust = repository.getContNoForAdjust(host_id);
-        log.info("contNoForAdjust={}",contNoForAdjust);
-
-        List<String> one_proNo = new ArrayList<>();
-        List<String> prod_proNo = new ArrayList<>();
-        for (Integer cont_no : contNoForAdjust) {
-            //콘텐츠 코드 판매 상태 N으로
-            repository.updateContStatus(cont_no);
-            //원데이 테이블 상태꾸기 위해 판매완료 옵션코드 알기
-            List<String> oneProNo = repository.getOneProNo(cont_no);
-            //회차권 테이블 상태 바꾸기 위해 판매완료 옵션코드 알기
-            List<String> prodProNo = repository.getProdProNo(cont_no);
-
-            //상품옵션코드 각각 한 곳에 모으기
-            one_proNo.addAll(oneProNo);
-            prod_proNo.addAll(prodProNo);
-        }
-        log.info("onePro={}",one_proNo);
-        log.info("prodPro={}",prod_proNo);
-
-        for (String one : one_proNo) {
-            //원데이테이블 상태 바꾸기
-            //repository.updateOneStatus(one);
-        }
-
-        for (String prod : prod_proNo) {
-            //회차권테이블 상태 바꾸기
-            //repository.updateProdStatus(prod);
-        }
-
-        //상품 옵션코드들 하나로 모으기
-        List<String> proNo= new ArrayList<>();
-        proNo.addAll(one_proNo);
-        proNo.addAll(prod_proNo);
-
-        log.info("pro_no={}",proNo);
-        //주문상세코드 가져오기
-        List<Integer> paydNo;
-        //정산해야할 상품코드가 있다면...
-        if(proNo.size()>=1) {
-            paydNo = repository.getPaydNo(proNo);
-            log.info("payd_no={}", paydNo);
-            //주문상세상태 바꾸기
-            repository.updatePaydStatus(paydNo);
-        }
-
-
-        return contNoForAdjust;
-    }
-
-    @Override
-    @Transactional
-    public Long adjustFee(List<Integer> contNos,String host_id) {
-
-        //호스트 계좌번호 조회
-        Map<String, Object> hostAccount = repository.getHostAccount(host_id);
-        log.info("hostAccount={}",hostAccount);
-        for (Integer contNo : contNos) {
-
-            //컨텐츠 정보
-            AdjustContDTO adjustContDTO = repository.getAdjustContDTO(contNo);
-            log.info("컨텐츠 정보={}",adjustContDTO);
-            String calc_date=adjustContDTO.getCont_stdate()+" - "+adjustContDTO.getCont_endate();
-
-            //상품옵션코드
-            List<String> adjustProNo = repository.getAdjustProNo(contNo);
-            log.info("contNo={}",contNo);
-            log.info("pro-no={}",adjustProNo);
-
-
-            //주문상세에서 뒤지기
-            List<AdjustPaydDTO> adjustPaydDTO = repository.getAdjustPaydDTO(adjustProNo);
-            log.info("paydDTO={}",adjustPaydDTO);
-
-            //총지급액(수수료전)
-            int adjustfee=0;
-            for (AdjustPaydDTO paydDTO : adjustPaydDTO) {
-                if(paydDTO.getRefn_status().equals("NRO")){
-                    adjustfee+=paydDTO.getPayd_price()*paydDTO.getPayd_qty();
-                }
-
-            }
-            //총 수수료
-            int commision= (int) (adjustfee*0.2);
-            log.info("adjustfee={}",adjustfee);
-            log.info("commision={}",commision);
-
-            //정산테이블 번호 생성
-            String calcNo="";
-            SimpleDateFormat sd= new SimpleDateFormat("yyyyMMddHHmmss");
-            String date=sd.format(new Date());
-            String findCalcNo = repository.findCalcNo(date);
-            if(findCalcNo.equals("1")){
-                calcNo="C"+date+1;
-            }else {
-
-                int lastno=Integer.parseInt(findCalcNo.substring(findCalcNo.length()-1));
-                date+=(lastno+1);
-                calcNo="C"+date;
-            }
-
-            log.info("정산번호={}",calcNo);
-
-            //정산테이블에 인저트 해보자
-            CalcDTO calcDTO= new CalcDTO();
-            calcDTO.setCalc_no(calcNo);
-            calcDTO.setHost_id(host_id);
-            calcDTO.setCalc_date(calc_date);
-            calcDTO.setCalc_title(adjustContDTO.getCont_name());
-            calcDTO.setCalc_ttlprice(adjustfee);
-            calcDTO.setCalc_fee(commision);
-            calcDTO.setCont_no(Long.valueOf(contNo));
-            calcDTO.setHost_account((String) hostAccount.get("host_account"));
-            calcDTO.setHost_acholder((String) hostAccount.get("host_acholder"));
-            calcDTO.setHost_bank((String) hostAccount.get("host_bank"));
-            log.info("calcDTO={}",calcDTO);
-            repository.insertCalc(calcDTO);
-
-            //정산상세 하..
-            for (AdjustPaydDTO paydDTO : adjustPaydDTO) {
-                String calcd_status="";
-                if(paydDTO.getRefn_status().equals("NRO")){
-                    calcd_status="Y";
-                }else if(paydDTO.getRefn_status().equals("HFRO")){
-                    calcd_status="C";
-                }else if (paydDTO.getRefn_status().equals("CFRO")) {
-                    calcd_status="R";
-                }
-
-                CalcdDTO calcdDTO= new CalcdDTO(calcNo,paydDTO.getPayd_no(),paydDTO.getPro_no(),
-                                                paydDTO.getPayd_price(),paydDTO.getPayd_qty(),calcd_status,paydDTO.getPayd_date());
-
-                //insert
-                repository.insertCalcD(calcdDTO);
-            }
-
-        }
-
-        return 18L;
-    }*/
 
     //정산요청할때 계좌정보있는지 확인후 지급
     @Override

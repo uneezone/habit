@@ -299,8 +299,8 @@ public class MemoryHostRepository2 implements HostRepository2 {
     }
 
     @Override
-    public void insertCalc(CalcDTO dto) {
-        sqlSession.insert("host2.insertCalc",dto);
+    public int insertCalc(CalcDTO dto) {
+        return sqlSession.insert("host2.insertCalc", dto);
     }
 
     @Override
