@@ -33,10 +33,10 @@ CREATE TABLE review (
     review_date     datetime     NOT NULL  DEFAULT now(),               #리뷰 등록일
     review_cont     Text(500)    NOT NULL,                              #리뷰 내용
     review_star     float	     NOT NULL,                              #별점
-    review_img      varchar(20)	 NULL,                                  #리뷰 이미지
+    review_img      varchar(300)	 NULL,                                  #리뷰 이미지    ///날자랑 공백이 들어가니 생각보다 마니 차지
     review_ask      varchar(10)	 NULL,                                  #공통질문
     review_status   char(1)	     NOT NULL  DEFAULT 'Y',                 #리뷰 상태(Y:리뷰 게시중, N:리뷰 삭제)
-    review_feed     char(1)      NOT NULL  DEFAULT 'N'
+    review_feed     char(1)      NOT NULL  DEFAULT 'N'                                      //나중에 해빗 피드 구현하려고
 );
 
 insert into review(user_id, cont_no, payd_no, review_date, review_cont, review_star, review_img, review_ask, review_status)

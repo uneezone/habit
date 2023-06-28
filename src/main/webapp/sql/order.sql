@@ -64,7 +64,7 @@ CREATE TABLE payd (
     payd_price   int          NOT NULL  DEFAULT 0,                   #상품 금액(1개단위)
     payd_qty     int          NOT NULL  DEFAULT 0,                   #주문 수량
     payd_status  char(1)      NOT NULL  DEFAULT 'R',                 #주문 상세 상태
-    refn_status  char(4)      NOT NULL  DEFAULT 'RO',                #환불 상태
+    refn_status  char(4)      NOT NULL  DEFAULT 'RO',                #환불 상태       //char(4)-> 호스트와 소비자의 취소 구분
     payd_date    datetime     NOT NULL  DEFAULT now()                #주문 날짜
 );
 

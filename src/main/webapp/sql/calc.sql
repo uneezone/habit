@@ -8,10 +8,10 @@ CREATE TABLE calc (
     calc_fee       int	          NOT NULL  DEFAULT 0,     #총 수수료 액
     calc_status    char(1)	      NOT NULL  DEFAULT 'N',   #지급 상태
     calc_addate    datetime	      NOT NULL  DEFAULT now(), #정산 등록일
-    cont_no        int            NOT NULL,                #콘텐츠 번호
-    host_account   bigint         NOT NULL,                #정산계좌번호
-    host_bank      varchar(15)    NOT NULL,                #은행이름
-    host_acholder  varchar(15)    NOT NULL                 #예금주
+    cont_no        int            NOT NULL,                #콘텐츠 번호      //insert에 조금더 유용하게 활용하기 위해 추가
+    host_account   bigint         NOT NULL,                #정산계좌번호     //추가 (계좌번호 변동시 이미 정산된 기록에도 바뀌어서)
+    host_bank      varchar(15)    NOT NULL,                #은행이름        //추가 (계좌번호 변동시 이미 정산된 기록에도 바뀌어서)
+    host_acholder  varchar(15)    NOT NULL                 #예금주          //추가 (계좌번호 변동시 이미 정산된 기록에도 바뀌어서)
 );
 
 insert into calc (calc_no, host_id, calc_date, calc_title, calc_ttlprice, calc_fee, calc_addate, calc_status, cont_no, host_account, host_bank, host_acholder)
