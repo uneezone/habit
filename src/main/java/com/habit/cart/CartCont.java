@@ -33,16 +33,16 @@ public class CartCont {
     EnergyDAO energyDAO;
 
     @RequestMapping(value="/cart/insert", method = RequestMethod.POST, consumes = "application/json")
-    public String cartInsert(@RequestBody CartDTO cartDTO, HttpSession session){
-        cartDTO.setUser_id("user-3");
+    public String cartInsert(@SessionAttribute(name = "s_id",required = false)String user_id, @RequestBody CartDTO cartDTO, HttpSession session){
+        cartDTO.setUser_id(user_id);
         cartDAO.cartInsert(cartDTO);
 
         return "redirect:/cart/list";
     }
 
     @RequestMapping(value="/cart/list",method = RequestMethod.GET)
-    public ModelAndView list(HttpSession session, HttpServletRequest req){
-        String user_id="user-3";
+    public ModelAndView list(@SessionAttribute(name = "s_id",required = false)String user_id, HttpSession session, HttpServletRequest req){
+        //String user_id="user-3";
 
         //System.out.println(cartDAO.oneday_list("user-3"));
         List<CartDTO> list1 = cartDAO.oneday_list(user_id);
@@ -67,7 +67,7 @@ public class CartCont {
     }
 
     @RequestMapping(value="/cart/order/payPage", method=RequestMethod.GET)
-    public ModelAndView orderSelectedItems(@RequestParam(value = "cartno")String ch, HttpServletRequest req){
+    public ModelAndView orderSelectedItems(@SessionAttribute(name = "s_id",required = false)String user_id, @RequestParam(value = "cartno")String ch, HttpServletRequest req){
         //System.out.println(ch);
 
         List<Integer> carts=new ArrayList<>();
@@ -79,7 +79,7 @@ public class CartCont {
         req.setAttribute("carts", carts);
         //System.out.println(carts);
 
-        String user_id="user-3";
+        //String user_id="user-3";
         HashMap<String, Object> map=new HashMap<>();
         map.put("user_id", user_id);
         map.put("carts", carts);
@@ -105,14 +105,14 @@ public class CartCont {
     //카트 삭제
     @PostMapping(value="/cart/delete")
     @ResponseBody
-    public String delete(@SessionAttribute(name = "s_id",required = false) String userId
+    public String delete(@SessionAttribute(name = "s_id",required = false) String user_id
                         ,@RequestParam( "cl_nos") String[] params, HttpServletRequest req){
 
         List<String> list = Arrays.stream(params).toList();
         log.info("list={}",list);
         HashMap<String, Object> map=new HashMap<>();
         map.put("cl_nos", list);
-        map.put("user_id", "user-3");
+        map.put("user_id", user_id);
         int i = cartDAO.cartDelete(map);
         if(i==0){
             return "NOK";
@@ -124,7 +124,7 @@ public class CartCont {
     //카트수량 변경
     @PostMapping("/cart/change")
     @ResponseBody
-    public String changeQty(@SessionAttribute(name = "s_id",required = false) String userId
+    public String changeQty(@SessionAttribute(name = "s_id",required = false) String user_id
                             ,@RequestParam("cl_nos")String cl_nos,@RequestParam("qty")String qty){
 
         log.info("cl_nos={}",cl_nos);
@@ -143,7 +143,7 @@ public class CartCont {
            Map<String,Object> params= new HashMap<>();
            params.put("cl_no",cl_no);
            params.put("cl_qty",cl_qty);
-           params.put("user_id","user-3");
+           params.put("user_id",user_id);
 
            status += cartDAO.cartChage(params);
 
