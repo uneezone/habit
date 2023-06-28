@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -84,7 +85,7 @@ public class HostContorller1 {
     // 해빗 리스트 필터 조회
     @PostMapping("/content/list.do")
     @ResponseBody
-    public Map<String, Object> contentList (@SessionAttribute(name = "userId", required = false) String userIdd, RequestContentListDTO reqContListDTO) {
+    public Map<String, Object> contentList(@SessionAttribute(name = "userId", required = false) String userIdd, RequestContentListDTO reqContListDTO) {
         //임시 세션 아이디
         String userId = "user-1";
         reqContListDTO.setHost_id(userId);
@@ -150,6 +151,12 @@ public class HostContorller1 {
         return hostService1.optionDelete(reqOptDelDTO);
     }
 
+    // 옵션 update & insert
+    @PostMapping("/option/update.do")
+    @ResponseBody
+    public int optionUpdate(RequestOptionDTO reqOptDTO) {
+        return hostService1.optionUpdate(reqOptDTO);
+    }
 
 
 

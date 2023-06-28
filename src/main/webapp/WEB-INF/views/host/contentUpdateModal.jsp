@@ -1,3 +1,4 @@
+<%@ taglib prefix="input" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <script src="/js/host/contentUpdateModal.js"></script>
 <!-- 썸머 노트 사용을 위한 js, css 추가 시작 -->
@@ -249,39 +250,42 @@
                 </div>
               </div>
             </div><hr>
-            <div class="content-flex">
-              <div class="item-name">
+            <div>
+              <div class="item-name" style="margin: 50px 30px 0">
                 <p>판매 유형</p>
               </div>
-              <div style="display: flex; align-items: center; justify-content: space-around;">
-                <div id="prod" class="select" style="flex: 1; display: none; flex-direction: column; align-items: center; justify-content: center">
-                  <input type="radio" id="type-prod" name="cont_type" value="prod" checked>
+              <div style="display: flex; align-items: center; justify-content: center;">
+                <div id="prod" class="select" style="display: none; flex-direction: column; align-items: center; justify-content: center">
+                  <input type="radio" id="type-prod" name="cont_type" value="prod" disabled>
                   <label for="type-prod" style="height: 100%; min-height: 170px; display: flex; flex-direction: column; align-items: center; justify-content: center">
                     <p>날짜 조율형</p>
                     <p>호스트님이 회원 연락처로 별도 연락하여 일정을 조율하는 형태의 해빗입니다. (에스테틱, 네일 등에 적합)</p>
                   </label>
                 </div>
-                <div id="one" class="select" style="flex: 1; display: none; flex-direction: column; align-items: center; justify-content: center">
-                  <input type="radio" id="type-one" name="cont_type" value="one" checked>
+                <div id="one" class="select" style="display: none; flex-direction: column; align-items: center; justify-content: center">
+                  <input type="radio" id="type-one" name="cont_type" value="one" disabled>
                   <label for="type-one" style="height: 100%; min-height: 170px; display: flex; flex-direction: column; align-items: center; justify-content: center">
                     <p>날짜 지정형</p>
-                    <p>호스트님께서 날짜와 옵션을 등록하여 가능한 날에만 예약을 받을 수 있는 해빗입니다. 일정 관리 및 고객 관리를 더 간편하게 하실 수 있습니다. (에스테틱, 네일 제외한 대부분의 해빗)</p>
+                    <p>호스트님께서 날짜와 옵션을 등록하여 가능한 날에만 예약을 받을 수 있는 해빗입니다.<br>일정 관리 및 고객 관리를 더 간편하게 하실 수 있습니다. (에스테틱, 네일 제외한 대부분의 해빗)</p>
                   </label>
                 </div>
               </div>
             </div><hr>
-            <div class="content-flex">
-              <div class="item-name">
-                <p>옵션 목록 입력</p>
+            <div style="position: relative">
+              <div class="update-block">
+                <p>옵션 수정 완료</p>
+              </div>
+              <div class="item-name" style="margin: 50px 30px 0">
+                <p>옵션 목록 수정</p>
               </div>
 
               <!-- 콘텐츠 옵션 : 인원권/회차권 시작 -->
-              <div id="cont_option_prod">
+              <div id="cont_option_prod" style="margin: 0 30px" hidden>
                 <div style="text-align: right;">
                   <input type="button" class="btn btn-sm btn-primary" id="option_remove_prod" value="옵션 삭제">
                 </div>
                 <div>
-                  <table class="table table-hover" style="text-align: center;">
+                  <table class="table table-hover" style="text-align: center;" >
                     <thead>
                     <tr class="table-secondary">
                       <th></th>
@@ -302,7 +306,7 @@
                     </tr>
                   </table>
                   <div>
-                    <p class="item2-info" style="color: gray;">- 구매 기록이 있는 옵션은 수정이 불가능 합니다.</p>
+                    <p class="item2-info" style="color: gray;">- 구매 이력이 있는 옵션은 수정이 불가능 합니다.</p>
                   </div>
                   <div>
                     <p class="item2-info" style="color: gray;">- 해빗 옵션 가격은 5000원 이상부터 등록 가능합니다.</p>
@@ -312,7 +316,7 @@
               <!-- 콘텐츠 옵션 : 인원권/회차권 종료 -->
 
               <!-- 콘텐츠 옵션 : 원데이 클래스 시작 -->
-              <div id="cont_option_one" hidden>
+              <div id="cont_option_one" style="margin: 0 30px" hidden>
                 <div style="text-align: right;">
                   <input type="button" class="btn btn-sm btn-primary" id="option_remove_one" value="옵션 삭제">
                 </div>
@@ -337,11 +341,19 @@
                     </tr>
                   </table>
                   <div>
-                    <p class="item2-info" style="color: gray;">- 구매 기록이 있는 옵션은 수정이 불가능 합니다.</p>
+                    <p class="item2-info" style="color: gray;">- 구매 이력이 있는 옵션은 수정이 불가능 합니다.</p>
                   </div>
                   <div>
                     <p class="item2-info" style="color: gray;">- 해빗 옵션 가격은 5000원 이상부터 등록 가능합니다.</p>
                   </div>
+                  <div>
+                    <p class="item2-info" style="color: gray;">- 옵션수정은 해빗수정과는 별개입니다. 옵션 수정버튼을 눌러야 옵션이 수정됩니다.</p>
+                  </div>
+                </div>
+              </div>
+              <div style="margin: 0 30px">
+                <div class="d-grid gap-2" style="margin-top: 10px; margin-bottom: 20px">
+                  <input type="button" class="btn btn-outline-primary" id="option-update-button" value="옵션 수정"/>
                 </div>
               </div>
               <!-- 콘텐츠 옵션 : 원데이 클래스 종료 -->
@@ -351,8 +363,8 @@
           <!-- 해빗 설명 -->
           <div class="content">
             <p class="content-name">해빗 설명</p>
-            <div class="content-flex">
-              <div class="item-name">
+            <div>
+              <div class="item-name" style="margin: 50px 30px 0">
                 <p>대표 이미지</p>
               </div>
               <div>
@@ -366,12 +378,12 @@
               </div>
             </div><hr>
 
-            <div class="content-flex">
-              <div class="item-name">
+            <div>
+              <div class="item-name" style="margin: 50px 30px 0">
                 <p>해빗 상세 설명</p>
               </div>
               <!-- 썸머노트 사용 textarea -->
-              <div>
+              <div style="margin: 20px 30px">
                 <textarea id="summernote" name="cont_content" maxlength="2000"></textarea>
               </div>
             </div>
