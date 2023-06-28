@@ -7,7 +7,7 @@
 <mapper namespace="energy">
 
     <select id="getSavedEnergyPoint" parameterType="String" resultType="int">
-        select sum(energy_saveuse) from energy where user_id=#{user_id}
+        select IFNULL(sum(energy_saveuse),0) from energy where user_id=#{user_id}
     </select>
 
     <select id="getUserGrade" parameterType="String" resultType="String">

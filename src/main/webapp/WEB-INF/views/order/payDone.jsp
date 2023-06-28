@@ -28,6 +28,7 @@
           </div>         
           <div class="show_price_wrapper">
             <p id="payed_price">가격 : ${item.price}원</p>
+            <p id="payed_price">주문수량 : ${item.payd_qty}</p>
           </div>
         </div>
         <hr style="border: 0.5px solid rgb(211, 211, 211)">
