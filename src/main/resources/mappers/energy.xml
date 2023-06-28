@@ -7,7 +7,7 @@
 <mapper namespace="energy">
 
     <select id="getSavedEnergyPoint" parameterType="String" resultType="int">
-        select sum(energy_saveuse) from energy where user_id=#{user_id}
+        select IFNULL(sum(energy_saveuse),0) from energy where user_id=#{user_id}
     </select>
 
     <select id="getUserGrade" parameterType="String" resultType="String">
@@ -15,13 +15,30 @@
     </select>
 
 
-    <select id="getAccumulatedPurchasePrice" parameterType="String" resultType="Integer">
+    <select id="getPurchasePrice" parameterType="String" resultType="Integer">
         select SUM(payd_price*payd_qty) from payd
         where user_id=#{user_id} and payd_status='Y'
     </select>
 
-    <update id="">
+    <select id="getAccumulatedPrice" parameterType="String" resultType="Integer">
+        select sum(tot), A.level
+        from (
+                select user.user_id, user.user_level as level, pay.pay_total as tot
+                from user inner join pay
+                on user.user_id=pay.user_id
+              ) A
+        where user_id=#{user_id}
+    </select>
 
+
+
+    <!--회원등급 업데이트-->
+    <update id="updateUserLeveltoA" parameterType="String">
+        update user set user_level='A' where user_id=#{user_id}
+    </update>
+
+    <update id="updateUserLeveltoS" parameterType="String">
+        update user set user_level='S' where user_id=#{user_id}
     </update>
 
 
@@ -30,7 +47,23 @@
         where user_id=#{user_id}
     </update>
 
+    <!-- 유저아이디, 유저등급, 실결제금액 주문서번호로 조회해서 가져오기 -->
+    <select id="getRealPay" parameterType="String" resultType="java.util.Map">
+        select user.user_id, user.user_level, pay.pay_total-pay.pay_point as realPay
+        from user inner join pay
+        on user.user_id=pay.user_id where pay_no=#{pay_no}
+    </select>
 
 
+    <insert id="insertEnergy" parameterType="java.util.Map">
+        insert into energy(user_id, energy_saveuse, energy_sources)
+        values(#{user_id}, #{energy_saveuse}, '[결제]적립')
+    </insert>
+
+
+    <insert id="insertUseEnergy" parameterType="java.util.Map">
+        insert into energy(user_id, energy_saveuse, energy_sources)
+        values(#{user_id}, #{energyUse}, '[결제]사용')
+    </insert>
 
 </mapper>

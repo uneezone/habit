@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pay">
+
+    <select id="pay_no" resultType="String" parameterType="String">
+        select ifnull(max(pay_no), '1')
+        from pay
+        where pay_no like '#{date}%'
+    </select>
+
+   <insert id="pay_insert" parameterType="com.habit.cart.PayDTO">
+       insert into pay(pay_no, user_id, pay_total, pay_point, pay_method)
+       values(#{pay_no}, #{user_id}, #{pay_total}, #{pay_point}, #{pay_method})
+   </insert>
+
+    <insert id="payd_insert" parameterType="com.habit.cart.PayDTO">
+        insert into payd(pay_no, user_id, pro_no, refn_status, payd_price, payd_qty)
+        values(#{pay_no}, #{user_id}, #{pro_no}, 'RO', #{payd_price}, #{payd_qty})
+    </insert>
+
+
+    <delete id="cartDelete" parameterType="java.util.HashMap">
+        DELETE FROM cartlist WHERE cl_no in
+        <foreach item="item" index="index" collection="cl_nos"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and user_id=#{user_id}
+    </delete>
+
+
+    <select id="getOneStock" parameterType="String" resultType="Integer">
+        select IFNULL(one.one_maxqty-sum(payd.payd_qty), 0)
+        from payd
+        inner join one
+        on one.pro_no=payd.pro_no
+        where one.pro_no=#{pro_no}
+    </select>
+
+    <select id="getOneRefn" resultType="Integer" parameterType="String">
+        select IFNULL(sum(payd_qty),0) from payd where payd_status='C' and pro_no like 'o%' and pro_no=#{pro_no}
+    </select>
+
+    <update id="updateOneStatus" parameterType="String">
+        update one set one_status='OS' where pro_no=#{pro_no}
+    </update>
+
+
+    <select id="getProdStock" parameterType="String" resultType="Integer">
+        select IFNULL(prod.prod_qty-sum(payd.payd_qty),0) from payd inner join prod
+        on prod.pro_no=payd.pro_no where prod.pro_no=#{pro_no}
+    </select>
+
+    <select id="getProdRefn" parameterType="String" resultType="Integer">
+        select IFNULL(sum(payd_qty),0) from payd where payd_status='C' and pro_no like 'p%' and pro_no=#{pro_no}
+    </select>
+
+
+
+    <update id="updateProdStatus" parameterType="String">
+        update prod set prod_status='PS' where pro_no=#{pro_no}
+    </update>
+
+
+    <select id="showPurchasedOneInfo" parameterType="String" resultType="java.util.Map">
+        select A.pro_no, cont.cont_no, cont.cont_img, cont.cont_name, A.price, A.qty, A.pay_no
+        from
+            (
+                select payd.pay_no as pay_no, payd.pro_no as pro_no, one.cont_no as cont_no, one.one_price as price, payd.payd_qty as qty
+                from payd inner join one
+                on one.pro_no=payd.pro_no
+            ) A
+        inner join cont
+        on A.cont_no=cont.cont_no
+        where A.pay_no=#{pay_no}
+    </select>
+
+    <select id="getInfoForPayDonePage" parameterType="String" resultType="java.util.Map">
+        select * from
+                    (
+                        select A.pro_no as pro_no, A.cont_no as cont_no, A.one_date as option, A.one_maxqty as qty, A.one_price as price, cont.cont_img, cont.cont_name as cont_name
+                        from
+                            (
+                                select * from one union all select * from prod
+                            ) A
+                        inner join cont on cont.cont_no=A.cont_no
+                    ) B
+        inner join payd
+        on payd.pro_no=B.pro_no
+        where pay_no=#{pay_no}
+    </select>
+
+
+
+
+</mapper>
