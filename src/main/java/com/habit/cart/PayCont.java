@@ -87,6 +87,8 @@ public class PayCont {
             paydDTO.setPro_no(cartDAO.getProno(cl_noi)); // 상품코드
             cl_nos.add(cl_noi);
             System.out.println("map4에 담은 내용 : "+cl_noi);
+            ////////////////////////////////////////////////////////
+            map4.put("cl_no"+i,cl_noi);
 
             int cl_qty=Integer.parseInt(req.getParameter("cl_qty"+i));
             System.out.println("주문수량 : "+cl_qty);

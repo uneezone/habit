@@ -11,7 +11,7 @@
       </h1>
       <hr style="border-width: 4px" />
       <div class="show_payed_finish">
-        <img src="/img/check.png" id="paydone_img" />
+        <img src="/storage/check.png" id="paydone_img" />
         <p style="font-size: 21px; text-align: center; font-weight: bold; margin-bottom: 10px;">
           구매가 정상적으로 완료되었습니다.
         </p>
