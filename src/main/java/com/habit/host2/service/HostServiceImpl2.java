@@ -141,7 +141,7 @@ public class HostServiceImpl2 implements HostService2 {
     }
 
     @Override
-    public String checkAjustForProCon(int payd_no) {
+    public String checkAdjustForProCon(int payd_no) {
         int status = repository.checkAjustForProCon(payd_no);
 
         if(status!=0){
@@ -151,44 +151,153 @@ public class HostServiceImpl2 implements HostService2 {
         return "AdjustNOK";
     }
 
+    //판매관리에서 상태변경 ajax
     @Override
-    public void updatePaydStatus(Long payd_no, String status) {
-        repository.updatePaydStatus(payd_no,status);
-    }
+    @Transactional
+    public String changeProStatusByHost(Long payd_no, String status){
+        if(status.equals("Y")){
+            //주문상세 테이블 변경
+            repository.updatePaydStatus(payd_no,status);
+            return "ROK";  //사용완료
+        }else if(status.equals("C")){
 
-    @Override
-    public String getPayNo(Long payd_no) {
-        return repository.getPayNo(payd_no);
-    }
+            //주문상세테이블 변경
+            repository.updatePaydStatus(payd_no,status);
 
-    @Override
-    public Long getRefnCount(String pay_no) {
-        return repository.getRefnCount(pay_no);
-    }
+            //환불테이블 insert
+            //주문서번호 기준으로 RO 혹은 NRO 있으면 에너지 환불 X
 
-    @Override
-    public String getPayMethod(String pay_no) {
-        return repository.getPayMethod(pay_no);
-    }
+            //주문상세번호로 주문서번호 알아오기
+            String payNo = repository.getPayNo(payd_no);
+            log.info("주문서번호={}",payNo);
 
-    @Override
-    public Map<String, Object> getInfoByPaydNo(Long payd_no) {
-        return repository.getInfoByPaydNo(payd_no);
-    }
+            //주문서번호 기준으로 RO혹은 NRO가 있는지 확인
+            Long refnCount = repository.getRefnCount(payNo);
 
-    @Override
-    public void insertRefund(Map<String, Object> params) {
-        repository.insertRefund(params);
-    }
+            //주문서번호로 결제수단 가져오기(해당 결제수단으로 환불해주기 위해서)
+            String payMethod = repository.getPayMethod(payNo);
+            log.info("결제수단={}",payMethod);
 
-    @Override
-    public Integer getRefundPoint(String pay_no) {
-        return repository.getRefundPoint(pay_no);
-    }
+            //환불에너지 선언
+            Integer refundPoint=0;
 
-    @Override
-    public void insertEnergy(Map<String, Object> params) {
-        repository.insertEnergy(params);
+            //환불금액 선언
+            int refundPrice=0;
+
+            //주문상세번호 해당 제품의 금액과 수량,상품코드,유저아이디
+            Map<String, Object> info;
+
+            if(refnCount>=1){
+                //에너지 환붍 X
+                //주문상세번호 해당 제품의 금액과 수량,상품코드,유저아이디
+                info = repository.getInfoByPaydNo(payd_no);
+                log.info("info={}",info.toString());
+
+                //환불금액 계산
+                refundPrice=(Integer)info.get("payd_qty")*(Integer)info.get("payd_price");
+
+                //환불테이블에 insert할 값들 모으기
+                Map<String, Object> params = new HashMap<>();
+                params.put("payd_no",payd_no);
+                params.put("user_id",info.get("user_id"));
+                params.put("pro_no",info.get("pro_no"));
+                params.put("pay_qty",info.get("payd_qty"));
+                params.put("refund_price",refundPrice);
+                params.put("pay_method",payMethod);
+                params.put("refn_point",refundPoint);
+
+                //환불테이블에 insert 하기
+                repository.insertRefund(params);
+                log.info("환불테이블 insert 성공1");
+
+
+            }else{
+                //에너지 환불 O
+                //주문상세번호 해당 제품의 금액과 수량,상품코드,유저아이디
+                info = repository.getInfoByPaydNo(payd_no);
+                log.info("info={}",info.toString());
+
+                //환불금액 계산
+                refundPrice=(Integer)info.get("payd_qty")*(Integer)info.get("payd_price");
+
+                //환불에너지 가져오기
+                log.info("주문서번호={}",payNo);
+                refundPoint = repository.getRefundPoint(payNo);
+                log.info("환불에너지={}",refundPoint);
+
+                if(refundPoint==0) {
+                    //주문시 에너지 사용안했을때
+                    //환불테이블에 insert할 값들 모으기
+
+
+                    Map<String, Object> params = new HashMap<>();
+                    params.put("payd_no",payd_no);
+                    params.put("user_id",info.get("user_id"));
+                    params.put("pro_no",info.get("pro_no"));
+                    params.put("pay_qty",info.get("payd_qty"));
+                    params.put("refund_price",refundPrice);
+                    params.put("pay_method",payMethod);
+                    params.put("refn_point",refundPoint);
+
+                    //환불테이블에 insert 하기
+                    repository.insertRefund(params);
+                    log.info("환불테이블 insert 성공2");
+
+                }else{
+                    //주문시 에너지 사용했을때
+                    //환불테이블에 insert할 값들 모으기
+                    Map<String, Object> params = new HashMap<>();
+                    params.put("payd_no",payd_no);
+                    params.put("user_id",info.get("user_id"));
+                    params.put("pro_no",info.get("pro_no"));
+                    params.put("pay_qty",info.get("payd_qty"));
+                    params.put("refund_price",refundPrice);
+                    params.put("pay_method",payMethod);
+                    params.put("refn_point",refundPoint);
+
+                    //환불테이블에 insert 하기
+                    repository.insertRefund(params);
+                    log.info("환불테이블 insert 성공3");
+
+                    //에너지테이블에 환불에너지 남기기
+                    Map<String, Object> energyParams= new HashMap<>();
+                    energyParams.put("user_id",info.get("user_id"));
+                    energyParams.put("energy_saveuse",refundPoint);
+                    energyParams.put("energy_sources","[결제]호스트취소");
+
+                    repository.insertEnergy(energyParams);
+                }
+
+
+            }
+
+            //호스트가 환불해주는 경우 회원등급확인해서 상품대비 적립금 빼기
+            String userGrade = repository.getUserGradeForRefund(String.valueOf(info.get("user_id")));
+            int contRefnPoint=0;
+            if(userGrade.equals("B")){
+                contRefnPoint= (int) (refundPrice*0.01);
+            }else if (userGrade.equals("A")){
+                contRefnPoint= (int) (refundPrice*0.03);
+            }else {
+                contRefnPoint= (int) (refundPrice*0.05);
+            }
+
+            Map<String,Object> refnPointByContPrice=new HashMap<>();
+            refnPointByContPrice.put("energy_saveuse",(-contRefnPoint));
+            refnPointByContPrice.put("energy_sources","[결제]적립취소");
+            refnPointByContPrice.put("user_id",info.get("user_id"));
+
+            int refnpointstatus = repository.insertEnergyRefundByCont(refnPointByContPrice);
+            if(refnpointstatus==0){
+                log.info("호스트 취소 : 상품대비 적립금 취소 실패");
+            }else{
+                log.info("호스트 취소 : 상품대비 적립금 취소 성공");
+            }
+
+
+            return "COK"; //취소완료
+        }
+        return "COK"; //취소완료
     }
 
     @Override

@@ -176,6 +176,16 @@ public class MemoryHostRepository2 implements HostRepository2 {
     }
 
     @Override
+    public String getUserGradeForRefund(String user_id) {
+        return sqlSession.selectOne("host2.getUserGrade",user_id);
+    }
+
+    @Override
+    public int insertEnergyRefundByCont(Map<String, Object> params) {
+        return sqlSession.insert("host2.insertEnergyRefund",params);
+    }
+
+    @Override
     public List<Map<String, Object>> getProductNames(String host_id) {
         return sqlSession.selectList("host2.getProductNames",host_id);
     }

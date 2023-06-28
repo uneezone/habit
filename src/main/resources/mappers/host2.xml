@@ -127,7 +127,7 @@
                 and p.user_id=#{user_id}
             </if>
             <if test='startDate !="" and startDate!=null'>
-                and payd_date between #{startDate} and #{endDate}
+                and DATE_FORMAT(payd_date,'%Y-%m-%d') between #{startDate} and #{endDate}
             </if>
             <if test='payd_status !="0" and payd_status !=null'>
                 and payd_status=#{payd_status}
@@ -153,7 +153,7 @@
                and p.user_id=#{user_id}
             </if>
             <if test='startDate !="" and startDate!=null'>
-                and payd_date between #{startDate} and #{endDate}
+                and DATE_FORMAT(payd_date,'%Y-%m-%d') between #{startDate} and #{endDate}
             </if>
             <if test='payd_status !="0" and payd_status !=null'>
                 and payd_status=#{payd_status}
@@ -164,7 +164,7 @@
     </select>
 
     <select id="checkAdjustForProCon" parameterType="Integer" resultType="Integer">
-        select count(*) from calcd where payd_no=#{payd_no};
+        select count(*) from calcd where payd_no=#{payd_no} and calcd_status!='C';
 
     </select>
 
@@ -201,12 +201,21 @@
     </insert>
 
     <select id="getRefundPoint" parameterType="String" resultType="Integer">
-        select pay_point from pay where pay_no=#{pay_no}
+        select IFNULL(pay_point,0) from pay where pay_no=#{pay_no}
     </select>
 
     <insert id="insertEnergy" parameterType="java.util.Map">
         insert into energy(user_id, energy_saveuse, energy_sources)
         values (#{user_id},#{energy_saveuse},#{energy_sources})
+    </insert>
+
+    <select id="getUserGrade" parameterType="String" resultType="String">
+        select user_level from user where user_id=#{user_id}
+    </select>
+
+    <insert id="insertEnergyRefund" parameterType="java.util.Map">
+        insert into energy(user_id, energy_saveuse,  energy_sources)
+        values(#{user_id},#{energy_saveuse},#{energy_sources})
     </insert>
 
     <select id="getProductNames" parameterType="String" resultType="java.util.Map">
