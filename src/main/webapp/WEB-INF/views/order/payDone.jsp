@@ -11,7 +11,7 @@
       </h1>
       <hr style="border-width: 4px" />
       <div class="show_payed_finish">
-        <img src="/img/check.png" id="paydone_img" />
+        <img src="/storage/check.png" id="paydone_img" />
         <p style="font-size: 21px; text-align: center; font-weight: bold; margin-bottom: 10px;">
           구매가 정상적으로 완료되었습니다.
         </p>
@@ -28,6 +28,7 @@
           </div>         
           <div class="show_price_wrapper">
             <p id="payed_price">가격 : ${item.price}원</p>
+            <p id="payed_price">주문수량 : ${item.payd_qty}</p>
           </div>
         </div>
         <hr style="border: 0.5px solid rgb(211, 211, 211)">

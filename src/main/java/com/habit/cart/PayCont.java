@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +33,7 @@ public class PayCont {
     EnergyDAO energyDAO;
 
     @RequestMapping("/order/payDone")
-    public ModelAndView orderInsert(@ModelAttribute PayDTO payDTO, HttpSession session, HttpServletRequest req){
+    public ModelAndView orderInsert(@SessionAttribute(name = "s_id",required = false)String user_id, @ModelAttribute PayDTO payDTO, HttpSession session, HttpServletRequest req){
 
 
         PaydDTO paydDTO=new PaydDTO();
@@ -52,7 +53,7 @@ public class PayCont {
 
         System.out.println(pay_no);
 
-        String user_id="user-3";
+        //String user_id="user-3";
 
         payDTO.setPay_no(pay_no); // 주문서번호
         payDTO.setUser_id(user_id); // 유저아이디
@@ -86,6 +87,8 @@ public class PayCont {
             paydDTO.setPro_no(cartDAO.getProno(cl_noi)); // 상품코드
             cl_nos.add(cl_noi);
             System.out.println("map4에 담은 내용 : "+cl_noi);
+            ////////////////////////////////////////////////////////
+            map4.put("cl_no"+i,cl_noi);
 
             int cl_qty=Integer.parseInt(req.getParameter("cl_qty"+i));
             System.out.println("주문수량 : "+cl_qty);
