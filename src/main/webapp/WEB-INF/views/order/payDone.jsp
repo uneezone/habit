@@ -36,7 +36,7 @@
       <p style="text-align: center; font-size: 22px; font-weight: bold;">총 결제금액(에너지 사용) : <span>${requestScope.payedPrice}</span></p>
       <div class="payed_btn_con">
         <div class="payed_btn_wrapper">
-          <input type="button" value="쇼핑계속하기" id="continue_shop_btn" onclick="location.href='intro.html'"/>
+          <input type="button" value="쇼핑계속하기" id="continue_shop_btn" onclick="location.href='/intro.jsp'"/>
         </div>
       </div>
     </div>

@@ -107,14 +107,14 @@ public class PayCont {
         System.out.println("한번 결제당 총 결제금액의 합 : "+sumPerPurchase);
         payDTO.setPay_total(sumPerPurchase);
         System.out.println("pay_no="+payDTO.getPay_no());
-        System.out.println(payDAO.payInsert(payDTO));
-
+        int result = payDAO.payInsert(payDTO);
 
 
         map4.put("cl_nos",cl_nos);
         map4.put("user_id", user_id);
 
-        int result= payDAO.paydInsert(paydDTO);
+        //
+
         if(result!=0){
             payDAO.cartDelete(map4);
         }
@@ -130,7 +130,9 @@ public class PayCont {
 
         // 등급에 따라 실제 결제한 금액에 대한 에너지적립액 계산
         int energy_saveuse=0;
+
         Map<String, Object> realPay = energyDAO.getRealPay(pay_no);
+
         if(realPay.get("user_level")=="S"){
             energy_saveuse= (int)(Integer.parseInt((String)realPay.get("realPay"))*0.05);
         }else if(realPay.get("user_level")=="A"){
