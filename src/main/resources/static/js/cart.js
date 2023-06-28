@@ -37,6 +37,7 @@
     $('.all_select').click(function(){
       //alert("ddd");
       $('.Home_cart_check').prop('checked',true);
+      calcAll();
     });
 
 
@@ -61,6 +62,7 @@ function calcAll(){
 
     }
     allPrice=allPrice.toLocaleString();
+
     $(".totalPrice").text(allPrice);
 }
 
@@ -77,6 +79,7 @@ function calc(){
           let qty=$(".one"+i).val();
           sumprice+=price*qty;
       }
+
 
        sumprice = sumprice.toLocaleString();
       $(".totalPrice").text(sumprice);
@@ -133,7 +136,6 @@ function calc(){
       }
 
   }
-
 
   function deleteCheck(){
         let checkboxSize=$(".Home_cart_check").length;

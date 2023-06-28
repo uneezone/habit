@@ -88,10 +88,14 @@ public class CartCont {
         System.out.println(cartDTOS);
         //log.info("carts={}",carts);
 
+
         ModelAndView mav=new ModelAndView();
 
         mav.setViewName("order/payPage");
         mav.addObject("cartDTOS", cartDTOS);
+        mav.addObject("num", cartDTOS.size());
+        mav.addObject("energy",energyDAO.getSavedEnergy(user_id));
+
         return mav;
 
     }
@@ -151,7 +155,6 @@ public class CartCont {
 
         return "OK";
     }
-
 
 
 

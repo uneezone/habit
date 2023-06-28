@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="/css/cart.css" />
 <script src="/js/cart.js"></script>
 <script>
-
 </script>
     <!--헤더끝-->
     <!-- 본문 시작 -->
@@ -37,6 +36,7 @@
 
           <c:forEach var="item" items="${list}" varStatus="one_status">
           <table class="cartlist1" id="cartlist${one_status.index}">
+
           <tr>
             <td class="img_td" >
               <img src="/img/${item.cont_img}" class="item_img" />
@@ -74,8 +74,8 @@
             <span class="totalPrice" style="padding-left: 20px;"></span> 원</p>
           <hr />
 
-
           <input type="button" value="결제하러가기" onclick="order()" class="go_order"/>
+
 
         </div>
 
