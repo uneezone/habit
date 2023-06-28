@@ -11,7 +11,7 @@
     </select>
 
     <select id="getZzimList" resultType="com.habit.zzim.DTO.ZzimDTO">
-        select c.cont_name,c.cont_no,cont_img,cont_addr1,AA.price as price
+        select c.cont_name,c.cont_no,TRIM(SUBSTRING_INDEX(c.cont_img, '|', 1)) as cont_img,cont_addr1,AA.price as price
              ,IFNULL(avg(r.review_star),0) as review_avg,count(r.review_no) as review_count
         from cont c inner join
 
@@ -28,7 +28,8 @@
             #{item}
         </foreach>
 
-        group by c.cont_no;
+        group by c.cont_no
+        order by c.cont_no desc;
     </select>
 
 

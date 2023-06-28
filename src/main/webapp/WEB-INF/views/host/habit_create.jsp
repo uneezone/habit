@@ -62,8 +62,8 @@
           </li>
         </ul>
         <div>
-          <a href="info"><img src="/img/profile-3_07724ab7a395fea9343ed7a13e59c1212e2e3d39c141edd99f83442f98340dfc.webp" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a>
-          <a href="info" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">HOST ID</span></a>
+          <a href="/host/info"><img src="${host_img.equals("defaulthostPro.png") ? '/img/' : '/storage/'}${host_img}" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a>
+          <a href="/host/info" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">${host_id}</span></a>
           <a href="/"><input type="button" class="btn btn-outline-primary btn-sm" value="해빗 홈으로 이동"></a>
           <a href="#"><input type="button" href="#" class="btn btn-secondary btn-sm" value="로그아웃"></a>
         </div>
@@ -327,19 +327,19 @@
             <div class="item-name">
               <p>판매 유형</p>
             </div>
-            <div style="display: flex;">
-              <div class="select">
-                <input type="radio" id="prod" name="cont_type" value="prod" checked>
-                <label for="prod">
+            <div style="display: flex; align-items: center; justify-content: space-around;">
+              <div class="select" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center">
+                <input type="radio" id="prod" name="cont_type" value="prod">
+                <label for="prod" style="height: 100%; min-height: 170px; display: flex; flex-direction: column; align-items: center; justify-content: center">
                   <p>날짜 조율형</p>
-                  호스트님이 회원 연락처로 별도 연락하여 일정을 조율하는 형태의 해빗입니다. (에스테틱, 네일 등에 적합)
+                  <p>호스트님이 회원 연락처로 별도 연락하여 일정을 조율하는 형태의 해빗입니다. (에스테틱, 네일 등에 적합)</p>
                 </label>
               </div>
-              <div class="select">
+              <div class="select" style="flex: 1;">
                 <input type="radio" id="one" name="cont_type" value="one">
-                <label for="one">
+                <label for="one" style="height: 100%; min-height: 170px; display: flex; flex-direction: column; align-items: center; justify-content: center">
                   <p>날짜 지정형</p>
-                  호스트님께서 날짜와 옵션을 등록하여 가능한 날에만 예약을 받을 수 있는 해빗입니다. 일정 관리 및 고객 관리를 더 간편하게 하실 수 있습니다. (에스테틱, 네일 제외한 대부분의 해빗)
+                  <p>호스트님께서 날짜와 옵션을 등록하여 가능한 날에만 예약을 받을 수 있는 해빗입니다. 일정 관리 및 고객 관리를 더 간편하게 하실 수 있습니다. (에스테틱, 네일 제외한 대부분의 해빗)</p>
                 </label>
               </div>
             </div>

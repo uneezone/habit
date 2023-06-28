@@ -1,5 +1,6 @@
 package com.habit.member;
 
+import com.habit.host1.DTO.RequestFindPasswordDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,6 +24,10 @@ public class MemberDAO {
         return sqlSession.insert("member.insert", map);
     }
 
+    public int inserEnery(String user_id){
+        return sqlSession.insert("member.insertEnergy",user_id);
+    }
+
     //아이디 중복확인
     public int idCheck(String user_id) {
         return sqlSession.selectOne("member.idCheck" , user_id);
@@ -34,9 +39,9 @@ public class MemberDAO {
     }
 
     //아이디 찾기
-    public String findId(Map<String,Object> map) {
+    public MemberDTO findId(String user_email) {
 
-        return sqlSession.selectOne("member.findId", map);
+        return sqlSession.selectOne("member.findId", user_email);
     }
 
     //비밀번호 찾기
@@ -44,6 +49,10 @@ public class MemberDAO {
         return  sqlSession.selectOne("member.findPw", dto);
     }
 
+    // 비밀번호 update
+    public int updatePW (RequestFindPasswordDTO reqFindPWDTO) {
+        return sqlSession.update("member.updatePassword", reqFindPWDTO);
+    }
 }
 
 

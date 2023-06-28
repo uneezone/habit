@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -253,6 +256,10 @@
 <!--footer 종료-->
 </body>
 <script>
+
+  <c:if test="${noAccount!=null}">
+    alert("계좌정보를 입력하셔야 정산관리가 가능합니다.");
+  </c:if>
 
   //은행 선택
   let bank="${hostInfo.host_bank}";

@@ -123,7 +123,111 @@
             LIMIT 10
     </select>
 
+<!--  요약 페이지 ->   평점 (상위 4개)-->
+    <select id="reviewTop" resultType="java.util.Map" parameterType="String">
+        SELECT cont.*, cate.*, IFNULL(AVG(review.review_star), 0) AS average_star
+        FROM cont
+                 JOIN cate ON cont.cate_no = cate.cate_no
+                 LEFT JOIN review ON cont.cont_no = review.cont_no
+        WHERE cate.cate_large = #{cate_large}
+        GROUP BY cont.cont_no
+        ORDER BY average_star DESC
+            LiMiT 4
+    </select>
 
+    <!-- 평점순 개수 -->
+    <select id="reviewCount" resultType="int" parameterType="String">
+        SELECT SUM(cnt) AS total_cnt
+        FROM (
+                 SELECT COUNT(*) AS cnt
+                 FROM cont
+                          JOIN cate ON cont.cate_no = cate.cate_no
+                          LEFT JOIN review ON cont.cont_no = review.cont_no
+                 WHERE cate.cate_large = #{cate_large}
+                 GROUP BY cont.cont_no
+                     LIMIT 4
+             ) AS temp
+    </select>
+
+
+    <!--해빈 리뷰 페이지-->
+    <select id="getReviewList" parameterType="Integer" resultType="com.habit.product.ReviewDTO">
+        select AA.*, c.cont_name
+        from(select review_no,review_date as date,DATE_FORMAT(review_date,'%Y년 %m월 %d일 %H시 %i분') as review_date, review_cont, TRIM(SUBSTRING_INDEX(review_img, '|', 1)) as review_img, review_star,cont_no, r.user_id,u.user_name,u.user_img
+             from review r join user u on r.user_id=u.user_id
+             where cont_no=#{cont_no} and review_status="Y"
+             )
+        AA join cont c on AA.cont_no=c.cont_no order by AA.date desc
+
+    </select>
+
+    <select id="getReviewListByStar" parameterType="Integer" resultType="com.habit.product.ReviewDTO">
+        select AA.*, c.cont_name
+        from(select review_no,DATE_FORMAT(review_date,'%Y년 %m월 %d일 %H시 %i분') as review_date, review_cont, TRIM(SUBSTRING_INDEX(review_img, '|', 1)) as review_img, review_star,cont_no, r.user_id,u.user_name,u.user_img
+             from review r join user u on r.user_id=u.user_id
+             where cont_no=#{cont_no} and review_status="Y"
+            )
+                AA join cont c on AA.cont_no=c.cont_no order by AA.review_star desc, review_date desc
+    </select>
+
+    <update id="changeReviewStatus" parameterType="Integer">
+        update review set review_status='N' where review_no=#{review_no}
+    </update>
+
+    <!--해빈 검색-->
+    <insert id="insertSearch" parameterType="String">
+        insert into reco (reco_keyword) values(#{search});
+    </insert>
+
+    <!--해빈 인기 검색어-->
+    <select id="showHotSearch" resultType="String">
+        select reco_keyword  from reco group by reco_keyword order by count(*) desc limit 0, 3;
+    </select>
+
+    <!--검색-->
+    <select id="getContNoForSearch" parameterType="String" resultType="Integer">
+        select cont_no from cont where cont_name like  CONCAT('%',#{search},'%') or cont_content like CONCAT('%',#{search},'%');
+    </select>
+
+    <!--검색관련 상품들 정보-->
+    <select id="getContList" parameterType="java.util.Map" resultType="com.habit.product.ProductDTO">
+        select c.cont_name,c.cont_no,TRIM(SUBSTRING_INDEX(cont_img, '|', 1)) as cont_img,cont_addr1,AA.price as price
+        ,IFNULL(avg(r.review_star),0) as review_avg,count(r.review_no) as review_count
+        from cont c inner join
+
+            (select cont_no, min(prod_price) as price
+            from prod group by cont_no
+            union
+            select cont_no, min(one_price) as price
+            from one group by cont_no )
+
+        AA on c.cont_no=AA.cont_no left outer join review r on c.cont_no = r.cont_no and review_status!="N"
+        where c.cont_no in
+        <foreach item="item" index="index" collection="contList"
+                 open="(" separator="," close=")" nullable="true">
+            #{item}
+        </foreach>
+        group by c.cont_no
+        <if test='filter != "N"'>
+            order by
+                <if test='filter=="popularity"'>
+                    c.cont_view desc
+                </if>
+                <if test='filter=="date"'>
+                    c.cont_stdate desc
+                </if>
+                <if test='filter=="rating"'>
+                    r.review_star desc
+                </if>
+                <if test='filter=="highPrice"'>
+                    price desc
+                </if>
+                <if test='filter=="lowPrice"'>
+                    price asc
+                </if>
+
+        </if>
+    </select>
 <!--    =========== 중분류 ===========-->
 
     <!--   중분류 필터 출력-->
@@ -198,7 +302,144 @@
             LIMIT 10
     </select>
 
+    <!--    =========== 필터  ===========-->
 
+    <select id="selectContentsByPopularity" resultType="java.util.Map" parameterType="String">
+        SELECT cont.*, cate.*
+        FROM cont
+                 JOIN cate ON cont.cate_no = cate.cate_no
+        WHERE cate.cate_large = #{cate_large}
+        ORDER BY cont.cont_view DESC
+    </select>
 
+    <select id="selectContentsByDate" resultType="java.util.Map" parameterType="String">
+        SELECT cont.*, cate.*
+        FROM cont
+                 JOIN cate ON cont.cate_no = cate.cate_no
+        WHERE cate.cate_large = #{cate_large}
+        ORDER BY cont.cont_stdate DESC
+    </select>
+
+    <select id="selectContentsByRating" resultType="java.util.Map" parameterType="String">
+        SELECT cont.*, cate.*, IFNULL(AVG(review.review_star), 0) AS average_star
+        FROM cont
+                 JOIN cate ON cont.cate_no = cate.cate_no
+                 LEFT JOIN review ON cont.cont_no = review.cont_no
+        WHERE cate.cate_large = #{cate_large}
+        GROUP BY cont.cont_no
+        ORDER BY average_star DESC
+    </select>
+
+    <select id="selectContentsByHighPrice" resultType="java.util.Map" parameterType="String">
+        SELECT temp.* , MIN(price) AS representative_price
+        FROM (
+                 SELECT cont.*, cate.cate_large, one.one_price AS price
+                 FROM cont
+                          JOIN cate ON cont.cate_no = cate.cate_no
+                          JOIN one ON cont.cont_no = one.cont_no
+                 WHERE cate.cate_large = #{cate_large}
+
+                 UNION ALL
+
+                 SELECT cont.*, cate.cate_large, prod.prod_price AS price
+                 FROM cont
+                          JOIN cate ON cont.cate_no = cate.cate_no
+                          JOIN prod ON cont.cont_no = prod.cont_no
+                 WHERE cate.cate_large = #{cate_large}
+             ) AS temp
+        GROUP BY temp.cont_no
+        ORDER BY representative_price DESC
+    </select>
+
+    <select id="selectContentsByLowPrice" resultType="java.util.Map" parameterType="String">
+        SELECT temp.* , MIN(price) AS representative_price
+        FROM (
+                 SELECT cont.*, cate.cate_large, one.one_price AS price
+                 FROM cont
+                          JOIN cate ON cont.cate_no = cate.cate_no
+                          JOIN one ON cont.cont_no = one.cont_no
+                 WHERE cate.cate_large = #{cate_large}
+
+                 UNION ALL
+
+                 SELECT cont.*, cate.cate_large, prod.prod_price AS price
+                 FROM cont
+                          JOIN cate ON cont.cate_no = cate.cate_no
+                          JOIN prod ON cont.cont_no = prod.cont_no
+                 WHERE cate.cate_large = #{cate_large}
+             ) AS temp
+        GROUP BY temp.cont_no
+        ORDER BY representative_price ASC
+    </select>
+
+    <!--    =========== 중분류 필터  ===========-->
+
+    <select id="selectMidByPopularity" resultType="java.util.Map" parameterType="String">
+        SELECT cont.*, cate.*
+        FROM cont
+                 JOIN cate ON cont.cate_no = cate.cate_no
+        WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle}
+        ORDER BY cont.cont_view DESC
+    </select>
+
+    <select id="selectMidByDate" resultType="java.util.Map" parameterType="String">
+        SELECT cont.*, cate.*
+        FROM cont
+                 JOIN cate ON cont.cate_no = cate.cate_no
+        WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle}
+        ORDER BY cont.cont_stdate DESC
+    </select>
+
+    <select id="selectMidByRating" resultType="java.util.Map" parameterType="String">
+        SELECT cont.*, cate.*, IFNULL(AVG(review.review_star), 0) AS average_star
+        FROM cont
+                 JOIN cate ON cont.cate_no = cate.cate_no
+                 LEFT JOIN review ON cont.cont_no = review.cont_no
+        WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle}
+        GROUP BY cont.cont_no
+        ORDER BY average_star DESC
+    </select>
+
+    <select id="selectMidByHighPrice" resultType="java.util.Map" parameterType="String">
+        SELECT temp.* , MIN(price) AS representative_price
+        FROM (
+                 SELECT cont.*, cate.cate_large, one.one_price AS price
+                 FROM cont
+                          JOIN cate ON cont.cate_no = cate.cate_no
+                          JOIN one ON cont.cont_no = one.cont_no
+                 WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle}
+
+                 UNION ALL
+
+                 SELECT cont.*, cate.cate_large, prod.prod_price AS price
+                 FROM cont
+                          JOIN cate ON cont.cate_no = cate.cate_no
+                          JOIN prod ON cont.cont_no = prod.cont_no
+                 WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle}
+             ) AS temp
+        GROUP BY temp.cont_no
+        ORDER BY representative_price DESC
+    </select>
+
+    <select id="selectMidByLowPrice" resultType="java.util.Map" parameterType="String">
+        SELECT temp.* , MIN(price) AS representative_price
+        FROM (
+                 SELECT cont.*, cate.cate_large, one.one_price AS price
+                 FROM cont
+                          JOIN cate ON cont.cate_no = cate.cate_no
+                          JOIN one ON cont.cont_no = one.cont_no
+                 WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle}
+
+                 UNION ALL
+
+                 SELECT cont.*, cate.cate_large, prod.prod_price AS price
+                 FROM cont
+                          JOIN cate ON cont.cate_no = cate.cate_no
+                          JOIN prod ON cont.cont_no = prod.cont_no
+                 WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle}
+             ) AS temp
+        GROUP BY temp.cont_no
+        ORDER BY representative_price ASC
+    </select>
 
 </mapper>

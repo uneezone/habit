@@ -7,8 +7,83 @@
 <link rel="stylesheet" href="/css/feed.css" />
 <link rel="stylesheet" href="/css/itemlist.css">
 <script src="/js/jquery.cookie.js"></script>
-<script src="/js/itemlist.js"></script>
 <script src="/js/common.js"></script>
+<script src="/js/itemlist.js"></script>
+
+<%-- 필터 모달창--%>
+<div id="filter-root">
+    <div>
+        <div class="Filter_Container_Modal" >
+            <div class="Filter_FlexFix">
+                <div class="Filter_Wrapper_Modal">
+                    <header class="Filter_HeaderWrapper">
+                        <div class="FilterModalHeader_Wrapper">
+                            <span class="FilterModalHeader_ModalTitle">필터</span>
+                        </div>
+                        <button name="CloseBtn" type="button" class="Filter_Button">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E %3Cg fill='none' fill-rule='nonzero'%3E %3Cpath d='M0 0h24v24H0z'/%3E %3Cpath stroke='%23000' stroke-width='2' d='M7.05 7.05l9.9 9.9M16.95 7.05l-9.9 9.9'/%3E %3C/g%3E %3C/svg%3E" alt="닫기버튼">
+                        </button>
+                    </header>
+                    <div class="FilterBodyContainer">
+                        <div class="FilterOther_Momo">
+                            <div class="FilterOther_ModalSection">
+                                <div>
+                                    <div class="FilterOthers_FilterTitle">정렬</div>
+                                    <div class="FilterRadio">
+                                        <div direction="column" class="FilterRadio_RadioInput">
+                                            <div class="FilterRadio_OptionWrapper">
+                                                <label  class="FilterRadio_StyleLabel">
+                                                    인기순
+                                                    <div class="FilterRadio_CustomRadio"></div>
+                                                    <input type="radio" id="radio-hot" name="filter" value="popularity" class="FilterRadio_RadioClick">
+                                                </label>
+                                            </div>
+                                            <div class="FilterRadio_OptionWrapper">
+                                                <label  class="FilterRadio_StyleLabel">
+                                                    등록일순
+                                                    <div class="FilterRadio_CustomRadio"></div>
+                                                    <input type="radio" id="radio-date" name="filter" value="date" class="FilterRadio_RadioClick">
+                                                </label>
+                                            </div>
+                                            <div class="FilterRadio_OptionWrapper">
+                                                <label  class="FilterRadio_StyleLabel">
+                                                    평점순
+                                                    <div class="FilterRadio_CustomRadio"></div>
+                                                    <input type="radio" id="radio-review" name="filter" value="rating" class="FilterRadio_RadioClick">
+                                                </label>
+                                            </div>
+                                            <div class="FilterRadio_OptionWrapper">
+                                                <label  class="FilterRadio_StyleLabel">
+                                                    가격 높은순
+                                                    <div class="FilterRadio_CustomRadio"></div>
+                                                    <input type="radio" id="radio-pricehigh" name="filter" value="highPrice" class="FilterRadio_RadioClick">
+                                                </label>
+                                            </div>
+                                            <div class="FilterRadio_OptionWrapper">
+                                                <label  class="FilterRadio_StyleLabel">
+                                                    가격 낮은순
+                                                    <div class="FilterRadio_CustomRadio"></div>
+                                                    <input type="radio" id="radio-pricelow" name="filter" value="lowPrice" class="FilterRadio_RadioClick">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="FilterOther_Price">
+                                </div>
+                            </div>
+                        </div>
+                        <footer class="Filter_FooterWrapper">
+                            <button width="280px" height="50px" color="white" font-size="13px" font-weight="bold" class="Button_btn">적용하기</button>
+                        </footer>
+                    </div>
+                </div>
+                <div class="Filter_Overlay"></div>
+            </div>
+        </div>
+    </div>
+</div>
+    <%--    필터 모달창 끝--%>
 
 
 <!--* 대분류 클릭시 모달창-->
@@ -82,7 +157,7 @@
                                 </div>
                             </a>
 
-                            <a href="" class="CategoryItem-A" data-category="자기계발" onclick="selectCategory('자기계빨')">
+                            <a href="" class="CategoryItem-A" data-category="자기계발" onclick="selectCategory('자기계발')">
                                 <div class="CategoryItem8">
                                     <div class="CategoryItem__Background"></div>
                                     <div class="CategoryItem__Text"></div>
@@ -177,6 +252,7 @@
         <div class="modal_Overlay"></div>
     </div>
 </div>
+</div>
 <!--! 대분류 클릭시 모달 끝-->
 
 
@@ -206,11 +282,11 @@
             <!-- 날짜 필터 버튼 -->
             <div class="Filter_Wrapper">
                 <div class="Filter__FilterButtonWrapper">
-                    <div class="FilterDate">
-                        <div class="FilterOpenButton">
-                            <button height="auto" color="initial" font-size="14px" font-weight="500" class="Button1">날짜</button>
-                        </div>
-                    </div>
+<%--                    <div class="FilterDate">--%>
+<%--                        <div class="FilterOpenButton">--%>
+<%--                            <button height="auto" color="initial" font-size="14px" font-weight="500" class="Button1">날짜</button>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
                     <div class="FilterOther">
                         <div class="FilterOpenButton">
                             <button height="auto" color="initial" font-size="14px" font-weight="500" class="Button1">필터</button>
@@ -241,8 +317,8 @@
                                                 <img src="/storage/${ht.cont_img}" alt="" width="150px" onerror="this.src='/storage/ang.png'">
                                             </div>
                                             <div>
-                                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                                    <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="return false" >
+                                                    <img src="/img/black2.png" alt="" id="cont_no${ht.cont_no}" width="40px" class="Home_product_recommend_p_div_img zzim_img">
                                                 </button>
                                             </div>
                                             <div class="Home_product_recommend_p_font">
@@ -265,7 +341,8 @@
                                                         <c:forEach begin="1" end="${roundedStarRating > 5 ? 5 : roundedStarRating}" varStatus="starStatus">
                                                             <img src="/img/star.png" alt="" class="Home_recommend_star">
                                                         </c:forEach>
-                                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 ${starItem['cnt']}</span>
+                                                        <c:set var="contNo" value="${ht.cont_no}" />
+                                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 ${reviewcnt[contNo].Reviewcnt}</span>
                                                     </section>
                                                     <hr class="Home_recommend_hr">
                                                     <div>
@@ -290,7 +367,7 @@
                         <div font-size="14px" class="ProductSectionHeader_Wrapper">
                             <div font-size="18" class="ProductSectionHeader_Header">
                                 <h2 class="ProductSectionHeader_Title_a">금주 리스트</h2>
-                                <span class="ProductSectionHeader_Count"></span>
+                                <span class="ProductSectionHeader_Count">${reviewCount}</span>
                             </div>
                             <div class="ProductSectionHeader_LinkWrapper">
 
@@ -298,75 +375,56 @@
                         </div>
 
                         <!-- ^ 금주 리스트 아이템 -->
+
                         <div class="Home_product_recommend_list">
-                            <div class="Home_product_recommend_p">
-                                <a href="" class="href">
-                                    <div class="Home_product_recommend_p_div">
-                                        <div>
-                                            <img src="/img/image.jpeg" alt="" width="150px">
-                                        </div>
-                                        <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                                <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                            </button>
-                                        </div>
-                                        <div class="Home_product_recommend_p_font">
+                            <c:forEach items="${reviewTop}" var="rt" varStatus="vs">
+                                <div class="Home_product_recommend_p">
+                                    <a href="products/${rt.cont_no}" class="href">
+                                        <div class="Home_product_recommend_p_div">
                                             <div>
-                                                <span class="Miniarea">강남/서초</span>
+                                                <img src="/storage/${rt.cont_img}" alt="" width="150px" onerror="this.src='/storage/ang.png'">
+                                            </div>
+                                            <div>
+                                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="return false">
+                                                    <img src="/img/black2.png" id="avgcont_no${rt.cont_no}" alt="" width="40px" class="Home_product_recommend_p_div_img zzim_img">
+                                                </button>
+                                            </div>
+                                            <div class="Home_product_recommend_p_font">
                                                 <div>
-                                                    [금주 리스트 아이템 1]
-                                                </div>
-                                                <section class="Home_recommend_img">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
-                                                </section>
-                                                <hr class="Home_recommend_hr">
-                                                <div>
-                                                    100,000원
+                                                    <span class="Miniarea">${fn:substring(rt.cont_addr1, 0, 7)}</span>
+                                                    <div>
+                                                            ${rt.cont_name}
+                                                    </div>
+                                                    <section class="Home_recommend_img">
+                                                        <c:set var="starItem" value="${starMap[rt.cont_no]}" />
+                                                        <c:set var="avgStarRating" value="${starItem['avg_star']}" />
+                                                        <c:choose>
+                                                            <c:when test="${avgStarRating != null}">
+                                                                <c:set var="roundedStarRating" value="${Math.round(avgStarRating.doubleValue())}" />
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <c:set var="roundedStarRating" value="0" />
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                        <c:forEach begin="1" end="${roundedStarRating > 5 ? 5 : roundedStarRating}" varStatus="starStatus">
+                                                            <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                                        </c:forEach>
+                                                        <c:set var="contNo" value="${rt.cont_no}" />
+                                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 ${reviewcnt[contNo].Reviewcnt}</span>
+                                                    </section>
+                                                    <hr class="Home_recommend_hr">
+                                                    <div>
+                                                        <c:set var="priceItem" value="${priceMap[rt.cont_no]}" />
+                                                        <c:set var="money" value="${priceItem['money']}" />
+                                                        <fmt:formatNumber type="number" value="${money}" pattern="###,###" var="formattedMoney" />
+                                                            ${formattedMoney}원
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="Home_product_recommend_p">
-                                <a href="" class="href">
-                                    <div class="Home_product_recommend_p_div">
-                                        <div>
-                                            <img src="/img/image.jpeg" alt="" width="150px">
-                                        </div>
-                                        <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                                <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                            </button>
-                                        </div>
-                                        <div class="Home_product_recommend_p_font">
-                                            <div>
-                                                <span class="Miniarea">강남/서초</span>
-                                                <div>
-                                                    [금주 리스트 아이템 2]
-                                                </div>
-                                                <section class="Home_recommend_img">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="/img/star.png" alt="" class="Home_recommend_star">
-                                                    <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 0</span>
-                                                </section>
-                                                <hr class="Home_recommend_hr">
-                                                <div>
-                                                    100,000원
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
+                                    </a>
+                                </div>
+                            </c:forEach>
                         </div>
                     </div>
                     <!--! 금주 리스트 끝 -->
@@ -391,11 +449,11 @@
                                     <a href="products/${nt.cont_no}" class="href">
                                         <div class="Home_product_recommend_p_div">
                                             <div>
-                                                <img src="/storage/${nt.cont_img}" alt="" width="150px" onerror="this.src='/storage/ang.png'">
+                                                <img src="/storage/${nt.cont_img}" alt="" width="150px" onerror="this.src='/storage/ang.png'" >
                                             </div>
                                             <div>
-                                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                                    <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="return false">
+                                                    <img src="/img/black2.png" id="newcont_no${nt.cont_no}" alt="" width="40px" class="Home_product_recommend_p_div_img zzim_img">
                                                 </button>
                                             </div>
                                             <div class="Home_product_recommend_p_font">
@@ -418,7 +476,8 @@
                                                         <c:forEach begin="1" end="${roundedStarRating > 5 ? 5 : roundedStarRating}" varStatus="starStatus">
                                                             <img src="/img/star.png" alt="" class="Home_recommend_star">
                                                         </c:forEach>
-                                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 ${starItem['cnt']}</span>
+                                                        <c:set var="contNo" value="${nt.cont_no}" />
+                                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 ${reviewcnt[contNo].Reviewcnt}</span>
                                                     </section>
                                                     <hr class="Home_recommend_hr">
                                                     <div>
@@ -466,9 +525,80 @@
         location.href = `/category/` + cate_large;
     }
 
+    //필터 모달창
+    document.addEventListener("DOMContentLoaded", function() {
+        const button1 = document.querySelector(".FilterOther .FilterOpenButton .Button1");
+        const filterModal = document.querySelector(".Filter_Container_Modal");
+        const closeBtn = document.querySelector("[name='CloseBtn']");
+        const applyFilterButton = document.querySelector(".Button_btn");
+        const radioButtons = document.querySelectorAll("input[type='radio'][name='filter']");
+
+        // 필터 모달창 열고 닫기 기능
+        button1.addEventListener("click", function() {
+            filterModal.style.display = "flex";
+        });
+
+        closeBtn.addEventListener("click", function() {
+            filterModal.style.display = "none";
+        });
+
+
+        const cate_large = '<%=request.getAttribute("cate_large")%>';
+
+        //필터 기능 구현
+        applyFilterButton.addEventListener("click", function () {
+            let selectedFilter;
+            for (const radio of radioButtons) {
+                if (radio.checked) {
+                    selectedFilter = radio.value;
+                    break;
+                }
+            }
+            const newPath = "/category/" + encodeURIComponent(cate_large) + "/all" + "?filter=" + encodeURIComponent(selectedFilter);
+            window.location.href = newPath;
+        });
+
+        radioButtons.forEach(radioButton => {
+            radioButton.addEventListener('change', () => {
+                if (radioButton.checked) {
+                    //console.log(radioButton.value + ' is selected');
+                    // 원하시는 기능을 추가하시면 됩니다.
+                    radioButtons.forEach(rb => rb.parentElement.classList.remove('selected'));
+                    radioButton.parentElement.classList.add('selected');
+                }
+            });
+        });
+
+
+    });
 
 
 
+
+
+    if(${sessionScope.s_id!=null}){
+        let userId="${sessionScope.s_id}";
+        //console.log(userId);
+        if(userId!=""){
+            $.ajax({
+                type: "GET"
+                , url: "/zzim/getZzim"
+                , data: {"userId": userId}
+                , async: false
+                , success: function (data) {
+                    //console.log(data);
+                    $(data).each(function (index, value) {
+                        console.log(value);
+
+                        $("#cont_no" + value).attr("src", "/img/redheart2.png");
+                        $("#newcont_no"+value).attr("src", "/img/redheart2.png");
+                        $("#avgcont_no"+value).attr("src", "/img/redheart2.png");
+                    });
+                }
+
+            });
+        }
+    }
 
 </script>
 

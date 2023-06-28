@@ -16,13 +16,15 @@
     </select>
 
     <select id="getAllPriceForHome" resultType="java.util.Map">
-        select count(*) as count,IFNULL(sum(payd_qty*payd.payd_price),0) as sum from payd
+        select count(*) as count, IFNULL(sum(payd_qty*payd.payd_price),0) as sum from payd
+
         where pro_no in
                 <foreach item="item" index="index" collection="list"
                         open="(" separator="," close=")" nullable="true">
                     #{item}
                 </foreach>
               and payd_status !='C'
+
     </select>
 
     <select id="getMonthPriceForHome" resultType="Long">
@@ -161,6 +163,10 @@
         limit #{startPaging},#{showLength};
     </select>
 
+    <select id="checkAdjustForProCon" parameterType="Integer" resultType="Integer">
+        select count(*) from calcd where payd_no=#{payd_no};
+
+    </select>
 
     <update id="updatePaydStatus" parameterType="java.util.Map">
         update payd set payd_status=#{status}
@@ -287,16 +293,24 @@
         select pro_no from one where cont_no=#{cont_no} and one_status !='OS'
     </select>
 
-    <update id="updateOneStatus" parameterType="String">
-        update one set one_status="OC" where pro_no=#{pro_no}
+    <update id="updateOneStatus" parameterType="java.util.List">
+        update one set one_status="OC" where pro_no in
+        <foreach item="item" index="index" collection="list"
+                 open="(" separator="," close=")" nullable="true">
+            #{item}
+        </foreach>
     </update>
 
     <select id="getProdProNo" parameterType="Integer" resultType="String">
-        select pro_no from prod where cont_no=#{cont_no} and prod_status='PS'
+        select pro_no from prod where cont_no=#{cont_no} and prod_status!='PS'
     </select>
     
-    <update id="updateProdStatus" parameterType="String">
-        update prod set prod_status="PC" where pro_no=#{pro_no}
+    <update id="updateProdStatus" parameterType="java.util.List">
+        update prod set prod_status="PC" where pro_no in
+        <foreach item="item" index="index" collection="list"
+                 open="(" separator="," close=")" nullable="true">
+            #{item}
+        </foreach>
     </update>
 
     <select id="getPaydNo" resultType="String">
@@ -349,8 +363,8 @@
     </select>
 
     <insert id="insertCalc" parameterType="com.habit.host2.entity.CalcDTO">
-        insert into calc(calc_no, host_id, calc_date, calc_title, calc_ttlprice, calc_fee, cont_no)
-        values (#{calc_no},#{host_id},#{calc_date},#{calc_title},#{calc_ttlprice},#{calc_fee},#{cont_no})
+        insert into calc(calc_no, host_id, calc_date, calc_title, calc_ttlprice, calc_fee, cont_no,host_account,host_bank,host_acholder)
+        values (#{calc_no},#{host_id},#{calc_date},#{calc_title},#{calc_ttlprice},#{calc_fee},#{cont_no},#{host_account},#{host_bank},#{host_acholder})
     </insert>
 
     <insert id="insertCalcD" parameterType="com.habit.host2.entity.CalcdDTO">

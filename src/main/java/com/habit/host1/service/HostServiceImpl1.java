@@ -27,93 +27,63 @@ public class HostServiceImpl1 implements HostService1 {
 
     // 대분류 선택에 따른 중분류 list 불러오기
     @Override
-    public List<Map<String, Object>> selectCate(String keyword) {
-        return memoryHostRepository1.selectCate(keyword);
+    public List<Map<String, Object>> selectCate(String cate_large) {
+        return memoryHostRepository1.selectCate(cate_large);
     }
 
     // 해빗 등록 (insert)
     @Override
-    public int contentInsert (RequestContentInsertDTO rciDTO) throws IOException {
+    public int contentInsert (RequestContentValueDTO rciDTO) throws IOException {
+
         int result = 0;
 
-        ContentEntity contentEntity = new ContentEntity();
-
-        // 콘텐츠 저장
-        // 카테고리 코드 가져오기
-        String cate_no = memoryHostRepository1.selectCateNo(rciDTO.getCate_middle());
-        rciDTO.setCate_no(cate_no);
-
-        // 판매 종료일 저장
-        if(rciDTO.getCont_endate_type().equals("default")) {
-            LocalDate now = LocalDate.now();
-            now.plusMonths(1);
-            rciDTO.setCont_endate(now.plusMonths(1) + " 00:00:00");
-        }
-
-        // 이미지 파일명 변경하여 저장 (중복 제거를 위해 날짜 사용)
-//        String cont_img = "";
-        String path = "src/main/webapp/storage/";
-        List<MultipartFile> imgs = rciDTO.getCont_imgs();
-        List<String> imgNames = new ArrayList<>();
-        for (int i=0; i<imgs.size(); i++) {
-            long nano = System.currentTimeMillis();
-            String now = new SimpleDateFormat("SSSssmmHHddMMYY").format(nano);
-            String newFileName = now + imgs.get(i).getOriginalFilename();
-            File targetFile = new File(path + newFileName);
-            InputStream filesStream = imgs.get(i).getInputStream();
-            FileUtils.copyInputStreamToFile(filesStream, targetFile);
-            imgNames.add(newFileName);
-        }
-        rciDTO.setCont_img(imgNames);
-
         // 콘텐츠 테이블에 insert 결과
+        rciDTO = contentProcessing(rciDTO);
         int insertContResult = memoryHostRepository1.insertCont(rciDTO);
 
-
         // 판매유형에 따른 옵션 insert
-        List<ProdEntity> optionListP = new ArrayList<>();
-        List<OneEntity> optionListO = new ArrayList<>();
         if(rciDTO.getCont_type().equals("prod")) { // 옵션이 회차권, 인원권이라면
 
-            // 각 옵션 리스트 얻기
-            List<String> prod_names = rciDTO.getProd_name();
-            List<Integer> prod_qtys = rciDTO.getProd_qty();
-            List<Integer> prod_prices = rciDTO.getProd_price();
-
-            // map 타입으로 저장하여 옵션리스트에 저장
-            for (int i = 0; i < prod_names.size(); i++) {
-                ProdEntity prodEntity = new ProdEntity();
-                prodEntity.setCont_no(rciDTO.getCont_no());
-                prodEntity.setProd_name(prod_names.get(i));
-                prodEntity.setProd_qty(prod_qtys.get(i));
-                prodEntity.setProd_price(prod_prices.get(i));
-                optionListP.add(prodEntity);
-            }
-
             // 인원권, 회차권 옵션 테이블 insert
+            List<ProdEntity> optionListP = prodProcessing(rciDTO);
             int insertProdResult = memoryHostRepository1.insertProd(optionListP);
 
         } else if (rciDTO.getCont_type().equals("one")) { // 옵션이 원데이 클래스 라면
 
-            // 각 옵션 리스트 얻기
-            List<String> one_dates = rciDTO.getOne_date();
-            List<Integer> one_maxqties = rciDTO.getOne_maxqty();
-            List<Integer> one_prices = rciDTO.getOne_price();
+            // 원데이 클래스 옵션 테이블 insert
+            List<OneEntity> optionListO = oneProcessing(rciDTO);
+            int insertOneResult = memoryHostRepository1.insertOne(optionListO);
+        }
 
-            // map 타입으로 저장하여 옵션리스트에 저장
-            for (int i = 0; i < one_dates.size(); i++) {
-                OneEntity oneEntity = new OneEntity();
-                oneEntity.setCont_no(rciDTO.getCont_no());
-                List str = List.of((one_dates.get(i)).split("T"));
-                String oneDate = str.get(0) + " " + str.get(1) + ":00";
-                oneEntity.setOne_date(oneDate);
+        return 0;
+    }
 
-                oneEntity.setOne_maxqty(one_maxqties.get(i));
-                oneEntity.setOne_price(one_prices.get(i));
-                optionListO.add(oneEntity);
-            }
+    // 해빗 update
+    @Override
+    public int contentUpdate (RequestContentValueDTO rciDTO) throws IOException {
+
+        int result = 0;
+        rciDTO.setCont_endate_type("notDefault");
+
+        // 콘텐츠 테이블에 insert 결과
+        rciDTO = contentProcessing(rciDTO);
+        int insertContResult = memoryHostRepository1.updateContent(rciDTO);
+
+        // 판매유형에 따른 옵션 insert
+        if(rciDTO.getCont_type().equals("prod")) { // 옵션이 회차권, 인원권이라면
+            // cont_no에 따른 수정 전 옵션 삭제
+            memoryHostRepository1.deleteProd(rciDTO.getCont_no());
+
+            // 인원권, 회차권 옵션 테이블 insert
+            List<ProdEntity> optionListP = prodProcessing(rciDTO);
+            int insertProdResult = memoryHostRepository1.insertProd(optionListP);
+
+        } else if (rciDTO.getCont_type().equals("one")) { // 옵션이 원데이 클래스 라면
+            // cont_no에 따른 수정 전 옵션 삭제
+            memoryHostRepository1.deleteOne(rciDTO.getCont_no());
 
             // 원데이 클래스 옵션 테이블 insert
+            List<OneEntity> optionListO = oneProcessing(rciDTO);
             int insertOneResult = memoryHostRepository1.insertOne(optionListO);
         }
 
@@ -121,19 +91,25 @@ public class HostServiceImpl1 implements HostService1 {
     }
 
     // 리뷰 List 가져오기
-
     @Override
     public List<ResponseReviewDTO> reviewList(RequestReviewDTO reqReviewDTO) {
-        List<ResponseReviewDTO> reviewList = memoryHostRepository1.reviewList(reqReviewDTO);
-        if (reviewList.size() > 0) {
-            int totalCount = memoryHostRepository1.totalCount(reqReviewDTO);
-            reviewList.get(0).setTotalCount(totalCount);
-        }
-        return reviewList;
+        return memoryHostRepository1.reviewList(reqReviewDTO);
     }
 
-    // 문의사항 리스트 가져오기
+    // 리뷰 list Count 가져오기
+    @Override
+    public int totalReviewCount(RequestReviewDTO reqReviewDTO) {
+        return memoryHostRepository1.totalReviewCount(reqReviewDTO);
+    }
 
+    // 리뷰 삭제 (상태 변경)
+    @Override
+    public int reviewDelete(int review_no) {
+        return memoryHostRepository1.reviewDelete(review_no);
+    }
+
+
+    // 문의사항 리스트 가져오기
     @Override
     public List<ResponseInquiryDTO> inquiryList(RequestInquiryDTO reqInqDTO) {
         List<ResponseInquiryDTO> list = memoryHostRepository1.inquiryList(reqInqDTO);
@@ -150,14 +126,28 @@ public class HostServiceImpl1 implements HostService1 {
 
         List<ResponseContentListDTO> list = memoryHostRepository1.contentList(reqContListDTO);
         if (list.size() > 0) {
-            int totalCount = memoryHostRepository1.contentListCount(reqContListDTO);
             for (ResponseContentListDTO dto : list) {
                 String cont_img = dto.getCont_img().trim().split("\\|")[0];
                 dto.setCont_img(cont_img);
+
+                Map<String, Object> map = new HashMap<>();
+                map.put("host_id", dto.getHost_id());
+                map.put("cont_no", dto.getCont_no());
+                int result = memoryHostRepository1.contentPurchaseCheck(map);
+
+                if (result > 0) {
+                    // 삭제 불가를 위해 status에 기록 남기기
+                    dto.setContentPurchaseStatus("N");
+                }
             }
-            list.get(0).setTotalCount(totalCount);
         }
         return list;
+    }
+
+    @Override
+    public void contentListCount(RequestContentListDTO reqContListDTO) {
+        int totalRecord = memoryHostRepository1.contentListCount(reqContListDTO);
+        reqContListDTO.getVo().setTotalRecord(totalRecord);
     }
 
     // 해빗 삭제
@@ -167,88 +157,17 @@ public class HostServiceImpl1 implements HostService1 {
     }
 
     // 수정전 해빗 값 가져오기
-    @Override
-    public RequestContentInsertDTO contentSelectOne(int cont_no) {
-
-        CategoryAndContentDTO cateAndContDTO = memoryHostRepository1.contentSelectOne(cont_no);
-        RequestContentInsertDTO reqContInsDTO = new RequestContentInsertDTO();
-        if (cateAndContDTO != null) {
-
-            // 카테고리 불러오기
-            reqContInsDTO.setCate_list(memoryHostRepository1.cateList());
-            reqContInsDTO.setCont_no(cont_no);
-            reqContInsDTO.setCate_large(cateAndContDTO.getCate_large());
-            reqContInsDTO.setCate_middle(cateAndContDTO.getCate_middle());
-            reqContInsDTO.setCont_name(cateAndContDTO.getCont_name());
-            reqContInsDTO.setCont_zip(cateAndContDTO.getCont_zip());
-            reqContInsDTO.setCont_addr1(cateAndContDTO.getCont_addr1());
-            reqContInsDTO.setCont_addr2(cateAndContDTO.getCont_addr2());
-            reqContInsDTO.setCont_extaddr(cateAndContDTO.getCont_extaddr());
-            reqContInsDTO.setCont_hashtag1(cateAndContDTO.getCont_hashtag1());
-            reqContInsDTO.setCont_hashtag3(cateAndContDTO.getCont_hashtag3());
-            reqContInsDTO.setCont_hashtag5(cateAndContDTO.getCont_hashtag5());
-            reqContInsDTO.setCont_endate(cateAndContDTO.getCont_endate());
-            reqContInsDTO.setCont_stdate(cateAndContDTO.getCont_stdate());
-            reqContInsDTO.setCont_content(cateAndContDTO.getCont_content());
-
-            // 해시태그2
-            List<String> cont_hashtag2 = List.of(cateAndContDTO.getCont_hashtag2().trim().split("\\|"));
-            reqContInsDTO.setCont_hashtag2(cont_hashtag2);
-
-            // 해시태그4
-            List<String> cont_hashtag4 = List.of(cateAndContDTO.getCont_hashtag4().trim().split("\\|"));
-            reqContInsDTO.setCont_hashtag4(cont_hashtag4);
-
-            // 이미지
-            List<String> cont_imgs = List.of(cateAndContDTO.getCont_img().trim().split("\\|"));
-            reqContInsDTO.setCont_img(cont_imgs);
-
-            // 옵션값 가져오기
-            List<OneEntity> oneEntities = memoryHostRepository1.oneList(cont_no);
-            List<ProdEntity> prodEntities = memoryHostRepository1.prodList(cont_no);
-            if (oneEntities.size() > 0) {
-                List<String> one_date = new ArrayList<>();
-                List<Integer> one_maxqty = new ArrayList<>();
-                List<Integer> one_price = new ArrayList<>();
-                reqContInsDTO.setCont_type("one");
-                for (OneEntity oneEntity : oneEntities) {
-                    one_date.add(oneEntity.getOne_date());
-                    one_maxqty.add(oneEntity.getOne_maxqty());
-                    one_price.add(oneEntity.getOne_price());
-                }
-                reqContInsDTO.setOne_date(one_date);
-                reqContInsDTO.setOne_maxqty(one_maxqty);
-                reqContInsDTO.setOne_price(one_price);
-
-            } else if (prodEntities.size() > 0){
-                List<String> prod_name = new ArrayList<>();
-                List<Integer> prod_qty = new ArrayList<>();
-                List<Integer> prod_price = new ArrayList<>();
-                reqContInsDTO.setCont_type("prod");
-                for (ProdEntity prodEntity : prodEntities) {
-                    prod_name.add(prodEntity.getProd_name());
-                    prod_qty.add(prodEntity.getProd_qty());
-                    prod_price.add(prodEntity.getProd_price());
-                }
-                reqContInsDTO.setProd_name(prod_name);
-                reqContInsDTO.setProd_qty(prod_qty);
-                reqContInsDTO.setProd_price(prod_price);
-            }
-
-        }
-        System.out.println("reqContInsDTO = " + reqContInsDTO);
-        return reqContInsDTO;
-    }
 
     // 원데이클래스 예약건 List 가져오기
     @Override
     public List<ResponseReservationDTO> reservationList(RequestReservationDTO reqReservDTO) {
-        List<ResponseReservationDTO> list = memoryHostRepository1.reservationList(reqReservDTO);
-        if (list.size() > 0) {
-            int totalCount = memoryHostRepository1.reservationListCount(reqReservDTO);
-            list.get(0).setTotalCount(totalCount);
-        }
-        return list;
+        return memoryHostRepository1.reservationList(reqReservDTO);
+    }
+
+    // 원데이 클래스 예약건 List totalRecord
+    @Override
+    public int totalReservationCount(RequestReservationDTO requestReservationDTO) {
+        return memoryHostRepository1.reservationListCount(requestReservationDTO);
     }
 
     @Override
@@ -294,6 +213,25 @@ public class HostServiceImpl1 implements HostService1 {
                     int refn_pay = payd_price - pay_point;
                     spdfirDTO.setRefn_pay(refn_pay);
                     spdfirDTO.setRefn_point(pay_point);
+
+                    // 에너지 테이블 insert(에너지 환불)
+                    EnergyEntity en = new EnergyEntity();
+                    String user_id = spdfirDTO.getUser_id();
+                    en.setUser_id(user_id);
+                    en.setEnergy_saveuse(pay_point);
+                    en.setEnergy_source("[결제]호스트취소");
+                    memoryHostRepository1.insertEnergy(en);
+
+                    String level = memoryHostRepository1.selectUserLevel(user_id);
+                    if (level.equals("S")) {
+                        en.setEnergy_saveuse((int) (refn_pay * 0.05));
+                    } else if (level.equals("A")) {
+                        en.setEnergy_saveuse((int) (refn_pay * 0.03));
+                    } else if (level.equals("B")) {
+                        en.setEnergy_saveuse((int) (refn_pay * 0.01));
+                    }
+                    en.setEnergy_source("[결제]적립취소");
+                    memoryHostRepository1.insertEnergy(en);
                 }
 
                 // 환불 테이블 insert
@@ -302,5 +240,149 @@ public class HostServiceImpl1 implements HostService1 {
         }
 
         return result;
+    }
+
+
+    private RequestContentValueDTO contentProcessing (RequestContentValueDTO rciDTO) throws IOException {
+        ContentEntity contentEntity = new ContentEntity();
+
+        // 콘텐츠 저장
+        // 카테고리 코드 가져오기
+        String cate_no = memoryHostRepository1.selectCateNo(rciDTO.getCate_middle());
+        rciDTO.setCate_no(cate_no);
+
+        // 판매 종료일 저장
+        if(rciDTO.getCont_endate_type().equals("default")) {
+            LocalDate now = LocalDate.now();
+            rciDTO.setCont_endate(now.plusMonths(1) + " 00:00:00");
+        }
+
+        // 이미지 파일명 변경하여 저장 (중복 제거를 위해 날짜 사용)
+        String path = "src/main/webapp/storage/";
+        List<MultipartFile> imgs = rciDTO.getCont_imgs();
+        List<String> imgNames = new ArrayList<>();
+        for (int i=0; i<imgs.size(); i++) {
+            long nano = System.currentTimeMillis();
+            String now = new SimpleDateFormat("SSSssmmHHddMMYY").format(nano);
+            String newFileName = now + imgs.get(i).getOriginalFilename();
+            File targetFile = new File(path + newFileName);
+            InputStream filesStream = imgs.get(i).getInputStream();
+            FileUtils.copyInputStreamToFile(filesStream, targetFile);
+            imgNames.add(newFileName);
+        }
+        rciDTO.setCont_img(imgNames);
+
+        return rciDTO;
+    }
+
+    private List<ProdEntity> prodProcessing (RequestContentValueDTO rciDTO) {
+        List<ProdEntity> optionListP = new ArrayList<>();
+
+        // 각 옵션 리스트 얻기
+        List<String> prod_names = rciDTO.getProd_name();
+        List<Integer> prod_qtys = rciDTO.getProd_qty();
+        List<Integer> prod_prices = rciDTO.getProd_price();
+
+        // map 타입으로 저장하여 옵션리스트에 저장
+        for (int i = 0; i < prod_names.size(); i++) {
+            ProdEntity prodEntity = new ProdEntity();
+            prodEntity.setCont_no(rciDTO.getCont_no());
+            prodEntity.setProd_name(prod_names.get(i));
+            prodEntity.setProd_qty(prod_qtys.get(i));
+            prodEntity.setProd_price(prod_prices.get(i));
+            optionListP.add(prodEntity);
+        }
+        return optionListP;
+    }
+
+    private List<OneEntity> oneProcessing (RequestContentValueDTO rciDTO) {
+        List<OneEntity> optionListO = new ArrayList<>();
+
+        // 각 옵션 리스트 얻기
+        List<String> one_dates = rciDTO.getOne_date();
+        List<Integer> one_maxqties = rciDTO.getOne_maxqty();
+        List<Integer> one_prices = rciDTO.getOne_price();
+
+        // map 타입으로 저장하여 옵션리스트에 저장
+        for (int i = 0; i < one_dates.size(); i++) {
+            OneEntity oneEntity = new OneEntity();
+            oneEntity.setCont_no(rciDTO.getCont_no());
+            List str = List.of((one_dates.get(i)).split("T"));
+            String oneDate = str.get(0) + " " + str.get(1) + ":00";
+            oneEntity.setOne_date(oneDate);
+            oneEntity.setOne_maxqty(one_maxqties.get(i));
+            oneEntity.setOne_price(one_prices.get(i));
+            optionListO.add(oneEntity);
+        }
+        return optionListO;
+    }
+
+    // 호스트 이미지 가져오기
+    @Override
+    public String getHostImg(String host_id) {
+        return memoryHostRepository1.getHostImg(host_id);
+    }
+
+
+
+
+
+    // 수정전 해빗 값 가져오기1
+    @Override
+    public CategoryAndContentVO contentSelectOne(int cont_no) {
+
+        return memoryHostRepository1.contentSelectOne(cont_no);
+    }
+
+
+    @Override
+    public List<OneEntity> oneList(int cont_no) {
+        return memoryHostRepository1.oneList(cont_no);
+    }
+
+    @Override
+    public List<ProdEntity> prodList(int cont_no) {
+        return memoryHostRepository1.prodList(cont_no);
+    }
+
+    @Override
+    public Map<String, Object> contentUpdateBefore(int cont_no) {
+        Map<String, Object> map = new HashMap<>();
+
+        List<OneEntity> oneList = memoryHostRepository1.oneList(cont_no);
+        List<ProdEntity> prodList = memoryHostRepository1.prodList(cont_no);
+        List<Map<String, Object>> cateList = memoryHostRepository1.cateList();
+
+        map.put("item", memoryHostRepository1.contentSelectOne(cont_no));
+        map.put("cateList", cateList);
+
+        if (oneList.size() > 0) {
+            for (OneEntity entity : oneList) {
+                String pro_no = entity.getPro_no();
+                int result = memoryHostRepository1.optionPurchaseCheck(pro_no);
+                if (result > 0) {
+                    entity.setOne_status("N");
+                }
+            }
+            map.put("option", oneList);
+            map.put("optionType", "one");
+
+        } else {
+            for (ProdEntity entity : prodList) {
+                String pro_no = entity.getPro_no();
+                int result = memoryHostRepository1.optionPurchaseCheck(pro_no);
+                if (result > 0) {
+                    entity.setProd_status("N");
+                }
+            }
+            map.put("option", prodList);
+            map.put("optionType", "prod");
+        }
+        return map;
+    }
+
+    @Override
+    public int optionDelete(RequestOptionDeleteDTO reqOptDelDTO) {
+        return memoryHostRepository1.deleteOption(reqOptDelDTO);
     }
 }

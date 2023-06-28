@@ -31,14 +31,15 @@ CREATE TABLE review (
     review_no       int	         NOT NULL  auto_increment  primary key, #리뷰 코드
     user_id         varchar(25)	 NOT NULL,                              #유저 아이디
     cont_no         int	         NOT NULL,                              #콘텐츠 코드
-    payed_no        int	         NOT NULL,                              #주문 상세 번호
+    payd_no        int	         NOT NULL,                              #주문 상세 번호
     review_date     datetime     NOT NULL  DEFAULT now(),               #리뷰 등록일
     review_cont     Text(500)    NOT NULL,                              #리뷰 내용
-    review_star     int	         NOT NULL,                              #별점
+    review_star     float	         NOT NULL,                              #별점
     review_img      varchar(20)	 NULL,                                  #리뷰 이미지
     review_imgsize  int	         NULL      DEFAULT 0,                   #이미지 사이즈
     review_ask      varchar(10)	 NULL,                                  #공통질문
-    review_status   char(1)	     NOT NULL  DEFAULT 'Y'                  #리뷰 상태(Y:리뷰 게시중, N:리뷰 삭제)
+    review_status   char(1)	     NOT NULL  DEFAULT 'Y',                  #리뷰 상태(Y:리뷰 게시중, N:리뷰 삭제)
+    review_feed     char(1)      NOT NULL DEFAULT 'N'
 );
 
 insert into review(user_id, cont_no, payed_no, review_date, review_cont, review_star, review_img, review_ask, review_status)

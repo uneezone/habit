@@ -42,7 +42,18 @@ public class DetailCont {
         }
 
         mav.setViewName("product/detailpage");
-        mav.addObject("detail", productDao.detail(cont_no));
+
+        Map<String, Object> detail = productDao.detail(cont_no);
+        String cont_img = (String) detail.get("cont_img");
+        String[] cont_imgs = cont_img.trim().split("\\|");
+        //n값 이미지 출력
+        for (int i = 0; i < cont_imgs.length; i++) {
+            cont_imgs[i] = cont_imgs[i].trim();
+        }
+
+        detail.put("cont_imgs", cont_imgs);
+        mav.addObject("detail", detail);
+
         mav.addObject("hostprofile", detailDao.hostprofile(cont_no));
         mav.addObject("price", productDao.price(cont_no));
         mav.addObject("star", productDao.star(cont_no));

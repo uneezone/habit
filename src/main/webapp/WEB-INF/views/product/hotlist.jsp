@@ -31,7 +31,7 @@
                             </div>
                             <div>
                                 <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                    <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                    <img src="/img/black2.png" id="cont_no${row.cont_no}" width="40px" class="Home_product_recommend_p_div_img">
                                 </button>
                             </div>
                             <div class="Home_product_recommend_p_font">
@@ -54,7 +54,8 @@
                                         <c:forEach begin="1" end="${roundedStarRating > 5 ? 5 : roundedStarRating}" varStatus="starStatus">
                                             <img src="/img/star.png" alt="" class="Home_recommend_star">
                                         </c:forEach>
-                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 ${starItem['cnt']}</span>
+                                        <c:set var="contNo" value="${row.cont_no}" />
+                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 ${reviewcnt[contNo].Reviewcnt}</span>
                                     </section>
                                     <hr class="Home_recommend_hr">
                                     <div>
@@ -73,17 +74,18 @@
         </div>
                     <!--* 인기 아이템 리스트 끝 -->
 
-            <!--* 이전/다음 버튼 -->
-            <footer class="Wrapper_Paging">
+
+        <!--* 이전/다음 버튼 -->
+        <footer class="Wrapper_Paging">
             <div class="paging">
-            <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold"  onclick="onPageClick(-1)">&lt;</button>
-            <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold"  onclick="onPageClick(1)">1</button>
-            <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold"  onclick="onPageClick(2)">2</button>
-            <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" onclick="onPageClick(3)">3</button>
-            <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" onclick="onPageClick(4)">4</button>
-            <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" onclick="onPageClick(-2)">></button>
+                <button  width="40px" height="40px"  font-size="18px" font-weight="bold"  onclick="onPageClick(-1)">&lt;</button>
+                <c:set var="numPages" value="${Math.ceil(hotListCount / 8)}" />
+                <c:forEach begin="1" end="${numPages}" var="page">
+                    <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" class="page-button" data-page="${page}"  onclick="onPageClick(${page})">${page}</button>
+                </c:forEach>
+                <button  width="40px" height="40px"  font-size="18px" font-weight="bold" onclick="onPageClick(-2)">&gt;</button>
             </div>
-            </footer>
+        </footer>
 
 
         </div>
@@ -99,6 +101,29 @@
 
    <!-- 본문 끝 -->
 
+<script>
 
+        if(${sessionScope.s_id!=null}){
+        let userId="${sessionScope.s_id}";
+        console.log(userId);
+        if(userId!=""){
+            $.ajax({
+                type: "GET"
+                , url: "/zzim/getZzim"
+                , data: {"userId": userId}
+                , async: false
+                , success: function (data) {
+                    //console.log(data);
+                    $(data).each(function (index, value) {
+                        console.log(value);
+
+                        $("#cont_no" + value).attr("src", "/img/redheart2.png");
+                    });
+                }
+
+            });
+        }
+    }
+</script>
 
     <%@include file="../footer.jsp"%>

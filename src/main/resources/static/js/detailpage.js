@@ -20,6 +20,14 @@ window.onload=function(){
 //참여하기 클릭시 옵션창 출력과 기능
 $(document).ready(function() {
     function openModal() {
+        //해빈추가
+       /* if($(".s_id").text()==""){
+            let path=window.location.pathname;
+            console.log(path);
+            window.location.href="/login?redirectURL="+path;
+
+        }*/
+
         document.getElementById('FloatingActionBar').style.display = 'none';
         document.getElementById('productOptionsModal').style.display = 'block';
     }
@@ -288,7 +296,7 @@ $(document).ready(function() {
 
 
     document.getElementById("detailButton").addEventListener("click", function() {
-        var descriptionContainer = document.querySelector(".DescriptionSection_Container");// expanded 클래스 전환
+        var descriptionContainer = document.querySelector(".product-description");// expanded 클래스 전환
         
         descriptionContainer.classList.toggle("expanded");
 
@@ -303,6 +311,27 @@ $(document).ready(function() {
 
 });
 
+//이미지 슬라이드
+let currentIndex = 0;
+let imageItems = document.getElementsByClassName('image_item');
+
+function prevImage() {
+    imageItems[currentIndex].style.display = "none";
+    currentIndex--;
+    if (currentIndex < 0) {
+        currentIndex = imageItems.length - 1;
+    }
+    imageItems[currentIndex].style.display = "block";
+}
+
+function nextImage() {
+    imageItems[currentIndex].style.display = "none";
+    currentIndex++;
+    if (currentIndex >= imageItems.length) {
+        currentIndex = 0;
+    }
+    imageItems[currentIndex].style.display = "block";
+}
 
 
 <!-- 슬라이드 -->

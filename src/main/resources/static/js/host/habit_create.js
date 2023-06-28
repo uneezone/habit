@@ -1,29 +1,203 @@
-
-// 해빗 명 체크
-const contNameCheck = () => {
-    let cont_name = document.getElementById('cont_name')
-    let cont_name_small = document.getElementById('cont_name_small')
-    if(cont_name.value.length < 1) {
-        cont_name_small.removeAttribute('hidden')
-        cont_name.focus()
-        return
-    } else {
-        cont_name_small.setAttribute('hidden', true)
-    }
-}
-
-// 판매 종료일 이벤트
-const contEndateOptionCheck1 = (e) => {
-    let endate_option2 = document.getElementById('endate_option2')
-    endate_option2.setAttribute('disabled', true)
-}
-const contEndateOptionCheck2 = (e) => {
-    let endate_option2 = document.getElementById('endate_option2')
-    endate_option2.removeAttribute('disabled')
-}
-
-
 document.addEventListener("DOMContentLoaded", () => {
+
+    // 해빗 명 체크
+    contNameCheck = () => {
+        let cont_name = document.getElementById('cont_name')
+        let cont_name_small = document.getElementById('cont_name_small')
+        if(cont_name.value.length < 1) {
+            cont_name_small.removeAttribute('hidden')
+            cont_name.focus()
+            return
+        } else {
+            cont_name_small.setAttribute('hidden', true)
+        }
+    }
+
+    // 판매 종료일 이벤트
+    contEndateOptionCheck1 = (e) => {
+        let endate_option2 = document.getElementById('endate_option2')
+        endate_option2.setAttribute('disabled', true)
+    }
+    contEndateOptionCheck2 = (e) => {
+        let endate_option2 = document.getElementById('endate_option2')
+        endate_option2.removeAttribute('disabled')
+    }
+
+    //habit_create 유효성 검사
+    habitCreateCheck = () => {
+
+        // 카테고리 : 대분류
+        let cate_large = $('#cate_large')
+        if(cate_large.val() === '0') {
+            alert('카테고리를 선택해주세요.')
+            cate_large.focus()
+            return false
+        }
+
+        // 카테고리 : 중분류
+        let cate_middle = $('#cate_middle')
+        if(cate_middle.val() === '0') {
+            alert('카테고리를 선택해주세요.')
+            cate_middle.focus()
+            return false
+        }
+
+        // 해빗명
+        // let cont_name = $('#cont_name')
+        let cont_name = document.getElementById('cont_name')
+        if(cont_name.value.length<1 || cont_name.value.length>50) {
+            alert('해빗명은 필수입니다. 40자 이내로 입력해주세요.')
+            cont_name.focus()
+            return false
+        }
+
+        // 진행장소
+        let zipcode = $('#zipcode')
+        let address2 = $('#address2')
+        if (zipcode.val().length<1) {
+            alert('진행장소를 입력해주세요.')
+            address2.focus()
+            return false
+        }
+
+        // 판매 종료일 확인
+        let cont_endate_type = $('input:radio[name="cont_endate_type"]:checked')
+        if (cont_endate_type.attr('id') === 'cont_endate_option2') {
+            let endate_option2 = $('#endate_option2')
+            if (endate_option2.val().length < 1) {
+                alert("판매종료일을 설정해주세요.")
+                endate_option2.focus()
+                return false
+            }
+        }
+
+        // 옵션 목록 입력
+        let pro = $('input[name="cont_type"]:checked');
+        if(pro.attr('id') === 'prod') { // 선택된 옵션이 날짜 조율형 일때
+            let prod_names = $('input[name="prod_name"]')
+            let count_prod_name = 0
+            for (let prod_name of prod_names) {
+                if(prod_name.value.length <1 ) {
+                    count_prod_name++
+                }
+            }
+            if(count_prod_name>0) {
+                alert('옵션명을 입력해주세요')
+                return false
+            }
+
+            // 옵션 수량
+            let prod_qtys = $('input[name="prod_qty"]')
+            let count_prod_qty = 0
+            for (let prod_qty of prod_qtys) {
+                if(prod_qty.value.length <1 ) {
+                    count_prod_qty++
+                }
+            }
+            if(count_prod_qty>0) {
+                alert('옵션의 수량을 입력해주세요')
+                return false
+            }
+
+            // 옵션 가격
+            let prod_prices = $('input[name="prod_price"]')
+            let count_prod_price = 0
+            let value_prod_price = 0
+            for (let prod_price of prod_prices) {
+                if(prod_price.value.length <1 ) {
+                    count_prod_price++
+                }
+                if (prod_price.value < 5000) {
+                    value_prod_price++
+                }
+            }
+            if(count_prod_price > 0) {
+                alert('옵션의 금액을 입력해주세요')
+                return false
+            }
+            if (value_prod_price > 0) {
+                alert('옵션의 최소가격은 5000원 입니다')
+                return false
+            }
+
+        } else if(pro.attr('id') === 'one') { // 선택된 옵션이 날짜 지정형 일때
+            let one_dates = $('input[name="one_date"]')
+            let count_one_date = 0
+            for (let one_date of one_dates) {
+                if(one_date.value.length <1 ) {
+                    count_one_date++
+                }
+            }
+            if(count_one_date>0) {
+                alert('옵션의 실행일자를 설정해주세요')
+                return false
+            }
+
+            // 옵션 수량
+            let one_maxqtys = $('input[name="one_date"]')
+            let count_one_maxqty = 0
+            for (let one_maxqty of one_maxqtys) {
+                if(one_maxqty.value.length <1 ) {
+                    count_one_maxqty++
+                }
+            }
+            if(count_one_maxqty>0) {
+                alert('옵션의 최대 모집인원을 설정해주세요')
+                return false
+            }
+
+            // 옵션 가격
+            let one_prices = $('input[name="one_price"]')
+            let count_one_price = 0
+            let value_one_price = 0
+            for (let one_price of one_prices) {
+
+                if(one_price.value.length <1 ) {
+                    count_one_price++
+                }
+                if (one_price.value < 5000) {
+                    value_one_price++
+                }
+            }
+            if(count_one_price>0) {
+                alert('옵션의 금액을 입력해주세요')
+                return false
+            }
+            if (value_one_price > 0) {
+                alert('옵션의 최소가격은 5000원 입니다')
+                alert('옵션의 최소가격은 5000원 입니다')
+                return false
+            }
+        }
+
+        // 대표 이미지
+        let cont_img = document.getElementById('cont_img').files
+        if(cont_img.length<1) {
+            alert('해빗 대표 이미지를 1개 이상 첨부해주세요.')
+            return false
+        }
+
+        // 해시태그
+        let hashtag2 = $('input:checkbox[name="cont_hashtag2"]:checked')
+        let hashtag4 = $('input:checkbox[name="cont_hashtag4"]:checked')
+
+        let summernote = $('#summernote')
+        if(summernote.val().length<10) {
+            alert('해빗 상세 설명을 10자 이상 입력해주세요.')
+            return false
+        }
+
+        if (hashtag2.length === 0 || hashtag4.length === 0) {
+            alert("해시태그를 문항당 한개 이상 체크해주세요.")
+            return false
+        }
+
+        if (confirm('해빗을 등록하시겠습니까?')) {
+            return true
+        } else {
+            return false
+        }
+    }
 
     // 대분류에 맞는 중분류 가져오기
     $('#cate_large').on('change', (e)=>{
@@ -41,7 +215,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         })
     })
-
 
     // 대표이미지 default
     let preview_img_container = $('#preview_img_container')
@@ -298,181 +471,4 @@ $(document).ready(()=>{
         });
     }
 })
-
-
-//habit_create 유효성 검사
-const habitCreateCheck = () => {
-
-    // 카테고리 : 대분류
-    let cate_large = $('#cate_large')
-    if(cate_large.val() === '0') {
-        alert('카테고리를 선택해주세요.')
-        cate_large.focus()
-        return false
-    }
-
-    // 카테고리 : 중분류
-    let cate_middle = $('#cate_middle')
-    if(cate_middle.val() === '0') {
-        alert('카테고리를 선택해주세요.')
-        cate_middle.focus()
-        return false
-    }
-
-    // 해빗명
-    // let cont_name = $('#cont_name')
-    let cont_name = document.getElementById('cont_name')
-    if(cont_name.value.length<1 || cont_name.value.length>50) {
-        alert('해빗명은 필수입니다. 40자 이내로 입력해주세요.')
-        cont_name.focus()
-        return false
-    }
-
-    // 진행장소
-    let zipcode = $('#zipcode')
-    let address2 = $('#address2')
-    if (zipcode.val().length<1) {
-        alert('진행장소를 입력해주세요.')
-        address2.focus()
-        return false
-    }
-
-    // 판매 종료일 확인
-    let cont_endate_type = $('input:radio[name="cont_endate_type"]:checked')
-    if (cont_endate_type.attr('id') === 'cont_endate_option2') {
-        let endate_option2 = $('#endate_option2')
-        if (endate_option2.val().length < 1) {
-            alert("판매종료일을 설정해주세요.")
-            endate_option2.focus()
-            return false
-        }
-    }
-
-    // 옵션 목록 입력
-    let pro = $('input[name="cont_type"]:checked');
-    if(pro.attr('id') === 'prod') { // 선택된 옵션이 날짜 조율형 일때
-        let prod_names = $('input[name="prod_name"]')
-        let count_prod_name = 0
-        for (let prod_name of prod_names) {
-            if(prod_name.value.length <1 ) {
-                count_prod_name++
-            }
-        }
-        if(count_prod_name>0) {
-            alert('옵션명을 입력해주세요')
-            return false
-        }
-
-        // 옵션 수량
-        let prod_qtys = $('input[name="prod_qty"]')
-        let count_prod_qty = 0
-        for (let prod_qty of prod_qtys) {
-            if(prod_qty.value.length <1 ) {
-                count_prod_qty++
-            }
-        }
-        if(count_prod_qty>0) {
-            alert('옵션의 수량을 입력해주세요')
-            return false
-        }
-
-        // 옵션 가격
-        let prod_prices = $('input[name="prod_price"]')
-        let count_prod_price = 0
-        let value_prod_price = 0
-        for (let prod_price of prod_prices) {
-            if(prod_price.value.length <1 ) {
-                count_prod_price++
-            }
-            if (prod_price.value < 5000) {
-                value_prod_price++
-            }
-        }
-        if(count_prod_price > 0) {
-            alert('옵션의 금액을 입력해주세요')
-            return false
-        }
-        if (value_prod_price > 0) {
-            alert('옵션의 최소가격은 5000원 입니다')
-            return false
-        }
-
-    } else if(pro.attr('id') === 'one') { // 선택된 옵션이 날짜 지정형 일때
-        let one_dates = $('input[name="one_date"]')
-        let count_one_date = 0
-        for (let one_date of one_dates) {
-            if(one_date.value.length <1 ) {
-                count_one_date++
-            }
-        }
-        if(count_one_date>0) {
-            alert('옵션의 실행일자를 설정해주세요')
-            return false
-        }
-
-        // 옵션 수량
-        let one_maxqtys = $('input[name="one_date"]')
-        let count_one_maxqty = 0
-        for (let one_maxqty of one_maxqtys) {
-            if(one_maxqty.value.length <1 ) {
-                count_one_maxqty++
-            }
-        }
-        if(count_one_maxqty>0) {
-            alert('옵션의 최대 모집인원을 설정해주세요')
-            return false
-        }
-
-        // 옵션 가격
-        let one_prices = $('input[name="one_price"]')
-        let count_one_price = 0
-        let value_one_price = 0
-        for (let one_price of one_prices) {
-
-            if(one_price.value.length <1 ) {
-                count_one_price++
-            }
-            if (one_price.value < 5000) {
-                value_one_price++
-            }
-        }
-        if(count_one_price>0) {
-            alert('옵션의 금액을 입력해주세요')
-            return false
-        }
-        if (value_one_price > 0) {
-            alert('옵션의 최소가격은 5000원 입니다')
-            alert('옵션의 최소가격은 5000원 입니다')
-            return false
-        }
-    }
-
-    // 대표 이미지
-    let cont_img = document.getElementById('cont_img').files
-    if(cont_img.length<1) {
-        alert('해빗 대표 이미지를 1개 이상 첨부해주세요.')
-        return false
-    }
-
-    // 해시태그
-    let hashtag2 = $('input:checkbox[name="cont_hashtag2"]:checked')
-    let hashtag4 = $('input:checkbox[name="cont_hashtag4"]:checked')
-
-    let summernote = $('#summernote')
-    if(summernote.val().length<10) {
-        alert('해빗 상세 설명을 10자 이상 입력해주세요.')
-        return false
-    }
-
-    if (hashtag2.length === 0 || hashtag4.length === 0) {
-        alert("해시태그를 문항당 한개 이상 체크해주세요.")
-        return false
-    }
-
-    if (confirm('해빗을 등록하시겠습니까?')) {
-        return true
-    } else {
-        return false
-    }
-}
 

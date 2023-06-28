@@ -6,23 +6,23 @@ window.onload=function(){
 }
 
 $(function(){
-    console.log(window.location.pathname);
+    //console.log(window.location.pathname);
     let pathname=decodeURI(window.location.pathname);
     let index= pathname.lastIndexOf("/");
-    console.log(index);
-    console.log(pathname.substring(index,pathname.length));
+    //console.log(index);
+    //console.log(pathname.substring(index,pathname.length));
     pathname= pathname.substring(index+1,pathname.length);
-    console.log("ddd"+pathname);
+    //console.log("ddd"+pathname);
     let btn= $(".midbtn");
     //$('.midbtn').removeClass("active");
     if(btn.text())
         for(let i=0;i<btn.length;i++){
-            console.log(btn.eq(i).text());
+            //console.log(btn.eq(i).text());
             if(btn.eq(i).text()==pathname){
 
 
                 btn.eq(i).addClass("active");
-                console.log(btn.eq(i));
+               // console.log(btn.eq(i));
             }
         }
 });
@@ -59,7 +59,7 @@ $(document).ready(function () {
     const productSectionTitle = `인기 ${selectedCategory}`;
     $(".ProductSectionHeader_Title").text(productSectionTitle);
 
-    const productSectionTitle1 = `금주 ${selectedCategory}`;
+    const productSectionTitle1 = `평점 ${selectedCategory}`;
     $(".ProductSectionHeader_Title_a").text(productSectionTitle1);
 
     const productSectionTitle2 = `신규 ${selectedCategory}`;
@@ -162,10 +162,11 @@ $(document).ready(function () {
     });
 
 
-    });
 
-   
-    
+});
+
+
+
     
   
 

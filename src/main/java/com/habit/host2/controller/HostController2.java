@@ -7,8 +7,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -59,7 +61,8 @@ public class HostController2 {
     public String joinHost(@ModelAttribute NewHostDTO dto
                             , @SessionAttribute(name = "s_id",required = false)String userId, Model model
                             , @RequestParam MultipartFile Img
-                            , HttpServletRequest req){
+                            , HttpServletRequest req
+                            ,HttpSession session){
 
 
         //로그인세션 확인
@@ -122,7 +125,7 @@ public class HostController2 {
 
         //host 아이디
         dto.setHostId(userId);
-
+        session.setAttribute("host_img",dto.getHostImg());
         log.info("newHostDTO={}",dto);
         hostService.newHostPro(dto,userId);
 
@@ -140,9 +143,11 @@ public class HostController2 {
 
     //===============프로필/정산정보 관리
     @GetMapping("/info")                             //나중에 true로 바꿔야함
-    public String info(@SessionAttribute(name = "s_id",required = false)String userId, Model model){
+    public String info(@SessionAttribute(name = "s_id",required = false)String userId, Model model,@RequestParam(value = "noAccount",required = false) String noAccount){
 
-
+        if(!StringUtils.isEmpty(noAccount)){
+            model.addAttribute("noAccount",noAccount);
+        }
 
         //호스트 정보 가져오기
         HostInfoDTO hostInfoDTO = hostService.getHostInfo(userId);
@@ -250,6 +255,14 @@ public class HostController2 {
         return "host/habit_product_control";
     }
 
+    @GetMapping("/checkAdjustForProCon")
+    @ResponseBody
+    public String checkAdjustForPorCon(@RequestParam("payd_no") int payd_no){
+        log.info("Payd_no={}",payd_no);
+        String adjustStatus = hostService.checkAjustForProCon(payd_no);
+
+        return adjustStatus;
+    }
 
 
     //판매관리에서 상태 변경 ajax
@@ -393,9 +406,10 @@ public class HostController2 {
     //================정산서 view페이지
     @GetMapping("/adjust")
     public String showAdjust(@SessionAttribute(name = "s_id",required = false)String userId
-                                ,Model model
-                                ,@ModelAttribute SearchAdjustDTO dto
-                                ,@RequestParam(value = "paging", defaultValue = "1") int paging){
+                                , Model model
+                                , @ModelAttribute SearchAdjustDTO dto
+                                , @RequestParam(value = "paging", defaultValue = "1") int paging
+                                , RedirectAttributes redirect){
         //임시
 
         dto.setHost_id(userId);
@@ -405,11 +419,12 @@ public class HostController2 {
         
 
         if(check==0){
+            redirect.addAttribute("noAccount","no");
             return "redirect:/host/info";
         }
 
         //정산해라
-        calcMethod(userId);
+        hostService.calcMethod(userId);
 
         //=====날짜 포맷 변경
         if(dto.getStart_date()!=null) {
@@ -484,7 +499,7 @@ public class HostController2 {
         return adjustDetail;
     }
 
-    private void calcMethod(String host_id){
+/*    private void calcMethod(String host_id){
 
         List<Integer> contNos = hostService.updateForDonePro(host_id);
         Long result=0L;
@@ -495,7 +510,7 @@ public class HostController2 {
 
         }
 
-    }
+    }*/
 
     @PostMapping("/adjustGive")
     @ResponseBody

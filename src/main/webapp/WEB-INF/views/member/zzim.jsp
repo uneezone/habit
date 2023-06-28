@@ -19,7 +19,7 @@
                 <div class="btn_circle1"></div>
             </button>
           </a>
-          <a href="zzim2.html" class="Home_wrapper_a" class="href">
+<%--          <a href="zzim2.html" class="Home_wrapper_a" class="href">
             <button class="Home_wrapper_btn">
                 <div>
                     호스트
@@ -27,7 +27,7 @@
                 <div class="btn_circle2">
                 </div>
             </button>
-          </a>  
+          </a> --%>
         </div>
 
         <!--본컨텐츠-->
@@ -39,13 +39,13 @@
                     <div>
                         <c:forEach var="item" items="${zzimList}" varStatus="status">
                             <div class="Home_product_recommend_p zzim${status.index}">
-                                <a href="" class="href">
+                                <a href="/category/products/${item.cont_no}" class="href">
                                     <div class="Home_product_recommend_p_div">
                                          <div>
                                             <input type="image" src="/storage/${item.cont_img}" alt="cont_img" width="140px" height="140px" style="border-radius:8px;">
                                          </div>
                                         <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn"  onclick="hello(this)" onsubmit="return false">
+                                            <button class="Home_product_recommend_p_div_btn zzim_btn"  onclick="return false" >
                                                 <img src="/img/redheart2.png" id="cont_no${item.cont_no}" alt="" width="40px" class="Home_product_recommend_p_div_img" onchange="delZzim()">
                                             </button>
                                         </div>
@@ -61,7 +61,7 @@
                                                             <span class="review_star${status.index}">
 
                                                             </span>
-                                                            <span>${item.review_avg}</span>
+
                                                             <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);"> 후기 ${item.review_count}</span>
                                                         </c:if>
                                                         <c:if test="${item.review_count==0}">
@@ -71,31 +71,31 @@
 
                                                 <script>
 
-                                                    let avg${status.index}=${item.review_avg};
 
                                                     for(let i=0;i<=9;i++){
                                                         let htmlAppend="";
-                                                        //console.log(i/2);
-                                                        if(i%2==0){
-                                                            if(avg${status.index}==parseFloat(i/2)){
-                                                                //console.log("d");
+
+                                                        if(parseFloat(${item.review_avg})%2==0.0){
+
+                                                            if( parseFloat(${item.review_avg})==parseFloat(i/2)){
+
                                                                 for (let k = 0; k < i * 0.5; k++) {
                                                                     htmlAppend += "<img src='/img/star.png' class='Home_recommend_star''>";
                                                                 }
                                                                 $(".review_star"+'${status.index}').append(htmlAppend);
                                                                 break;
                                                             }
-                                                        }else if(avg${status.index}==0.5*i){
-                                                            //console.log("ddd");
-                                                            //console.log(i);
+                                                            continue;
+                                                        }else if( parseFloat(${item.review_avg})==0.5*i){
+
                                                                 for (let k = 0; k < (i * 0.5-0.5); k++) {
                                                                     htmlAppend += "<img src='/img/star.png' class='Home_recommend_star''>";
                                                                 }
                                                                 htmlAppend += "<img src='/img/halfstar.png' class='Home_recommend_star''>";
                                                                 $(".review_star"+'${status.index}').append(htmlAppend);
-                                                                break;
-                                                        }else if(avg${status.index}>0.5*i && avg${status.index}<0.5*(i+1)){
-                                                            console.log("dddd");
+                                                            break;
+                                                        }else if( parseFloat(${item.review_avg})>0.5*i &&  parseFloat(${item.review_avg})<0.5*(i+1)){
+
                                                             if(i%2==0) {
                                                                 for (let k = 0; k < i * 0.5; k++) {
                                                                     htmlAppend += "<img src='/img/star.png' class='Home_recommend_star''>";
@@ -110,7 +110,7 @@
                                                                 $(".review_star"+'${status.index}').append(htmlAppend);
                                                                 break;
                                                             }
-                                                        }else if(avg${status.index}<=5&&(avg${status.index}>4.5)){
+                                                        }else if(parseFloat(${item.review_avg})<=5.0 &&(parseFloat(${item.review_avg})>4.5)){
                                                             for(let k=0;k<5;k++){
                                                                 htmlAppend+="<img src='/img/star.png' class='Home_recommend_star''>";
                                                             }
@@ -152,6 +152,7 @@
         </footer>
 
         <script>
+            console.log(${zzimList.size()/2});
             $(".index_page_btn").css("display","none");
             //console.log($(".index_page").index());
             if($(".index_page_btn").length>3){

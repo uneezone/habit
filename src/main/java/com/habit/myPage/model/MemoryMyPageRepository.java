@@ -1,9 +1,6 @@
 package com.habit.myPage.model;
 
-import com.habit.myPage.DTO.OrderAllDTO;
-import com.habit.myPage.DTO.OrderDetailDTO;
-import com.habit.myPage.DTO.OrderRefnDTO;
-import com.habit.myPage.DTO.UserInfoDTO;
+import com.habit.myPage.DTO.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,5 +87,70 @@ public class MemoryMyPageRepository implements MyPageRepository{
     @Override
     public OrderRefnDTO getRefnForOrderDetail(int payd_no) {
         return sqlSession.selectOne("mypage.getRefnForOrderDetail",payd_no);
+    }
+
+    @Override
+    public int checkReviewWrite(int payd_no) {
+        return sqlSession.selectOne("mypage.checkReviewWrite",payd_no);
+    }
+
+    @Override
+    public ReviewWriteDTO getContInfo(int payd_no) {
+        return sqlSession.selectOne("mypage.getContInfo",payd_no);
+    }
+
+    @Override
+    public ReviewWriteDTO getReview(int payd_no) {
+        return sqlSession.selectOne("mypage.getReview",payd_no);
+    }
+
+    @Override
+    public int insertReview(ReviewInsertDTO dto) {
+        return sqlSession.insert("mypage.insertReview" ,dto);
+    }
+
+    @Override
+    public int insertEnergy(EnergyDTO dto) {
+        return sqlSession.insert("mypage.insertEnergy", dto);
+    }
+
+    @Override
+    public int updateReview(ReviewInsertDTO dto) {
+        return sqlSession.update("mypage.updateReview",dto);
+    }
+
+    @Override
+    public RefundInfoDTO getInfoForRefund(int payd_no) {
+        return sqlSession.selectOne("mypage.getInfoForRefund",payd_no);
+    }
+
+    @Override
+    public int getCheckForEnergyRefund(String pay_no) {
+        return sqlSession.selectOne("mypage.getCheckForEnergyRefund",pay_no);
+    }
+
+    @Override
+    public int insertRefund(RefundInsertDTO dto) {
+        return sqlSession.insert("mypage.insertRefund",dto);
+    }
+
+    @Override
+    public int changeStatusPayd(int payd_no) {
+        return sqlSession.update("mypage.changeStatusPayd",payd_no);
+    }
+
+    @Override
+    public int insertEnergyRefund(EnergyDTO dto) {
+        return sqlSession.insert("mypage.insertEnergyRefund",dto);
+    }
+
+    @Override
+    public String getUserGrade(String user_id) {
+        return sqlSession.selectOne("mypage.getUserGrade",user_id);
+    }
+
+    @Override
+    public RefundResultDTO getResultRefund(int payd_no) {
+        return sqlSession.selectOne("mypage.getResultRefund",payd_no);
     }
 }

@@ -10,9 +10,12 @@ import java.util.Map;
 
 @ToString
 @Getter @Setter
-public class RequestContentInsertDTO {
+public class RequestContentValueDTO {
     private String host_id;
+
     private String cate_no;
+    private List<Map<String, Object>> cate_list;
+
     private int cont_no;
     private String cate_large;
     private String cate_middle;
@@ -30,8 +33,10 @@ public class RequestContentInsertDTO {
     private String cont_endate;
     private String cont_stdate;
     private String cont_type;
+    private List<MultipartFile> cont_imgs;
+    private List<String> cont_img;
+    private String cont_content;
 
-    private List<Map<String, Object>> cate_list;
     private List<String> prod_name;
     private List<Integer> prod_qty;
     private List<Integer> prod_price;
@@ -39,7 +44,4 @@ public class RequestContentInsertDTO {
     private List<Integer> one_maxqty;
     private List<Integer> one_price;
 
-    private List<MultipartFile> cont_imgs;
-    private List<String> cont_img;
-    private String cont_content;
 }

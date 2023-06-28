@@ -57,6 +57,9 @@ public interface HostRepository2 {
     //해당 호스트 회차권/인원권 판매 및 환불된거 가져오기
     List<ProductDTO> getProduct(SearchProDTO dto);
 
+    //정산되었는지 확인하기 해당상품이
+    int checkAjustForProCon(int payd_no);
+
     //판매관리 상태 변경시 R-> Y
     void updatePaydStatus(Long payd_no, String status);
 
@@ -119,13 +122,13 @@ public interface HostRepository2 {
     List<String> getOneProNo(int cont_no);
 
     //원데이테이블 상태 바꾸기
-    void updateOneStatus(String pro_no);
+    void updateOneStatus(List<String> pro_no);
 
     //회차권 테이블 상태 바꾸기 위해 판매완료 옵션코드 알기
     List<String> getProdProNo(int cont_no);
 
     //회차권테이블 상태 바꾸기
-    void updateProdStatus(String pro_no);
+    void updateProdStatus(List<String> pro_no);
 
     //주문상세코드 가져오기
     List<Integer> getPaydNo(List<String> pro_no);
@@ -154,7 +157,7 @@ public interface HostRepository2 {
     void insertCalc(CalcDTO dto);
 
     //정산상세 insert
-    void insertCalcD(CalcdDTO dto);
+    int insertCalcD(CalcdDTO dto);
 
     //==========정산지급
 

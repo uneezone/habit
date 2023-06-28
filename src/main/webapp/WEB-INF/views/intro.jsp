@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -35,7 +37,7 @@
                         <a href="/login" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu">로그인</div></a>
                     </c:when>
                     <c:otherwise>
-                        <a href="/mygage" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu"><span>${sessionScope.s_name}</span>님</div></a>
+                        <a href="/mygage" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu"><span class="s_id">${sessionScope.s_name}</span>님</div></a>
                         <a href="/logout.do" class="global_topbar_menu2_menu"><div class="global_topbar_menu2_menu"><button style="display: inline-block; border:0.5px solid rgb(165, 165, 165); background-color: white; border-radius: 2px;">로그아웃</button></div></a>
                     </c:otherwise>
                 </c:choose>
@@ -68,9 +70,9 @@
 
                 <div class="global_topbar2_menu1_search">
                     <div>
-                        <form action="search.html">
+                        <form action="/search" onsubmit="return checkSearch()">
                             <img src="img/search.png" alt="로고" >
-                            <input type="text" class="global_topbar2_menu1_search_input search_input" placeholder="지금 생각나는 취미를 검색하세요.">
+                            <input type="text" name="recentSearch" class="global_topbar2_menu1_search_input search_input" placeholder="지금 생각나는 취미를 검색하세요.">
                         </form>
                     </div>
                 </div>
@@ -120,27 +122,17 @@
                                 <section>
                                     <div class="global_modal_search">
                                         <div>최근검색어</div>
-                                        <a href="#"><div class="global_modal_search_del">지우기</div></a>
+                                        <div class="global_modal_search_del" onclick="delSearch()">지우기</div>
                                     </div>
-                            
-                                    <a href="#"><div class="global_modal_searchNew">소개팅</div></a>
-                                    <a><div class="global_modal_searchNew">소개팅</div></a>
-                                    <a><div class="global_modal_searchNew">소개팅</div></a>
-                                    <a><div class="global_modal_searchNew">소개팅</div></a>
-                                    <a><div class="global_modal_searchNew">소개팅</div></a>
-                                    <a><div class="global_modal_searchNew">소개팅</div></a>
-                                    <a><div class="global_modal_searchNew">소개팅</div></a>
-                                    <a><div class="global_modal_searchNew">소개팅</div></a>
-                                    <a><div class="global_modal_searchNew">소개팅</div></a>
-                                    <a><div class="global_modal_searchNew">소개팅</div></a>
-                                    <a><div class="global_modal_searchNew">소개팅</div></a>
+                                    <div class="recent_search">
+
+                                    </div>
                                 </section>
                                 <hr>
-                                <section>
+                                <section >
                                     <div class="global_modal_search">인기검색어</div>
-                                    <a href="#"><div class="global_modal_searchResult">소개팅</div></a>
-                                    <a href="#"><div class="global_modal_searchResult">소개팅</div></a>
-                                    <a href="#"><div class="global_modal_searchResult">소개팅</div></a>
+                                    <div class="hot_search">
+                                    </div>
                                 </section>
                                
                             </div>
@@ -313,153 +305,66 @@
                 </div>
             </div>
 
-            <!--MD추천-->
+            <!--인기만점 프립 (전체 조회순)-->
             <div class="Home_product_recommend">
                 <div class="Home_product_recommend_wrapper">
                     <div>
                         <div>
                             <div class="Home_product_recommend_font1">
-                                <h2>MD추천</h2>
-                            </div>
-                            <div class="Home_product_recommend_font2">
-                                <a>전체보기</a>
+                                <h2>인기만점 해빗 💜</h2>
                             </div>
                         </div>
 
                         <div class="Home_product_recommend_list">
-                            <div class="Home_product_recommend_p">
-                                <a href="" class="href">
-                                    <div class="Home_product_recommend_p_div">
-                                        <div>
-                                            <img src="img/image.jpeg" alt="" width="150px">
-                                        </div>
-                                        <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                            </button>
-                                        </div>
-                                        <div class="Home_product_recommend_p_font">
+                            <c:forEach items="${introViewTopList}" var="vt" varStatus="vs">
+                                <div class="Home_product_recommend_p">
+                                    <a href="/category/products/${vt.cont_no}" class="href">
+                                        <div class="Home_product_recommend_p_div">
                                             <div>
-                                                <span class="Miniarea">강남/서초</span>
+                                                <img src="/storage/${vt.cont_img}" alt="" style="width: 150px;height: 150px;" onerror="this.src='/storage/ang.png'">
+                                            </div>
+                                            <div>
+                                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="return false">
+                                                    <img src="/img/black2.png" id="cont_no${vt.cont_no}" alt="" width="40px" class="Home_product_recommend_p_div_img zzim_img">
+                                                </button>
+                                            </div>
+                                            <div class="Home_product_recommend_p_font">
                                                 <div>
-                                                    청춘유랑단 20 유럽편 With 리슬 모집
-                                                </div>
-                                                <section class="Home_recommend_img">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/halfstar.png" alt="" class="Home_recommend_star">
-                                                    
-                                                </section>
-                                                <hr class="Home_recommend_hr">
-                                                <div>
-                                                     300,000원
+                                                    <span class="Miniarea">${fn:substring(vt.cont_addr1, 0, 7)}</span>
+                                                    <div>
+                                                            ${vt.cont_name}
+                                                    </div>
+                                                    <section class="Home_recommend_img">
+                                                        <c:set var="starInfo" value="${vt.starInfo}" />
+                                                        <c:set var="avgStarRating" value="${starInfo['avg_star']}" />
+                                                        <c:choose>
+                                                            <c:when test="${avgStarRating != null}">
+                                                                <c:set var="roundedStarRating" value="${Math.round(avgStarRating.doubleValue())}" />
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <c:set var="roundedStarRating" value="0" />
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                        <c:forEach begin="1" end="${roundedStarRating > 5 ? 5 : roundedStarRating}" varStatus="starStatus">
+                                                            <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                                        </c:forEach>
+                                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 ${starInfo['cnt']}</span>
+                                                    </section>
+                                                    <hr class="Home_recommend_hr">
+                                                    <div>
+                                                        <c:set var="priceInfo" value="${vt.priceInfo}" />
+                                                        <c:set var="money" value="${priceInfo['money']}" />
+                                                        <fmt:formatNumber type="number" value="${money}" pattern="###,###" var="formattedMoney" />
+                                                            ${formattedMoney}원
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="Home_product_recommend_p">
-                                <a href="" class="href">
-                                    <div class="Home_product_recommend_p_div">
-                                        <div>
-                                            <img src="img/image.jpeg" alt="" width="150px">
-                                        </div>
-                                        <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                            </button>
-                                        </div>
-                                        <div class="Home_product_recommend_p_font">
-                                            <div>
-                                                <span class="Miniarea">강남/서초</span>
-                                                <div>
-                                                    청춘유랑단 20 유럽편 With 리슬 모집
-                                                </div>
-                                                <section class="Home_recommend_img">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/halfstar.png" alt="" class="Home_recommend_star">
-                                                </section>
-                                                <hr class="Home_recommend_hr">
-                                                <div>
-                                                     300,000원
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="Home_product_recommend_p">
-                                <a href="" class="href">
-                                    <div class="Home_product_recommend_p_div">
-                                        <div>
-                                            <img src="img/image.jpeg" alt="" width="150px">
-                                        </div>
-                                        <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img zzim_img">
-                                            </button>
-                                        </div>
-                                        <div class="Home_product_recommend_p_font">
-                                            <div>
-                                                <span class="Miniarea">강남/서초</span>
-                                                <div>
-                                                    청춘유랑단 20 유럽편 With 리슬 모집
-                                                </div>
-                                                <section class="Home_recommend_img">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                </section>
-                                                <hr class="Home_recommend_hr">
-                                                <div>
-                                                     300,000원
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="Home_product_recommend_p">
-                                <a href="" class="href">
-                                    <div class="Home_product_recommend_p_div">
-                                        <div>
-                                            <img src="img/image.jpeg" alt="" width="150px">
-                                        </div>
-                                        <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                            </button>
-                                        </div>
-                                        <div class="Home_product_recommend_p_font">
-                                            <div>
-                                                <span class="Miniarea">강남/서초</span>
-                                                <div>
-                                                    청춘유랑단 20 유럽편 With 리슬 모집
-                                                </div>
-                                                <section class="Home_recommend_img">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                </section>
-                                                <hr class="Home_recommend_hr">
-                                                <div>
-                                                     300,000원
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
+                                    </a>
+                                </div>
+                            </c:forEach>
                         </div>
+
                     </div>
 
                 </div>
@@ -481,465 +386,143 @@
                 </div>
             </div>
 
-            <!--인기 목록-->
+            <!--크루들이 주목하고 있어요 (전체 리뷰순)-->
             <div class="Home_product_recommend">
                 <div class="Home_product_recommend_wrapper">
                     <div>
                         <div>
                             <div class="Home_product_recommend_font1">
-                                <h2>MD추천</h2>
+                                <h2>크루들이 주목하고 있어요 👀</h2>
                             </div>
-                            <div class="Home_product_recommend_font2">
-                                <a>전체보기</a>
-                            </div>
+
                         </div>
 
                         <div class="Home_product_recommend_list">
-                            <div class="Home_product_recommend_p">
-                                <a href="" class="href">
-                                    <div class="Home_product_recommend_p_div">
-                                        <div>
-                                            <img src="img/image.jpeg" alt="" width="150px">
-                                        </div>
-                                        <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                            </button>
-                                        </div>
-                                        <div class="Home_product_recommend_p_font">
+                            <c:forEach items="${introReviewTopList}" var="rt" varStatus="vs">
+                                <div class="Home_product_recommend_p">
+                                    <a href="/category/products/${rt.cont_no}" class="href">
+                                        <div class="Home_product_recommend_p_div">
                                             <div>
-                                                <span class="Miniarea">강남/서초</span>
+                                                <img src="/storage/${rt.cont_img}" alt="" style="width: 150px;height: 150px;" onerror="this.src='/storage/ang.png'">
+                                            </div>
+                                            <div>
+                                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="return false">
+                                                    <img src="/img/black2.png" id="avgcont_no${rt.cont_no}" alt="" width="40px" class="Home_product_recommend_p_div_img zzim_img">
+                                                </button>
+                                            </div>
+                                            <div class="Home_product_recommend_p_font">
                                                 <div>
-                                                    청춘유랑단 20 유럽편 With 리슬 모집
-                                                </div>
-                                                <section class="Home_recommend_img">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/halfstar.png" alt="" class="Home_recommend_star">
-                                                    
-                                                </section>
-                                                <hr class="Home_recommend_hr">
-                                                <div>
-                                                     300,000원
+                                                    <span class="Miniarea">${fn:substring(rt.cont_addr1, 0, 7)}</span>
+                                                    <div>
+                                                            ${rt.cont_name}
+                                                    </div>
+                                                    <section class="Home_recommend_img">
+                                                        <c:set var="starInfo" value="${rt.starInfo}" />
+                                                        <c:set var="avgStarRating" value="${starInfo['avg_star']}" />
+                                                        <c:choose>
+                                                            <c:when test="${avgStarRating != null}">
+                                                                <c:set var="roundedStarRating" value="${Math.round(avgStarRating.doubleValue())}" />
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <c:set var="roundedStarRating" value="0" />
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                        <c:forEach begin="1" end="${roundedStarRating > 5 ? 5 : roundedStarRating}" varStatus="starStatus">
+                                                            <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                                        </c:forEach>
+                                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 ${starInfo['cnt']}</span>
+                                                    </section>
+                                                    <hr class="Home_recommend_hr">
+                                                    <div>
+                                                        <c:set var="priceInfo" value="${rt.priceInfo}" />
+                                                        <c:set var="money" value="${priceInfo['money']}" />
+                                                        <fmt:formatNumber type="number" value="${money}" pattern="###,###" var="formattedMoney" />
+                                                            ${formattedMoney}원
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="Home_product_recommend_p">
-                                <a href="" class="href">
-                                    <div class="Home_product_recommend_p_div">
-                                        <div>
-                                            <img src="img/image.jpeg" alt="" width="150px">
-                                        </div>
-                                        <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                            </button>
-                                        </div>
-                                        <div class="Home_product_recommend_p_font">
-                                            <div>
-                                                <span class="Miniarea">강남/서초</span>
-                                                <div>
-                                                    청춘유랑단 20 유럽편 With 리슬 모집
-                                                </div>
-                                                <section class="Home_recommend_img">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/halfstar.png" alt="" class="Home_recommend_star">
-                                                </section>
-                                                <hr class="Home_recommend_hr">
-                                                <div>
-                                                     300,000원
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="Home_product_recommend_p">
-                                <a href="" class="href">
-                                    <div class="Home_product_recommend_p_div">
-                                        <div>
-                                            <img src="img/image.jpeg" alt="" width="150px">
-                                        </div>
-                                        <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img zzim_img">
-                                            </button>
-                                        </div>
-                                        <div class="Home_product_recommend_p_font">
-                                            <div>
-                                                <span class="Miniarea">강남/서초</span>
-                                                <div>
-                                                    청춘유랑단 20 유럽편 With 리슬 모집
-                                                </div>
-                                                <section class="Home_recommend_img">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                </section>
-                                                <hr class="Home_recommend_hr">
-                                                <div>
-                                                     300,000원
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="Home_product_recommend_p">
-                                <a href="" class="href">
-                                    <div class="Home_product_recommend_p_div">
-                                        <div>
-                                            <img src="img/image.jpeg" alt="" width="150px">
-                                        </div>
-                                        <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                            </button>
-                                        </div>
-                                        <div class="Home_product_recommend_p_font">
-                                            <div>
-                                                <span class="Miniarea">강남/서초</span>
-                                                <div>
-                                                    청춘유랑단 20 유럽편 With 리슬 모집
-                                                </div>
-                                                <section class="Home_recommend_img">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                </section>
-                                                <hr class="Home_recommend_hr">
-                                                <div>
-                                                     300,000원
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
+                                    </a>
+                                </div>
+                            </c:forEach>
                         </div>
+
                     </div>
 
                 </div>
-            </div> 
-            <!--신규 목록-->
+            </div>
+
+            <!--신규 해빗-->
             <div class="Home_product_recommend">
                 <div class="Home_product_recommend_wrapper">
                     <div>
                         <div>
                             <div class="Home_product_recommend_font1">
-                                <h2>MD추천</h2>
+                                <h2>신규 해빗 🌟</h2>
                             </div>
-                            <div class="Home_product_recommend_font2">
-                                <a>전체보기</a>
-                            </div>
+
                         </div>
 
                         <div class="Home_product_recommend_list">
-                            <div class="Home_product_recommend_p">
-                                <a href="" class="href">
-                                    <div class="Home_product_recommend_p_div">
-                                        <div>
-                                            <img src="img/image.jpeg" alt="" width="150px">
-                                        </div>
-                                        <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                            </button>
-                                        </div>
-                                        <div class="Home_product_recommend_p_font">
+                            <c:forEach items="${introDateTopList}" var="dt" varStatus="vs">
+                                <div class="Home_product_recommend_p">
+                                    <a href="/category/products/${dt.cont_no}" class="href">
+                                        <div class="Home_product_recommend_p_div">
                                             <div>
-                                                <span class="Miniarea">강남/서초</span>
+                                                <img src="/storage/${dt.cont_img}" alt="" style="width: 150px;height: 150px;" onerror="this.src='/storage/ang.png'">
+                                            </div>
+                                            <div>
+                                                <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="return false">
+                                                    <img src="/img/black2.png" id="newcont_no${dt.cont_no}" alt="" width="40px" class="Home_product_recommend_p_div_img zzim_img">
+                                                </button>
+                                            </div>
+                                            <div class="Home_product_recommend_p_font">
                                                 <div>
-                                                    청춘유랑단 20 유럽편 With 리슬 모집
-                                                </div>
-                                                <section class="Home_recommend_img">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/halfstar.png" alt="" class="Home_recommend_star">
-                                                    
-                                                </section>
-                                                <hr class="Home_recommend_hr">
-                                                <div>
-                                                     300,000원
+                                                    <span class="Miniarea">${fn:substring(dt.cont_addr1, 0, 7)}</span>
+                                                    <div>
+                                                            ${dt.cont_name}
+                                                    </div>
+                                                    <section class="Home_recommend_img">
+                                                        <c:set var="starInfo" value="${dt.starInfo}" />
+                                                        <c:set var="avgStarRating" value="${starInfo['avg_star']}" />
+                                                        <c:choose>
+                                                            <c:when test="${avgStarRating != null}">
+                                                                <c:set var="roundedStarRating" value="${Math.round(avgStarRating.doubleValue())}" />
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <c:set var="roundedStarRating" value="0" />
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                        <c:forEach begin="1" end="${roundedStarRating > 5 ? 5 : roundedStarRating}" varStatus="starStatus">
+                                                            <img src="/img/star.png" alt="" class="Home_recommend_star">
+                                                        </c:forEach>
+                                                        <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 ${starInfo['cnt']}</span>
+                                                    </section>
+                                                    <hr class="Home_recommend_hr">
+                                                    <div>
+                                                        <c:set var="priceInfo" value="${dt.priceInfo}" />
+                                                        <c:set var="money" value="${priceInfo['money']}" />
+                                                        <fmt:formatNumber type="number" value="${money}" pattern="###,###" var="formattedMoney" />
+                                                            ${formattedMoney}원
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="Home_product_recommend_p">
-                                <a href="" class="href">
-                                    <div class="Home_product_recommend_p_div">
-                                        <div>
-                                            <img src="img/image.jpeg" alt="" width="150px">
-                                        </div>
-                                        <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                            </button>
-                                        </div>
-                                        <div class="Home_product_recommend_p_font">
-                                            <div>
-                                                <span class="Miniarea">강남/서초</span>
-                                                <div>
-                                                    청춘유랑단 20 유럽편 With 리슬 모집
-                                                </div>
-                                                <section class="Home_recommend_img">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/halfstar.png" alt="" class="Home_recommend_star">
-                                                </section>
-                                                <hr class="Home_recommend_hr">
-                                                <div>
-                                                     300,000원
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="Home_product_recommend_p">
-                                <a href="" class="href">
-                                    <div class="Home_product_recommend_p_div">
-                                        <div>
-                                            <img src="img/image.jpeg" alt="" width="150px">
-                                        </div>
-                                        <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img zzim_img">
-                                            </button>
-                                        </div>
-                                        <div class="Home_product_recommend_p_font">
-                                            <div>
-                                                <span class="Miniarea">강남/서초</span>
-                                                <div>
-                                                    청춘유랑단 20 유럽편 With 리슬 모집
-                                                </div>
-                                                <section class="Home_recommend_img">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                </section>
-                                                <hr class="Home_recommend_hr">
-                                                <div>
-                                                     300,000원
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="Home_product_recommend_p">
-                                <a href="" class="href">
-                                    <div class="Home_product_recommend_p_div">
-                                        <div>
-                                            <img src="img/image.jpeg" alt="" width="150px">
-                                        </div>
-                                        <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                            </button>
-                                        </div>
-                                        <div class="Home_product_recommend_p_font">
-                                            <div>
-                                                <span class="Miniarea">강남/서초</span>
-                                                <div>
-                                                    청춘유랑단 20 유럽편 With 리슬 모집
-                                                </div>
-                                                <section class="Home_recommend_img">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                </section>
-                                                <hr class="Home_recommend_hr">
-                                                <div>
-                                                     300,000원
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
+                                    </a>
+                                </div>
+                            </c:forEach>
                         </div>
                     </div>
 
                 </div>
             </div> 
 
-            <!--빅데잋처 목록-->
-            <div class="Home_product_recommend">
-                <div class="Home_product_recommend_wrapper">
-                    <div>
-                        <div>
-                            <div class="Home_product_recommend_font1">
-                                <h2>MD추천</h2>
-                            </div>
-                            <div class="Home_product_recommend_font2">
-                                <a>전체보기</a>
-                            </div>
-                        </div>
 
-                        <div class="Home_product_recommend_list">
-                            <div class="Home_product_recommend_p">
-                                <a href="" class="href">
-                                    <div class="Home_product_recommend_p_div">
-                                        <div>
-                                            <img src="img/image.jpeg" alt="" width="150px">
-                                        </div>
-                                        <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                            </button>
-                                        </div>
-                                        <div class="Home_product_recommend_p_font">
-                                            <div>
-                                                <span class="Miniarea">강남/서초</span>
-                                                <div>
-                                                    청춘유랑단 20 유럽편 With 리슬 모집
-                                                </div>
-                                                <section class="Home_recommend_img">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/halfstar.png" alt="" class="Home_recommend_star">
-                                                    
-                                                </section>
-                                                <hr class="Home_recommend_hr">
-                                                <div>
-                                                     300,000원
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="Home_product_recommend_p">
-                                <a href="" class="href">
-                                    <div class="Home_product_recommend_p_div">
-                                        <div>
-                                            <img src="img/image.jpeg" alt="" width="150px">
-                                        </div>
-                                        <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                            </button>
-                                        </div>
-                                        <div class="Home_product_recommend_p_font">
-                                            <div>
-                                                <span class="Miniarea">강남/서초</span>
-                                                <div>
-                                                    청춘유랑단 20 유럽편 With 리슬 모집
-                                                </div>
-                                                <section class="Home_recommend_img">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/halfstar.png" alt="" class="Home_recommend_star">
-                                                </section>
-                                                <hr class="Home_recommend_hr">
-                                                <div>
-                                                     300,000원
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="Home_product_recommend_p">
-                                <a href="" class="href">
-                                    <div class="Home_product_recommend_p_div">
-                                        <div>
-                                            <img src="img/image.jpeg" alt="" width="150px">
-                                        </div>
-                                        <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img zzim_img">
-                                            </button>
-                                        </div>
-                                        <div class="Home_product_recommend_p_font">
-                                            <div>
-                                                <span class="Miniarea">강남/서초</span>
-                                                <div>
-                                                    청춘유랑단 20 유럽편 With 리슬 모집
-                                                </div>
-                                                <section class="Home_recommend_img">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                </section>
-                                                <hr class="Home_recommend_hr">
-                                                <div>
-                                                     300,000원
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="Home_product_recommend_p">
-                                <a href="" class="href">
-                                    <div class="Home_product_recommend_p_div">
-                                        <div>
-                                            <img src="img/image.jpeg" alt="" width="150px">
-                                        </div>
-                                        <div>
-                                            <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="hello()" onsubmit="return false">
-                                                <img src="img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
-                                            </button>
-                                        </div>
-                                        <div class="Home_product_recommend_p_font">
-                                            <div>
-                                                <span class="Miniarea">강남/서초</span>
-                                                <div>
-                                                    청춘유랑단 20 유럽편 With 리슬 모집
-                                                </div>
-                                                <section class="Home_recommend_img">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                    <img src="img/star.png" alt="" class="Home_recommend_star">
-                                                </section>
-                                                <hr class="Home_recommend_hr">
-                                                <div>
-                                                     300,000원
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div> 
 
             <!--호스트 지원 배너-->
             <div class="Home_smallBanner2">
                 <div>
-                    <a href="host_newhost.html"><img src="img/host.png" alt=""></a>
+                    <a href="/host"><img src="img/host.png" alt=""></a>
                 </div>
             </div>
 
@@ -981,7 +564,30 @@
     <!--footer 끝-->
 
    
+<script>
+    if(${sessionScope.s_id!=null}){
+        let userId="${sessionScope.s_id}";
+        console.log(userId);
+        if(userId!=""){
+            $.ajax({
+                type: "GET"
+                , url: "/zzim/getZzim"
+                , data: {"userId": userId}
+                , async: false
+                , success: function (data) {
+                    //console.log(data);
+                    $(data).each(function (index, value) {
+                        console.log(value);
+                        $("#avgcont_no"+value).attr("src", "/img/redheart2.png");
+                        $("#cont_no" + value).attr("src", "/img/redheart2.png");
+                        $("#newcont_no"+value).attr("src", "/img/redheart2.png");
+                    });
+                }
 
+            });
+        }
+    }
+</script>
 
   
 </body>

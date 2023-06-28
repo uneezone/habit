@@ -126,6 +126,12 @@ public class MemoryHostRepository2 implements HostRepository2 {
         return sqlSession.selectList("host2.getProduct",dto);
     }
 
+
+    @Override
+    public int checkAjustForProCon(int payd_no) {
+        return sqlSession.selectOne("host2.checkAdjustForProCon",payd_no);
+    }
+
     @Override
     public void updatePaydStatus(Long payd_no, String status) {
         Map<String,Object> params= new HashMap<>();
@@ -232,7 +238,7 @@ public class MemoryHostRepository2 implements HostRepository2 {
     }
 
     @Override
-    public void updateOneStatus(String pro_no) {
+    public void updateOneStatus(List<String> pro_no) {
         sqlSession.update("host2.updateOneStatus",pro_no);
     }
 
@@ -242,7 +248,7 @@ public class MemoryHostRepository2 implements HostRepository2 {
     }
 
     @Override
-    public void updateProdStatus(String pro_no) {
+    public void updateProdStatus(List<String> pro_no) {
         sqlSession.update("host2.updateProdStatus",pro_no);
     }
 
@@ -288,8 +294,8 @@ public class MemoryHostRepository2 implements HostRepository2 {
     }
 
     @Override
-    public void insertCalcD(CalcdDTO dto) {
-        sqlSession.insert("host2.insertCalcD",dto);
+    public int insertCalcD(CalcdDTO dto) {
+        return sqlSession.insert("host2.insertCalcD",dto);
     }
 
     @Override

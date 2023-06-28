@@ -1,19 +1,25 @@
 package com.habit.myPage.service;
 
-import com.habit.myPage.DTO.OrderAllDTO;
-import com.habit.myPage.DTO.OrderDetailDTO;
-import com.habit.myPage.DTO.OrderRefnDTO;
-import com.habit.myPage.DTO.UserInfoDTO;
+import com.habit.myPage.DTO.*;
 import com.habit.myPage.model.MemoryMyPageRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class MyPageServiceImpl implements MyPageService{
 
     private final MemoryMyPageRepository repository;
@@ -102,7 +108,7 @@ public class MyPageServiceImpl implements MyPageService{
                 orderAllDTO.setCont_no((Integer) proForOrder.get("cont_no"));
             }
         }
-        //log.info("OrderAllDTO={}",payDForOrder);
+        log.info("OrderAllDTO={}",payDForOrder);
 
         return payDForOrder;
     }
@@ -167,5 +173,152 @@ public class MyPageServiceImpl implements MyPageService{
         log.info("refnInfo={}",list);
 
         return list;
+    }
+
+    @Override
+    public ReviewWriteDTO getReview(int payd_no) {
+
+        //리뷰 썻는지 확인(리뷰상태가 N인 아닌것도 확인)
+        int i = repository.checkReviewWrite(payd_no);
+
+        //상품 명 가져오기
+        ReviewWriteDTO contInfo = repository.getContInfo(payd_no);
+
+
+        if(i!=0){
+            ReviewWriteDTO review = repository.getReview(payd_no);
+            //log.info("reviewWrite={}",review);
+            contInfo.setReview_img(review.getReview_img());
+            contInfo.setReview_star(review.getReview_star());
+            contInfo.setReview_cont(review.getReview_cont());
+            contInfo.setReview_feed(review.getReview_feed());
+            contInfo.setReview_ask(review.getReview_ask());
+        }
+
+        log.info("reveiwDTO={}",contInfo);
+        return contInfo;
+    }
+
+    @Override
+    public String updateOrInsertReview(ReviewInsertDTO dto, List<MultipartFile> imgs) throws IOException {
+
+        //리뷰수정인지 새로운 것인지 체크
+        int status = repository.checkReviewWrite(dto.getPayd_no());
+        log.info("리뷰수정일까={}",status);
+
+        //이미지 잇는지 확인 -> 있으면 파일명 변경
+        List<String> imgNames = new ArrayList<>();
+        for (int i=0;i<imgs.size();i++) {
+            if(imgs.get(i).getSize()==0){
+                log.info("사진 첨부  X");
+            }else{
+                String path = "src/main/webapp/storage/";
+
+                SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMddHHmmss");
+                Date now = new Date();
+                String nowTime = sdf1.format(now);
+
+                String newFileName=nowTime+imgs.get(i).getOriginalFilename();
+
+                File targetFile = new File(path + newFileName);
+                InputStream filesStream = imgs.get(i).getInputStream();
+                FileUtils.copyInputStreamToFile(filesStream, targetFile);
+                imgNames.add(newFileName);
+                dto.setReview_img(imgNames);
+            }
+        }
+
+        log.info("reviewInsertDTO={}",dto);
+        String resultstatus="";
+        //리뷰수정 ? 리뷰 새로운?
+        if(status==0){
+            //새로은 리뷰
+            int i =repository.insertReview(dto);
+            resultstatus="new"+i;
+        }else{
+            //리뷰수정
+            int i = repository.updateReview(dto);
+            resultstatus="update"+i;
+        }
+        return resultstatus;
+    }
+
+    @Override
+    public int insertEnergy(EnergyDTO dto) {
+        return repository.insertEnergy(dto);
+    }
+
+    @Override
+    public RefundInfoDTO getForRefund(int payd_no) {
+        RefundInfoDTO infoForRefund = repository.getInfoForRefund(payd_no);
+
+        int checkForEnergyRefund = repository.getCheckForEnergyRefund(infoForRefund.getPay_no());
+
+        //RO가 두개이상이면 에너지 환불 X
+        if(checkForEnergyRefund>=2){
+            infoForRefund.setPay_point(0);
+        }
+
+
+        return infoForRefund;
+    }
+
+    @Override
+    public String insertRefund(RefundInsertDTO dto, String user_id) {
+        String refn_price = dto.getRefn_price().replace(",", "");
+        dto.setRefn_price(refn_price);
+
+        String refn_point=dto.getRefn_point().replace("-","");
+        dto.setRefn_point(refn_point);
+
+        dto.setUser_id(user_id);
+        int status = repository.insertRefund(dto);
+
+        if(status!=0){
+            log.info("payd_no={}",Integer.parseInt(dto.getPayd_no()));
+            //내역상태바꾸기
+            int changeStatus = repository.changeStatusPayd(Integer.parseInt(dto.getPayd_no()));
+
+
+            //사용한 에너지 환불
+            EnergyDTO energyDTO= new EnergyDTO();
+            energyDTO.setUser_id(user_id);
+            if(Integer.parseInt(dto.getRefn_point())!=0){
+                energyDTO.setEnergy_sources("[결제]취소");
+                energyDTO.setEnergy_saveuse(Integer.parseInt(dto.getRefn_point()));
+                repository.insertEnergyRefund(energyDTO);
+            }
+
+            //가격대비 적립 포인트 빼기
+            //회원등급확인
+            String userGrade = repository.getUserGrade(user_id);
+            int contRefnPoint=0;
+            if(userGrade.equals("B")){
+                contRefnPoint= (int) (Integer.parseInt(refn_price)*0.01);
+            }else if (userGrade.equals("A")){
+                contRefnPoint= (int) (Integer.parseInt(refn_price)*0.03);
+            }else {
+                contRefnPoint= (int) (Integer.parseInt(refn_price)*0.05);
+            }
+
+            energyDTO.setEnergy_saveuse(-contRefnPoint);
+            energyDTO.setEnergy_sources("[결제]적립취소");
+            repository.insertEnergyRefund(energyDTO);
+
+
+            //유저 등급확인
+
+            if(changeStatus!=0) {
+                return "OK";
+            }
+            return "NOK";
+        }
+
+        return "NOK";
+    }
+
+    @Override
+    public RefundResultDTO getResultRefund(int payd_no) {
+        return repository.getResultRefund(payd_no);
     }
 }

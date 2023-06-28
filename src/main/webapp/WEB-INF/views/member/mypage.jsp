@@ -8,7 +8,7 @@
     <div class="Home">
         <a href="/mypage/myedit"><div class="Home_myinfo">
             <div class="Home_myinfo_img">
-                <img src="/storage/defaultPro.png" alt="">
+                <img src="/storage/${nameImg.user_img}" alt="">
             </div>
             <div class="Home_myinfo_name">
                 ${nameImg.user_name}
@@ -27,7 +27,9 @@
             </a>
             <a href="">
                 <div class="Home_myrecord_name">후기</div>
-                <div class="Home_myrecord_num">${myInfo.review}</div>
+                <div class="Home_myrecord_num">
+                    ${myInfo.review}
+                </div>
             </a>
             <a href="">
                 <div class="Home_myrecord_name">피드</div>

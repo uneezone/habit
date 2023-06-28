@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../header.jsp"%>
-<link rel="stylesheet" href="css/newMember.css">
-<script src="js/newMember.js?after"></script>
+<link rel="stylesheet" href="/css/newMember.css">
+<script src="/js/newMember.js?after"></script>
 
     <!-- 본문 시작 -->
     <div class="Home">
         <div>
-            <form name="frm" method="post" action="/welcome.do" enctype="multipart/form-data">
+            <form name="frm" method="post" action="/welcome.do" enctype="multipart/form-data" onsubmit="return join_check()">
                 <h3 class="Home_top">회원가입</h3>
                 <div class="Home_form">
                     <div class="Home_form_div">
@@ -29,12 +29,12 @@
                     </div>
                     <div class="Home_form_div">
                         <div>성별</div>
-                        <input type="radio" class="Home_form_input1" name="user_gender" value="M">남
-                        <input type="radio" class="Home_form_input1" name="user_gender" value="W">여
+                        <span class="Home_form_input1"><input type="radio" name="user_gender" id="user_gender"  value="M">남</span>
+                        <span class="Home_form_input1" ><input type="radio" name="user_gender" value="W">여</span>
                     </div>
                     <div class="Home_form_div">
                         <div>이메일</div>
-                        <input type="text" class="Home_form_input_email" name="user_email"> @
+                        <input type="text" class="Home_form_input_email" name="user_email" id="user_email"> @
                         <select name="user_email2" id="user_email2" class="Home_form_input_email_select">
                             <option value="0">선택</option>
                             <option value="naver.com">naver.com</option>
@@ -46,9 +46,9 @@
                     </div>
                     <div class="Home_form_div">
                         <div>휴대폰 번호</div>
-                        <input type="number" name="user_phone" id="user_phone" class="Home_form_num"> -
-                        <input type="number" name="user_phone2" id="user_phone2" class="Home_form_num"> -
-                        <input type="number" name="user_phone3" id="user_phone3" class="Home_form_num">
+                        <input type="number" name="user_phone" id="user_phone" class="Home_form_num" oninput="checkLength()"> -
+                        <input type="number" name="user_phone2" id="user_phone2" class="Home_form_num" oninput="checkLength()"> -
+                        <input type="number" name="user_phone3" id="user_phone3" class="Home_form_num" oninput="checkLength()">
                         <div class="error"></div>
                     </div>
                     <div class="Home_form_div">
@@ -62,13 +62,13 @@
                             <img src="img/noimg.png" alt="" class="Home_proimg">
                         </div>
                         <div class="Home_form_profile">
-                            <input type="file" class="Home_form_file" onchange="setProfile(event)">
+                            <input type="file" class="Home_form_file" name="user_img" onchange="setProfile(event)">
                         </div>
                         <div class="error"></div>
                     </div>
                     <div>
                         <div>
-                            <button class="Home_new_btn" onclick="join_check()">회원가입</button>
+                            <button class="Home_new_btn" type="submit">회원가입</button>
                         </div>
                     </div>
                 </div>
@@ -77,21 +77,30 @@
     </div>
     <!-- 본문 끝-->
 <script>
+
     function checkId() {
         const id = $("#user_id").val();
-        $.ajax({
-            type: "post",
-            url: "/idCheck",
-            data: {'id': id},
-            success: function (data) {
-                if (data == 1) {
-                    $("#error1").text("입력한 ID가 이미 사용 중입니다.");
-                } else {
-                    $("#error1").text("ID가 사용 가능합니다.");
+        //alert(id);
+        if(id.length<5){
+            alert("아이디는 5글자 이상 입력해주세요");
+        }else {
+            $.ajax({
+                type: "post",
+                url: "/idCheck",
+                dataType: 'json',
+                data: {'id': id},
+                success: function (data) {
+                    console.log(data);
+                    if (data == 1) {
+                        $("#error1").text("입력한 ID가 이미 사용 중입니다.");
+                    } else {
+                        $("#error1").text("ID가 사용 가능합니다.");
+                    }
                 }
-            }
-        });
+            });
+        }
     }
+
 </script>
 
 <%@include file="../footer.jsp"%>

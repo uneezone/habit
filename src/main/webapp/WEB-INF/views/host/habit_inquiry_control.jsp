@@ -52,8 +52,8 @@
           </li>
         </ul>
         <div>
-          <a href="info"><img src="/img/profile-3_07724ab7a395fea9343ed7a13e59c1212e2e3d39c141edd99f83442f98340dfc.webp" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a>
-          <a href="info" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">HOST ID</span></a>
+          <a href="info"><img src="${host_img.equals("defaulthostPro.png") ? '/img/' : '/storage/'}${host_img}" alt="" width="50px" height="50px" style="border-radius: 100%; margin: 0 10px;"></a>
+          <a href="info" style="text-decoration-line: none;"><span name="" style="padding-right: 20px;">${host_id}</span></a>
           <a href="/"><input type="button" class="btn btn-outline-primary btn-sm" value="해빗 홈으로 이동"></a>
           <a href="#"><input type="button" href="#" class="btn btn-secondary btn-sm" value="로그아웃"></a>
         </div>

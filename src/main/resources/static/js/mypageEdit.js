@@ -77,9 +77,9 @@ function checkPw(){
 
 //비밀번호 변경
 function changePw(){
-    let pw=$("#nowpw").val();
-    if(pw.length<5){
-        alert("비밀번호 5자리 이상 입력해주세요");
+    let pw=$("#nowpw").val().trim();
+    if(pw.length<8){
+        alert("띄어쓰기 미포함 비밀번호 8자리 이상 입력해주세요");
     }else {
         let params = {"pw": pw};
 
@@ -94,6 +94,7 @@ function changePw(){
                     $("#user_pw").val(data.pw);
                     $(".change_pw_com").html("변경 성공");
                     $(".change_pw").html("비밀번호 변경 완료");
+                    $(".change_pw_btn").css("display","none");
                     $("#nowpw").attr("disabled", "disabled");
                 } else {
                     alert("변경실패 다시 시도해주세요.");
@@ -102,6 +103,11 @@ function changePw(){
             }
         });
     }
+}
+
+//
+function checkNumber(obj){
+    obj.value = obj.value.replace(/[^0-9]/g, "");
 }
 
 //submit 유효성 체크

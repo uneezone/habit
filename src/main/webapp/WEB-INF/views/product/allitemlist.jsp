@@ -4,10 +4,87 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<link rel="stylesheet" href="/css/itemlist.css?after" />
+<link rel="stylesheet" href="/css/itemlist.css" />
 <script src="/js/jquery.cookie.js"></script>
-<script src="/js/allitemlist.js?after"></script>
-<script src="/js/common.js?after"></script>
+<script src="/js/allitemlist.js"></script>
+<script src="/js/common.js"></script>
+
+
+<%-- 필터 모달창--%>
+<div id="filter-root">
+    <div>
+        <div class="Filter_Container_Modal" >
+            <div class="Filter_FlexFix">
+                <div class="Filter_Wrapper_Modal">
+                    <header class="Filter_HeaderWrapper">
+                        <div class="FilterModalHeader_Wrapper">
+                            <span class="FilterModalHeader_ModalTitle">필터</span>
+                        </div>
+                        <button name="CloseBtn" type="button" class="Filter_Button">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E %3Cg fill='none' fill-rule='nonzero'%3E %3Cpath d='M0 0h24v24H0z'/%3E %3Cpath stroke='%23000' stroke-width='2' d='M7.05 7.05l9.9 9.9M16.95 7.05l-9.9 9.9'/%3E %3C/g%3E %3C/svg%3E" alt="닫기버튼">
+                        </button>
+                    </header>
+                    <div class="FilterBodyContainer">
+                        <div class="FilterOther_Momo">
+                            <div class="FilterOther_ModalSection">
+                                <div>
+                                    <div class="FilterOthers_FilterTitle">정렬</div>
+                                    <div class="FilterRadio">
+                                        <div direction="column" class="FilterRadio_RadioInput">
+                                            <div class="FilterRadio_OptionWrapper">
+                                                <label  class="FilterRadio_StyleLabel">
+                                                    인기순
+                                                    <div class="FilterRadio_CustomRadio"></div>
+                                                    <input type="radio" id="radio-hot" name="filter" value="popularity" class="FilterRadio_RadioClick">
+                                                </label>
+                                            </div>
+                                            <div class="FilterRadio_OptionWrapper">
+                                                <label  class="FilterRadio_StyleLabel">
+                                                    등록일순
+                                                    <div class="FilterRadio_CustomRadio"></div>
+                                                    <input type="radio" id="radio-date" name="filter" value="date" class="FilterRadio_RadioClick">
+                                                </label>
+                                            </div>
+                                            <div class="FilterRadio_OptionWrapper">
+                                                <label  class="FilterRadio_StyleLabel">
+                                                    평점순
+                                                    <div class="FilterRadio_CustomRadio"></div>
+                                                    <input type="radio" id="radio-review" name="filter" value="rating" class="FilterRadio_RadioClick">
+                                                </label>
+                                            </div>
+                                            <div class="FilterRadio_OptionWrapper">
+                                                <label  class="FilterRadio_StyleLabel">
+                                                    가격 높은순
+                                                    <div class="FilterRadio_CustomRadio"></div>
+                                                    <input type="radio" id="radio-pricehigh" name="filter" value="highPrice" class="FilterRadio_RadioClick">
+                                                </label>
+                                            </div>
+                                            <div class="FilterRadio_OptionWrapper">
+                                                <label  class="FilterRadio_StyleLabel">
+                                                    가격 낮은순
+                                                    <div class="FilterRadio_CustomRadio"></div>
+                                                    <input type="radio" id="radio-pricelow" name="filter" value="lowPrice" class="FilterRadio_RadioClick">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="FilterOther_Price">
+                                </div>
+                            </div>
+                        </div>
+                        <footer class="Filter_FooterWrapper">
+                            <button width="280px" height="50px" color="white" font-size="13px" font-weight="bold" class="Button_btn">적용하기</button>
+                        </footer>
+                    </div>
+                </div>
+                <div class="Filter_Overlay"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<%--    필터 모달창 끝--%>
+
 
       <!--* 대분류 클릭시 모달창-->
 
@@ -80,7 +157,7 @@
                                 </div>
                             </a>
 
-                            <a href="" class="CategoryItem-A" data-category="자기계발" onclick="selectCategory('자기계빨')">
+                            <a href="" class="CategoryItem-A" data-category="자기계발" onclick="selectCategory('자기계발')">
                                 <div class="CategoryItem8">
                                     <div class="CategoryItem__Background"></div>
                                     <div class="CategoryItem__Text"></div>
@@ -199,19 +276,10 @@
 
         <!-- 날짜 필터 버튼 -->
         <div class="Filter_Wrapper">
-            <div class="Filter__FilterButtonWrapper">
-                <div class="FilterDate">
-                    <div class="FilterOpenButton">
-                        <button height="auto" color="initial" font-size="14px" font-weight="500" class="Button1">날짜</button>
-                    </div>
-                </div>
-                <div class="FilterOther">
-                    <div class="FilterOpenButton">
-                        <button height="auto" color="initial" font-size="14px" font-weight="500" class="Button1">필터</button>
-                    </div>
-                </div>
-            </div>
-            
+
+            <br>
+
+
             <!-- 콘텐츠 리스트 -->
 
         <div font-size="18" class="ProductSectionHeader_Header">
@@ -230,7 +298,7 @@
                                 </div>
                                 <div>
                                     <button class="Home_product_recommend_p_div_btn zzim_btn" onclick="preventA()" onsubmit="return false">
-                                        <img src="/img/black2.png" alt="" width="40px" class="Home_product_recommend_p_div_img">
+                                        <img src="/img/black2.png" id="cont_no${row.cont_no}" width="40px" class="Home_product_recommend_p_div_img">
                                     </button>
                                 </div>
                                 <div class="Home_product_recommend_p_font">
@@ -253,7 +321,8 @@
                                             <c:forEach begin="1" end="${roundedStarRating > 5 ? 5 : roundedStarRating}" varStatus="starStatus">
                                                 <img src="/img/star.png" alt="" class="Home_recommend_star">
                                             </c:forEach>
-                                            <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 ${starItem['cnt']}</span>
+                                            <c:set var="contNo" value="${row.cont_no}" />
+                                            <span style="font-size: 10px; font-weight: bold; color: rgb(119, 119, 119);">후기 ${reviewcnt[contNo].Reviewcnt}</span>
                                         </section>
                                         <hr class="Home_recommend_hr">
                                         <div>
@@ -275,14 +344,14 @@
 
             <!--* 이전/다음 버튼 -->
             <footer class="Wrapper_Paging">
-            <div class="paging">
-            <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold"  onclick="onPageClick(-1)">&lt;</button>
-            <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold"  onclick="onPageClick(1)">1</button>
-            <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold"  onclick="onPageClick(2)">2</button>
-            <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" onclick="onPageClick(3)">3</button>
-            <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" onclick="onPageClick(4)">4</button>
-            <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" onclick="onPageClick(-2)">></button>
-            </div>
+                <div class="paging">
+                    <button  width="40px" height="40px"  font-size="18px" font-weight="bold"  onclick="onPageClick(-1)">&lt;</button>
+                    <c:set var="numPages" value="${Math.ceil(hotListCount / 8)}" />
+                    <c:forEach begin="1" end="${numPages}" var="page">
+                        <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" class="page-button" data-page="${page}"  onclick="onPageClick(${page})">${page}</button>
+                    </c:forEach>
+                    <button  width="40px" height="40px"  font-size="18px" font-weight="bold" onclick="onPageClick(-2)">&gt;</button>
+                </div>
             </footer>
 
  
@@ -291,9 +360,13 @@
 
 
         </div>
+
+
+
+        </div>
     </div>
 </div>
-  </div>
+
 
 <script>
     var midHotListCount = ${midHotListCount};
