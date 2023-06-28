@@ -139,7 +139,7 @@
             </div>
         </div>
 
-        <c:set value="${zzimList.size()/2}" var="pages"></c:set>
+        <c:set value="${zzimList.size()/8}" var="pages"></c:set>
         <footer class="Wrapper_Paging">
             <div class="paging">
                 <button width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold"  onclick="onPageClick(-1)">&lt;</button>

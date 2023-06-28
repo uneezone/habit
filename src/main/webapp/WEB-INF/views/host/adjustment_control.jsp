@@ -179,8 +179,11 @@
                         if('${adjust.calc_status}'==="Y") {
                           $("#checkBtn${status.index}").attr("disabled",true);
                           document.write("지급완료");
-                        }else{
+                        }else if('${adjust.calc_status}'==="N"){
                           document.write("지급대기");
+                        }else {
+                          $(".checkBtn").eq(${status.index}).prop('disabled','disabled');
+                          document.write("지급없음");
                         }
                     </script>
                   </td>

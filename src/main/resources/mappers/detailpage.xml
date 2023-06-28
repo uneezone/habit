@@ -18,15 +18,15 @@
     <!-- 상세페이지 상품 옵션 출력   -->
     <select id="detailproduct" resultType="java.util.Map" parameterType="int">
         SELECT a.cont_no, a.one_date, a.one_maxqty, a.one_status, a.pro_no,
-               CAST(a.one_price AS DECIMAL) AS one_price
+               CAST(a.one_price AS DECIMAL) AS one_price,IFNULL(sum(p.payd_qty),0) as payd_qty
         FROM (SELECT * FROM one where one_status ='OO'
               UNION
               SELECT * FROM prod where prod_status ='PO') a
                  JOIN cont c
-                      ON a.cont_no = c.cont_no
-                 JOIN cate ct
-                      ON c.cate_no = ct.cate_no
-        WHERE  a.cont_no = #{cont_no}
+                      ON a.cont_no = c.cont_no left join payd p on a.pro_no=p.pro_no
+        WHERE  a.cont_no =#{cont_no}
+        group by p.pro_no
+        order by a.one_price asc
     </select>
 
     <!-- 상세 페이지 선택한 컨텐츠 리뷰 리스트   -->
