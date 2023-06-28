@@ -89,13 +89,13 @@ $(document).ready(()=> {
     // 해빗 update 모달창 띄우기 + 정보 가져오기
     $('#tableBody').on('click', '.content-update', (e)=>{
 
-        let cont_no = e.currentTarget.id.substring(6)
         $('.update-modal').css('display', 'flex')
+        let cont_no = e.currentTarget.id.substring(6)
         $.ajax({
             url: '/host/content/updateform/' + cont_no,
             type: 'get',
-            itemType: 'json',
-            item: cont_no,
+            dataType: 'json',
+            data: cont_no,
             success: (data) => {
                 $('.update-modal').css('display', 'flex')
                 let item = data.item //콘텐츠 DTO
@@ -200,7 +200,10 @@ $(document).ready(()=> {
                 // 판매유형 가져오기
                 let type = $('#' + optionType)
                 let cont_option = $('#cont_option_' + optionType)
+                let optionUpdateButton = $('#option-update-button')
                 let optionRow = $('#option_row_' + optionType)
+
+                optionUpdateButton.attr('name', optionType)
 
                 type.css('display', 'flex')
                 cont_option.removeAttr('hidden')
@@ -218,21 +221,21 @@ $(document).ready(()=> {
 
                         let row_prod =
                             "                    <tr>\n" +
-                            "                      <td><input class='form-check-input' type='checkbox' name='cont_option_prod'></td>\n" +
+                            (option[i].prod_status === 'N'? "<td></td>": "                      <td><input class='form-check-input' type='checkbox' " + (option[i].one_status === 'N'? '': 'id=\'' + option[i].pro_no + "'") + " name='cont_option_prod'></td>\n") +
                             "                      <td>\n" +
                             "                        <div>\n" +
-                            "                          <input type='text' name='prod_name' " + (option[i].prod_status === 'N'? '': "id=\'prod_name" + option[i].pro_no) + "' class='form-control' value='" + option[i].prod_name + "'>\n" +
+                            "                          <input type='text' " + (option[i].prod_status === 'N'? 'disabled' : "name='update-prod-name' id=\'prod_name" + option[i].pro_no + "'") + " class='form-control prod_name' value='" + option[i].prod_name + "'>\n" +
                             "                        </div>\n" +
                             "                      </td>\n" +
                             "                      <td>\n" +
                             "                        <div>\n" +
-                            "                          <input type='number' name='prod_qty' " + (option[i].prod_status === 'N'? '': "id=\'prod_qty" + option[i].pro_no) + "' min='0' class='form-control' value='" + option[i].prod_qty + "'>\n" +
+                            "                          <input type='number' " + (option[i].prod_status === 'N'? 'disabled' : "name='update-prod-qty' id=\'prod_qty" + option[i].pro_no + "'") + " min='0' class='form-control prod_qty' value='" + option[i].prod_qty + "'>\n" +
                             "                        </div>\n" +
                             "                      </td>\n" +
                             "                      <td>\n" +
                             "                        <div class='input-group mb-2'>\n" +
                             "                          <span class='input-group-text'>판매가</span>\n" +
-                            "                          <input type='number' class='form-control' name='prod_price' " + (option[i].prod_status === 'N'? '': "id=\'prod_price" + option[i].pro_no) + "' min='0' aria-label='Amount (to the nearest dollar)' value='" + option[i].prod_price + "'>\n" +
+                            "                          <input type='number' class='form-control prod_price' " + (option[i].prod_status === 'N'? 'disabled' : "name='update-prod-price' id=\'prod_price" + option[i].pro_no + "'") + " min='0' aria-label='Amount (to the nearest dollar)' value='" + option[i].prod_price + "'>\n" +
                             "                          <span class='input-group-text'>원</span>\n" +
                             "                        </div>\n" +
                             "                      </td>\n" +
@@ -258,21 +261,21 @@ $(document).ready(()=> {
                         }
 
                         let row_one = "<tr>\n" +
-                            "                      <td><input class='form-check-input' type='checkbox' " + (option[i].one_status === 'N'? '': 'id=\'' + option[i].pro_no) + "' name='cont_option_one'></td>\n" +
+                            (option[i].one_status === 'N'? "<td></td>": "                      <td><input class='form-check-input' type='checkbox' " + (option[i].one_status === 'N'? '': 'id=\'' + option[i].pro_no + "'") + " name='cont_option_one'></td>\n") +
                             "                      <td>\n" +
                             "                        <div>\n" +
-                            "                          <input type='datetime-local' name='one_date' class='form-control' value='" + option[i].one_date + "'>\n" +
+                            "                          <input type='datetime-local' " + (option[i].one_status === 'N'? 'disabled': "name='update-one-date' id=\'one_date" + option[i].pro_no + "'") + " class='form-control one_date' value='" + option[i].one_date + "'>\n" +
                             "                        </div>\n" +
                             "                      </td>\n" +
                             "                      <td>\n" +
                             "                        <div>\n" +
-                            "                          <input type='number' name='one_maxqty' min='0' class='form-control' value='" + option[i].one_maxqty + "'>\n" +
+                            "                          <input type='number' " + (option[i].one_status === 'N'? 'disabled': "name='update-one-maxqty' id=\'one_maxqty" + option[i].pro_no + "'") + " min='0' class='form-control one_maxqty' value='" + option[i].one_maxqty + "'>\n" +
                             "                        </div>\n" +
                             "                      </td>\n" +
                             "                      <td>\n" +
                             "                        <div class='input-group mb-2'>\n" +
                             "                          <span class='input-group-text'>판매가</span>\n" +
-                            "                          <input type='number' class='form-control' name='one_price' min='0' aria-label='Amount (to the nearest dollar)' value='" + option[i].one_price + "'>\n" +
+                            "                          <input type='number' class='form-control one_price' " + (option[i].one_status === 'N'? 'disabled': "name='update-one-price' id=\'one_price" + option[i].pro_no + "'") + " min='0' aria-label='Amount (to the nearest dollar)' value='" + option[i].one_price + "'>\n" +
                             "                          <span class='input-group-text'>원</span>\n" +
                             "                        </div>\n" +
                             "                      </td>\n" +
@@ -307,8 +310,6 @@ $(document).ready(()=> {
 
             }
         })
-
-
     })
 
     // 모달 끄기
@@ -394,24 +395,30 @@ $(document).ready(()=> {
         }
     }
 
+
+
+
+
+
+
     // 옵션 목록 이벤트 : 인원권/회차권
     let row_prod = "<tr>\n" +
-        "                      <td><input class='form-check-input' type=\"checkbox\" name=\"cont_option_prod\" id=\"\"></td>\n" +
+        "                      <td><input class='form-check-input' type='checkbox' name='cont_option_prod'></td>\n" +
         "                      <td>\n" +
         "                        <div>\n" +
-        "                          <input type=\"text\" name='prod_name' class=\"form-control\">\n" +
+        "                          <input type='text' name='new-prod-name' class='form-control prod_name'>\n" +
         "                        </div>\n" +
         "                      </td>\n" +
         "                      <td>\n" +
         "                        <div>\n" +
-        "                          <input type=\"number\" name='prod_qty' min='0' class=\"form-control\">\n" +
+        "                          <input type='number' name='new-prod-qty' min='0' class='form-control prod_qty'>\n" +
         "                        </div>\n" +
         "                      </td>\n" +
         "                      <td>\n" +
-        "                        <div class=\"input-group mb-2\">\n" +
-        "                          <span class=\"input-group-text\">판매가</span>\n" +
-        "                          <input type=\"number\" class=\"form-control\" name='prod_price' min='0' aria-label=\"Amount (to the nearest dollar)\">\n" +
-        "                          <span class=\"input-group-text\">원</span>\n" +
+        "                        <div class='input-group mb-2'>\n" +
+        "                          <span class='input-group-text'>판매가</span>\n" +
+        "                          <input type='number' class='form-control prod_price' name='new-prod-price' min='0' aria-label='Amount (to the nearest dollar)'>\n" +
+        "                          <span class='input-group-text'>원</span>\n" +
         "                        </div>\n" +
         "                      </td>\n" +
         "                    </tr>"
@@ -441,18 +448,18 @@ $(document).ready(()=> {
         "                      <td><input class='form-check-input' type='checkbox' name='cont_option_one' id=''></td>\n" +
         "                      <td>\n" +
         "                        <div>\n" +
-        "                          <input class='form-control' name='one_date' type='datetime-local'>\n" +
+        "                          <input class='form-control one_date' name='new-one-date' type='datetime-local'>\n" +
         "                        </div>\n" +
         "                      </td>\n" +
         "                      <td>\n" +
         "                        <div>\n" +
-        "                          <input type='number' name='one_maxqty' min='0' class='form-control'>\n" +
+        "                          <input type='number' name='new-one-maxqty' min='0' class='form-control one_maxqty'>\n" +
         "                        </div>\n" +
         "                      </td>\n" +
         "                      <td>\n" +
         "                        <div class='input-group mb-2'>\n" +
         "                          <span class='input-group-text'>판매가</span>\n" +
-        "                          <input type='number' class='form-control' name='one_price' min='0' aria-label='Amount (to the nearest dollar)'>\n" +
+        "                          <input type='number' class='form-control one_price' name='new-one-price' min='0' aria-label='Amount (to the nearest dollar)'>\n" +
         "                          <span class='input-group-text'>원</span>\n" +
         "                        </div>\n" +
         "                      </td>\n" +
@@ -522,6 +529,259 @@ $(document).ready(()=> {
         }
     })
 
+
+    // 옵션 수정 ajax
+    $('#option-update-button').on('click', (e)=>{
+
+        if (!confirm("옵션을 수정할까요?")) {
+            return false
+        }
+
+        let optionType = e.currentTarget.name;
+        const updateOption = []
+        const newOption = []
+        let requestData
+
+        // 옵션 유효성 검사
+        if(optionType === 'prod') { // 선택된 옵션이 날짜 조율형 일때
+
+            let update_prod_names = $('input[name="update-prod-name"]')
+            let new_prod_names = $('input[name="new-prod-name"]')
+            let count_prod_name = 0
+            for (let prod_name of update_prod_names) {
+                if(prod_name.value.length <1 ) {
+                    count_prod_name++
+                }
+            }
+            for (let prod_name of new_prod_names) {
+                if(prod_name.value.length <1 ) {
+                    count_prod_name++
+                }
+            }
+            if(count_prod_name>0) {
+                alert('옵션명을 입력해주세요')
+                return false
+            }
+
+            // 옵션 수량
+            let update_prod_qtys = $('input[name="update-prod-qty"]')
+            let new_prod_qtys = $('input[name="new-prod-qty"]')
+            let count_prod_qty = 0
+            for (let prod_qty of update_prod_qtys) {
+                if(prod_qty.value.length <1 ) {
+                    count_prod_qty++
+                }
+            }
+            for (let prod_qty of new_prod_qtys) {
+                if(prod_qty.value.length <1 ) {
+                    count_prod_qty++
+                }
+            }
+            if(count_prod_qty>0) {
+                alert('옵션의 수량을 입력해주세요')
+                return false
+            }
+
+            // 옵션 가격
+            let update_prod_prices = $('input[name="update-prod-price"]')
+            let new_prod_prices = $('input[name="new-prod-price"]')
+            let count_prod_price = 0
+            let value_prod_price = 0
+            for (let prod_price of update_prod_prices) {
+                if(prod_price.value.length <1 ) {
+                    count_prod_price++
+                }
+                if (prod_price.value < 5000) {
+                    value_prod_price++
+                }
+            }
+            for (let prod_price of new_prod_prices) {
+                if(prod_price.value.length <1 ) {
+                    count_prod_price++
+                }
+                if (prod_price.value < 5000) {
+                    value_prod_price++
+                }
+            }
+            if(count_prod_price > 0) {
+                alert('옵션의 금액을 입력해주세요')
+                return false
+            }
+            if (value_prod_price > 0) {
+                alert('옵션의 최소가격은 5000원 입니다')
+                return false
+            }
+
+        } else if(optionType === 'one') { // 선택된 옵션이 날짜 지정형 일때
+
+            let update_one_dates = $('input[name="update-one-date"]')
+            let new_one_dates = $('input[name="new-one-date"]')
+            let count_one_date = 0
+            for (let one_date of update_one_dates) {
+                if(one_date.value.length <1 ) {
+                    count_one_date++
+                }
+            }
+            for (let one_date of new_one_dates) {
+                if(one_date.value.length <1 ) {
+                    count_one_date++
+                }
+            }
+            if(count_one_date>0) {
+                alert('옵션의 실행일자를 설정해주세요')
+                return false
+            }
+
+            // 옵션 수량
+            let update_one_maxqtys = $('input[name="update-one-maxqty"]')
+            let new_one_maxqtys = $('input[name="new-one-maxqty"]')
+            let count_one_maxqty = 0
+            for (let one_maxqty of update_one_maxqtys) {
+                if(one_maxqty.value.length <1 ) {
+                    count_one_maxqty++
+                }
+            }
+            for (let one_maxqty of new_one_maxqtys) {
+                if(one_maxqty.value.length <1 ) {
+                    count_one_maxqty++
+                }
+            }
+            if(count_one_maxqty>0) {
+                alert('옵션의 최대 모집인원을 설정해주세요')
+                return false
+            }
+
+            // 옵션 가격
+            let update_one_prices = $('input[name="update-one-price"]')
+            let new_one_prices = $('input[name="new-one-price"]')
+            let count_one_price = 0
+            let value_one_price = 0
+            for (let one_price of update_one_prices) {
+
+                if(one_price.value.length <1 ) {
+                    count_one_price++
+                }
+                if (one_price.value < 5000) {
+                    value_one_price++
+                }
+            }
+            for (let one_price of new_one_prices) {
+
+                if(one_price.value.length <1 ) {
+                    count_one_price++
+                }
+                if (one_price.value < 5000) {
+                    value_one_price++
+                }
+            }
+            if(count_one_price>0) {
+                alert('옵션의 금액을 입력해주세요')
+                return false
+            }
+            if (value_one_price > 0) {
+                alert('옵션의 최소가격은 5000원 입니다')
+                alert('옵션의 최소가격은 5000원 입니다')
+                return false
+            }
+        }
+
+        if (optionType === 'prod') { // 옵션이 prod 일 경우
+
+            // 옵션수정
+            let updateProdName = $('input[name="update-prod-name"]')
+            let updateProdQty = $('input[name="update-prod-qty"]')
+            let updateProdPrice = $('input[name="update-prod-price"]')
+
+            if (updateProdName.length > 0) {
+                for (i = 0; i < updateProdName.length; i++) {
+                    let ProdEntity = {
+                        'pro_no': updateProdName[i].id.substring(9),
+                        'prod_name': updateProdName[i].value,
+                        'prod_qty' : updateProdQty[i].value,
+                        'prod_price': updateProdPrice[i].value
+                    }
+                    updateOption.push(ProdEntity)
+                }
+            }
+
+            // 옵션생성
+            let newProdName = $('input[name="new-prod-name"]')
+            let newProdQty = $('input[name="new-prod-qty"]')
+            let newProdPrice = $('input[name="new-prod-price"]')
+
+            if (newProdName.length > 0) {
+                for (i = 0; i < updateProdName.length; i++) {
+                    let ProdEntity = {
+                        'prod_name': newProdName[i].value,
+                        'prod_qty' : newProdQty[i].value,
+                        'prod_price': newProdPrice[i].value
+                    };
+                    newOption.push(ProdEntity);
+                }
+            }
+
+            requestData = {
+                'optionType': optionType,
+                'updateOption': updateOption,
+                'newOption': newOption
+            }
+
+        } else if (optionType === 'one') { // 옵션이 one 일 경우
+
+            // 옵션수정
+            let updateOneDate = $('input[name="update-one-date"]')
+            let updateOneMaxqty = $('input[name="update-one-maxqty"]')
+            let updateOnePrice = $('input[name="update-one-price"]')
+
+            if (updateOneDate.length > 0) {
+                for (i = 0; i < updateOneDate.length; i++) {
+                    let OneEntity = {
+                        'pro_no': updateOneDate[i].id.substring(8),
+                        'one_date': updateOneDate[i].value,
+                        'one_maxqty' : updateOneMaxqty[i].value,
+                        'one_price': updateOnePrice[i].value
+                    };
+                    updateOption.push(OneEntity);
+                }
+            }
+
+            // 옵션 생성
+            let newOneDate = $('input[name="new-one-date"]')
+            let newOneMaxqty = $('input[name="new-one-maxqty"]')
+            let newOnePrice = $('input[name="new-one-price"]')
+
+            if (newOneDate.length > 0) {
+                for (i = 0; i < newOneDate.length; i++) {
+                    let OneEntity = {
+                        'one_date': newOneDate[i].value,
+                        'one_maxqty' : newOneMaxqty[i].value,
+                        'one_price': newOnePrice[i].value
+                    };
+                    newOption.push(OneEntity);
+                }
+            }
+
+            requestData = {
+                'optionType': optionType,
+                'updateOption': updateOption,
+                'newOption': newOption
+            }
+        }
+
+        // ajax
+        $.ajax({
+            url: '/host/option/update.do',
+            type: 'post',
+            dataType: 'json',
+            data: requestData,
+            success: (result) => {
+                $('.update-block').css('display', 'flex')
+                alert(ressult + "개의 옵션 수정이 완료되었습니다.")
+            }
+        })
+    })
+
+
     //habit_update 유효성 검사
     habitCreateCheck = () => {
 
@@ -567,105 +827,6 @@ $(document).ready(()=> {
             return false
         }
 
-        // 옵션 목록 입력
-        let pro = $('input[name="optionType"]:checked');
-        if(pro.attr('id') === 'prod') { // 선택된 옵션이 날짜 조율형 일때
-            let prod_names = $('input[name="prod_name"]')
-            let count_prod_name = 0
-            for (let prod_name of prod_names) {
-                if(prod_name.value.length <1 ) {
-                    count_prod_name++
-                }
-            }
-            if(count_prod_name>0) {
-                alert('옵션명을 입력해주세요')
-                return false
-            }
-
-            // 옵션 수량
-            let prod_qtys = $('input[name="prod_qty"]')
-            let count_prod_qty = 0
-            for (let prod_qty of prod_qtys) {
-                if(prod_qty.value.length <1 ) {
-                    count_prod_qty++
-                }
-            }
-            if(count_prod_qty>0) {
-                alert('옵션의 수량을 입력해주세요')
-                return false
-            }
-
-            // 옵션 가격
-            let prod_prices = $('input[name="prod_price"]')
-            let count_prod_price = 0
-            let value_prod_price = 0
-            for (let prod_price of prod_prices) {
-                if(prod_price.value.length <1 ) {
-                    count_prod_price++
-                }
-                if (prod_price.value < 5000) {
-                    value_prod_price++
-                }
-            }
-            if(count_prod_price > 0) {
-                alert('옵션의 금액을 입력해주세요')
-                return false
-            }
-            if (value_prod_price > 0) {
-                alert('옵션의 최소가격은 5000원 입니다')
-                return false
-            }
-
-        } else if(pro.attr('id') === 'one') { // 선택된 옵션이 날짜 지정형 일때
-            let one_dates = $('input[name="one_date"]')
-            let count_one_date = 0
-            for (let one_date of one_dates) {
-                if(one_date.value.length <1 ) {
-                    count_one_date++
-                }
-            }
-            if(count_one_date>0) {
-                alert('옵션의 실행일자를 설정해주세요')
-                return false
-            }
-
-            // 옵션 수량
-            let one_maxqtys = $('input[name="one_date"]')
-            let count_one_maxqty = 0
-            for (let one_maxqty of one_maxqtys) {
-                if(one_maxqty.value.length <1 ) {
-                    count_one_maxqty++
-                }
-            }
-            if(count_one_maxqty>0) {
-                alert('옵션의 최대 모집인원을 설정해주세요')
-                return false
-            }
-
-            // 옵션 가격
-            let one_prices = $('input[name="one_price"]')
-            let count_one_price = 0
-            let value_one_price = 0
-            for (let one_price of one_prices) {
-
-                if(one_price.value.length <1 ) {
-                    count_one_price++
-                }
-                if (one_price.value < 5000) {
-                    value_one_price++
-                }
-            }
-            if(count_one_price>0) {
-                alert('옵션의 금액을 입력해주세요')
-                return false
-            }
-            if (value_one_price > 0) {
-                alert('옵션의 최소가격은 5000원 입니다')
-                alert('옵션의 최소가격은 5000원 입니다')
-                return false
-            }
-        }
-
         // 대표 이미지
         let cont_img = document.getElementById('cont_img').files
         if(cont_img.length<1) {
@@ -688,10 +849,18 @@ $(document).ready(()=> {
             return false
         }
 
-        if (confirm('해빗을 수정하시겠습니까?')) {
-            return true
+        if ($('.update-block').css('display') !== 'flex') {
+            if (confirm('옵션 수정 버튼을 클릭하지 않으면 옵션이 수정되지 않습니다.\n옵션 수정없이 해빗만 수정할까요?')) {
+                return true
+            } else {
+                return false
+            }
         } else {
-            return false
+            if (confirm('해빗을 수정하시겠습니까?')) {
+                return true
+            } else {
+                return false
+            }
         }
     }
 })

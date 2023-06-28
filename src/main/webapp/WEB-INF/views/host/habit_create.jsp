@@ -329,7 +329,7 @@
             </div>
             <div style="display: flex; align-items: center; justify-content: space-around;">
               <div class="select" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center">
-                <input type="radio" id="prod" name="cont_type" value="prod">
+                <input type="radio" id="prod" name="cont_type" value="prod" checked>
                 <label for="prod" style="height: 100%; min-height: 170px; display: flex; flex-direction: column; align-items: center; justify-content: center">
                   <p>날짜 조율형</p>
                   <p>호스트님이 회원 연락처로 별도 연락하여 일정을 조율하는 형태의 해빗입니다. (에스테틱, 네일 등에 적합)</p>
@@ -344,13 +344,13 @@
               </div>
             </div>
           </div><hr>
-          <div class="content-flex">
-            <div class="item-name">
+          <div>
+            <div class="item-name" style="margin: 50px 30px 0">
               <p>옵션 목록 입력</p>
             </div>
 
             <!-- 콘텐츠 옵션 : 인원권/회차권 시작 -->
-            <div id="cont_option_prod">
+            <div id="cont_option_prod" style="margin: 0 30px">
               <div style="text-align: right;">
                 <input type="button" class="btn btn-sm btn-primary" id="option_remove_prod" value="옵션 삭제">
               </div>
@@ -402,7 +402,7 @@
             <!-- 콘텐츠 옵션 : 인원권/회차권 종료 -->
 
             <!-- 콘텐츠 옵션 : 원데이 클래스 시작 -->
-            <div id="cont_option_one" hidden>
+            <div id="cont_option_one" style="margin: 0 30px" hidden>
               <div style="text-align: right;">
                 <input type="button" class="btn btn-sm btn-primary" id="option_remove_one" value="옵션 삭제">
               </div>
@@ -473,12 +473,12 @@
             </div>
           </div><hr>
 
-          <div class="content-flex">
-            <div class="item-name">
+          <div>
+            <div class="item-name" style="margin: 50px 30px 0">
               <p>해빗 상세 설명</p>
             </div>
           <!-- 썸머노트 사용 textarea -->
-            <div>
+            <div style="margin: 20px 30px">
               <textarea id="summernote" name="cont_content" maxlength="2000"></textarea>
             </div>
           </div>

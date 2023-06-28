@@ -4,9 +4,17 @@ $(document).ready(()=>{
     let pagination = $('#pagination')
 
     const createTable = (map) => {
-            searchResult.append("<p class='content-name'>검색 결과 : " + totalRecord + " 건</p>")
+        searchResult.append("<p class='content-name'>검색 결과 : " + map.paging.totalRecord + " 건</p>")
         if (map.paging.totalRecord === 0) {
             tableBody.append("<tr><td colspan='6'>검색 결과가 없습니다</td></tr>")
+            let pagingAppend =
+                "  <li class='page-item disabled'>\n" +
+                "    <a class='page-link'>&laquo;</a>\n" +
+                "  </li>\n" +
+                "  <li class='page-item disabled'>\n" +
+                "    <a class='page-link'>&raquo;</a>\n" +
+                "  </li>\n"
+            pagination.append(pagingAppend)
         } else {
             let currentPage = map.paging.currentPage
             let totalRecord = map.paging.totalRecord
@@ -15,12 +23,15 @@ $(document).ready(()=>{
             let prev = map.paging.prev
             let next = map.paging.next
             for (let item of map.list) {
-
                 // 검색 결과 리스트 (table)
                 let str = "<tr>\n" +
                     "    <td>" + item.user_id + "</td>\n" +
                     "    <td><a href='#'>" + item.cont_name + "</a></td>\n" +
-                    "    <td>" + item.review_star + "</td>\n" +
+                    "    <td>"
+                for (let i=1; i<=item.review_star; i++) {
+                    str += "<img src='/img/star.png' alt='" + i + "' class='review_star'>\n"
+                }
+                    str += "</td>\n" +
                     "    <td>" + item.review_cont + "</td>\n" +
                     "    <td>" + item.review_date + "</td>\n" +
                     "    <td>\n" +

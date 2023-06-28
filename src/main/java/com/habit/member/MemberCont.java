@@ -138,8 +138,8 @@ public class MemberCont {
         if(member != null) {
             String user_name=member.getUser_name();
             // 세션에 정보를 저장
-            session.setAttribute("s_id", user_id);
-            session.setAttribute("s_name", user_name);
+            session.setAttribute("s_id", user_id); // 아이디
+            session.setAttribute("s_name", user_name); // 닉네임
 
             System.out.println("redirectURL="+redirectURL);
             return "redirect:"+redirectURL;

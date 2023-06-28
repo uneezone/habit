@@ -65,6 +65,31 @@
   <hr>
   <!-- 네비 종료 -->
 
+  <%-- modal div --%>
+  <c:choose>
+  <c:when test="${message != null}">
+    <div class="modal" style="display: block">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true"></span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>${message}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </c:when>
+  </c:choose>
+
   <!-- 페이지 이름 -->
   <p class="page-name">해빗 목록</p>
 
@@ -165,10 +190,10 @@
             <c:forEach var="item" items="${list}">
               <div class='class-box'>
                 <div style='display: flex; align-items: center; justify-content: center'>
-                  <a href='#'><img src='/storage/${item.cont_img}' alt=''></a>
+                  <button style="border: 0; background-color: transparent;" name="detail${item.cont_no}" class="contentDetail"><img src='/storage/${item.cont_img}' alt='이미지 없음'></button>
                 </div>
                 <div style='margin: 10px 0'>
-                  <a href='#' style='font-size: large'><span><strong>${item.cont_name}</strong></span></a>
+                  <button style="border: 0; background-color: transparent;" name="detail${item.cont_no}" class="contentDetail"><span style='font-size: large'><strong>${item.cont_name}</strong></span></button>
                 </div>
                 <div style='color: #494846'>
                   <strong>[판매시작] </strong>${item.cont_stdate.substring(0, 16)}<br>
@@ -176,14 +201,14 @@
                   <strong>[카테고리] </strong>${item.cate_large} &gt; ${item.cate_middle}
                 </div>
                 <div>
-                  <input type="button" class="btn btn-sm btn-outline-primary content-update" id="update${item.cont_no}" value="해빗수정">
+                  <input type="button" class="btn btn-sm btn-outline-primary content-update" id="update${item.cont_no}" value="해빗수정" ${item.cont_endate < now ? "disabled" : ""}>
                   <input type="button" class="btn btn-sm btn-primary content-delete" id="delete${item.cont_no}" value="해빗삭제" ${item.contentPurchaseStatus.equals("N") ? "disabled" : ""}>
                 </div>
               </div>
             </c:forEach>
           </c:when>
           <c:otherwise>
-            <p>검색 결과가 없습니다</p>
+            <p style="font-weight: bold; font-size: large">검색 결과가 없습니다</p>
           </c:otherwise>
         </c:choose>
       </div>
@@ -223,28 +248,9 @@
 </footer>
 <!--footer 종료-->
 
-<%-- modal div --%>
-<%--  <div class="modal">--%>
-<%--    <div class="modal-dialog" role="document">--%>
-<%--      <div class="modal-content">--%>
-<%--        <div class="modal-header">--%>
-<%--          <h5 class="modal-title">Modal title</h5>--%>
-<%--          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">--%>
-<%--            <span aria-hidden="true"></span>--%>
-<%--          </button>--%>
-<%--        </div>--%>
-<%--        <div class="modal-body">--%>
-<%--          <p>Modal body text goes here.</p>--%>
-<%--        </div>--%>
-<%--        <div class="modal-footer">--%>
-<%--          <button type="button" class="btn btn-primary">Save changes</button>--%>
-<%--          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>--%>
-<%--        </div>--%>
-<%--      </div>--%>
-<%--    </div>--%>
-<%--  </div>--%>
-
 <%@include file="contentUpdateModal.jsp"%>
+<%@include file="contentDetailModal.jsp"%>
+
 <script>
   /* 카카오 우편번호 찾기 */
   // 우편번호 찾기 찾기 화면을 넣을 element
