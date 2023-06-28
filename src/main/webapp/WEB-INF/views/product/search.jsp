@@ -162,7 +162,7 @@
                                 <div class="Home_product_recommend_p_font">
                                     <div>
                                         <span class="Miniarea">
-                                            ${product.cont_addr1}
+                                                ${fn:substring(product.cont_addr1, 0, 7)}
                                         </span>
                                         <div>
                                             ${product.cont_name}

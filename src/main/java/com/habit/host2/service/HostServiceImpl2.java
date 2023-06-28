@@ -406,12 +406,12 @@ public class HostServiceImpl2 implements HostService2 {
                 paydNo = repository.getPaydNo(proNo);
                 log.info("payd_no={}", paydNo);
 
-                //주문상세상태 바꾸기(판매가 된 상품코드에 한해서만) + 정산,정산상세테이블 insert
-                if (paydNo.size() != 0) {
+                    //주문상세상태 바꾸기(판매가 된 상품코드에 한해서만)
+                    if (paydNo.size() != 0) {
 
-                    //주문상태 바꾸기
-                    repository.updatePaydStatus(paydNo);
-
+                        //주문상태 바꾸기
+                        repository.updatePaydStatus(paydNo);
+                    }//주문상세상태변경
 
                     //=====정산해야할 것이 있다면 정산테이블, 정산상세테이블에 insert 시작
                     //호스트 계좌번호 조회
@@ -476,6 +476,11 @@ public class HostServiceImpl2 implements HostService2 {
                         calcDTO.setHost_account((String) hostAccount.get("host_account"));
                         calcDTO.setHost_acholder((String) hostAccount.get("host_acholder"));
                         calcDTO.setHost_bank((String) hostAccount.get("host_bank"));
+
+                        //정산될 금액이 없으면 status='X'로 설정
+                        if(adjustfee==0&&commision==0){
+                            calcDTO.setCalc_status("X");
+                        }
                         log.info("calcDTO={}", calcDTO);
                         //정산인저트
                         int calcStatus = repository.insertCalc(calcDTO);
@@ -506,7 +511,6 @@ public class HostServiceImpl2 implements HostService2 {
                         }//정산상세 잔복문 돌리기
 
                     }//for 문(정산해야할 cont_no 반복문 돌리기)
-                }//주문상세상태변경 및 정산,정산상세  insert  end(판매가 된 상품에 한해서만)
             }//정산이 진행되어야할 pro_no
 
         }
