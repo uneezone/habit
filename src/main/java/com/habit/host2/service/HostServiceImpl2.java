@@ -402,7 +402,9 @@ public class HostServiceImpl2 implements HostService2 {
                 paydNo = repository.getPaydNo(proNo);
                 log.info("payd_no={}", paydNo);
                 //주문상세상태 바꾸기
-                repository.updatePaydStatus(paydNo);
+                if(paydNo.size()!=0) {
+                    repository.updatePaydStatus(paydNo);
+                }
             }
 
             //=====정산해야할 것이 있다면 정산테이블, 정산상세테이블에 insert 시작

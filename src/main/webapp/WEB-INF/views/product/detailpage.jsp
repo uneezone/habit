@@ -66,7 +66,7 @@
             </div>
         </div>
     </div>
-    <c:if test="${contreview.size()!=0}">
+
 
     <div class="ReviewSummary">
         <div class="ReviewSummary_info">
@@ -93,7 +93,7 @@
         </div>
             <span class="ReviewSummary_Comment">경험한 크루들은 이렇게 평가했어요!</span>
     </div>
-
+    <c:if test="${contreview.size()!=0}">
         <div class="Reviewblack">
             <div class="Reviewflex parent-container">
                 <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -114,11 +114,11 @@
                 </c:forEach>
                 <a class="next" onclick="plusSlides(1)">&#10095;</a>
             </div>
-            <div class="reviewplus">
-                <strong><a href="/products/reviews?cont_no=${cont_no}" class="review_stylelink">${contreviewcnt.Reviewcnt}개 후기 더보기</a></strong>
-            </div>
         </div>
     </c:if>
+    <div class="reviewplus">
+        <strong><a href="/products/reviews?cont_no=${cont_no}" class="review_stylelink">${contreviewcnt.Reviewcnt}개 후기 더보기</a></strong>
+    </div>
 
 
         <div class="Classintroduction">
