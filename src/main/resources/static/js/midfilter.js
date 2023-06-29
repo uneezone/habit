@@ -12,6 +12,28 @@ window.addEventListener('load',function() {
 
 });//================window.onload 끝
 
+$(function(){
+    //console.log(window.location.pathname);
+    let pathname=decodeURI(window.location.pathname);
+    let index= pathname.lastIndexOf("/");
+    //console.log(index);
+    //console.log(pathname.substring(index,pathname.length));
+    pathname= pathname.substring(index+1,pathname.length);
+    //console.log("ddd"+pathname);
+    let btn= $(".midbtn");
+    //$('.midbtn').removeClass("active");
+    if(btn.text())
+        for(let i=0;i<btn.length;i++){
+            //console.log(btn.eq(i).text());
+            if(btn.eq(i).text()==pathname){
+
+
+                btn.eq(i).addClass("active");
+                // console.log(btn.eq(i));
+            }
+        }
+});
+
 // 페이징 함수
 
 function setActivePageButton(page) {

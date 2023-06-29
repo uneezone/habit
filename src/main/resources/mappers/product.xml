@@ -12,7 +12,7 @@
         SELECT *
         FROM cate a
                  JOIN cont b ON a.cate_no = b.cate_no
-        WHERE  cate_large = #{cate_large}
+        WHERE  cate_large = #{cate_large} AND b.cont_status = 'Y'
     </select>
 
     <!--  리스트와 리뷰 연결고리  -->
@@ -71,7 +71,7 @@
         SELECT *
         FROM cont a
                  JOIN cate b ON a.cate_no = b.cate_no
-        WHERE b.cate_large = #{cate_large}
+        WHERE b.cate_large = #{cate_large} AND a.cont_status = 'Y'
         ORDER BY a.cont_view DESC
             LIMIT 4
     </select>
@@ -81,7 +81,7 @@
         SELECT *
         FROM cont a
                  JOIN cate b ON a.cate_no = b.cate_no
-        WHERE b.cate_large = #{cate_large}
+        WHERE b.cate_large = #{cate_large} AND a.cont_status = 'Y'
         ORDER BY a.cont_view DESC
     </select>
 
@@ -90,7 +90,7 @@
         SELECT count(*) as cnt
         FROM cont a
                  JOIN cate b ON a.cate_no = b.cate_no
-        WHERE b.cate_large = #{cate_large}
+        WHERE b.cate_large = #{cate_large} AND a.cont_status = 'Y'
     </select>
 
     <!-- 신규 페이지 전체 (모두 출력 안함) -->
@@ -98,7 +98,7 @@
         SELECT *
         FROM cont a
                  JOIN cate b ON a.cate_no = b.cate_no
-        WHERE b.cate_large = #{cate_large}
+        WHERE b.cate_large = #{cate_large} AND a.cont_status = 'Y'
         ORDER BY cont_stdate DESC
             LIMIT 10
     </select>
@@ -108,7 +108,7 @@
         SELECT *
         FROM cont a
                  JOIN cate b ON a.cate_no = b.cate_no
-        WHERE b.cate_large = #{cate_large}
+        WHERE b.cate_large = #{cate_large} AND a.cont_status = 'Y'
         ORDER BY cont_stdate DESC
             LIMIT 4
     </select>
@@ -118,7 +118,7 @@
         SELECT count(*) as cnt
         FROM cont a
                  JOIN cate b ON a.cate_no = b.cate_no
-        WHERE b.cate_large = #{cate_large}
+        WHERE b.cate_large = #{cate_large} AND a.cont_status = 'Y'
         ORDER BY cont_stdate DESC
             LIMIT 10
     </select>
@@ -129,7 +129,7 @@
         FROM cont
                  JOIN cate ON cont.cate_no = cate.cate_no
                  LEFT JOIN review ON cont.cont_no = review.cont_no
-        WHERE cate.cate_large = #{cate_large}
+        WHERE cate.cate_large = #{cate_large} AND cont.cont_status = 'Y'
         GROUP BY cont.cont_no
         ORDER BY average_star DESC
             LiMiT 4
@@ -143,7 +143,7 @@
                  FROM cont
                           JOIN cate ON cont.cate_no = cate.cate_no
                           LEFT JOIN review ON cont.cont_no = review.cont_no
-                 WHERE cate.cate_large = #{cate_large}
+                 WHERE cate.cate_large = #{cate_large} AND cont.cont_status = 'Y'
                  GROUP BY cont.cont_no
                      LIMIT 4
              ) AS temp
@@ -242,7 +242,7 @@
         SELECT *
         FROM cate a
                  JOIN cont b ON a.cate_no = b.cate_no
-        WHERE  a.cate_large = #{cate_large} AND a.cate_middle = #{cate_middle}
+        WHERE  a.cate_large = #{cate_large} AND a.cate_middle = #{cate_middle} AND b.cont_status = 'Y'
     </select>
 
     <!-- 요약 페이지 -> 인기 (상위 4개) -->
@@ -260,7 +260,7 @@
         SELECT *
         FROM cont a
                  JOIN cate b ON a.cate_no = b.cate_no
-        WHERE b.cate_large = #{cate_large} AND b.cate_middle = #{cate_middle}
+        WHERE b.cate_large = #{cate_large} AND b.cate_middle = #{cate_middle} AND a.cont_status = 'Y'
         ORDER BY a.cont_view DESC
     </select>
 
@@ -269,7 +269,7 @@
         SELECT count(*) as cnt
         FROM cont a
                  JOIN cate b ON a.cate_no = b.cate_no
-        WHERE b.cate_large = #{cate_large} AND b.cate_middle = #{cate_middle}
+        WHERE b.cate_large = #{cate_large} AND b.cate_middle = #{cate_middle} AND a.cont_status = 'Y'
     </select>
 
     <!-- 신규 페이지 전체 (모두 출력 안함) -->
@@ -277,7 +277,7 @@
         SELECT *
         FROM cont a
                  JOIN cate b ON a.cate_no = b.cate_no
-        WHERE b.cate_large = #{cate_large} AND b.cate_middle = #{cate_middle}
+        WHERE b.cate_large = #{cate_large} AND b.cate_middle = #{cate_middle} AND a.cont_status = 'Y'
         ORDER BY cont_stdate DESC
             LIMIT 10
     </select>
@@ -297,7 +297,7 @@
         SELECT count(*) as cnt
         FROM cont a
                  JOIN cate b ON a.cate_no = b.cate_no
-        WHERE b.cate_large = #{cate_large} AND b.cate_middle = #{cate_middle}
+        WHERE b.cate_large = #{cate_large} AND b.cate_middle = #{cate_middle} AND a.cont_status = 'Y'
         ORDER BY cont_stdate DESC
             LIMIT 10
     </select>
@@ -308,7 +308,7 @@
         SELECT cont.*, cate.*
         FROM cont
                  JOIN cate ON cont.cate_no = cate.cate_no
-        WHERE cate.cate_large = #{cate_large}
+        WHERE cate.cate_large = #{cate_large} AND cont.cont_status = 'Y'
         ORDER BY cont.cont_view DESC
     </select>
 
@@ -316,7 +316,7 @@
         SELECT cont.*, cate.*
         FROM cont
                  JOIN cate ON cont.cate_no = cate.cate_no
-        WHERE cate.cate_large = #{cate_large}
+        WHERE cate.cate_large = #{cate_large} AND cont.cont_status = 'Y'
         ORDER BY cont.cont_stdate DESC
     </select>
 
@@ -325,7 +325,7 @@
         FROM cont
                  JOIN cate ON cont.cate_no = cate.cate_no
                  LEFT JOIN review ON cont.cont_no = review.cont_no
-        WHERE cate.cate_large = #{cate_large}
+        WHERE cate.cate_large = #{cate_large} AND cont.cont_status = 'Y'
         GROUP BY cont.cont_no
         ORDER BY average_star DESC
     </select>
@@ -337,7 +337,7 @@
                  FROM cont
                           JOIN cate ON cont.cate_no = cate.cate_no
                           JOIN one ON cont.cont_no = one.cont_no
-                 WHERE cate.cate_large = #{cate_large}
+                 WHERE cate.cate_large = #{cate_large} AND cont.cont_status = 'Y'
 
                  UNION ALL
 
@@ -345,7 +345,7 @@
                  FROM cont
                           JOIN cate ON cont.cate_no = cate.cate_no
                           JOIN prod ON cont.cont_no = prod.cont_no
-                 WHERE cate.cate_large = #{cate_large}
+                 WHERE cate.cate_large = #{cate_large} AND cont.cont_status = 'Y'
              ) AS temp
         GROUP BY temp.cont_no
         ORDER BY representative_price DESC
@@ -358,7 +358,7 @@
                  FROM cont
                           JOIN cate ON cont.cate_no = cate.cate_no
                           JOIN one ON cont.cont_no = one.cont_no
-                 WHERE cate.cate_large = #{cate_large}
+                 WHERE cate.cate_large = #{cate_large} AND cont.cont_status = 'Y'
 
                  UNION ALL
 
@@ -366,7 +366,7 @@
                  FROM cont
                           JOIN cate ON cont.cate_no = cate.cate_no
                           JOIN prod ON cont.cont_no = prod.cont_no
-                 WHERE cate.cate_large = #{cate_large}
+                 WHERE cate.cate_large = #{cate_large} AND cont.cont_status = 'Y'
              ) AS temp
         GROUP BY temp.cont_no
         ORDER BY representative_price ASC
@@ -378,7 +378,7 @@
         SELECT cont.*, cate.*
         FROM cont
                  JOIN cate ON cont.cate_no = cate.cate_no
-        WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle}
+        WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle} AND cont.cont_status = 'Y'
         ORDER BY cont.cont_view DESC
     </select>
 
@@ -386,7 +386,7 @@
         SELECT cont.*, cate.*
         FROM cont
                  JOIN cate ON cont.cate_no = cate.cate_no
-        WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle}
+        WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle} AND cont.cont_status = 'Y'
         ORDER BY cont.cont_stdate DESC
     </select>
 
@@ -395,7 +395,7 @@
         FROM cont
                  JOIN cate ON cont.cate_no = cate.cate_no
                  LEFT JOIN review ON cont.cont_no = review.cont_no
-        WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle}
+        WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle} AND cont.cont_status = 'Y'
         GROUP BY cont.cont_no
         ORDER BY average_star DESC
     </select>
@@ -407,7 +407,7 @@
                  FROM cont
                           JOIN cate ON cont.cate_no = cate.cate_no
                           JOIN one ON cont.cont_no = one.cont_no
-                 WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle}
+                 WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle} AND cont.cont_status = 'Y'
 
                  UNION ALL
 
@@ -415,7 +415,7 @@
                  FROM cont
                           JOIN cate ON cont.cate_no = cate.cate_no
                           JOIN prod ON cont.cont_no = prod.cont_no
-                 WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle}
+                 WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle} AND cont.cont_status = 'Y'
              ) AS temp
         GROUP BY temp.cont_no
         ORDER BY representative_price DESC
@@ -428,7 +428,7 @@
                  FROM cont
                           JOIN cate ON cont.cate_no = cate.cate_no
                           JOIN one ON cont.cont_no = one.cont_no
-                 WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle}
+                 WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle} AND cont.cont_status = 'Y'
 
                  UNION ALL
 
@@ -436,7 +436,7 @@
                  FROM cont
                           JOIN cate ON cont.cate_no = cate.cate_no
                           JOIN prod ON cont.cont_no = prod.cont_no
-                 WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle}
+                 WHERE cate.cate_large = #{cate_large} AND cate.cate_middle = #{cate_middle} AND cont.cont_status = 'Y'
              ) AS temp
         GROUP BY temp.cont_no
         ORDER BY representative_price ASC
