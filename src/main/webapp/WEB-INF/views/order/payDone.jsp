@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../header.jsp"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="/css/payDone.css" />
 <script src="/js/payDone.js"></script>
 
@@ -20,7 +23,7 @@
 
       <c:forEach var="item" items="${payDoneInfos}">
       <div style="position: relative; display:block">
-        <img src="/storage/${item.cont_img}" id="orderlist_img1" />
+        <img src="/storage/${fn:trim(item.cont_img)}" id="orderlist_img1" />
         <div class="show_proinfo">
           <div  class="Home_sub">
             ${item.cont_name}
