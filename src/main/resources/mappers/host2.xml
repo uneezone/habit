@@ -72,8 +72,8 @@
         select count(*) from question where id =#{host_id} and q_div="H";
     </select>
 
-    <select id="getHostImg" parameterType="String" resultType="String">
-        select host_img from host where host_id=#{host_id}
+    <select id="getHostImgAndName" parameterType="String" resultType="java.util.Map">
+        select host_img,host_name from host where host_id=#{host_id}
     </select>
     <select id="getPhoneNumber" parameterType="String" resultType="String">
         select user_phone
