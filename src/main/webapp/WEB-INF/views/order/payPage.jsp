@@ -220,6 +220,8 @@
     IMP.init('imp42204744');
 
     function requestPay() {
+        if (!checkEnergyUse()) return;
+
         const totalPrice = calculateTotalPrice();
         //iamport 대신 자신의 "가맹점 식별코드"를 사용
         IMP.request_pay({
@@ -238,7 +240,7 @@
                 document.frm.submit(); // 폼 제출을 추가
             } else {
                 var msg = '결제에 실패하였습니다.';
-                msg += '에러내용 : ' + rsp.error_msg;
+                //msg += '에러내용 : ' + rsp.error_msg;
                 alert(msg);
             }
         });
