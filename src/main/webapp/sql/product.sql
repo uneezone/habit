@@ -112,7 +112,7 @@ CREATE TABLE cont (
     cont_addr2     varchar(30)   NULL,                                    #콘텐츠 장소2
     cont_extaddr   varchar(30)   NULL,                                    #콘텐츠 장소 참고항목
     cont_img       varchar(200)	 NOT NULL,                                #대표이미지
-    cont_content   Text(6500)    NOT NULL,                                #콘텐츠 설명
+    cont_content   longtext      NOT NULL,                                #콘텐츠 설명
     cont_view      int	         NOT NULL	 DEFAULT 0,                   #조회수
     cont_stdate    datetime	     NOT NULL    DEFAULT now(),              #콘텐츠 등록일
     cont_endate    datetime	     NOT NULL,                                #콘텐츠 종료일

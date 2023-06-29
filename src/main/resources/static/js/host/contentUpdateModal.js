@@ -203,7 +203,7 @@ $(document).ready(()=> {
                 let optionUpdateButton = $('#option-update-button')
                 let optionRow = $('#option_row_' + optionType)
 
-                optionUpdateButton.attr('name', optionType)
+                optionUpdateButton.attr('name', optionType + '-' + cont_no)
 
                 type.css('display', 'flex')
                 cont_option.removeAttr('hidden')
@@ -312,7 +312,7 @@ $(document).ready(()=> {
         })
     })
 
-    // 모달 끄기
+    // 모달창 닫기
     $('#update-modal-close').on('click', ()=>{
         if(confirm("해빗 수정을 취소할까요?\n(취소시 수정한 부분은 반영되지 않습니다)")){
             $('.update-modal').css('display', 'none')
@@ -395,12 +395,6 @@ $(document).ready(()=> {
         }
     }
 
-
-
-
-
-
-
     // 옵션 목록 이벤트 : 인원권/회차권
     let row_prod = "<tr>\n" +
         "                      <td><input class='form-check-input' type='checkbox' name='cont_option_prod'></td>\n" +
@@ -468,6 +462,7 @@ $(document).ready(()=> {
         $('#option_row_one').append(row_one)
     })
 
+    // 옵션 삭제
     $('#option_remove_one').on('click', () => {
         let checked = $('input:checkbox[name="cont_option_one"]:checked')
         let checkedSize = checked.length;
@@ -538,12 +533,13 @@ $(document).ready(()=> {
         }
 
         let optionType = e.currentTarget.name;
+        let cont_no = optionType.split('-')[1]
         const updateOption = []
         const newOption = []
         let requestData
 
         // 옵션 유효성 검사
-        if(optionType === 'prod') { // 선택된 옵션이 날짜 조율형 일때
+        if(optionType.split('-')[0] === 'prod') { // 선택된 옵션이 날짜 조율형 일때
 
             let update_prod_names = $('input[name="update-prod-name"]')
             let new_prod_names = $('input[name="new-prod-name"]')
@@ -612,7 +608,7 @@ $(document).ready(()=> {
                 return false
             }
 
-        } else if(optionType === 'one') { // 선택된 옵션이 날짜 지정형 일때
+        } else if(optionType.split('-')[0] === 'one') { // 선택된 옵션이 날짜 지정형 일때
 
             let update_one_dates = $('input[name="update-one-date"]')
             let new_one_dates = $('input[name="new-one-date"]')
@@ -693,7 +689,7 @@ $(document).ready(()=> {
             let updateProdPrice = $('input[name="update-prod-price"]')
 
             if (updateProdName.length > 0) {
-                for (i = 0; i < updateProdName.length; i++) {
+                for (let i = 0; i < updateProdName.length; i++) {
                     let ProdEntity = {
                         'pro_no': updateProdName[i].id.substring(9),
                         'prod_name': updateProdName[i].value,
@@ -710,7 +706,7 @@ $(document).ready(()=> {
             let newProdPrice = $('input[name="new-prod-price"]')
 
             if (newProdName.length > 0) {
-                for (i = 0; i < updateProdName.length; i++) {
+                for (let i = 0; i < newProdName.length; i++) {
                     let ProdEntity = {
                         'prod_name': newProdName[i].value,
                         'prod_qty' : newProdQty[i].value,
@@ -721,6 +717,7 @@ $(document).ready(()=> {
             }
 
             requestData = {
+                'cont_no': cont_no,
                 'optionType': optionType,
                 'updateOption': updateOption,
                 'newOption': newOption
@@ -734,7 +731,7 @@ $(document).ready(()=> {
             let updateOnePrice = $('input[name="update-one-price"]')
 
             if (updateOneDate.length > 0) {
-                for (i = 0; i < updateOneDate.length; i++) {
+                for (let i = 0; i < updateOneDate.length; i++) {
                     let OneEntity = {
                         'pro_no': updateOneDate[i].id.substring(8),
                         'one_date': updateOneDate[i].value,
@@ -751,7 +748,7 @@ $(document).ready(()=> {
             let newOnePrice = $('input[name="new-one-price"]')
 
             if (newOneDate.length > 0) {
-                for (i = 0; i < newOneDate.length; i++) {
+                for (let i = 0; i < newOneDate.length; i++) {
                     let OneEntity = {
                         'one_date': newOneDate[i].value,
                         'one_maxqty' : newOneMaxqty[i].value,
@@ -762,6 +759,7 @@ $(document).ready(()=> {
             }
 
             requestData = {
+                'cont_no': cont_no,
                 'optionType': optionType,
                 'updateOption': updateOption,
                 'newOption': newOption
@@ -776,7 +774,7 @@ $(document).ready(()=> {
             data: requestData,
             success: (result) => {
                 $('.update-block').css('display', 'flex')
-                alert(ressult + "개의 옵션 수정이 완료되었습니다.")
+                alert(result + "개의 옵션 수정이 완료되었습니다.")
             }
         })
     })
