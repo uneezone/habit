@@ -88,13 +88,20 @@ public class CartCont {
         System.out.println(cartDTOS);
         //log.info("carts={}",carts);
 
+        for(CartDTO dto:cartDTOS){
+            String cont_img=dto.getCont_img().trim().split("\\|")[0];
+            dto.setCont_img(cont_img);
+        }
 
         ModelAndView mav=new ModelAndView();
+
 
         mav.setViewName("order/payPage");
         mav.addObject("cartDTOS", cartDTOS);
         mav.addObject("num", cartDTOS.size());
         mav.addObject("energy",energyDAO.getSavedEnergy(user_id));
+
+
 
         return mav;
 
