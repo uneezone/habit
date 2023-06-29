@@ -28,7 +28,7 @@
 
         </script>
 
-      <form class="Home_form" action="payPage.html" onsubmit="return checkCart()">
+      <form class="Home_form" action="payPage.html" name="cartlist" onsubmit="return checkCart()">
         <div>
           <button type="button" id="allCk" class="Home_choice_btn all_select">전체선택</button>
           <button type="button" id="selectedDel" class="Home_choice_btn all-delete" onclick="deleteCheck()">선택상품 삭제</button>
@@ -50,6 +50,7 @@
                   <fmt:formatNumber var="price_one" value="${item.price}" pattern="#,###"></fmt:formatNumber>
                   가격 : <span class="oneprice${one_status.index}">${price_one}</span>
                 </p>
+                <p>${item.option}</p>
               </div>
             </td>
             <td>

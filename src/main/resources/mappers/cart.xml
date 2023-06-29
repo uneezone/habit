@@ -22,7 +22,7 @@
 
     <!--카트에 담긴 회차권인원권 상품 정보들-->
     <select id="list2" resultType="com.habit.cart.CartDTO" parameterType="String">
-        select *, TRIM(SUBSTRING_INDEX(cont_img, '|', 1)) as cont_img
+        select *, TRIM(SUBSTRING_INDEX(B.cont_img, '|', 1)) as cont_img
         from (select cont.cont_no as cont_no, pro_no, cont_name, TRIM(SUBSTRING_INDEX(cont_img, '|', 1)) as cont_img, prod_name as option, prod_price as price from prod inner join cont on prod.cont_no=cont.cont_no) B
         inner join cartlist
         on B.pro_no=cartlist.pro_no
