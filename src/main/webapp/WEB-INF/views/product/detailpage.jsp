@@ -115,10 +115,11 @@
                 <a class="next" onclick="plusSlides(1)">&#10095;</a>
             </div>
         </div>
-    </c:if>
+
     <div class="reviewplus">
         <strong><a href="/products/reviews?cont_no=${cont_no}" class="review_stylelink">${contreviewcnt.Reviewcnt}개 후기 더보기</a></strong>
     </div>
+    </c:if>
 
 
         <div class="Classintroduction">

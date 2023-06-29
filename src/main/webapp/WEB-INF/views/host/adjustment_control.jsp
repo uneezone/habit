@@ -183,7 +183,7 @@
                           document.write("지급대기");
                         }else {
                           $(".checkBtn").eq(${status.index}).prop('disabled','disabled');
-                          document.write("지급없음");
+                          document.write("지급불가");
                         }
                     </script>
                   </td>
