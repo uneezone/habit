@@ -230,11 +230,21 @@ public class MemoryHostRepository1 implements HostRepository1{
 
     @Override
     public int optionPurchaseCheck(String pro_no) {
-        return sqlSession.selectOne("host1.optionPurchaseCheck");
+        return sqlSession.selectOne("host1.optionPurchaseCheck", pro_no);
     }
 
     @Override
     public int deleteOption(RequestOptionDeleteDTO reqOptDelDTO) {
         return sqlSession.delete("host1.deleteOption", reqOptDelDTO);
+    }
+
+    @Override
+    public int updateOne(Map<String, Object> updateList) {
+        return sqlSession.update("host1.updateOne", updateList);
+    }
+
+    @Override
+    public int updateProd(Map<String, Object> updateList) {
+        return sqlSession.update("host1.updateProd", updateList);
     }
 }

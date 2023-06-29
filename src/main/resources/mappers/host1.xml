@@ -356,4 +356,18 @@
         where host_id = #{host_id} and c.cont_no = #{cont_no}
     </select>
 
+    <!--  원데이 클래스 테이블 update  -->
+    <update id="updateOne" parameterType="java.util.Map">
+            update one
+            set one_date = #{one_date}, one_maxqty = ${one_maxqty}, one_price = ${one_price}
+            where pro_no = #{pro_no}
+    </update>
+
+    <!--  인원권, 회차권 테이블 update  -->
+    <update id="updateProd" parameterType="java.util.Map">
+            update prod
+            set prod_name = #{prod_name}, prod_qty = ${prod_qty}, prod_price = ${prod_price}
+            where pro_no = #{pro_no}
+    </update>
+
 </mapper>

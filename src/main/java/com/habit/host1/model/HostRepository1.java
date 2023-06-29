@@ -25,7 +25,9 @@ public interface HostRepository1 {
     // table one
     List<OneEntity> oneList(int no);
     int insertOne(List<OneEntity> list);
+    int updateOne(Map<String, Object> updateList);
     int deleteOne(int no);
+
     List<ResponseReservationDTO> reservationList(RequestReservationDTO requestReservationDTO);
     int reservationListCount(RequestReservationDTO requestReservationDTO);
     int reservationStatusChange(RequestReservationStatusChangeDTO requestReservationStatusChangeDTO);
@@ -38,6 +40,8 @@ public interface HostRepository1 {
     // table prod
     List<ProdEntity> prodList(int no);
     int insertProd(List<ProdEntity> list);
+    int updateProd(Map<String, Object> updateList);
+
     int deleteProd(int no);
 
 

@@ -1,27 +1,27 @@
 # [정산 테이블]
 CREATE TABLE calc (
-    calc_no        varchar(35)	  NOT NULL  primary key,  #정산 코드(식별코드 따로 만들어서 사용)
-    host_id        varchar(25)	  NOT NULL,               #호스트 아이디
-    calc_date      varchar(50)	  NOT NULL,               #정산 기간
-    calc_title     varchar(100)   NOT NULL,               #정산서 제목
-    calc_ttlprice  int	          NOT NULL  DEFAULT 0,    #총 지급액(수수료 전)
-    calc_fee       int	          NOT NULL  DEFAULT 0,    #총 수수료 액
-    calc_status    char(1)	      NOT NULL  DEFAULT 'N',  #지급 상태
+    calc_no        varchar(35)	  NOT NULL  primary key,   #정산 코드(식별코드 따로 만들어서 사용)
+    host_id        varchar(25)	  NOT NULL,                #호스트 아이디
+    calc_date      varchar(50)	  NOT NULL,                #정산 기간
+    calc_title     varchar(100)   NOT NULL,                #정산서 제목
+    calc_ttlprice  int	          NOT NULL  DEFAULT 0,     #총 지급액(수수료 전)
+    calc_fee       int	          NOT NULL  DEFAULT 0,     #총 수수료 액
+    calc_status    char(1)	      NOT NULL  DEFAULT 'N',   #지급 상태              //X 추가-> 판매가 아예 안되었을때
     calc_addate    datetime	      NOT NULL  DEFAULT now(), #정산 등록일
-    cont_no        int            NOT NULL,
-    host_account  int     NOT NULL,
-    host_bank     varchar(15)     NOT NULL,
-    host_acholder varchar(15)     NOT NULL
+    cont_no        int            NOT NULL,                #콘텐츠 번호      //insert에 조금더 유용하게 활용하기 위해 추가
+    host_account   varchar(50)         NOT NULL,                #정산계좌번호     //추가 (계좌번호 변동시 이미 정산된 기록에도 바뀌어서)
+    host_bank      varchar(15)    NOT NULL,                #은행이름        //추가 (계좌번호 변동시 이미 정산된 기록에도 바뀌어서)
+    host_acholder  varchar(15)    NOT NULL                 #예금주          //추가 (계좌번호 변동시 이미 정산된 기록에도 바뀌어서)
 );
 
-insert into calc (calc_no, host_id, calc_date, calc_title, calc_ttlprice, calc_fee, calc_addate,calc_status)
-values ('C202205100000001', 'uesr-1', '2022.04.10 - 2022.05.09', '[서핑]원데이클래스 정산총액', 150000, 30000, '2022-05-10 00:00:00','Y');
+insert into calc (calc_no, host_id, calc_date, calc_title, calc_ttlprice, calc_fee, calc_addate, calc_status, cont_no, host_account, host_bank, host_acholder)
+values ('C202205100000001', 'uesr-1', '2022.04.10 - 2022.05.09', '[서핑]원데이클래스 정산총액', 150000, 30000, '2022-05-10 00:00:00','Y', 1, 123412123456, '해빗은행', '호스트1');
 
-insert into calc (calc_no, host_id, calc_date, calc_title, calc_ttlprice, calc_fee, calc_addate,calc_status)
-values ('C202208200000001', 'uesr-2', '2022.07.20 - 2022.08.19', '[심리상담] 1:1 상담 회차권 판매', 48000, 9600, '2022-08-20 00:00:00','Y');
+insert into calc (calc_no, host_id, calc_date, calc_title, calc_ttlprice, calc_fee, calc_addate, calc_status, cont_no, host_account, host_bank, host_acholder)
+values ('C202208200000001', 'uesr-2', '2022.07.20 - 2022.08.19', '[심리상담] 1:1 상담 회차권 판매', 48000, 9600, '2022-08-20 00:00:00','Y', 2, 123412123457, '해빗은행', '호스트2');
 
-insert into calc (calc_no, host_id, calc_date, calc_title, calc_ttlprice, calc_fee, calc_addate,calc_status)
-values ('C202209010000001', 'uesr-2', '2022.08.01 - 2022.08.31', '[베이킹] 휘낭시에 만들기 원데이클래스 정산총액', 360000, 72000, '2022-09-01 00:00:00','Y');
+insert into calc (calc_no, host_id, calc_date, calc_title, calc_ttlprice, calc_fee, calc_addate, calc_status, cont_no, host_account, host_bank, host_acholder)
+values ('C202209010000001', 'uesr-2', '2022.08.01 - 2022.08.31', '[베이킹] 휘낭시에 만들기 원데이클래스 정산총액', 360000, 72000, '2022-09-01 00:00:00','Y', 3, 123412123457, '해빗은행', '호스트2');
 
 
 

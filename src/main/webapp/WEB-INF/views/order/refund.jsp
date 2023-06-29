@@ -78,9 +78,20 @@
         </div>
         <hr>
         <div class="Home_refund_explain">
-            * 환불시 우리가 마음대로 함 <br>
-            * 알아서 되니까 기다려
+            <div style="font-size: 14px; font-weight: 600;">환불정책</div><br>
+            <div style="font-size: 12px; font-weight: 600; margin-bottom: 5px;">[날짜 조율형]</div>
+            <div style="margin-bottom: 3px;">1. 결제 후 7일 이내 취소 시 : 전액 환불<br>
+                (단, 결제 후 14일 이내라도 호스트와 해빗 진행일 예약 확정 후 환불 불가)</div>
+            <div style="margin-bottom: 3px;">2. 결제 후 14일 이후 취소 시 : 환불 불가</div>
+            ※ 상품의 유효기간 만료 시 연장은 불가합니다.<br>
+            ※ 다회권의 경우, 1회라도 사용시 부분 환불이 불가합니다.<br>
+            <br>
+            <div style="font-size: 12px; font-weight: 600;margin-bottom: 5px;">[날짜 지정형]</div>
+            <div style="margin-bottom: 3px;">1. 구매한 클래스 이용권 사용일 전 취소 시 : 전액 환불</div>
+            <div style="margin-bottom: 3px;">2. 구매한 클래스 이용권 사용일 이후 취소 시 : 환불 불가</div>
+            <div style="margin-bottom: 3px;">※ 상품의 유효기간 만료 시 연장은 불가합니다.</div>
         </div>
+        <hr>
         <div class="Home_refund_btn">
           <div><button class="refund_btn" type="submit">환불하기</button></div>
         </div>

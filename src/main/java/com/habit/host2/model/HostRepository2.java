@@ -159,7 +159,7 @@ public interface HostRepository2 {
     Map<String,Object> getHostAccount(String host_id);
 
     //정산테이블 insert
-    void insertCalc(CalcDTO dto);
+    int insertCalc(CalcDTO dto);
 
     //정산상세 insert
     int insertCalcD(CalcdDTO dto);

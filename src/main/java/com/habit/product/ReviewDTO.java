@@ -12,6 +12,7 @@ public class ReviewDTO {
     private String review_cont;
     private String review_img;
     private double review_star;
+    private int payd_no;
     private int cont_no;
     private String user_id;
     private String user_name;

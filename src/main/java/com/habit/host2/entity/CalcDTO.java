@@ -19,6 +19,8 @@ public class CalcDTO {
     private String host_account;
     private String host_acholder;
 
+    private String calc_status;
+
     public CalcDTO() {
     }
 

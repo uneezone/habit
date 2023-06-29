@@ -53,12 +53,12 @@
                                         let htmlAppend="";
                                         if(this.refn_status=="RO"){
                                             htmlAppend+="<div class='Home_show_wrapper'>";
-                                            htmlAppend+="  <img src=/storage/"+this.cont_img+" alt='' class='Home_show_order_img'>";
+                                            htmlAppend+="  <a href='/category/products/"+this.cont_no+"'><img src=/storage/"+this.cont_img+" alt='' class='Home_show_order_img'>";
                                             htmlAppend+="     <div class='Home_show_order_info'>";
                                             htmlAppend+="          <div class='order_info_big'>"+this.cont_name+"</div>";
                                             htmlAppend+="          <div class='order_info_name'>"+this.op_name+"</div>";
                                             htmlAppend+="          <span> / 구매수량 : "+this.payd_qty+"</span>";
-                                            htmlAppend+="     </div>";
+                                            htmlAppend+="     </div></a>";
                                             htmlAppend+="  <div class='Home_change_con'>";
                                             htmlAppend+="    <div>";
                                             htmlAppend+="        <button class='Home_change_btn' onclick=location.href='/mypage/refund?paydNo="+this.payd_no+"'>환불하기</button>";
@@ -72,12 +72,12 @@
 
                                         }else if(this.refn_status=="NRO"){
                                             htmlAppend+="<div class='Home_show_wrapper'>";
-                                            htmlAppend+="  <img src=/storage/"+this.cont_img+" alt='' class='Home_show_order_img'>";
+                                            htmlAppend+="  <a href='/category/products/"+this.cont_no+"'><img src=/storage/"+this.cont_img+" alt='' class='Home_show_order_img'>";
                                             htmlAppend+="     <div class='Home_show_order_info'>";
                                             htmlAppend+="          <div class='order_info_big'>"+this.cont_name+"</div>";
                                             htmlAppend+="          <div class='order_info_name'>"+this.op_name+"</div>";
                                             htmlAppend+="          <span> / 구매수량 : "+this.payd_qty+"</span>";
-                                            htmlAppend+="     </div>";
+                                            htmlAppend+="     </div></a>";
                                             htmlAppend+="  <div class='Home_change_con'>";
                                             htmlAppend+="    <div>";
                                             htmlAppend+="        <button class='Home_change_btn_refund' disabled>환불하기</button>";
@@ -91,13 +91,13 @@
                                             $(".con${status.index}").append(htmlAppend);
                                         }else{
                                             htmlAppend+="<div class='Home_show_wrapper'>";
-                                            htmlAppend+="  <img src=/storage/"+this.cont_img+" alt='' class='Home_show_order_img'>";
+                                            htmlAppend+="  <a href='/category/products/"+this.cont_no+"'><img src=/storage/"+this.cont_img+" alt='' class='Home_show_order_img'>";
                                             htmlAppend+="  <span class='Home_refund'><span>환불완료</span></span>";
                                             htmlAppend+="     <div class='Home_show_order_info'>";
                                             htmlAppend+="          <div class='order_info_big'>"+this.cont_name+"</div>";
                                             htmlAppend+="          <div class='order_info_name'>"+this.op_name+"</div>";
                                             htmlAppend+="          <span> / 구매수량 : "+this.payd_qty+"</span>";
-                                            htmlAppend+="     </div>";
+                                            htmlAppend+="     </div></a>";
                                             htmlAppend+="  <div class='Home_change_con'>";
                                             htmlAppend+="    <div>";
                                             htmlAppend+="        <button class='Home_change_btn_refund' disabled>환불하기</button>";

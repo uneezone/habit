@@ -67,27 +67,10 @@ public class HostServiceImpl1 implements HostService1 {
 
         // 콘텐츠 테이블에 insert 결과
         rciDTO = contentProcessing(rciDTO);
-        int insertContResult = memoryHostRepository1.updateContent(rciDTO);
 
-        // 판매유형에 따른 옵션 insert
-        if(rciDTO.getCont_type().equals("prod")) { // 옵션이 회차권, 인원권이라면
-            // cont_no에 따른 수정 전 옵션 삭제
-            memoryHostRepository1.deleteProd(rciDTO.getCont_no());
+        System.out.println(memoryHostRepository1.updateContent(rciDTO));
 
-            // 인원권, 회차권 옵션 테이블 insert
-            List<ProdEntity> optionListP = prodProcessing(rciDTO);
-            int insertProdResult = memoryHostRepository1.insertProd(optionListP);
-
-        } else if (rciDTO.getCont_type().equals("one")) { // 옵션이 원데이 클래스 라면
-            // cont_no에 따른 수정 전 옵션 삭제
-            memoryHostRepository1.deleteOne(rciDTO.getCont_no());
-
-            // 원데이 클래스 옵션 테이블 insert
-            List<OneEntity> optionListO = oneProcessing(rciDTO);
-            int insertOneResult = memoryHostRepository1.insertOne(optionListO);
-        }
-
-        return 0;
+        return memoryHostRepository1.updateContent(rciDTO);
     }
 
     // 리뷰 List 가져오기
@@ -384,5 +367,60 @@ public class HostServiceImpl1 implements HostService1 {
     @Override
     public int optionDelete(RequestOptionDeleteDTO reqOptDelDTO) {
         return memoryHostRepository1.deleteOption(reqOptDelDTO);
+    }
+
+    @Override
+    public int optionUpdate(RequestOptionDTO reqOptDTO) {
+        int result = 0;
+        String optionType = reqOptDTO.getOptionType();
+
+        // 해빗 수정
+        List<Map<String, Object>> updateOptionList = reqOptDTO.getUpdateOption();
+        if (updateOptionList != null) {
+
+            if (optionType.equals("prod")) {
+                for (Map<String, Object> map : updateOptionList) {
+                    result += memoryHostRepository1.updateProd(map);
+                }
+            } else if (optionType.equals("one")) {
+                for (Map<String, Object> map : updateOptionList) {
+                    result += memoryHostRepository1.updateOne(map);
+                }
+            }
+
+            System.out.println("result = " + result);
+        }
+
+        List<Map<String, Object>> newOptionList = reqOptDTO.getNewOption();
+        if (newOptionList != null) {
+
+            if (optionType.equals("prod")) {
+
+                List<ProdEntity> entityList = new ArrayList<>();
+                for (Map<String, Object> map : newOptionList) {
+                    ProdEntity entity = new ProdEntity();
+                    entity.setProd_name((String) map.get("prod_name"));
+                    entity.setProd_qty(Integer.parseInt((String) map.get("prod_qty")));
+                    entity.setProd_price(Integer.parseInt((String) map.get("prod_price")));
+                    entityList.add(entity);
+                }
+                result += memoryHostRepository1.insertProd(entityList);
+
+            } else if (optionType.equals("one")) {
+
+                List<OneEntity> entityList = new ArrayList<>();
+                for (Map<String, Object> map : newOptionList) {
+                    OneEntity entity = new OneEntity();
+                    entity.setOne_date((String) map.get("one_date"));
+                    entity.setOne_maxqty(Integer.parseInt((String) map.get("one_maxqty")));
+                    entity.setOne_price(Integer.parseInt((String) map.get("one_price")));
+                    entityList.add(entity);
+                }
+                result += memoryHostRepository1.insertOne(entityList);
+
+            }
+
+        }
+        return result;
     }
 }

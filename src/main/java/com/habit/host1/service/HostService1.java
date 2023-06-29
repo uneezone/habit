@@ -45,4 +45,6 @@ public interface HostService1 {
     Map<String, Object> contentUpdateBefore (int cont_no);
 
     int optionDelete(RequestOptionDeleteDTO requestOptionDeleteDTO);
+
+    int optionUpdate(RequestOptionDTO requestOptionDTO);
 }

@@ -163,7 +163,11 @@
                     <tr>
                       <td>${item.user_id}</td>
                       <td>${item.cont_name}</td>
-                      <td>${item.review_star}</td>
+                      <td>
+                        <c:forEach var="star" begin="1" end="${item.review_star}">
+                          <img src='/img/star.png' alt='${star}' class='review_star'>
+                        </c:forEach>
+                      </td>
                       <td>${item.review_cont}</td>
                       <td>${item.review_date}</td>
                       <td>

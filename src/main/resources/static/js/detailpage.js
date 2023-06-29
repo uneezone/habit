@@ -61,8 +61,8 @@ $(document).ready(function() {
         closeModal();
     };
 
-
-
+    //재고
+    var stock=0;
     // OptionItem_Wrapper를 클릭했을 때 이벤트 핸들러를 추가합니다.
     let optionItems = document.querySelectorAll('.OptionItem_Container');
     optionItems.forEach(function(optionItem) {
@@ -86,9 +86,18 @@ $(document).ready(function() {
             // 클릭한 상품명과 가격을 PurchaseCell_Wrapper 내에 적용합니다.
             let selectedItemName = this.querySelector('.OptionItem_Title').innerText;
             let selectedItemPrice = parseInt(this.getAttribute('data-price'));
+            stock=parseInt(this.querySelector('.pro_no').value);
+            console.log("stock="+stock);
             document.querySelector('.PurchaseCell_Title').innerText = selectedItemName;
             document.querySelector('.PurchaseCell_Price').setAttribute('data-price', selectedItemPrice);
             document.querySelector('.PurchaseCell_Price').innerText = `${selectedItemPrice.toLocaleString()}원`;
+            $(".Counter_Value").change(function(){
+                console.log(stock);
+                if($(this).val()>stock){
+                    $(this).val($(this).val()-1);
+                }
+            })
+
 
 
             calculateTotal();
@@ -125,7 +134,9 @@ $(document).ready(function() {
                 counterValue.value = currentValue - 1;
             }
         } else if (direction === 'plus') {
-            counterValue.value = currentValue + 1;
+            if(currentValue<stock) {
+                counterValue.value = currentValue + 1;
+            }
         }
 
         // 변경된 값에 따라 calculateTotal 함수를 호출하여 총 수량 및 가격을 업데이트합니다.
@@ -192,8 +203,13 @@ $(document).ready(function() {
     const BottomContent = document.querySelector('.BottomContent_Wrapper');
 
     deleteIcon.addEventListener('click', () => {
+        //재고 다시 0으로
+        stock=0;
+        $(".Counter_Value").val(1);
+        console.log('stock 0으로'+stock);
         purchaseCellWrapper.style.display = 'none';
          BottomContent.style.display = 'none';
+
     });
 
 
