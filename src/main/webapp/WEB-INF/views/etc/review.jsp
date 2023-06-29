@@ -43,7 +43,10 @@
                             <span style="font-size: small;">${review.review_date}</span>
                         </div>
                         <c:if test="${sessionScope.s_id==review.user_id}">
-                            <div style="text-align: center;position: relative;top: -5px; right: -440px;">
+                            <div style="text-align: center;position: relative;top: -5px; right: -340px;">
+                                <input type="button" value="리뷰 수정"
+                                       style="width: 60px;height: 20px;font-size: 10px; background-color: #d5f3ff;border: none; border-radius: 3px;"
+                                       onclick="location.href='/mypage/review?paydNo=${review.payd_no}'">
                                 <input type="button" value="리뷰 삭제"
                                        style="width: 60px;height: 20px;font-size: 10px; background-color: #fae3ff;border: none; border-radius: 3px;"
                                 onclick="delReview(${review.review_no})">

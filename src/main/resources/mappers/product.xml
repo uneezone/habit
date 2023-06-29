@@ -153,7 +153,7 @@
     <!--해빈 리뷰 페이지-->
     <select id="getReviewList" parameterType="Integer" resultType="com.habit.product.ReviewDTO">
         select AA.*, c.cont_name
-        from(select review_no,review_date as date,DATE_FORMAT(review_date,'%Y년 %m월 %d일 %H시 %i분') as review_date, review_cont, TRIM(SUBSTRING_INDEX(review_img, '|', 1)) as review_img, review_star,cont_no, r.user_id,u.user_name,u.user_img
+        from(select review_no,review_date as date,DATE_FORMAT(review_date,'%Y년 %m월 %d일 %H시 %i분') as review_date, review_cont, TRIM(SUBSTRING_INDEX(review_img, '|', 1)) as review_img, review_star,r.payd_no,cont_no, r.user_id,u.user_name,u.user_img
              from review r join user u on r.user_id=u.user_id
              where cont_no=#{cont_no} and review_status="Y"
              )
