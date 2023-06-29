@@ -279,20 +279,14 @@
 
   //전화번호 나누기
   let phone="${hostInfo.host_phone}";
-  let pos1=0;
-  let pos2=1;
-  while (pos2!=4){
-    let foundPos=phone.indexOf("-",pos1);
 
-    $("#hostPhone"+pos2).val(phone.substring(pos1,foundPos));
-    if(foundPos==-1){
-      $("#hostPhone"+pos2).val(phone.substring(9,phone.length));
-    }
-    pos1=foundPos+1;
-    pos2+=1;
+  let number = phone.indexOf('-');
+  $("#hostPhone1").val(phone.substring(0,number));
+  let number2= phone.indexOf('-',number+1);
+  $("#hostPhone2").val(phone.substring(number+1,number2));
+  let number3= phone.indexOf('-',number2);
+  $("#hostPhone3").val(phone.substring(number3+1,phone.length));
 
-
-  }
 
 
 
