@@ -272,6 +272,7 @@
                             <span color="#333333" class="OptionItem_Price"><fmt:formatNumber value="${option.one_price}" pattern="#,##0" />원</span>
                             <c:set value="${option.one_maxqty-option.payd_qty}" var="stock"></c:set>
                             <span color="#999999" class="OptionItem_Remains">재고 : ${stock}개</span>
+                            <input type="hidden" value="${stock}" class="pro_no">
                         </div>
                     </div>
                 </div>
