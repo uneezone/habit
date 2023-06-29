@@ -25,14 +25,11 @@ public class HostContorller1 {
 
     private final HostService1 hostService1;
 
-    // [habit_create.jsp]
+    // [habit_create.jsp] ==========================================================================================================================
     // 컨텐츠 생성 폼으로 이동 & 대분류 list 불러오기
     @GetMapping("/content/form")
     public String contentForm(@SessionAttribute(name = "s_id") String s_id, Model model) {
-        String host_img = hostService1.getHostImg(s_id);
-
         model.addAttribute("host_id", s_id);
-        model.addAttribute("host_img", host_img);
         model.addAttribute("List", hostService1.cateList());
         return "host/habit_create";
     }
@@ -54,15 +51,7 @@ public class HostContorller1 {
 
 
 
-
-
-
-
-
-
-
-    // [habit_list.jsp]
-
+    // [habit_list.jsp] ==========================================================================================================================
     // 해빗 페이징 (더보기)
     @PostMapping("/content/seemore.do")
     @ResponseBody
@@ -131,8 +120,6 @@ public class HostContorller1 {
 
         RequestContentListDTO reqContListDTO = new RequestContentListDTO();
         reqContListDTO.setHost_id(s_id);
-        String host_img = hostService1.getHostImg(s_id);
-
         List<ResponseContentListDTO> list = hostService1.contentList(reqContListDTO);
         hostService1.contentListCount(reqContListDTO);
 
@@ -142,7 +129,6 @@ public class HostContorller1 {
 
         model.addAttribute("now", formattedNow);
         model.addAttribute("host_id", s_id);
-        model.addAttribute("host_img", host_img);
         model.addAttribute("vo", reqContListDTO.getVo());
         model.addAttribute("list", list);
 
@@ -172,20 +158,7 @@ public class HostContorller1 {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // [habit_review_control.jsp]
+    // [habit_review_control.jsp] ==========================================================================================================================
     // 리뷰 리스트 조회
     @GetMapping("/review")
     public String reviewList(@SessionAttribute(name = "s_id") String s_id, Model model) {
@@ -199,9 +172,7 @@ public class HostContorller1 {
         ResponsePageVO responsePageVO = new ResponsePageVO();
         responsePageVO.setTotalRecord(totalCount);
 
-        String host_img = hostService1.getHostImg(s_id);
         model.addAttribute("host_id", s_id);
-        model.addAttribute("host_img", host_img);
         model.addAttribute("list", list);
         model.addAttribute("paging", responsePageVO);
 
@@ -246,6 +217,7 @@ public class HostContorller1 {
         return map;
     }
 
+    // 리뷰 리스트 필터 더보기
     @PostMapping("/review.do/{currentPage}")
     @ResponseBody
     public Map<String, Object> reviewSearchList(@SessionAttribute(name = "s_id") String s_id, @PathVariable Integer currentPage, RequestReviewDTO reqReviewDTO) {
@@ -273,7 +245,8 @@ public class HostContorller1 {
     }
 
 
-    // [habit_reservation_control.jsp]
+
+    // [habit_reservation_control.jsp] ==========================================================================================================================
     // 예약 리스트 조회
     @GetMapping("/reservation")
     public String reservationList (@SessionAttribute(name = "s_id") String s_id, Model model) {
@@ -287,15 +260,14 @@ public class HostContorller1 {
         ResponsePageVO responsePageVO = new ResponsePageVO();
         responsePageVO.setTotalRecord(totalCount);
 
-        String host_img = hostService1.getHostImg(s_id);
         model.addAttribute("host_id", s_id);
-        model.addAttribute("host_img", host_img);
         model.addAttribute("list", list);
         model.addAttribute("paging", responsePageVO);
 
         return "host/habit_reservation_control";
     }
 
+    // 예약 리스트 페이징
     @GetMapping("/reservation/{currentPage}")
     public String reservationList (@SessionAttribute(name = "s_id") String s_id, @PathVariable Integer currentPage, Model model) {
 
@@ -335,6 +307,7 @@ public class HostContorller1 {
         return map;
     }
 
+    // 예약 리스트 필터 페이징
     @PostMapping("/reservation/filter.do/{currentPage}")
     @ResponseBody
     public Map<String, Object> reservationFilter (@SessionAttribute(name = "s_id") String s_id, @PathVariable Integer currentPage, RequestReservationDTO reqReservDTO) {
@@ -355,7 +328,6 @@ public class HostContorller1 {
         return map;
     }
 
-
     // 예약 상태 변경
     @PostMapping("/reservation/statuschange.do")
     @ResponseBody
@@ -364,14 +336,11 @@ public class HostContorller1 {
     }
 
 
-    // [habit_inquiry_control.jsp]
+
+    // [habit_inquiry_control.jsp] ==========================================================================================================================
     @GetMapping("/inquiry")
     public String inquiryControl(@SessionAttribute(name = "s_id") String s_id, Model model) {
-
-        String host_img = hostService1.getHostImg(s_id);
-
         model.addAttribute("host_id", s_id);
-        model.addAttribute("host_img", host_img);
         return "host/habit_inquiry_control";
     }
 

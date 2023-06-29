@@ -302,7 +302,7 @@ public class HostServiceImpl1 implements HostService1 {
 
     // 호스트 이미지 가져오기
     @Override
-    public String getHostImg(String host_id) {
+    public Map<String, Object> getHostImg(String host_id) {
         return memoryHostRepository1.getHostImg(host_id);
     }
 
