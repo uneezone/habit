@@ -158,7 +158,18 @@ $(document).ready(()=>{
 
     // 모달창 닫기
     $(document).mouseup(function (e){
-        var container = $('.detail-modal');
+
+        document.getElementById('detail_option_row_one').replaceChildren()
+        document.getElementById('detail_option_row_prod').replaceChildren()
+        document.getElementById('detail_preview_img_container').replaceChildren()
+        $('input[type="radio"][name="cont_hashtag1"]').attr('checked', false)
+        $('input[type="radio"][name="cont_hashtag3"]').attr('checked', false)
+        $('input[type="radio"][name="cont_hashtag5"]').attr('checked', false)
+        $('input[type="checkbox"][name="cont_hashtag2"]').attr('checked', false)
+        $('input[type="checkbox"][name="cont_hashtag4"]').attr('checked', false)
+        $('#detail_cont_option_prod').attr('hidden', true)
+        $('#detail_cont_option_one').attr('hidden', true)
+        let container = $('.detail-modal');
         if(container.has(e.target).length === 0){
             container.css('display','none');
         }

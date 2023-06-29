@@ -426,7 +426,7 @@ $(document).ready(()=>{
     function setContentsLength(str, index) {
         var status = false;
         var textCnt = 0; //총 글자수
-        var maxCnt = 2048; //최대 글자수
+        var maxCnt = 60000; //최대 글자수
         var editorText = f_SkipTags_html(str); //에디터에서 태그를 삭제하고 내용만 가져오기
         editorText = editorText.replace(/\s/gi,""); //줄바꿈 제거
         editorText = editorText.replace(/&nbsp;/gi, ""); //공백제거

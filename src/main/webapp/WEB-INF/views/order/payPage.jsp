@@ -36,7 +36,7 @@
 
                  <section id="fripinfo">
                     <div id="frip_img">
-                        <img src="/storage/${item.cont_img}" />
+                        <img src="/storage/${fn:trim(item.cont_img)}"/>
                     </div>
 
                     <div class="title_div">
@@ -76,12 +76,13 @@
             <section>
               <p class="paypage_title">에너지</p>
               <div style="padding-left: 20px; margin-bottom:3px">
-                <span id="myEnergy">내 에너지 : ${requestScope.energy}</span>
+
+                <span>나의 에너지 : <input type="number" value="${requestScope.energy}" id="myEnergy" class="myEnergy" readonly></span>
                 <span></span>
               </div>
-              <div style="padding-left: 20px;">
-                  <input type="number" placeholder="  사용할 에너지를 입력하세요" class="pay_energy" value='0' min="0" max="5000" id="useEnergy" name="useEnergy"/>
-                  <input type="button" value="전액사용" id="btn1"/>
+              <div style="padding-left: 20px;" id="howMuchToUse">
+                  사용할 에너지 : <span id="use_energy"><input type="number" placeholder="  사용할 에너지를 입력하세요" class="pay_energy" value="" min="0" max="5000" id="useEnergy" name="useEnergy"/>
+                  <input type="button" value="전액사용" id="btn1"/></span>
               </div>
 
               <p style="padding-left: 20px;">참고 : 에너지는 한 번에 최대 5000E까지만 사용가능합니다.</p>
@@ -108,10 +109,10 @@
               <br />
               <div style="display: inline-block">
                 <a href="#" class="tos_a">개인정보 제 3자 제공 동의</a>
-                <button class="tos_btn">보기</button>
+                <button type="button" class="tos_btn">보기</button>
                 <br /><br />
                 <a href="#" class="tos_a">결제 대행 서비스 이용약관</a>
-                <button class="tos_btn">보기</button>
+                <button type="button" class="tos_btn">보기</button>
               </div>
             </section>
             <hr style="border-width: 4px" />

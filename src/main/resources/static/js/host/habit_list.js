@@ -46,10 +46,10 @@ $(document).ready(()=> {
         for (let item of list) {
             str1 = "<div class='class-box'>\n" +
                 "                    <div style='display: flex; align-items: center; justify-content: center'>\n" +
-                "                      <a href='/host/content/detail/" + item.cont_no + "'><img src='/storage/" + item.cont_img + "' alt=''></a>\n" +
+                "                      <button style='border: 0; background-color: transparent' class='contentDetail' name='detail" + item.cont_no + "'><img src='/storage/" + item.cont_img + "' alt=''></button>\n" +
                 "                    </div>\n" +
                 "                    <div style='margin: 10px 0'>\n" +
-                "                      <a href='/host/content/detail/" + item.cont_no + "' style='font-size: large'><span><strong>" + item.cont_name + "</strong></span></a>\n" +
+                "                      <button style='border: 0; background-color: transparent' class='contentDetail' name='detail" + item.cont_no + "'><span style='font-size: large'><strong>" + item.cont_name + "</strong></span></button>\n" +
                 "                    </div>\n" +
                 "                    <div style='color: #494846'>\n" +
                 "                      <strong>[판매시작] </strong>" + item.cont_stdate.substring(0, 16) + "<br>\n" +

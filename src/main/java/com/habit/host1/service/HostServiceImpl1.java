@@ -373,6 +373,7 @@ public class HostServiceImpl1 implements HostService1 {
     public int optionUpdate(RequestOptionDTO reqOptDTO) {
         int result = 0;
         String optionType = reqOptDTO.getOptionType();
+        int cont_no = reqOptDTO.getCont_no();
 
         // 해빗 수정
         List<Map<String, Object>> updateOptionList = reqOptDTO.getUpdateOption();
@@ -399,6 +400,7 @@ public class HostServiceImpl1 implements HostService1 {
                 List<ProdEntity> entityList = new ArrayList<>();
                 for (Map<String, Object> map : newOptionList) {
                     ProdEntity entity = new ProdEntity();
+                    entity.setCont_no(cont_no);
                     entity.setProd_name((String) map.get("prod_name"));
                     entity.setProd_qty(Integer.parseInt((String) map.get("prod_qty")));
                     entity.setProd_price(Integer.parseInt((String) map.get("prod_price")));
@@ -411,6 +413,7 @@ public class HostServiceImpl1 implements HostService1 {
                 List<OneEntity> entityList = new ArrayList<>();
                 for (Map<String, Object> map : newOptionList) {
                     OneEntity entity = new OneEntity();
+                    entity.setCont_no(cont_no);
                     entity.setOne_date((String) map.get("one_date"));
                     entity.setOne_maxqty(Integer.parseInt((String) map.get("one_maxqty")));
                     entity.setOne_price(Integer.parseInt((String) map.get("one_price")));
