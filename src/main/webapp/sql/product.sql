@@ -122,7 +122,7 @@ CREATE TABLE cont (
     cont_hashtag4  varchar(35)	 NOT NULL,                                #해시태그4
     cont_hashtag5  varchar(35)	 NOT NULL,                                #해시태그5
     cont_status    char(1)	     NOT NULL  DEFAULT 'Y'                    #콘텐츠 판매 상태
-);
+);//이미지 사이즈 제거
 
 insert into cont (cate_no, host_id, cont_name, cont_zip, cont_addr1, cont_addr2, cont_extaddr, cont_stdate, cont_endate, cont_img, cont_content, cont_hashtag1, cont_hashtag2, cont_hashtag3, cont_hashtag4, cont_hashtag5,cont_status)
 values ('o1', 'user-1', '[서핑]원데이클래스', '06234', '서울 강남구 테헤란로 124', '4층', '(역삼동)', '2022-04-10 14:00:00', '2022-05-10 00:00:00', 'surfing.jpg', '서핑가보자고', 'N','20|30', 'OUT', 'WC|WF|WA', 'P5','N');

@@ -14,7 +14,7 @@
     <!--카트에 담긴 원데이클래스 상품 정보들-->
     <select id="list1" resultType="com.habit.cart.CartDTO" parameterType="String">
         select *
-        from (select cont.cont_no as cont_no, pro_no, cont_name, cont_img, one_price as price, one_date as option from cont inner join one on cont.cont_no=one.cont_no) A
+        from (select cont.cont_no as cont_no, pro_no, cont_name, TRIM(SUBSTRING_INDEX(cont_img, '|', 1)) as cont_img, one_price as price, one_date as option from cont inner join one on cont.cont_no=one.cont_no) A
         inner join cartlist
         on A.pro_no=cartlist.pro_no
         where user_id=#{user_id}
@@ -22,8 +22,8 @@
 
     <!--카트에 담긴 회차권인원권 상품 정보들-->
     <select id="list2" resultType="com.habit.cart.CartDTO" parameterType="String">
-        select *
-        from (select cont.cont_no as cont_no, pro_no, cont_name, cont_img, prod_name as option, prod_price as price from prod inner join cont on prod.cont_no=cont.cont_no) B
+        select *, TRIM(SUBSTRING_INDEX(B.cont_img, '|', 1)) as cont_img
+        from (select cont.cont_no as cont_no, pro_no, cont_name, TRIM(SUBSTRING_INDEX(cont_img, '|', 1)) as cont_img, prod_name as option, prod_price as price from prod inner join cont on prod.cont_no=cont.cont_no) B
         inner join cartlist
         on B.pro_no=cartlist.pro_no
         where user_id=#{user_id}

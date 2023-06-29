@@ -36,8 +36,8 @@ CREATE TABLE review (
     review_img      varchar(300)	 NULL,                                  #리뷰 이미지    ///날자랑 공백이 들어가니 생각보다 마니 차지
     review_ask      varchar(10)	 NULL,                                  #공통질문
     review_status   char(1)	     NOT NULL  DEFAULT 'Y',                 #리뷰 상태(Y:리뷰 게시중, N:리뷰 삭제)
-    review_feed     char(1)      NOT NULL  DEFAULT 'N'                                      //나중에 해빗 피드 구현하려고
-);
+    review_feed     char(1)      NOT NULL  DEFAULT 'N'                               #       //나중에 해빗 피드 구현하려고
+);//이미지 사이즈 삭제
 
 insert into review(user_id, cont_no, payd_no, review_date, review_cont, review_star, review_img, review_ask, review_status)
 VALUES ('user-2', '1', 1, '2022-04-20 0:00:00', '즐거운 하루였습니다.', 5, 'review_img', 'WF', 'Y');
@@ -57,7 +57,8 @@ VALUES ('user-3', '3', 5, '2022-08-11 0:00:00', '빵만들기 재미있어요', 
 CREATE TABLE zzim (
     zzim_no  int	        NOT NULL  auto_increment  primary key, #찜 코드
     user_id  varchar(25)	NOT NULL,                              #유저 아이디
-    cont_no  int	        NOT NULL                               #콘텐츠 코드
+    cont_no  int	        NOT NULL,                               #콘텐츠 코드
+    zzim_date datetime     NOT NULL  DEFAULT now()     # //데이트 추가
 );
 
 INSERT INTO zzim (user_id, cont_no) VALUES ('user-2', '1');
