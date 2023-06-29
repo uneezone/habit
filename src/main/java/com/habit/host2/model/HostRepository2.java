@@ -32,8 +32,8 @@ public interface HostRepository2 {
     Long getQuestionHostCount(String host_id);
 
 
-    //==호스트 사진
-    String getHostImg(String host_id);
+    //==호스트 사진이랑 닉네임
+    Map<String, Object> getHostImgAndName(String host_id);
 
     //호스트가 가입시 전화번호 미입력하면 유저단에서 가져옴
     String getPhoneNumber(String userId);

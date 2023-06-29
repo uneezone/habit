@@ -46,9 +46,10 @@ public class HostController2 {
         if(userGrade.equals("H")){
             //home관련 정보들 가져오기(누적금액, 이번달금액, 전체건수, 취소건수, 전레리뷰거스,별점)
             HostHomeDTO hostHomeDTO = hostService.gethostHomeInfo(userId);
-            log.info("hostHomeDTO={}",hostHomeDTO);
-            String hostImg = hostService.getHostImg(userId);
-            session.setAttribute("host_img",hostImg);
+            Map<String, Object> hostImgAndName = hostService.getHostImgAndName(userId);
+
+            session.setAttribute("host_img",hostImgAndName.get("host_img"));
+            session.setAttribute("host_name",hostImgAndName.get("host_name"));
             model.addAttribute("HomeInfo",hostHomeDTO);
             return "host/host_home";
         }
@@ -119,6 +120,7 @@ public class HostController2 {
         //host 아이디
         dto.setHostId(userId);
         session.setAttribute("host_img",dto.getHostImg());
+        session.setAttribute("host_name",dto.getHostName());
         log.info("newHostDTO={}",dto);
         hostService.newHostPro(dto,userId);
 

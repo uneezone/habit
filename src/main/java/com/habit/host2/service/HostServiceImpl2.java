@@ -106,8 +106,8 @@ public class HostServiceImpl2 implements HostService2 {
     }
 
     @Override
-    public String getHostImg(String id) {
-        return repository.getHostImg(id);
+    public Map<String, Object> getHostImgAndName(String id) {
+        return repository.getHostImgAndName(id);
     }
 
     //새로운 하스트 가입 newHost메소드와 updateUserGrade메소드 합친거

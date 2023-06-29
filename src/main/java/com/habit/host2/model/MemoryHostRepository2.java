@@ -86,8 +86,8 @@ public class MemoryHostRepository2 implements HostRepository2 {
     }
 
     @Override
-    public String getHostImg(String host_id) {
-        return sqlSession.selectOne("host2.getHostImg",host_id);
+    public Map<String, Object> getHostImgAndName(String host_id) {
+        return sqlSession.selectOne("host2.getHostImgAndName",host_id);
     }
 
     @Override
