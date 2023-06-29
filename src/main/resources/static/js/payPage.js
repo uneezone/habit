@@ -11,6 +11,14 @@ function useAll(){
     //alert();
     //alert($('.pay_energy').val());
 
+    alert();
+    let myEnergy=document.getElementById('myEnergy').value;
+
+    if(myEnergy>=5000){
+        document.getElementById('howMuchToUse').innerText=5000;
+        document.getElementById('useEnergy').value=5000;
+    }
+
 }
 
 

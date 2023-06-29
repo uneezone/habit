@@ -65,7 +65,7 @@
 
 
     <select id="showPurchasedOneInfo" parameterType="String" resultType="java.util.Map">
-        select A.pro_no, cont.cont_no, cont.cont_img, cont.cont_name, A.price, A.qty, A.pay_no
+        select A.pro_no, cont.cont_no, TRIM(SUBSTRING_INDEX(cont.cont_img, '|', 1)), cont.cont_name, A.price, A.qty, A.pay_no
         from
             (
                 select payd.pay_no as pay_no, payd.pro_no as pro_no, one.cont_no as cont_no, one.one_price as price, payd.payd_qty as qty
@@ -78,9 +78,9 @@
     </select>
 
     <select id="getInfoForPayDonePage" parameterType="String" resultType="java.util.Map">
-        select * from
+        select B.*, TRIM(SUBSTRING_INDEX(B.cont_img, '|', 1)) as cont_img from
                     (
-                        select A.pro_no as pro_no, A.cont_no as cont_no, A.one_date as option, A.one_maxqty as qty, A.one_price as price, cont.cont_img, cont.cont_name as cont_name
+                        select A.pro_no as pro_no, A.cont_no as cont_no, A.one_date as option, A.one_maxqty as qty, A.one_price as price, cont.cont_img as cont_img, cont.cont_name as cont_name
                         from
                             (
                                 select * from one union all select * from prod

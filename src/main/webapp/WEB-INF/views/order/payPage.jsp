@@ -73,12 +73,13 @@
             <section>
               <p class="paypage_title">에너지</p>
               <div style="padding-left: 20px; margin-bottom:3px">
-                <span id="myEnergy">내 에너지 : ${requestScope.energy}</span>
+
+                <span>나의 에너지 : <input type="number" value="${requestScope.energy}" id="myEnergy" class="myEnergy"></span>
                 <span></span>
               </div>
-              <div style="padding-left: 20px;">
-                  <input type="number" placeholder="  사용할 에너지를 입력하세요" class="pay_energy" value='0' min="0" max="5000" id="useEnergy" name="useEnergy"/>
-                  <input type="button" value="전액사용" id="btn1"/>
+              <div style="padding-left: 20px;" id="howMuchToUse">
+                  사용할 에너지 : <span id="use_energy"><input type="number" placeholder="  사용할 에너지를 입력하세요" class="pay_energy" value='${requestScope.energy}' min="0" max="5000" id="useEnergy" name="useEnergy"/>
+                  <input type="button" value="전액사용" id="btn1"/></span>
               </div>
 
               <p style="padding-left: 20px;">참고 : 에너지는 한 번에 최대 5000E까지만 사용가능합니다.</p>
