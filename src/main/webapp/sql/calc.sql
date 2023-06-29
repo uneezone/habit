@@ -9,7 +9,7 @@ CREATE TABLE calc (
     calc_status    char(1)	      NOT NULL  DEFAULT 'N',   #지급 상태              //X 추가-> 판매가 아예 안되었을때
     calc_addate    datetime	      NOT NULL  DEFAULT now(), #정산 등록일
     cont_no        int            NOT NULL,                #콘텐츠 번호      //insert에 조금더 유용하게 활용하기 위해 추가
-    host_account   bigint         NOT NULL,                #정산계좌번호     //추가 (계좌번호 변동시 이미 정산된 기록에도 바뀌어서)
+    host_account   varchar(50)         NOT NULL,                #정산계좌번호     //추가 (계좌번호 변동시 이미 정산된 기록에도 바뀌어서)
     host_bank      varchar(15)    NOT NULL,                #은행이름        //추가 (계좌번호 변동시 이미 정산된 기록에도 바뀌어서)
     host_acholder  varchar(15)    NOT NULL                 #예금주          //추가 (계좌번호 변동시 이미 정산된 기록에도 바뀌어서)
 );
