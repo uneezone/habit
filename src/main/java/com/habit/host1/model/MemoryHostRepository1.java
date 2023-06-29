@@ -212,8 +212,8 @@ public class MemoryHostRepository1 implements HostRepository1{
 
     // 호스트 이미지 가져오기
     @Override
-    public String getHostImg(String host_id) {
-        return sqlSession.selectOne("host2.getHostImg", host_id);
+    public Map<String, Object>  getHostImg(String host_id) {
+        return sqlSession.selectOne("host2.getHostImgAndName", host_id);
     }
 
     // 에너지 테이블 insert

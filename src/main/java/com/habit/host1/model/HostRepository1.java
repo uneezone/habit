@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface HostRepository1 {
 
-    // table cate
+    // table cate/
     List<Map<String, Object>> cateList();
     List<Map<String, Object>> selectCate(String keyword);
     String selectCateNo(String keyword);
@@ -67,7 +67,7 @@ public interface HostRepository1 {
 
 
     // table host
-    String getHostImg(String id);
+    Map<String, Object> getHostImg(String id);
 
 
     // table energy

@@ -36,7 +36,7 @@ public interface HostService1 {
     int reservationStatusChangeAndRefundInsert(RequestReservationStatusChangeDTO requestReservationStatusChangeDTO);
     int deleteContent(int no);
     CategoryAndContentVO contentSelectOne(int no);
-    String getHostImg(String host_id);
+    Map<String, Object> getHostImg(String host_id);
 
 
     List<OneEntity> oneList(int no);
