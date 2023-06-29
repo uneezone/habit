@@ -80,7 +80,7 @@
     <select id="getInfoForPayDonePage" parameterType="String" resultType="java.util.Map">
         select B.*, TRIM(SUBSTRING_INDEX(B.cont_img, '|', 1)) as cont_img from
                     (
-                        select A.pro_no as pro_no, A.cont_no as cont_no, A.one_date as option, A.one_maxqty as qty, A.one_price as price, TRIM(SUBSTRING_INDEX(cont.cont_img, '|', 1)) as cont_img, cont.cont_name as cont_name
+                        select A.pro_no as pro_no, A.cont_no as cont_no, A.one_date as option, A.one_maxqty as qty, A.one_price as price, cont.cont_img as cont_img, cont.cont_name as cont_name
                         from
                             (
                                 select * from one union all select * from prod
