@@ -10,13 +10,16 @@
 
 <link rel="stylesheet" href="/css/payPage.css" />
 <script src="/js/payPage.js"></script>
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
 
 
 
     <!-- 본문 시작 -->
 
     <div class="Home">
-        <form  name="frm" action="/order/payDone" method="POST" onsubmit="return checkEnergyUse()">
+        <form  name="frm"  action="/order/payDone" method="POST" onsubmit="return checkEnergyUse()">
 
           <section class="Home_form">
 
@@ -96,7 +99,8 @@
 
               <span class="paypage_title">선택한 상품의 총 금액 : </span>
 
-              <input type="text" name="tot_price" id="tot_price" value="" readonly/>
+
+                <input type="text" name="tot_price" id="tot_price" value="" readonly/>
               <hr />
                               <script>
                                   //document.write(sum);
@@ -177,12 +181,15 @@
               위 내용을 모두 확인하였으며, 결제에 동의합니다.
             </p>
             <input type="hidden" value="${num}" name="num">
-            <input type="submit" value="결제하기" id="paybtn"/>
+            <input type="button" value="결제하기" id="paybtn" onclick="requestPay()"/>
+<%--                <input type="button" value="결제하기" id="paybtn" onclick="requestPay()"/>--%>
             </section>
-
+            </div>
            </section>
+
         </form>
     </div>
+
 
     <!-- 본문 끝-->
 
@@ -193,3 +200,47 @@
 
 
 
+<script>
+
+    function calculateTotalPrice() {
+        const useEnergy = parseInt(document.getElementById("useEnergy").value, 10);
+        const basePrice = parseFloat(document.getElementById("tot_price").value); // 여기에서 tot_price 값을 가져옵니다.
+        const totalPrice = calculatePrice(useEnergy, basePrice);
+        document.getElementById("tot_price").value = totalPrice;
+        return totalPrice;
+    }
+
+    function calculatePrice(useEnergy, basePrice) {
+        return basePrice - useEnergy;
+    }
+
+    //결제 API
+    var IMP = window.IMP; // 생략가능
+    // IMP.init('imp42450485'); // <-- 본인 가맹점 식별코드 삽입
+    IMP.init('imp42204744');
+
+    function requestPay() {
+        const totalPrice = calculateTotalPrice();
+        //iamport 대신 자신의 "가맹점 식별코드"를 사용
+        IMP.request_pay({
+            pg: "html5_inicis",
+            pay_method: "card",
+            merchant_uid : 'merchant_'+new Date().getTime(),
+            name : 'Habit',
+            amount : totalPrice
+        }, function (rsp) { // callback
+            console.log(rsp);
+            if (rsp.success) {
+                var msg = '결제가 완료되었습니다.';
+                // 결제 완료시 코드
+
+                alert(msg);
+                document.frm.submit(); // 폼 제출을 추가
+            } else {
+                var msg = '결제에 실패하였습니다.';
+                msg += '에러내용 : ' + rsp.error_msg;
+                alert(msg);
+            }
+        });
+    }
+</script>
