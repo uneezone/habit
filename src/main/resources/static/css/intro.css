@@ -650,11 +650,11 @@ a:hover{
 /*글자 오버프로우시 ...  표시*/
 .Home_product_recommend_p_font>div>div{
     margin-bottom: 25px;
-    height: 28px;
+    height: 34px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;
-    --line-height: 1.2;
+    line-height: 1.2;
     text-align: left;
     word-wrap: break-word;
     display: -webkit-box;
