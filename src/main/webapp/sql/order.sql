@@ -35,7 +35,7 @@ CREATE TABLE pay (
     pay_point   int          NOT NULL	 DEFAULT 0,    #사용 에너지
     pay_method  char(1)      NOT NULL,                 #결제 수단 (카드'C')
     pay_date    datetime     NOT NULL	 DEFAULT now() #주문 날짜
-);
+);//상태 제거
 
 insert into pay (pay_no, user_id, pay_total, pay_point, pay_method, pay_date)
 values ('P202204130202021', 'user-2', 150000, 1000, 'C', '2022-04-13 02:02:02');
@@ -64,7 +64,7 @@ CREATE TABLE payd (
     payd_price   int          NOT NULL  DEFAULT 0,                   #상품 금액(1개단위)
     payd_qty     int          NOT NULL  DEFAULT 0,                   #주문 수량
     payd_status  char(1)      NOT NULL  DEFAULT 'R',                 #주문 상세 상태
-    refn_status  char(4)      NOT NULL  DEFAULT 'RO',                #환불 상태       //char(4)-> 호스트와 소비자의 취소 구분
+    refn_status  char(4)      NOT NULL  DEFAULT 'RO',                #환불 상태       //char(4)-> 호스트와 소비자의 취소 구분-> RO/NRO/CFRO(소비자 취소)/HFRO(호스트 취소)
     payd_date    datetime     NOT NULL  DEFAULT now()                #주문 날짜
 );
 

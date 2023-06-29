@@ -45,11 +45,11 @@ CREATE TABLE host (
     host_intro     varchar(200)  NULL,                                   #소개글           초반가입시 기입하지 않아서
     host_email     varchar(40)   NOT NULL,                               #호스트 이메일
     host_img       varchar(100)  NOT NULL  DEFAULT 'defaulthostPro.png', #프로필 이미지
-    host_account   varchar(50)       NULL,                                   #계좌번호          초반가입시 기입하지 않아서
+    host_account   varchar(50)   NULL,                                   #계좌번호          초반가입시 기입하지 않아서
     host_bank      varchar(15)   NULL,                                   #은행             초반가입시 기입하지 않아서
     host_acholder  varchar(15)   NULL,                                   #예금주            초반가입시 기입하지 않아서
     host_date      datetime      NOT NULL  DEFAULT now()                 #호스트 등록일
-);
+);  //호스트 이미지 사이즈 삭제
 
 insert into host (host_id, host_name, host_phone, host_intro, host_email, host_account, host_bank, host_acholder, host_date)
 values ('user-1', 'H1', '010-1234-1234', '안녕하세요 H1 입니다', 'user1@itwill.com', 123412123456, '해빗은행', '호스트1', '2022-01-05 00:00:00');
