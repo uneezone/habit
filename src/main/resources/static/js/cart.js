@@ -41,10 +41,6 @@
     });
 
 
-    //
-
-
-
 }
 
 function calcAll(){
@@ -130,9 +126,11 @@ function calc(){
               }
           });
 
-          if(confirm("주문할까요?")){
+
+
+          //if(confirm("주문할까요?")){
                           location.href='/cart/order/payPage?cartno='+checkCart;
-          }
+          //}
       }
 
   }
