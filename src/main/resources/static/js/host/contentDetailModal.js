@@ -18,15 +18,15 @@ $(document).ready(()=>{
 
                 // 선택한 대분류 가져오기
                 let cate_large = item.cate_large
-                $('#detail_cate_large').val(cate_large)
+                $('#detail_cate_large').text(cate_large)
 
                 // 선택한 중분류 가져오기
                 let cate_middle = item.cate_middle
-                $('#detail_cate_middle').val(cate_middle)
+                $('#detail_cate_middle').text(cate_middle)
 
                 // 해빗 이름 가져오기
                 let cont_name = item.cont_name
-                $('#detail_cont_name').val(cont_name)
+                $('#detail_cont_name').text(cont_name)
 
                 // 해빗 주소 가져오기
                 let cont_zip = item.cont_zip
@@ -56,12 +56,12 @@ $(document).ready(()=>{
 
                 // 판매 시작일 가져오기
                 let cont_stdate = item.cont_stdate
-                $('#detail_cont_stdate').val(cont_stdate)
+                $('#detail_cont_stdate').text(cont_stdate.substring(0, 16))
 
                 // 판매종료일 가져오기
                 let cont_endate = item.cont_endate
                 console.log(cont_endate)
-                $('#detail_cont_endate').val(cont_endate)
+                $('#detail_cont_endate').text(cont_endate.substring(0, 16))
 
                 // 판매기간
                 cont_stdate = new Date(cont_stdate)
@@ -152,66 +152,60 @@ $(document).ready(()=>{
                 let cont_content = item.cont_content
                 $('#detail_cont_content').html(cont_content)
 
+                // 카카오 지도 API
+                var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+                    mapOption = {
+                        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                        level: 3 // 지도의 확대 레벨
+                    };
+
+                // 지도를 생성합니다
+                var map = new kakao.maps.Map(mapContainer, mapOption);
+
+                // 주소-좌표 변환 객체를 생성합니다
+                var geocoder = new kakao.maps.services.Geocoder();
+
+                // 주소로 좌표를 검색합니다
+                geocoder.addressSearch(contAddr, function(result, status) {
+
+                    // 정상적으로 검색이 완료됐으면
+                    if (status === kakao.maps.services.Status.OK) {
+
+                        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                        // 결과값으로 받은 위치를 마커로 표시합니다
+                        var marker = new kakao.maps.Marker({
+                            map: map,
+                            position: coords
+                        });
+
+                        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                        map.setCenter(coords);
+                    }
+                });
             }
         })
     })
 
     // 모달창 닫기
-    $(document).mouseup(function (e){
+    $(document).click(function (e){
 
-        document.getElementById('detail_option_row_one').replaceChildren()
-        document.getElementById('detail_option_row_prod').replaceChildren()
-        document.getElementById('detail_preview_img_container').replaceChildren()
-        $('input[type="radio"][name="cont_hashtag1"]').attr('checked', false)
-        $('input[type="radio"][name="cont_hashtag3"]').attr('checked', false)
-        $('input[type="radio"][name="cont_hashtag5"]').attr('checked', false)
-        $('input[type="checkbox"][name="cont_hashtag2"]').attr('checked', false)
-        $('input[type="checkbox"][name="cont_hashtag4"]').attr('checked', false)
-        $('#detail_cont_option_prod').attr('hidden', true)
-        $('#detail_cont_option_one').attr('hidden', true)
         let container = $('.detail-modal');
         if(container.has(e.target).length === 0){
+            document.getElementById('detail_option_row_one').replaceChildren();
+            document.getElementById('detail_option_row_prod').replaceChildren()
+            document.getElementById('detail_preview_img_container').replaceChildren()
+            $('input[type="radio"][name="detail_hashtag1"]').attr('checked', false)
+            $('input[type="radio"][name="detail_hashtag3"]').attr('checked', false)
+            $('input[type="radio"][name="detail_hashtag5"]').attr('checked', false)
+            $('input[type="checkbox"][name="detail_hashtag2"]').attr('checked', false)
+            $('input[type="checkbox"][name="detail_hashtag4"]').attr('checked', false)
+            $('#detail_cont_option_prod').attr('hidden', true)
+            $('#detail_cont_option_one').attr('hidden', true)
+            $('#detail_one').css('display', 'none')
+            $('#detail_prod').css('display', 'none')
             container.css('display','none');
+
         }
     })
-
-    // 카카오 지도 API
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-        mapOption = {
-            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-            level: 3 // 지도의 확대 레벨
-        };
-
-    // 지도를 생성합니다
-    var map = new kakao.maps.Map(mapContainer, mapOption);
-
-    // 주소-좌표 변환 객체를 생성합니다
-    var geocoder = new kakao.maps.services.Geocoder();
-
-    // 주소로 좌표를 검색합니다
-    geocoder.addressSearch(contAddr, function(result, status) {
-
-        // 정상적으로 검색이 완료됐으면
-        if (status === kakao.maps.services.Status.OK) {
-
-            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-            // 결과값으로 받은 위치를 마커로 표시합니다
-            var marker = new kakao.maps.Marker({
-                map: map,
-                position: coords
-            });
-
-            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-            map.setCenter(coords);
-        }
-    });
-
-    relayout = () => {
-
-        // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
-        // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다
-        // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
-        map.relayout();
-    }
 })

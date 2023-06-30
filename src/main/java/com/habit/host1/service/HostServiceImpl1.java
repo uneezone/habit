@@ -4,6 +4,7 @@ import com.habit.host1.DTO.*;
 import com.habit.host1.model.MemoryHostRepository1;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FileUtils;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -385,6 +386,9 @@ public class HostServiceImpl1 implements HostService1 {
                 }
             } else if (optionType.equals("one")) {
                 for (Map<String, Object> map : updateOptionList) {
+                    String[] oneDate = ((String) map.get("one_date")).split("T");
+                    String one_date = oneDate[0] + " " + oneDate[1] + ":00";
+                    map.put("one_date", one_date);
                     result += memoryHostRepository1.updateOne(map);
                 }
             }
@@ -412,9 +416,12 @@ public class HostServiceImpl1 implements HostService1 {
 
                 List<OneEntity> entityList = new ArrayList<>();
                 for (Map<String, Object> map : newOptionList) {
+                    String[] oneDate = ((String) map.get("one_date")).split("T");
+                    String one_date = oneDate[0] + " " + oneDate[1] + ":00";
+
                     OneEntity entity = new OneEntity();
                     entity.setCont_no(cont_no);
-                    entity.setOne_date((String) map.get("one_date"));
+                    entity.setOne_date(one_date);
                     entity.setOne_maxqty(Integer.parseInt((String) map.get("one_maxqty")));
                     entity.setOne_price(Integer.parseInt((String) map.get("one_price")));
                     entityList.add(entity);
