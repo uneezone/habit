@@ -247,4 +247,14 @@ public class MemoryHostRepository1 implements HostRepository1{
     public int updateProd(Map<String, Object> updateList) {
         return sqlSession.update("host1.updateProd", updateList);
     }
+
+    @Override
+    public int deleteContentOptionOne(int cont_no) {
+        return sqlSession.delete("host1.deleteContentOptionOne", cont_no);
+    }
+
+    @Override
+    public int deleteContentOptionProd(int cont_no) {
+        return sqlSession.delete("host1.deleteContentOptionProd", cont_no);
+    }
 }

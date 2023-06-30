@@ -137,7 +137,11 @@ public class HostServiceImpl1 implements HostService1 {
     // 해빗 삭제
     @Override
     public int deleteContent(int cont_no) {
-        return memoryHostRepository1.deleteContent(cont_no);
+        int result = 0;
+        result += memoryHostRepository1.deleteContent(cont_no);
+        result += memoryHostRepository1.deleteContentOptionOne(cont_no);
+        result += memoryHostRepository1.deleteContentOptionProd(cont_no);
+        return result;
     }
 
     // 수정전 해빗 값 가져오기

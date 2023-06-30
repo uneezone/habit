@@ -370,4 +370,12 @@
             where pro_no = #{pro_no}
     </update>
 
+    <delete id="deleteContentOptionOne" parameterType="int">
+        delete from one where cont_no = ${cont_no}
+    </delete>
+
+    <delete id="deleteContentOptionProd" parameterType="int">
+        delete from one where cont_no = ${cont_no}
+    </delete>
+
 </mapper>

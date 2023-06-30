@@ -34,6 +34,7 @@ public interface HostRepository1 {
 
     int optionPurchaseCheck(String pro_no);
     int deleteOption(RequestOptionDeleteDTO requestOptionDeleteDTO);
+    int deleteContentOptionOne(int no);
 
 
 
@@ -43,6 +44,8 @@ public interface HostRepository1 {
     int updateProd(Map<String, Object> updateList);
 
     int deleteProd(int no);
+    int deleteContentOptionProd(int no);
+
 
 
 
