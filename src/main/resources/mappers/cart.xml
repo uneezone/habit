@@ -6,7 +6,15 @@
 
 <mapper namespace="cart">
 
-    <insert id="insert" parameterType="com.habit.cart.CartDTO">
+    <select id="checkCart" parameterType="com.habit.cart.CartInsertDTO" resultType="java.util.Map">
+        select count(*) as count,IFNULL(cl_qty,0) as cl_qty from cartlist where user_id=#{user_id} and pro_no=#{pro_no}
+    </select>
+
+    <update id="updateCart">
+        UPDATE cartlist SET cl_qty = #{cl_qty}, cl_date= current_timestamp() WHERE user_id=#{user_id} and pro_no=#{pro_no};
+    </update>
+
+    <insert id="insert" parameterType="com.habit.cart.CartInsertDTO">
         INSERT INTO cartlist(user_id, pro_no, cl_qty)
         VALUES(#{user_id}, #{pro_no}, #{cl_qty})
     </insert>

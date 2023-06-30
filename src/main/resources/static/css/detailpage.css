@@ -856,12 +856,14 @@ a:hover{
 }
 
 .OptionBottomSheet {
-    padding-bottom: 143px;
+    padding-bottom: 170px;
     overflow-y: scroll;
     overscroll-behavior: contain;
     height: 50vh;
 }
-
+.OptionBottomSheet::-webkit-scrollbar {
+    display: none;
+}
 .OptionSelect_Wrapper{
     margin-bottom: 10px;
     border-radius: 5px;
@@ -1110,7 +1112,7 @@ a:hover{
     -webkit-box-pack: justify;
     justify-content: space-between;
     width: 100%;
-    min-height: 124px;
+    --min-height: 124px;
     padding: 16px;
     margin-top: 18px;
     border: 1px solid rgb(221, 221, 221);
@@ -1164,6 +1166,13 @@ a:hover{
     cursor: not-allowed;
     border-style: none;
 }
+
+.Counter_Wrapper input[type="number"]::-webkit-outer-spin-button,
+.Counter_Wrapper input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 
 .Counter_Value {
     -webkit-box-flex: 1;

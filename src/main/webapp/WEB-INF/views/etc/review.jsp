@@ -90,7 +90,7 @@
                         let img=Imgs${vs.index}[i].trim();
                         //console.log(img);
                         if(img!=""){
-                            let htmlAppend="<img src='/storage/"+img+"' class='show_review_img'>";
+                            let htmlAppend="<img src='/storage/"+img+"'  class='show_review_img' onerror=this.src='/storage/defaultPro.png'>";
                             $(".show_img_wrapper${vs.index}").append(htmlAppend);
                         }
                     }

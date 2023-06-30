@@ -18,7 +18,15 @@ public class CartDAO {
     @Autowired
     SqlSession sqlSession;
 
-    public int cartInsert(CartDTO cartDTO) {
+    public Map<String,Object> checkCart(CartInsertDTO dto){
+        return sqlSession.selectOne("cart.checkCart",dto);
+    }
+
+    public int updateCart(CartInsertDTO dto){
+        return sqlSession.update("cart.updateCart",dto);
+    }
+
+    public int cartInsert(CartInsertDTO cartDTO) {
         return sqlSession.insert("cart.insert", cartDTO);
     }
 

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -33,9 +34,22 @@ public class CartCont {
     EnergyDAO energyDAO;
 
     @RequestMapping(value="/cart/insert", method = RequestMethod.POST, consumes = "application/json")
-    public String cartInsert(@SessionAttribute(name = "s_id",required = false)String user_id, @RequestBody CartDTO cartDTO, HttpSession session){
-        cartDTO.setUser_id(user_id);
-        cartDAO.cartInsert(cartDTO);
+    //@ResponseBody
+    @Transactional
+    public String cartInsert(@SessionAttribute(name = "s_id",required = false)String user_id,@RequestBody List<CartInsertDTO> sendparams , HttpSession session){
+        log.info("params={}",sendparams);
+        for (CartInsertDTO sendparam : sendparams) {
+            sendparam.setUser_id(user_id);
+            Map<String, Object> checkCart = cartDAO.checkCart(sendparam);
+            if(Integer.parseInt(String.valueOf(checkCart.get("count")))!=0L){
+                int allqty = sendparam.getCl_qty() + Integer.parseInt(String.valueOf(checkCart.get("cl_qty")));
+                sendparam.setCl_qty(allqty);
+                cartDAO.updateCart(sendparam);
+            }else{
+                cartDAO.cartInsert(sendparam);
+            }
+
+        }
 
         return "redirect:/cart/list";
     }

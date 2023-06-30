@@ -223,9 +223,9 @@
 
     <section class="ProductDetailPage">
         <article>
-            <header class="Article_Header">
-                <h2 class="Article_Header_title">이런 해빗 어때요?</h2>
-            </header>
+<%--            <header class="Article_Header">--%>
+<%--                <h2 class="Article_Header_title">이런 해빗 어때요?</h2>--%>
+<%--            </header>--%>
             <div>
 
             </div>
@@ -280,8 +280,9 @@
             </c:forEach>
             </div>
         </div>
-        <div class="PurchaseCell_Wrapper">
-            <div class="purchaseCell_TitleWrapper">
+        <div class="PurchaseCell_WrapperOut">
+
+            <%--<div class="purchaseCell_TitleWrapper">
                 <div class="PurchaseCell_Title">선택 한 상품명</div>
                 <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' viewBox='0 0 24 24'%3E %3Cpath fill='%23333' fill-rule='evenodd' d='M18.104 6.707c.39-.39.39-1.024 0-1.414-.39-.39-1.023-.39-1.414 0L11.7 10.284 6.707 5.293c-.39-.39-1.024-.39-1.414 0-.39.39-.39 1.023 0 1.414l4.991 4.992-4.991 4.991c-.39.39-.39 1.024 0 1.414.39.39 1.023.39 1.414 0l4.992-4.991 4.991 4.991c.39.39 1.024.39 1.414 0 .39-.39.39-1.023 0-1.414L13.113 11.7l4.991-4.992z' clip-rule='evenodd'/%3E %3C/svg%3E" class="PurchaseCell_DeleteIcon">
             </div>
@@ -292,7 +293,8 @@
                     <img src="data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M0.5 0.5H27C29.4853 0.5 31.5 2.51472 31.5 5V27C31.5 29.4853 29.4853 31.5 27 31.5H0.5V0.5Z' fill='%23EEEEEE' stroke='%23EEEEEE'/%3E %3Cpath d='M11 16L21 16' stroke='%23AAAAAA' stroke-width='2' stroke-linecap='round'/%3E %3Cpath d='M16 11V21' stroke='%23AAAAAA' stroke-width='2' stroke-linecap='round'/%3E %3C/svg%3E" class="Counter_ControlButton" draggable="false" style="cursor:pointer;" id="plus-btn">
                 </div>
                 <span class="PurchaseCell_Price"></span>
-            </div>
+            </div>--%>
+
         </div>
     </div>
 
@@ -362,24 +364,43 @@
     //const isLoggedIn = (user_id !== null && user_id !== '');
 
     function checkLoginStatus() {
+        let params=[];
+
+        for(let i=0; i<$(".PurchaseCell_Wrapper").length;i++) {
+            let proQty=$(".Counter_Value").eq(i).val();
+            let proNo=$(".pro_nocheck").eq(i).val();
+
+            var data= new Object();
+            data.pro_no=proNo;
+            data.cl_qty=parseInt(proQty);
+
+            params.push(data);
+
+            console.log($(".Counter_Value").eq(i).val());
+            console.log($(".pro_nocheck").eq(i).val());
+        }
+
+        let sendparams=JSON.stringify(params);
+        console.log(params);
         if (isLoggedIn) {
             if (selectedOption) {
-                let quantity = parseInt(quantityInput.value);
+               // let quantity = parseInt(quantityInput.value);
 
                 fetch('/cart/insert', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({
-                        pro_no: selectedOption,
-                        cl_qty: quantity,
-                    }),
+                    body: sendparams
                 })
 
                     .then((response) => {
                         if (response.ok) {
-                            window.location.href = '/cart/list';
+                            let check=confirm("장바구니로 이동하시겠습니까?");
+                            if(check==true){
+                                window.location.href = '/cart/list';
+                            }
+
                         } else {
                             console.error('Error:', response);
                         }
@@ -389,8 +410,9 @@
                     });
             }
         } else {
+            let path=window.location.pathname;
             alert('로그인 후 이용 가능합니다.');
-            window.location.href = '/login';
+            window.location.href = '/login?redirectURL='+path;
         }
     }
 
