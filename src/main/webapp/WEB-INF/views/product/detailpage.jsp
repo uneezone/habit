@@ -223,9 +223,9 @@
 
     <section class="ProductDetailPage">
         <article>
-            <header class="Article_Header">
-                <h2 class="Article_Header_title">이런 해빗 어때요?</h2>
-            </header>
+<%--            <header class="Article_Header">--%>
+<%--                <h2 class="Article_Header_title">이런 해빗 어때요?</h2>--%>
+<%--            </header>--%>
             <div>
 
             </div>
