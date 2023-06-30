@@ -185,6 +185,9 @@ window.onload=function(){
             , async: false
             , success: function (data) {
                 console.log(data);
+                if ($(".global_modal_searchResult").length!=0) {
+                    $(".hot_search").children().remove();
+                }
                 let html="";
                 $(data).each(function(index,value){
                     html+="<a href='/search?recentSearch="+value+"'><div class=\"global_modal_searchResult\">"+value+"</div></a>";

@@ -15,6 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -320,7 +323,12 @@ public ModelAndView allList(@PathVariable String cate_large, @RequestParam(requi
     //==검색창
     @GetMapping("/search")
     public String showSearch(@RequestParam("recentSearch") String recent, @RequestParam(value = "filter",defaultValue = "N") String filter
-                            ,HttpServletResponse res ,HttpServletRequest req,Model model){
+                            ,HttpServletResponse res ,HttpServletRequest req,Model model) throws UnsupportedEncodingException {
+        //공통적으로 trim 해주기
+        recent=recent.trim();
+
+        //쿠키가 공백을 인식못해서 해결하는 방법
+        recent = URLEncoder.encode(recent, "utf-8").replaceAll("\\+", "%20");
 
         //검색 필터 안했을때
         if(filter.equals("N")) {
@@ -337,10 +345,13 @@ public ModelAndView allList(@PathVariable String cate_large, @RequestParam(requi
             log.info("status={}", status);
             //검색어가 공백이 아닐때
             if (!recent.equals("")) {
+                log.info("check={}",recent);
 
                 int cookielap = 0;
-                for (int i = 0; i <= status; i++) {
+                for (int i = 0; i <= status+1; i++) {
                     if (recent.equals(cookies[i].getValue())) {
+                        log.info("recent={}",recent);
+                        log.info("cookie={}",cookies[i].getValue());
                         cookielap++;
                     }
                 }
@@ -397,6 +408,7 @@ public ModelAndView allList(@PathVariable String cate_large, @RequestParam(requi
             }
 
             //검색어 테이블에 저장
+            recent = URLDecoder.decode(recent, "utf-8");
             int insertSearch = productDao.insertSearch(recent.trim());
 
             if (insertSearch != 0) {
@@ -411,6 +423,7 @@ public ModelAndView allList(@PathVariable String cate_large, @RequestParam(requi
         }
 
         //검색페이지
+        recent = URLDecoder.decode(recent, "utf-8");
         List<Integer> contNoForSearch = productDao.getContNoForSearch(recent.trim());
         log.info("cont={}", contNoForSearch);
         if (contNoForSearch.size() != 0) {
