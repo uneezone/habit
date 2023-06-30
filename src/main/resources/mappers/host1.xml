@@ -375,7 +375,7 @@
     </delete>
 
     <delete id="deleteContentOptionProd" parameterType="int">
-        delete from one where cont_no = ${cont_no}
+        delete from prod where cont_no = ${cont_no}
     </delete>
 
 </mapper>
