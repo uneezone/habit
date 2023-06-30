@@ -23,10 +23,10 @@
               UNION
               SELECT * FROM prod where prod_status ='PO') a
                  JOIN cont c
-                      ON a.cont_no = c.cont_no left join payd p on a.pro_no=p.pro_no
-        WHERE  a.cont_no =#{cont_no}
-        group by p.pro_no
-        order by a.one_price asc
+                      ON a.cont_no = c.cont_no  left outer join payd p on a.pro_no=p.pro_no
+        where a.cont_no=#{cont_no}
+        group by a.pro_no
+        order by one_price asc
     </select>
 
     <!-- 상세 페이지 선택한 컨텐츠 리뷰 리스트   -->
