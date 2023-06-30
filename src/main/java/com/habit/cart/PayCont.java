@@ -182,7 +182,17 @@ public class PayCont {
         System.out.println(energyDAO.getUserGrade(user_id));
 
 
+
         List<Map<String, Object>> payDoneInfos=payDAO.getInfoForPayDonePage(pay_no);
+
+        System.out.println(payDoneInfos);
+
+        for (Map<String, Object> payDoneInfo : payDoneInfos) {
+            String cont_img= payDoneInfo.get("cont_img").toString().trim().split("\\|")[0];
+            payDoneInfo.put("cont_img", cont_img);
+        }
+
+
         mav.addObject("payDoneInfos", payDoneInfos);
         mav.setViewName("order/payDone");
         mav.addObject("payedPrice", sumPerPurchase-useEnergy);

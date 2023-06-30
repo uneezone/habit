@@ -25,7 +25,7 @@
       <div style="position: relative; display:block">
         <img src="/storage/${fn:trim(item.cont_img)}" id="orderlist_img1" />
         <div class="show_proinfo">
-          <div  class="Home_sub">
+          <div class="Home_sub">
             ${item.cont_name}
 
           </div>         
