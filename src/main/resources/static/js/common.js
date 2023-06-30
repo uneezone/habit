@@ -53,6 +53,9 @@ function common(){
             , success: function (data) {
                 ///console.log(data);
                 let html="";
+                if ($(".global_modal_searchResult").length!=0) {
+                    $(".hot_search").children().remove();
+                }
                 $(data).each(function(index,value){
                     html+="<a href='/search?recentSearch="+value+"'><div class=\"global_modal_searchResult\">"+value+"</div></a>";
                 });

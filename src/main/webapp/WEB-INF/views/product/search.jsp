@@ -94,6 +94,7 @@
         </div>
         <script>
             let search=decodeURI(window.location.search);
+            search=search.replace("+"," ");
             console.log(search);
             let showname;
             let index=search.indexOf("=");
@@ -245,7 +246,7 @@
 
             <!--* 이전/다음 버튼 -->
 
-            <c:set value="${list.size()/2}" var="pages"></c:set>
+            <c:set value="${list.size()/8}" var="pages"></c:set>
 
             <footer class="Wrapper_Paging">
                 <div class="paging">
