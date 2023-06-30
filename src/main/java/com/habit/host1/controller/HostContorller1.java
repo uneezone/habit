@@ -28,8 +28,7 @@ public class HostContorller1 {
     // [habit_create.jsp] ==========================================================================================================================
     // 컨텐츠 생성 폼으로 이동 & 대분류 list 불러오기
     @GetMapping("/content/form")
-    public String contentForm(@SessionAttribute(name = "s_id") String s_id, Model model) {
-        model.addAttribute("host_id", s_id);
+    public String contentForm(Model model) {
         model.addAttribute("List", hostService1.cateList());
         return "host/habit_create";
     }
@@ -63,7 +62,12 @@ public class HostContorller1 {
         List<ResponseContentListDTO> list = hostService1.contentList(reqContListDTO);
         hostService1.contentListCount(reqContListDTO);
 
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedNow = now.format(formatter);
+
         Map<String, Object> map = new HashMap<>();
+        map.put("now", formattedNow);
         map.put("vo", reqContListDTO.getVo());
         map.put("list", list);
 
@@ -128,7 +132,6 @@ public class HostContorller1 {
         String formattedNow = now.format(formatter);
 
         model.addAttribute("now", formattedNow);
-        model.addAttribute("host_id", s_id);
         model.addAttribute("vo", reqContListDTO.getVo());
         model.addAttribute("list", list);
 
@@ -146,6 +149,7 @@ public class HostContorller1 {
     @PostMapping("/option/update.do")
     @ResponseBody
     public int optionUpdate(RequestOptionDTO reqOptDTO) {
+        System.out.println("reqOptDTO = " + reqOptDTO);
         return hostService1.optionUpdate(reqOptDTO);
     }
 
@@ -172,7 +176,6 @@ public class HostContorller1 {
         ResponsePageVO responsePageVO = new ResponsePageVO();
         responsePageVO.setTotalRecord(totalCount);
 
-        model.addAttribute("host_id", s_id);
         model.addAttribute("list", list);
         model.addAttribute("paging", responsePageVO);
 
@@ -260,7 +263,6 @@ public class HostContorller1 {
         ResponsePageVO responsePageVO = new ResponsePageVO();
         responsePageVO.setTotalRecord(totalCount);
 
-        model.addAttribute("host_id", s_id);
         model.addAttribute("list", list);
         model.addAttribute("paging", responsePageVO);
 
@@ -339,8 +341,7 @@ public class HostContorller1 {
 
     // [habit_inquiry_control.jsp] ==========================================================================================================================
     @GetMapping("/inquiry")
-    public String inquiryControl(@SessionAttribute(name = "s_id") String s_id, Model model) {
-        model.addAttribute("host_id", s_id);
+    public String inquiryControl(Model model) {
         return "host/habit_inquiry_control";
     }
 

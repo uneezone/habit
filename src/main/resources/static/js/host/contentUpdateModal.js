@@ -168,7 +168,6 @@ $(document).ready(()=> {
                 // 판매 시작일 가져오기
                 let stdate = $('#stdate')
                 let cont_stdate = item.cont_stdate
-                console.log(cont_stdate)
                 stdate.html('판매 시작일로부터 (<strong>' + cont_stdate.substring(0,10) + '</strong>)')
 
                 // 판매종료일 가져오기
@@ -327,6 +326,7 @@ $(document).ready(()=> {
             $('input[type="radio"][name="cont_hashtag5"]').attr('checked', false)
             $('input[type="checkbox"][name="cont_hashtag2"]').attr('checked', false)
             $('input[type="checkbox"][name="cont_hashtag4"]').attr('checked', false)
+            $('.update-block').css('display', 'none')
         } else {
             return false
         }
@@ -528,15 +528,16 @@ $(document).ready(()=> {
     // 옵션 수정 ajax
     $('#option-update-button').on('click', (e)=>{
 
-        if (!confirm("옵션을 수정할까요?")) {
-            return false
-        }
-
         let optionType = e.currentTarget.name;
         let cont_no = optionType.split('-')[1]
         const updateOption = []
         const newOption = []
-        let requestData
+        let requestData = {
+            cont_no,
+            optionType,
+            updateOption,
+            newOption
+        }
 
         // 옵션 유효성 검사
         if(optionType.split('-')[0] === 'prod') { // 선택된 옵션이 날짜 조율형 일때
@@ -681,9 +682,14 @@ $(document).ready(()=> {
             }
         }
 
-        if (optionType === 'prod') { // 옵션이 prod 일 경우
+        if (!confirm("옵션을 수정할까요?")) {
+            return false
+        }
 
+
+        if (optionType.split('-')[0] === 'prod') { // 옵션이 prod 일 경우
             // 옵션수정
+            // let updateProdName = $('#option_row_prod').children('input[name="update-prod-name"]')
             let updateProdName = $('input[name="update-prod-name"]')
             let updateProdQty = $('input[name="update-prod-qty"]')
             let updateProdPrice = $('input[name="update-prod-price"]')
@@ -691,10 +697,10 @@ $(document).ready(()=> {
             if (updateProdName.length > 0) {
                 for (let i = 0; i < updateProdName.length; i++) {
                     let ProdEntity = {
-                        'pro_no': updateProdName[i].id.substring(9),
-                        'prod_name': updateProdName[i].value,
-                        'prod_qty' : updateProdQty[i].value,
-                        'prod_price': updateProdPrice[i].value
+                        pro_no: updateProdName[i].id.substring(9),
+                        prod_name: updateProdName[i].value,
+                        prod_qty: updateProdQty[i].value,
+                        prod_price: updateProdPrice[i].value
                     }
                     updateOption.push(ProdEntity)
                 }
@@ -708,22 +714,20 @@ $(document).ready(()=> {
             if (newProdName.length > 0) {
                 for (let i = 0; i < newProdName.length; i++) {
                     let ProdEntity = {
-                        'prod_name': newProdName[i].value,
-                        'prod_qty' : newProdQty[i].value,
-                        'prod_price': newProdPrice[i].value
+                        prod_name: newProdName[i].value,
+                        prod_qty : newProdQty[i].value,
+                        prod_price: newProdPrice[i].value
                     };
                     newOption.push(ProdEntity);
                 }
             }
 
-            requestData = {
-                'cont_no': cont_no,
-                'optionType': optionType,
-                'updateOption': updateOption,
-                'newOption': newOption
-            }
+            requestData.cont_no = cont_no
+            requestData.optionType = optionType.split('-')[0]
+            requestData.updateOption = updateOption
+            requestData.newOption = newOption
 
-        } else if (optionType === 'one') { // 옵션이 one 일 경우
+        } else if (optionType.split('-')[0] === 'one') { // 옵션이 one 일 경우
 
             // 옵션수정
             let updateOneDate = $('input[name="update-one-date"]')
@@ -733,10 +737,10 @@ $(document).ready(()=> {
             if (updateOneDate.length > 0) {
                 for (let i = 0; i < updateOneDate.length; i++) {
                     let OneEntity = {
-                        'pro_no': updateOneDate[i].id.substring(8),
-                        'one_date': updateOneDate[i].value,
-                        'one_maxqty' : updateOneMaxqty[i].value,
-                        'one_price': updateOnePrice[i].value
+                        pro_no: updateOneDate[i].id.substring(8),
+                        one_date: updateOneDate[i].value,
+                        one_maxqty : updateOneMaxqty[i].value,
+                        one_price: updateOnePrice[i].value
                     };
                     updateOption.push(OneEntity);
                 }
@@ -750,20 +754,18 @@ $(document).ready(()=> {
             if (newOneDate.length > 0) {
                 for (let i = 0; i < newOneDate.length; i++) {
                     let OneEntity = {
-                        'one_date': newOneDate[i].value,
-                        'one_maxqty' : newOneMaxqty[i].value,
-                        'one_price': newOnePrice[i].value
-                    };
-                    newOption.push(OneEntity);
+                        one_date: newOneDate[i].value,
+                        one_maxqty : newOneMaxqty[i].value,
+                        one_price: newOnePrice[i].value
+                    }
+                    newOption.push(OneEntity)
                 }
             }
 
-            requestData = {
-                'cont_no': cont_no,
-                'optionType': optionType,
-                'updateOption': updateOption,
-                'newOption': newOption
-            }
+            requestData.cont_no = cont_no
+            requestData.optionType = optionType.split('-')[0]
+            requestData.updateOption = updateOption
+            requestData.newOption = newOption
         }
 
         // ajax
@@ -773,8 +775,12 @@ $(document).ready(()=> {
             dataType: 'json',
             data: requestData,
             success: (result) => {
-                $('.update-block').css('display', 'flex')
-                alert(result + "개의 옵션 수정이 완료되었습니다.")
+                if (result === 0) {
+                    alert("옵션 수정을 한번더 시도해주세요")
+                } else {
+                    $('.update-block').css('display', 'flex');
+                    alert(result + "개의 옵션 수정이 완료되었습니다.")
+                }
             }
         })
     })

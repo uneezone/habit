@@ -2,8 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=6cd9ccbff69ea4ecff8c4d402d1d27ad&libraries=services"></script>
 <script src="/js/host/contentDetailModal.js"></script>
-<link rel="stylesheet" href="/css/summernote/summernote-lite.min.css">
-<!-- 썸머 노트 js, css 추가 종료 -->
 <%-- update modal 시작 --%>
 <div class="detail-modal">
   <div class="update-modal-body">
@@ -21,16 +19,8 @@
               <p>카테고리</p>
             </div>
             <div>
-              <div class="content-flex">
-                <div style="width: 200px; margin-right: 10px;">
-                  <input type="text" class="form-control" id="detail_cate_large" value="대분류" readonly>
-                </div>
-                <div>
-                  <p style="font-size: large; font-weight: bold">&gt;</p>
-                </div>
-                <div style="width: 200px;">
-                  <input type="text" class="form-control" id="detail_cate_middle" value="중분류" readonly>
-                </div>
+              <div class="detail-value-container">
+                <span id="detail_cate_large"></span> > <span id="detail_cate_middle"></span>
               </div>
             </div>
           </div><hr>
@@ -39,8 +29,8 @@
               <p>해빗명</p>
             </div>
             <div>
-              <div style="width: 400px">
-                <input type="text" class="form-control" id="detail_cont_name" readonly>
+              <div class="detail-value-container">
+                <span id="detail_cont_name"></span>
               </div>
             </div>
           </div><hr>
@@ -51,7 +41,6 @@
             <div style="font-weight: bold; margin: 0 30px 30px">
               <div id="map" style="width:100%; height:350px;"></div>
               <div id="detail_cont_addr" class="address"></div>
-              <button class="btn btn-outline-primary" onclick="relayout()">relayout 호출하기</button>
             </div>
           </div><hr>
           <div class="content-flex">
@@ -68,19 +57,19 @@
                 </div>
                 <div class="checkbox">
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="cont_hashtag1" id="hashtag1-1" value="M" disabled>
+                    <input class="form-check-input" type="radio" name="detail_hashtag1" id="hashtag1-1" value="M" disabled>
                     <label class="form-check-label" for="hashtag1-1">
                       남자
                     </label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="cont_hashtag1" id="hashtag1-2" value="W" disabled>
+                    <input class="form-check-input" type="radio" name="detail_hashtag1" id="hashtag1-2" value="W" disabled>
                     <label class="form-check-label" for="hashtag1-2">
                       여자
                     </label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="cont_hashtag1" id="hashtag1-3" value="N" disabled>
+                    <input class="form-check-input" type="radio" name="detail_hashtag1" id="hashtag1-3" value="N" disabled>
                     <label class="form-check-label" for="hashtag1-3">
                       상관없음
                     </label>
@@ -93,25 +82,25 @@
                 </div>
                 <div class="checkbox">
                   <div>
-                    <input class="form-check-input" type="checkbox" name="cont_hashtag2" id="hashtag2-1" value="20" disabled>
+                    <input class="form-check-input" type="checkbox" name="detail_hashtag2" id="hashtag2-1" value="20" disabled>
                     <label class="form-check-label" for="hashtag2-1">
                       20대
                     </label>
                   </div>
                   <div>
-                    <input class="form-check-input" type="checkbox" name="cont_hashtag2" id="hashtag2-2" value="30" disabled>
+                    <input class="form-check-input" type="checkbox" name="detail_hashtag2" id="hashtag2-2" value="30" disabled>
                     <label class="form-check-label" for="hashtag2-2">
                       30대
                     </label>
                   </div>
                   <div>
-                    <input class="form-check-input" type="checkbox" name="cont_hashtag2" id="hashtag2-3" value="40" disabled>
+                    <input class="form-check-input" type="checkbox" name="detail_hashtag2" id="hashtag2-3" value="40" disabled>
                     <label class="form-check-label" for="hashtag2-3">
                       40대
                     </label>
                   </div>
                   <div>
-                    <input class="form-check-input" type="checkbox" name="cont_hashtag2" id="hashtag2-4" value="50" disabled>
+                    <input class="form-check-input" type="checkbox" name="detail_hashtag2" id="hashtag2-4" value="50" disabled>
                     <label class="form-check-label" for="hashtag2-4">
                       50대 이상
                     </label>
@@ -124,13 +113,13 @@
                 </div>
                 <div class="checkbox">
                   <div>
-                    <input class="form-check-input" type="radio" name="cont_hashtag3" id="hashtag3-1" value="IN" disabled>
+                    <input class="form-check-input" type="radio" name="detail_hashtag3" id="hashtag3-1" value="IN" disabled>
                     <label class="form-check-label" for="hashtag3-1">
                       실내 활동
                     </label>
                   </div>
                   <div>
-                    <input class="form-check-input" type="radio" name="cont_hashtag3" id="hashtag3-2" value="OUT" disabled>
+                    <input class="form-check-input" type="radio" name="detail_hashtag3" id="hashtag3-2" value="OUT" disabled>
                     <label class="form-check-label" for="hashtag3-2">
                       실외 활동
                     </label>
@@ -143,19 +132,19 @@
                 </div>
                 <div class="checkbox">
                   <div>
-                    <input class="form-check-input" type="checkbox" value="WC" name="cont_hashtag4" id="hashtag4-1" disabled>
+                    <input class="form-check-input" type="checkbox" value="WC" name="detail_hashtag4" id="hashtag4-1" disabled>
                     <label class="form-check-label" for="hashtag4-1">
                       연인과 함께
                     </label>
                   </div>
                   <div>
-                    <input class="form-check-input" type="checkbox" value="WF" name="cont_hashtag4" id="hashtag4-2" disabled>
+                    <input class="form-check-input" type="checkbox" value="WF" name="detail_hashtag4" id="hashtag4-2" disabled>
                     <label class="form-check-label" for="hashtag4-2">
                       친구와 함께
                     </label>
                   </div>
                   <div>
-                    <input class="form-check-input" type="checkbox" value="WA" name="cont_hashtag4" id="hashtag4-3" disabled>
+                    <input class="form-check-input" type="checkbox" value="WA" name="detail_hashtag4" id="hashtag4-3" disabled>
                     <label class="form-check-label" for="hashtag4-3">
                       혼자
                     </label>
@@ -168,25 +157,25 @@
                 </div>
                 <div class="checkbox">
                   <div>
-                    <input class="form-check-input" type="radio" name="cont_hashtag5" id="hashtag5-1" value="P3" disabled>
+                    <input class="form-check-input" type="radio" name="detail_hashtag5" id="hashtag5-1" value="P3" disabled>
                     <label class="form-check-label" for="hashtag5-1">
                       3만원 미만
                     </label>
                   </div>
                   <div>
-                    <input class="form-check-input" type="radio" name="cont_hashtag5" id="hashtag5-2" value="P5" disabled>
+                    <input class="form-check-input" type="radio" name="detail_hashtag5" id="hashtag5-2" value="P5" disabled>
                     <label class="form-check-label" for="hashtag5-2">
                       3만원 ~ 5만원 미만
                     </label>
                   </div>
                   <div>
-                    <input class="form-check-input" type="radio" name="cont_hashtag5" id="hashtag5-3" value="P7" disabled>
+                    <input class="form-check-input" type="radio" name="detail_hashtag5" id="hashtag5-3" value="P7" disabled>
                     <label class="form-check-label" for="hashtag5-3">
                       5만원 ~ 7만원 미만
                     </label>
                   </div>
                   <div>
-                    <input class="form-check-input" type="radio" name="cont_hashtag5" id="hashtag5-4" value="PP" disabled>
+                    <input class="form-check-input" type="radio" name="detail_hashtag5" id="hashtag5-4" value="PP" disabled>
                     <label class="form-check-label" for="hashtag5-4">
                       7만원 이상
                     </label>
@@ -205,19 +194,8 @@
               <p>판매 기간</p>
             </div>
             <div>
-              <div class="item" style="align-items: center;">
-                <div>
-                  <input class="form-control" type="datetime-local" id="detail_cont_stdate" readonly>
-                </div>
-                <div style="font-weight: bold; font-size: large">
-                  <span>~</span>
-                </div>
-                <div>
-                  <input class="form-control" type="datetime-local" id="detail_cont_endate" readonly>
-                </div>
-                <div>
-                  <span id="date"></span>
-                </div>
+              <div class="detail-value-container">
+                <span id="detail_cont_stdate"></span> ~ <span id="detail_cont_endate"></span> <span id="date"></span>
               </div>
             </div>
           </div><hr>
