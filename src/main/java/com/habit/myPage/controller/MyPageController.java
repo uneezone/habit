@@ -55,7 +55,7 @@ public class MyPageController {
     }
 
     @GetMapping("/myedit")
-    public String showMyPageEdit(@SessionAttribute(name = "s_id",required = false)String userId, Model model){
+    public String showMyPageEdit(@SessionAttribute(name = "s_id")String userId, Model model){
         //유저 수정할 수 있는 칼럼들 가져오기
         UserInfoDTO userInfo = myPageService.getUserInfo(userId);
 
