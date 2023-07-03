@@ -87,6 +87,11 @@ public class MemberCont {
         }
         map.put("user_img",pro_img);
 
+        // 생년월일
+        String[] userBirths = ((String) map.get("user_birth")).split("-");
+        String user_birth = userBirths[0] + userBirths[1] + userBirths[2];
+        map.put("user_birth", user_birth);
+
         String user_email = map.get("user_email") + "@" + map.get("user_email2");
         map.put("user_email", user_email);
 
