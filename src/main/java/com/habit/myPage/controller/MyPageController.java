@@ -86,7 +86,7 @@ public class MyPageController {
             try {
                 ServletContext application = req.getSession().getServletContext();
                 String path = application.getRealPath("/storage");  //실제 물리적인 경로
-                img.transferTo(new File(path + "\\" + filename)); //파일저장
+                img.transferTo(new File(path, filename)); //파일저장
 
             } catch (Exception e) {
                 e.printStackTrace(); //System.out.println(e);

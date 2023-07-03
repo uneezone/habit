@@ -246,14 +246,14 @@ public class HostServiceImpl1 implements HostService1 {
         }
 
         // 이미지 파일명 변경하여 저장 (중복 제거를 위해 날짜 사용)
-        String path = "src/main/webapp/storage/";
+        String path = "/home/tomcat/apache-tomcat-9.0.76/webapps/ROOT/storage";
         List<MultipartFile> imgs = rciDTO.getCont_imgs();
         List<String> imgNames = new ArrayList<>();
         for (int i=0; i<imgs.size(); i++) {
             long nano = System.currentTimeMillis();
             String now = new SimpleDateFormat("SSSssmmHHddMMYY").format(nano);
             String newFileName = now + imgs.get(i).getOriginalFilename();
-            File targetFile = new File(path + newFileName);
+            File targetFile = new File(path, newFileName);
             InputStream filesStream = imgs.get(i).getInputStream();
             FileUtils.copyInputStreamToFile(filesStream, targetFile);
             imgNames.add(newFileName);

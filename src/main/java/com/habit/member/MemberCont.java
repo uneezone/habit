@@ -77,7 +77,7 @@ public class MemberCont {
             try {
                 ServletContext application = req.getSession().getServletContext();
                 String path = application.getRealPath("/storage");  //실제 물리적인 경로
-                user_img.transferTo(new File(path + "\\" + filename)); //파일저장
+                user_img.transferTo(new File(path, filename)); //파일저장
 
             } catch (Exception e) {
                 e.printStackTrace(); //System.out.println(e);

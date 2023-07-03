@@ -51,7 +51,6 @@ public class HostController2 {
             session.setAttribute("host_img",hostImgAndName.get("host_img"));
             session.setAttribute("host_name",hostImgAndName.get("host_name"));
             model.addAttribute("HomeInfo",hostHomeDTO);
-            return "host/host_home";
         }
 
         return "host/host_newhost";
@@ -110,7 +109,7 @@ public class HostController2 {
             try {
                 ServletContext application=req.getSession().getServletContext();
                 String path=application.getRealPath("/storage");  //실제 물리적인 경로
-                Img.transferTo(new File(path + "\\" + filename)); //파일저장
+                Img.transferTo(new File(path, filename)); //파일저장
 
             }catch (Exception e) {
                 e.printStackTrace(); //System.out.println(e);
@@ -172,7 +171,7 @@ public class HostController2 {
             try {
                 ServletContext application=req.getSession().getServletContext();
                 String path=application.getRealPath("/storage");  //실제 물리적인 경로
-                Img.transferTo(new File(path + "\\" + filename)); //파일저장
+                Img.transferTo(new File(path, filename)); //파일저장
 
                 //하스트 이미지 세션 변경
                 session.setAttribute("host_img",filename);
