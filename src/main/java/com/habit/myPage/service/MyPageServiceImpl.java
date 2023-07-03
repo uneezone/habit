@@ -212,7 +212,7 @@ public class MyPageServiceImpl implements MyPageService{
             if(imgs.get(i).getSize()==0){
                 log.info("사진 첨부  X");
             }else{
-                String path = "src/main/webapp/storage/";
+                String path = "/home/tomcat/apache-tomcat-9.0.76/webapps/ROOT/storage";
 
                 SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMddHHmmss");
                 Date now = new Date();
@@ -220,7 +220,7 @@ public class MyPageServiceImpl implements MyPageService{
 
                 String newFileName=nowTime+imgs.get(i).getOriginalFilename();
 
-                File targetFile = new File(path + newFileName);
+                File targetFile = new File(path, newFileName);
                 InputStream filesStream = imgs.get(i).getInputStream();
                 FileUtils.copyInputStreamToFile(filesStream, targetFile);
                 imgNames.add(newFileName);
