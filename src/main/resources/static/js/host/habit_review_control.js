@@ -162,7 +162,7 @@ $(document).ready(()=>{
 
         if (confirm("리뷰를 삭제하여도 삭제된 리뷰의 별점은 그대로 반영됩니다.\n삭제하시겠습니까?")) {
             let review_no = e.currentTarget.id.substring(13);
-            location.href="delete/"+ review_no
+            location.href="/host/review/delete/"+ review_no
         } else {
             return false
         }
