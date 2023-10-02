@@ -31,10 +31,8 @@
 박요셉
 
 📌 기술 
-<br>
-HTML, CSS, JavaScript, Ajax, Java, jQuery, jsp
-<br>
-Spring-boot, apache-tomcat, aws RDS, mariaDB
+- HTML, CSS, JavaScript, Ajax, Java, jQuery, jsp
+- Spring-boot, apache-tomcat, aws RDS, mariaDB
 
 📌 API
 1. KAKAO MAP (프로그램 상세페이지 API)
