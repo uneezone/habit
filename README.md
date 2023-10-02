@@ -55,6 +55,7 @@
 <br>
 ✔ 요약 페이지 하단에 전체 페이지로 이동
 <br>
+
 ![주요화면 2](https://github.com/uneezone/habit/assets/76038673/56e2f5e9-3935-41fe-9561-a442f504fcbc)
 
 <hr>
@@ -62,4 +63,5 @@
 <br>
 ✔ 페이지 하단에 참여하기 버튼 클릭시 옵션 모달창 생성 하여 이용자가 옵션 종류 선택 및 수량 선택 가능
 <br>
+
 ![image](https://github.com/uneezone/habit/assets/76038673/731944b3-1e8c-4344-bd44-7834fc377573)
