@@ -1,4 +1,4 @@
-## ITWILL 팀 프로젝트(HABIT)
+![image](https://github.com/uneezone/habit/assets/76038673/67b99b67-7130-48c9-a037-13f56eb12823)## ITWILL 팀 프로젝트(HABIT)
 ![Generic badge](https://img.shields.io/badge/jstl-1.2-yellowgreen.svg) ![Generic badge](https://img.shields.io/badge/apacheTomcat-9.0.58-green.svg) ![Generic badge](https://img.shields.io/badge/mariaDB-10.6.14-orange.svg) ![Generic badge](https://img.shields.io/badge/springBoot-2.7.5-blue.svg)
 
 <p align="center"><img src="https://github.com/uneezone/habit/assets/76038673/e2305126-7520-4f45-ad8d-1e6c7e8f1164" height="200px" width="300px"></p>
@@ -45,4 +45,15 @@
 ✔ 페이지 상단 호스트 페이지, 카테고리, 회원가입/로그인, 찜, 장바구니, 마이페이지 활성화
 <br>
 ✔ 인트로 상품 정렬은 전체 조회순, 전체 평점순, 전체 등록순에 TOP4만 지정
+<br>
 ![주요화면1](https://github.com/uneezone/habit/assets/76038673/a4250aac-5cf3-46d5-b3ab-00a7736563b9)
+
+<hr>
+✔ 선택한 카테고리를 가져오면 요약 리스트로 이동
+<br>
+✔ 요약 리스트에서 "중분류" 분류 및 "필터" 버튼 모달 출력 / 선택한 카테고리 클릭시 카테고리 모달창 출력
+<br>
+✔ 요약 페이지 하단에 전체 페이지로 이동
+<br>
+![image](https://github.com/uneezone/habit/assets/76038673/6da7f158-12f7-42cb-844a-ec36971ac033)
+
