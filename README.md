@@ -93,6 +93,8 @@
 <hr>
 
 <div style='background-color:#F7DDBE'> 💡 HOST </div>
+<span style="background-color:#C0FFFF"> 파랑형광펜 </span>
+
 <br>
 ✔ 모든 유저는 호스트 가입이 가능하며 완료시 관리 페이지 이동
 <br>
