@@ -91,7 +91,9 @@
 ![image](https://github.com/uneezone/habit/assets/76038673/c220c5bf-ddf8-467e-bbf1-8b5b441fbe2d)
 
 <hr>
-<span style="background-color:#C0FFFF"> 💡 HOST </span>    
+
+<span style="background-color:#C0FFFF"> 💡 HOST </span>  
+<br>
 ✔ 모든 유저는 호스트 가입이 가능하며 완료시 관리 페이지 이동
 <br>
 ✔ 호스트가 등록한 상품 판매 현황 확인 가능  
