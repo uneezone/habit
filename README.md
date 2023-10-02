@@ -55,7 +55,8 @@
 <br>
 ✔ 요약 리스트에서 "중분류" 분류 및 "필터" 버튼 모달 출력 / 선택한 카테고리 클릭시 카테고리 모달창 출력
 <br>
-✔ 요약 페이지 하단에 전체 페이지로 이동 <br/>
+✔ 요약 페이지 하단에 전체 페이지로 이동
+
 
 
 
@@ -91,7 +92,7 @@
 ![image](https://github.com/uneezone/habit/assets/76038673/c220c5bf-ddf8-467e-bbf1-8b5b441fbe2d)
 
 <hr>
-<span style="color:blueviolet"> 💡 **HOST** </span>
+<span style="color:blueviolet"> 💡 HOST </span>
 <br>
 ✔ 모든 유저는 호스트 가입이 가능하며 완료시 관리 페이지 이동
 <br>
