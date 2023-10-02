@@ -92,7 +92,7 @@
 
 <hr>
 
-<span style="background-color:#C0FFFF"> 💡 HOST </span>  
+<span style="background-color:#C0FFFF"><strong> 💡 HOST </strong></span>  
 <br>
 ✔ 모든 유저는 호스트 가입이 가능하며 완료시 관리 페이지 이동
 <br>
