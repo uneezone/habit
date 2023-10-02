@@ -57,3 +57,9 @@
 <br>
 ![주요화면 2](https://github.com/uneezone/habit/assets/76038673/56e2f5e9-3935-41fe-9561-a442f504fcbc)
 
+<hr>
+✔ 상품 상세페이지에서 리뷰 요약 리스트, 진행 장소 API, 상품, 상품 설명, 해시 태그 구현
+<br>
+✔ 페이지 하단에 참여하기 버튼 클릭시 옵션 모달창 생성 하여 이용자가 옵션 종류 선택 및 수량 선택 가능
+<br>
+![image](https://github.com/uneezone/habit/assets/76038673/731944b3-1e8c-4344-bd44-7834fc377573)
