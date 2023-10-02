@@ -30,8 +30,10 @@
 오루하
 박요셉
 
-📌 기술
+📌 기술 
+<br>
 HTML, CSS, JavaScript, Ajax, Java, jQuery, jsp
+<br>
 Spring-boot, apache-tomcat, aws RDS, mariaDB
 
 📌 API
