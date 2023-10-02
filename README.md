@@ -57,7 +57,7 @@
 ✔ 요약 리스트에서 "중분류" 분류 및 "필터" 버튼 모달 출력 / 선택한 카테고리 클릭시 카테고리 모달창 출력
 <br>
 ✔ 요약 페이지 하단에 전체 페이지로 이동  
-<br>
+
 
 ![주요화면 2](https://github.com/uneezone/habit/assets/76038673/56e2f5e9-3935-41fe-9561-a442f504fcbc)
 
@@ -66,7 +66,7 @@
 ✔ 상품 상세페이지에서 리뷰 요약 리스트, 진행 장소 API, 상품, 상품 설명, 해시 태그 구현
 <br>
 ✔ 페이지 하단에 참여하기 버튼 클릭시 옵션 모달창 생성 하여 이용자가 옵션 종류 선택 및 수량 선택 가능
-<br>
+
 
 ![image](https://github.com/uneezone/habit/assets/76038673/731944b3-1e8c-4344-bd44-7834fc377573)
 
@@ -77,7 +77,7 @@
 ✔ 결제 페이지에서 회원이 보유한 에너지(포인트) 사용 가능
 <br>
 ✔ 결제하기 클릭시 결제 API 활성  
-<br>
+
 
 ![image](https://github.com/uneezone/habit/assets/76038673/bb281412-83d6-4e0e-94ad-5e48ff455a68)
 
@@ -86,18 +86,18 @@
 ✔ 결제 완료 이후 마이페이지에서 결제 내역 (주문 상세, 환불) 확인 가능
 <br>
 ✔ 리뷰 쓰기도 가능하지만 프로그램 사용 이후 작성 가능  
-<br>
+
 
 ![image](https://github.com/uneezone/habit/assets/76038673/c220c5bf-ddf8-467e-bbf1-8b5b441fbe2d)
 
 <hr>
 
-#### 💡 HOST
+<span style='background:#F7DDBE'><strong>💡 HOST </strong></span>
 <br>
 ✔ 모든 유저는 호스트 가입이 가능하며 완료시 관리 페이지 이동
 <br>
 ✔ 호스트가 등록한 상품 판매 현황 확인 가능  
-<br>
+
 
 ![image](https://github.com/uneezone/habit/assets/76038673/2a8a065a-e4bf-49e6-b786-3be77f8bf780)
 
@@ -106,7 +106,7 @@
 ✔ 호스트가 올린 해빗(프로그램)을 필터, 검색으로 조회 가능
 <br>
 ✔ 해빗(프로그램) 등록이 가능하며, 상품 설명은 API 사용
-<br>
+
 
 ![image](https://github.com/uneezone/habit/assets/76038673/373a7652-3d0c-4d8e-a789-4140283c8816)
 
@@ -115,7 +115,7 @@
 ✔ 판매 유형(날짜 지정형 / 날짜 조율형)에 따른 예약 페이지가 따로 존재하며 판매 상태 변경 가능
 <br>
 ✔ 리뷰 관리 페이지에서 별점, 회원 아이디, 내용에 따른 상세 조건 검색 가능  
-<br>
+
 
 ![image](https://github.com/uneezone/habit/assets/76038673/d8cf5a72-d64a-4d27-86a1-d83872d2da8c)
 
@@ -124,7 +124,7 @@
 ✔ 정산 페이지에서 기간 필터 설정을 하여 조회 가능
 <br>
 ✔ 여러가지 프로그램을 등록하였다면 행 별로 검색값이 나오며 행 클릭시 상세 모달창 활성  
-<br>
+
 
 ![image](https://github.com/uneezone/habit/assets/76038673/2adc0eeb-ccd4-4fb1-8100-5ba2cd890c36)
 
