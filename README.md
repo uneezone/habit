@@ -55,5 +55,5 @@
 <br>
 ✔ 요약 페이지 하단에 전체 페이지로 이동
 <br>
-![image](https://github.com/uneezone/habit/assets/76038673/6da7f158-12f7-42cb-844a-ec36971ac033)
+![주요화면 2](https://github.com/uneezone/habit/assets/76038673/56e2f5e9-3935-41fe-9561-a442f504fcbc)
 
