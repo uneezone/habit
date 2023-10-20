@@ -40,7 +40,7 @@
 3. SummerNote (프로그램 등록페이지 API)
 
 ### 📌 DB 모델링
-(https://github.com/uneezone/habit/assets/76038673/a6d7e6ca-a858-469e-9ddb-38b02aa8e5a0)
+![DB스키마](https://github.com/uneezone/habit/assets/76038673/a6d7e6ca-a858-469e-9ddb-38b02aa8e5a0)
 
 <hr>
 
